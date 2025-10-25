@@ -5,15 +5,15 @@ body {
     margin: 0;
     padding: 0;
     
-    /* နောက်ခံအရောင်ကို အပေါ်အောက် နှစ်ပိုင်းခွဲရန် linear-gradient ကို အသုံးပြုထားသည် */
+    /* Dual-tone Background: မျက်နှာပြင် အမြင့် (100vh) ကို နှစ်ပိုင်းခွဲသည်။ */
     background: linear-gradient(to bottom, 
-        #e9eff6 0%,      /* အပေါ်ပိုင်း အရောင် (ပိုနုသော အပြာနုရောင်) */
+        #e9eff6 0%,      /* အပေါ်ပိုင်း (ပိုနုသော အပြာနုရောင်) */
         #e9eff6 50vh,    /* မျက်နှာပြင်၏ အလယ်ထိ (50% of viewport height) */
-        #f7f9fc 50vh,    /* ထိုနေရာမှစ၍ မူရင်း အရောင်နုကို ဆက်သုံး */
+        #f7f9fc 50vh,    /* ထိုနေရာမှစ၍ မူရင်း အဖြူနုရောင်ကို ဆက်သုံး */
         #f7f9fc 100%     
     ); 
-    background-attachment: fixed; 
-    min-height: 100vh; 
+    background-attachment: fixed; /* Scroll လုပ်သော်လည်း နောက်ခံ မရွေ့စေရန် */
+    min-height: 100vh; /* Gradient သည် မျက်နှာပြင်အမြင့်အပြည့်ဖြစ်စေရန် */
     
     color: #333;
     font-size: 16px;
@@ -34,13 +34,13 @@ main {
     padding: 30px 20px;
     max-width: 1000px; 
     margin: auto;
-    /* main နောက်ခံကို ဖယ်လိုက်ပါပြီ။ */
+    /* main နောက်ခံကို ဖယ်လိုက်သည် (body ရဲ့ background ကို မဖုံးစေရန်) */
     background: transparent; 
 }
 
 /* -- 2. Header (Logo & Navigation - သပ်ရပ်သော Header) -- */
 header {
-    background: #263238; 
+    background: #263238; /* Dark Navy အဓိကအရောင် */
     color: #ffffff;
     padding: 15px 30px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -91,13 +91,12 @@ header nav a:hover {
 
 /* -- 3. Section (Card-based Layout) -- */
 section {
-    /* အဖြူရောင် background ကို ဖယ်လိုက်ပါသည်။ ဒါမှ body ရဲ့ background ကို မြင်ရမှာပါ */
+    /* Section ၏ နောက်ခံကို ဖယ်လိုက်သည် (body ရဲ့ background ကို မဖုံးစေရန်) */
     background: transparent; 
-    padding: 30px;
+    padding: 30px 0; /* Card တွေက ကိုယ်ပိုင် padding ယူထားလို့ section ရဲ့ padding ကို 0 လိုက်သည် */
     margin-bottom: 30px;
     border-radius: 8px; 
-    /* shadow ကို ဖယ်လိုက်ပါက content များက background နဲ့ ရောထွေးသွားနိုင်လို့ ဖယ်မထားပါ */
-    box-shadow: none; 
+    box-shadow: none; /* Shadow ကို ဖယ်လိုက်သည် */
 }
 
 section h2 {
@@ -107,17 +106,19 @@ section h2 {
     margin-bottom: 25px;
     font-size: 1.7em;
     font-weight: 600;
+    /* section title ကို အလယ်မှာ ထားရှိခြင်း */
+    padding-left: 20px; 
 }
 
 /* -- 4. Hero Section (မိတ်ဆက်) -- */
 .hero {
     text-align: center;
-    /* Hero ကိုတော့ background ထားလိုက်သည်။ */
+    /* Hero ကို Card ပုံစံအတိုင်း ပေါ်လွင်စေရန် background ကို ပြန်ပေးထားသည် */
     background: #e0f7fa; 
     padding: 50px;
     border-radius: 10px;
-    /* Hero ကို Card ပုံစံအတိုင်း ပိုမိုပေါ်လွင်စေရန် Shadow ပြန်ပေးထားသည် */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+    margin-bottom: 30px; /* main ထဲမှ padding 30px ကို ယူလိုက်သည် */
 }
 
 .hero h2 {
@@ -134,7 +135,7 @@ section h2 {
 }
 
 .post-preview {
-    /* Post card များကို ပေါ်လွင်စေရန် background ကို အဖြူရောင် ပြန်ပေးလိုက်သည်။ */
+    /* Post card များကို ပေါ်လွင်စေရန် background ကို အဖြူရောင် ပြန်ပေးလိုက်သည် */
     background: #ffffff;
     border: 1px solid #e0e0e0;
     padding: 20px;
