@@ -28,7 +28,7 @@ main {
 
 /* -- 2. Header (Logo & Navigation - သပ်ရပ်သော Header) -- */
 header {
-    background: #00796b; /* Dark Teal အဓိကအရောင် */
+    background: #263238; /* Dark Navy အဓိကအရောင် */
     color: #ffffff;
     padding: 15px 30px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -42,25 +42,25 @@ header {
     margin: 0 auto;
 }
 
+.logo-and-title {
+    display: flex;
+    align-items: center;
+}
+
 .logo {
     width: 45px;
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 15px;
-    border: 3px solid #ffffff; /* Logo ဘေးနားကို အဖြူရောင် ဖြင့် သပ်ရပ်စေရန် */
+    border: 3px solid #00bcd4; /* Logo ဘေးနားကို အပြာစိမ်းဖြင့် ဝန်းရံခြင်း */
 }
 
 .site-title {
     margin: 0;
     font-size: 1.8em;
     font-weight: 700;
-    color: #a7ffeb; /* Teal နဲ့လိုက်ဖက်တဲ့ အရောင်နု */
-}
-
-.logo-and-title {
-    display: flex;
-    align-items: center;
+    color: #00bcd4; /* 'KP' စာလုံးကို အပြာစိမ်းရောင် လုပ်လိုက်သည် */
 }
 
 header nav a {
@@ -109,7 +109,7 @@ section h2 {
     margin-bottom: 10px;
 }
 
-/* -- 5. Blog Posts (Clean Card Style) -- */
+/* -- 5. Blog Posts (Clean Card Style) */
 #posts {
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
