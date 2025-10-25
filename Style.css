@@ -6,22 +6,21 @@ body {
     padding: 0;
     
     /* နောက်ခံအရောင်ကို အပေါ်အောက် နှစ်ပိုင်းခွဲရန် linear-gradient ကို အသုံးပြုထားသည် */
-    /* 50vh ဖြင့် မျက်နှာပြင်၏ အလယ်ထိ အရောင်ခွဲခြားသည်။ */
     background: linear-gradient(to bottom, 
-        #e9eff6 0%,      /* အပေါ်ပိုင်း အရောင် (ပိုနုသော အပြာနုရောင်) - 0% မှစတင် */
-        #e9eff6 50vh,    /* မျက်နှာပြင်၏ အလယ်ထိ (50% of viewport height) - ထိန်းထား */
-        #f7f9fc 50vh,    /* ထိုနေရာမှစ၍ မူရင်း အရောင်နုကို ဆက်သုံး - စတင် */
-        #f7f9fc 100%     /* အောက်ဆုံးအထိ */
+        #e9eff6 0%,      /* အပေါ်ပိုင်း အရောင် (ပိုနုသော အပြာနုရောင်) */
+        #e9eff6 50vh,    /* မျက်နှာပြင်၏ အလယ်ထိ (50% of viewport height) */
+        #f7f9fc 50vh,    /* ထိုနေရာမှစ၍ မူရင်း အရောင်နုကို ဆက်သုံး */
+        #f7f9fc 100%     
     ); 
-    background-attachment: fixed; /* နောက်ခံသည် scroll လုပ်သော်လည်း မရွေ့စေရန် */
-    min-height: 100vh; /* Gradient သည် မျက်နှာပြင်အမြင့်အပြည့်ဖြစ်စေရန် အရေးကြီးဆုံးဖြစ်သည်။ */
+    background-attachment: fixed; 
+    min-height: 100vh; 
     
     color: #333;
     font-size: 16px;
 }
 
 a {
-    color: #00796b; /* Teal/Navy အပြာစိမ်းရောင် Link */
+    color: #00796b; 
     text-decoration: none;
     transition: color 0.3s, text-decoration 0.3s;
 }
@@ -35,13 +34,13 @@ main {
     padding: 30px 20px;
     max-width: 1000px; 
     margin: auto;
-    /* main ကို နောက်ခံအရောင်မဖုံးစေရန် background-color ကို ဖျက်လိုက်ပါပြီ။ */
-    /* section/hero က အဖြူရောင်ဖြစ်နေလို့ main ကို background ထပ်ပေးစရာ မလိုပါ။ */
+    /* main နောက်ခံကို ဖယ်လိုက်ပါပြီ။ */
+    background: transparent; 
 }
 
 /* -- 2. Header (Logo & Navigation - သပ်ရပ်သော Header) -- */
 header {
-    background: #263238; /* Dark Navy အဓိကအရောင် */
+    background: #263238; 
     color: #ffffff;
     padding: 15px 30px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -50,7 +49,7 @@ header {
 .header-content {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Logo ကို ဘယ်၊ Navigation ကို ညာသို့ပို့ရန် */
+    justify-content: space-between; 
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -66,14 +65,14 @@ header {
     border-radius: 50%;
     object-fit: cover;
     margin-right: 15px;
-    border: 3px solid #00bcd4; /* Logo ဘေးနားကို အပြာစိမ်းဖြင့် ဝန်းရံခြင်း */
+    border: 3px solid #00bcd4; 
 }
 
 .site-title {
     margin: 0;
     font-size: 1.8em;
     font-weight: 700;
-    color: #00bcd4; /* 'KP' စာလုံးကို အပြာစိမ်းရောင် လုပ်လိုက်သည် */
+    color: #00bcd4; 
 }
 
 header nav a {
@@ -92,16 +91,18 @@ header nav a:hover {
 
 /* -- 3. Section (Card-based Layout) -- */
 section {
-    background: #ffffff;
+    /* အဖြူရောင် background ကို ဖယ်လိုက်ပါသည်။ ဒါမှ body ရဲ့ background ကို မြင်ရမှာပါ */
+    background: transparent; 
     padding: 30px;
     margin-bottom: 30px;
-    border-radius: 8px; /* ပိုမို သပ်ရပ်သော အနားသတ် */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* အရိပ်နုနု */
+    border-radius: 8px; 
+    /* shadow ကို ဖယ်လိုက်ပါက content များက background နဲ့ ရောထွေးသွားနိုင်လို့ ဖယ်မထားပါ */
+    box-shadow: none; 
 }
 
 section h2 {
     color: #00796b;
-    border-bottom: 2px solid #e0f2f1; /* အရောင်နုနုဖြင့် မျဉ်းတားခြင်း */
+    border-bottom: 2px solid #e0f2f1; 
     padding-bottom: 10px;
     margin-bottom: 25px;
     font-size: 1.7em;
@@ -111,9 +112,12 @@ section h2 {
 /* -- 4. Hero Section (မိတ်ဆက်) -- */
 .hero {
     text-align: center;
-    background: #e0f7fa; /* အရောင်နုဆုံး Teal */
+    /* Hero ကိုတော့ background ထားလိုက်သည်။ */
+    background: #e0f7fa; 
     padding: 50px;
     border-radius: 10px;
+    /* Hero ကို Card ပုံစံအတိုင်း ပိုမိုပေါ်လွင်စေရန် Shadow ပြန်ပေးထားသည် */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
 }
 
 .hero h2 {
@@ -130,9 +134,10 @@ section h2 {
 }
 
 .post-preview {
+    /* Post card များကို ပေါ်လွင်စေရန် background ကို အဖြူရောင် ပြန်ပေးလိုက်သည်။ */
+    background: #ffffff;
     border: 1px solid #e0e0e0;
     padding: 20px;
-    background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.3s, transform 0.3s;
@@ -165,7 +170,7 @@ section h2 {
 footer {
     text-align: center;
     padding: 20px 0;
-    background: #263238; /* Dark Navy Color */
+    background: #263238; 
     color: #cfd8dc;
     font-size: 0.85em;
     margin-top: 40px;
@@ -178,7 +183,7 @@ footer {
     }
     
     .header-content {
-        flex-direction: column; /* ဖုန်းမှာ ခေါင်းစဉ်ကို အပေါ်အောက်ထားခြင်း */
+        flex-direction: column; 
         text-align: center;
     }
 
@@ -192,7 +197,6 @@ footer {
         display: inline-block;
     }
 
-    /* ဖုန်းမှာ စာမူကွက်များကို တစ်တန်းတည်းသာ ပြခြင်း */
     #posts {
         grid-template-columns: 1fr;
     }
