@@ -74,3 +74,85 @@ footer { text-align: center; padding: 20px 0; background: #263238; color: #cfd8d
     header nav a { margin: 0 10px; padding: 5px 10px; display: inline-block; }
     #posts { grid-template-columns: 1fr; }
 }
+/* --- posts.html အတွက် ပုံစံများ --- */
+main h1 {
+    color: #263238; 
+    text-align: center; 
+    margin-bottom: 30px; 
+    font-size: 2em;
+}
+
+/* Post စာမျက်နှာပေါ်ရှိ Card ပုံစံ */
+.post-detail-card {
+    background: #ffffff; 
+    padding: 30px; 
+    margin-bottom: 40px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+    border-left: 5px solid #00bcd4; /* ဘေးဘောင် အပြာစိမ်း */
+}
+
+.post-detail-card h2 {
+    color: #00796b; 
+    border-bottom: none; 
+    padding-bottom: 5px; 
+    margin-bottom: 10px; 
+    font-size: 1.8em; 
+    padding-left: 0;
+}
+
+.post-detail-card .date {
+    font-size: 0.9em; 
+    color: #78909c; 
+    display: block; 
+    margin-bottom: 15px;
+}
+
+/* Table of Contents အတွက် ပုံစံ */
+.toc-card {
+    background: #e0f7fa; /* အရောင်နု */
+    padding: 20px 30px; 
+    margin-bottom: 40px; 
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.toc-card h2 {
+    color: #004d40;
+    font-size: 1.5em;
+    border-bottom: 2px solid #b2dfdb;
+    padding-left: 0;
+}
+
+.toc-card ul {
+    list-style-type: none; /* အစက်တွေ ဖျောက်ခြင်း */
+    padding-left: 0;
+}
+
+.toc-card ul li {
+    margin: 10px 0;
+}
+
+.toc-card ul li a {
+    color: #00796b; 
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.toc-card ul li a:hover {
+    color: #004d40; 
+    text-decoration: underline;
+}
+
+/* အပေါ်ပြန်တက်ရန် Link */
+.go-top {
+    display: inline-block;
+    margin-top: 20px;
+    color: #00bcd4;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.go-top:hover {
+    color: #263238;
+}
