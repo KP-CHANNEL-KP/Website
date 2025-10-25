@@ -4,15 +4,18 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    
     /* နောက်ခံအရောင်ကို အပေါ်အောက် နှစ်ပိုင်းခွဲရန် linear-gradient ကို အသုံးပြုထားသည် */
+    /* 50vh ဖြင့် မျက်နှာပြင်၏ အလယ်ထိ အရောင်ခွဲခြားသည်။ */
     background: linear-gradient(to bottom, 
-        #e9eff6 0%,      /* အပေါ်ပိုင်း (ပိုနုသော အပြာနုရောင်) - စတင် */
-        #e9eff6 50vh,    /* မျက်နှာပြင်၏ အလယ်ထိ (50% of viewport height) - ရပ်တန့် */
+        #e9eff6 0%,      /* အပေါ်ပိုင်း အရောင် (ပိုနုသော အပြာနုရောင်) - 0% မှစတင် */
+        #e9eff6 50vh,    /* မျက်နှာပြင်၏ အလယ်ထိ (50% of viewport height) - ထိန်းထား */
         #f7f9fc 50vh,    /* ထိုနေရာမှစ၍ မူရင်း အရောင်နုကို ဆက်သုံး - စတင် */
-        #f7f9fc 100%     /* အောက်ဆုံးအထိ - အဆုံး */
+        #f7f9fc 100%     /* အောက်ဆုံးအထိ */
     ); 
     background-attachment: fixed; /* နောက်ခံသည် scroll လုပ်သော်လည်း မရွေ့စေရန် */
-    min-height: 100vh; /* Gradient သည် မျက်နှာပြင်အပြည့်ဖြစ်စေရန် */
+    min-height: 100vh; /* Gradient သည် မျက်နှာပြင်အမြင့်အပြည့်ဖြစ်စေရန် အရေးကြီးဆုံးဖြစ်သည်။ */
+    
     color: #333;
     font-size: 16px;
 }
@@ -32,6 +35,8 @@ main {
     padding: 30px 20px;
     max-width: 1000px; 
     margin: auto;
+    /* main ကို နောက်ခံအရောင်မဖုံးစေရန် background-color ကို ဖျက်လိုက်ပါပြီ။ */
+    /* section/hero က အဖြူရောင်ဖြစ်နေလို့ main ကို background ထပ်ပေးစရာ မလိုပါ။ */
 }
 
 /* -- 2. Header (Logo & Navigation - သပ်ရပ်သော Header) -- */
