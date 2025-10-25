@@ -62,7 +62,27 @@
 
         <p>မေးမြန်းလိုသည်များ၊ အကြံပြုလိုသည်များ ရှိပါက အောက်ပါ Form မှတဆင့် တိုက်ရိုက် ဆက်သွယ်နိုင်ပါသည်။</p>
             
-            <form action="https://formspree.io/f/xwpwkpwk" method="POST" class="contact-form">
+            <section class="contact-form-section" id="contact-form-section">
+    <h2>တိုက်ရိုက် စာပို့ရန်</h2>
+    <p>မေးမြန်းလိုသည့်အရာများ၊ အကြံပြုလိုသည့်အရာများ ရှိပါက အောက်ပါ Form မှတဆင့် တိုက်ရိုက် ဆက်သွယ်နိုင်ပါသည်။</p>
+    
+    <form action="https://formspree.io/f/xwpwkpwk" method="POST" class="contact-form">
+        
+        <label for="message-input">အကြံပြုချက်: *</label>
+        
+        <div class="input-container">
+            <span class="input-icon">📝</span> 
+            
+            <textarea id="message-input" name="message" required></textarea>
+        </div>
+
+        <input type="hidden" name="_next" value="https://kpweb.kponly.ggff.net/index.html"> 
+        <input type="text" name="_gotcha" style="display:none"> 
+        
+        <input type="image" src="images/send-button.png" alt="စာပို့မည်" class="submit-image-button">
+    </form>
+</section>
+
     
     <label for="name">အကြံပြုချက်: *</label>
     <input type="text" id="name" name="name" required>
