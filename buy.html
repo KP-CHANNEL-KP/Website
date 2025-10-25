@@ -7,8 +7,8 @@
     
     <link rel="stylesheet" href="style.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* buy.html အတွက် အပိုထပ်ဆောင်း ပုံစံများ (style.css ထဲ မပါဝင်ပါက ဤနေရာတွင် ထားနိုင်သည်) */
+        <style>
+        /* buy.html အတွက် အပိုထပ်ဆောင်း ပုံစံများ */
         .buy-container {
             max-width: 800px;
             margin: 40px auto;
@@ -38,12 +38,18 @@
         .product-info {
             flex-grow: 1;
         }
+        
+        /* ####################################################### */
+        /* <-- ပုံကို အဝိုင်းပုံစံ ဖြစ်အောင် ပြင်ဆင်ခြင်း --> */
         .product-card img {
-            width: 100px; /* ထုတ်ကုန်ပုံသေး အရွယ်အစား */
-            height: 100px;
+            width: 80px; /* အရွယ်အစားကို ၈၀x၈၀ အဖြစ် ပြောင်းလိုက်သည် */
+            height: 80px;
             object-fit: cover;
-            border-radius: 6px;
+            border-radius: 50%; /* အဝိုင်းပုံစံ ဖြစ်စေရန် */
+            border: 3px solid #00bcd4; /* ပေါ်လွင်အောင် အစွန်းပေးထားသည် */
         }
+        /* ####################################################### */
+        
         .product-card h2 {
             color: #00bcd4;
             margin-top: 0;
