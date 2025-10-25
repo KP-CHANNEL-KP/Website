@@ -349,3 +349,71 @@ footer {
         padding: 15px 15px 15px 45px;
     }
 }
+/* --- free.html (အခမဲ့ အကြောင်းအရာများ စာမျက်နှာ) အတွက် ပုံစံများ --- */
+
+.free-content-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.free-content-section p {
+    color: #546e7a;
+    margin-bottom: 40px;
+}
+
+.free-list-with-icons {
+    list-style: none;
+    padding-left: 0;
+}
+
+.free-list-with-icons li {
+    display: flex; /* Icon နဲ့ Info ကို ဘေးချင်းကပ်ထားရန် */
+    align-items: center;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: left;
+    transition: transform 0.3s;
+}
+
+.free-list-with-icons li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.free-icon {
+    font-size: 2.5em; /* Icon အရွယ်အစား */
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #e8f5e9; /* နောက်ခံ အစိမ်းနုရောင် */
+}
+
+.free-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.4em;
+    color: #1a73e8;
+}
+
+.free-info p {
+    margin: 0 0 10px 0;
+    color: #37474f;
+    font-size: 1em;
+}
+
+.free-info a {
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: 600;
+}
+.free-info a:hover {
+    text-decoration: underline;
+}
