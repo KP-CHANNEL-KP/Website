@@ -156,3 +156,69 @@ main h1 {
 .go-top:hover {
     color: #263238;
 }
+/* --- Contact Form Section အတွက် ပုံစံများ --- */
+
+.contact-form-section {
+    max-width: 700px; /* Form ကို အလယ်မှာ ပိုမိုလှပအောင် ထားရန် */
+    margin: 40px auto; 
+    padding: 30px;
+    background: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.contact-form-section h2 {
+    color: #004d40;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+.contact-form-section p {
+    text-align: center;
+    color: #607d8b;
+    margin-bottom: 25px;
+}
+
+.contact-form label {
+    display: block; /* label များကို တစ်ကြောင်းချင်းစီ ခွဲထုတ်ရန် */
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #263238;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%; /* ဖောင်ပြည့်အောင် ထားရန် */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* width နဲ့ padding ကို တွက်ချက်ပုံ */
+    font-size: 1em;
+}
+
+.contact-form textarea {
+    resize: vertical; /* အပေါ်အောက်သာ ဆွဲချဲ့နိုင်ရန် */
+}
+
+.contact-form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #00bcd4; /* Header အရောင်နှင့် လိုက်ဖက်သော ခလုတ်အရောင် */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form button[type="submit"]:hover {
+    background-color: #0097a7;
+}
