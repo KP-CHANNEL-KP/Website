@@ -351,69 +351,76 @@ footer {
 }
 /* --- free.html (အခမဲ့ အကြောင်းအရာများ စာမျက်နှာ) အတွက် ပုံစံများ --- */
 
-.free-content-section {
+/* --- free.html (Copy/Paste Tool) အတွက် ပုံစံများ --- */
+
+.copy-tool-section {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 40px auto; /* Page အလယ်မှာ နေရာယူရန် */
     padding: 0 20px;
     text-align: center;
 }
 
-.free-content-section p {
-    color: #546e7a;
-    margin-bottom: 40px;
-}
-
-.free-list-with-icons {
-    list-style: none;
-    padding-left: 0;
-}
-
-.free-list-with-icons li {
-    display: flex; /* Icon နဲ့ Info ကို ဘေးချင်းကပ်ထားရန် */
-    align-items: center;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 25px;
-    text-align: left;
-    transition: transform 0.3s;
-}
-
-.free-list-with-icons li:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.free-icon {
-    font-size: 2.5em; /* Icon အရွယ်အစား */
-    width: 60px;
-    height: 60px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: #e8f5e9; /* နောက်ခံ အစိမ်းနုရောင် */
-}
-
-.free-info h3 {
-    margin: 0 0 5px 0;
-    font-size: 1.4em;
+.copy-tool-section h2 {
     color: #1a73e8;
+    margin-bottom: 10px;
 }
 
-.free-info p {
-    margin: 0 0 10px 0;
-    color: #37474f;
+.copy-tool-section p {
+    color: #546e7a;
+    margin-bottom: 30px;
+}
+
+.copy-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    position: relative; /* Message အတွက် */
+}
+
+#copyTextarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #b0bec5;
+    border-radius: 8px;
+    box-sizing: border-box;
     font-size: 1em;
+    font-family: monospace; /* စာသားကို ဖတ်ရလွယ်အောင် */
+    resize: vertical; /* အကွက်အရွယ်အစားကို ဆွဲဆန့်နိုင်စေရန် */
+    margin-bottom: 15px;
 }
 
-.free-info a {
-    color: #4caf50;
-    text-decoration: none;
-    font-weight: 600;
+.copy-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 3px #388e3c; 
 }
-.free-info a:hover {
-    text-decoration: underline;
+
+.copy-button:hover {
+    background-color: #388e3c;
+    box-shadow: 0 1px #1b5e20;
+    transform: translateY(2px);
+}
+
+.copy-message {
+    position: absolute;
+    bottom: 8px; /* Button နဲ့ နည်းနည်းကွာပြီး ပေါ်စေရန် */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1a73e8;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    opacity: 0; /* ပုံမှန်အားဖြင့် ဖျောက်ထားသည် */
+    transition: opacity 0.5s;
+    font-size: 0.9em;
+    z-index: 10;
 }
