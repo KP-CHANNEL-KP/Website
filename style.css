@@ -3,26 +3,26 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7; /* Background အရောင်နု */
+    background-color: #f0f4f8; /* Background အရောင်ကို အဖြူနုလေး ပြောင်းလိုက်သည် */
     color: #333;
     line-height: 1.6;
 }
 
 main {
-    padding-top: 70px; /* Header Fixed ဖြစ်ရင် အပေါ်မှာ ကန်ထားရန် */
+    padding-top: 70px; 
     padding-bottom: 50px;
 }
 
 /* --- Header & Navigation --- */
 header {
-    background-color: #00bcd4; /* Header အရောင် */
+    background-color: #1a73e8; /* Header အရောင်ကို အပြာရင့်ရောင် လှလှလေး ပြောင်းလိုက်သည် */
     color: white;
     padding: 10px 0;
-    position: fixed; /* Header ကို အပေါ်မှာ ကပ်ထားရန် */
+    position: fixed; 
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Shadow ကို ပိုမိုပေါ်လွင်စေသည် */
 }
 
 .header-content {
@@ -40,9 +40,9 @@ header {
 }
 
 .logo {
-    width: 40px; /* Logo အရွယ်အစား */
+    width: 40px; 
     height: 40px;
-    border-radius: 50%; /* Logo ကို စက်ဝိုင်းပုံ ထားရန် */
+    border-radius: 50%; 
     margin-right: 10px;
 }
 
@@ -63,17 +63,292 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #0097a7; /* Hover အရောင် */
+    background-color: #3f51b5; /* Hover အရောင်ပြောင်းလိုက်သည် */
 }
 
 /* --- Hero Section (Home Page) --- */
 .hero {
-    background-color: #e0f7fa; /* အရောင်နု */
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9); /* အရောင်နှစ်ရောင်ဖြင့် gradient ပေးသည် */
     color: #004d40;
     padding: 60px 20px;
     text-align: center;
-    border-bottom: 3px solid #00bcd4;
+    border-bottom: 5px solid #4caf50; /* အစိမ်းရောင် ဘားတန်း ထည့်သည် */
     margin-bottom: 40px;
 }
 
-.hero
+.hero h2 {
+    font-size: 2.5em;
+    margin-top: 0;
+    font-weight: 800;
+    color: #1a73e8; /* ခေါင်းစဉ်ကို အပြာရောင် ပေးသည် */
+}
+
+.hero p {
+    font-size: 1.2em;
+    max-width: 700px;
+    margin: 15px auto 0;
+}
+
+/* --- Posts Preview (Home Page) --- */
+section h2 {
+    text-align: center;
+    color: #37474f;
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+#posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.post-preview {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Shadow ကို ပိုလှအောင် ပြင်သည် */
+    padding: 25px;
+    width: calc(50% - 15px); 
+    box-sizing: border-box;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #e0e0e0;
+}
+
+.post-preview:hover {
+    transform: translateY(-8px); /* နည်းနည်းလေး ပိုတက်သွားအောင် ပြင်သည် */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.post-preview h3 {
+    margin: 5px 0 10px 0;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.post-preview h3 a {
+    color: #1a73e8; /* ခေါင်းစဉ်အရောင်ကို အပြာရောင် ပေးသည် */
+    text-decoration: none;
+}
+.post-preview h3 a:hover {
+    text-decoration: underline;
+}
+
+.post-preview .date {
+    display: block;
+    color: #78909c;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 15px;
+    color: #4caf50; /* Link အရောင်ကို အစိမ်းရောင် ပေးသည် */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+.read-more:hover {
+    color: #388e3c;
+}
+
+/* --- Contact Form Section (Home Page) --- */
+
+.contact-form-section {
+    max-width: 700px;
+    margin: 60px auto 40px auto; 
+    padding: 40px; /* Padding တိုးသည် */
+    background: #ffffff; /* နောက်ခံ အဖြူရောင် ပြောင်းသည် */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* ပိုပေါ်လွင်သော Shadow */
+    border-top: 5px solid #1a73e8; /* အပေါ်မှာ အပြာရောင် ဘားထည့်သည် */
+    text-align: left;
+}
+
+.contact-form-section h2 {
+    color: #1a73e8;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 2.2em;
+}
+
+.contact-form-section p {
+    text-align: center;
+    color: #546e7a;
+    margin-bottom: 30px;
+}
+
+.contact-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #263238;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #b0bec5; 
+    border-radius: 8px; /* Curve ပိုပေးသည် */
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); /* Focus ဝင်လျှင် အရောင်ပေါ်စေသည် */
+    outline: none;
+}
+
+/* --- စာပို့မည် (Submit Button) ကို လှအောင် ပြင်ဆင်ခြင်း --- */
+.contact-form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #4caf50; /* အစိမ်းရောင်ကို အဓိကအရောင်အဖြစ် သုံးသည် */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 4px #388e3c; /* 3D effect အတွက် Shadow ပေးသည် */
+}
+
+.contact-form button[type="submit"]:hover {
+    background-color: #388e3c;
+    box-shadow: 0 2px #1b5e20;
+    transform: translateY(2px); /* နှိပ်လိုက်သလိုမျိုး effect ပေးသည် */
+}
+
+.contact-form button[type="submit"]:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+/* ---------------------------------------------------------------- */
+
+/* --- Footer --- */
+footer {
+    background-color: #263238; /* Footer ကို ပိုမိုရင့်သော အရောင် ပြောင်းလိုက်သည် */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+
+/* ####################################################### */
+/* --- posts.html (စာရင်းအသစ်) အတွက် ပုံစံများ --- */
+
+.new-post-list-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.numbered-list-with-line {
+    list-style: none;
+    padding-left: 0;
+    position: relative;
+    /* ဘယ်ဘက်ခြမ်းက ဒေါင်လိုက် မျဉ်းကြောင်း */
+    border-left: 3px solid #b0bec5; /* မျဉ်းကြောင်းကို နည်းနည်း ပိုထူလိုက်သည် */
+}
+
+.numbered-list-with-line li {
+    margin-bottom: 35px; /* အကွာအဝေး တိုးလိုက်သည် */
+    padding-left: 35px; 
+    position: relative;
+    background-color: white;
+    padding: 15px 15px 15px 45px; /* အတွင်း padding ထည့်သည် */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* စာရင်းကို ပေါ်လွင်စေသည် */
+    transition: box-shadow 0.3s;
+}
+.numbered-list-with-line li:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* နံပါတ်စဥ်အတွက် စက်ဝိုင်းပုံ ပေါ်လွင်အောင် လုပ်ခြင်း */
+.list-number {
+    position: absolute;
+    left: 2px; /* မျဉ်းကြောင်းပေါ်မှာ ပေါ်နေအောင် ချိန်လိုက်သည် */
+    top: 15px; /* အပေါ်ကနေ နည်းနည်း ဆင်းလာအောင် ချိန်သည် */
+    background: #1a73e8; /* နံပါတ်စဥ်ကို အပြာရင့်ရောင် ပေးသည် */
+    color: white;
+    font-weight: 700;
+    padding: 5px 8px; 
+    border-radius: 50%; 
+    font-size: 0.9em;
+    border: 3px solid #f0f4f8; /* background အရောင်အတိုင်း အစွန်းပေးသည် */
+    min-width: 30px;
+    text-align: center;
+}
+
+.list-content h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.5em;
+}
+
+.list-content h3 a {
+    color: #263238;
+    text-decoration: none;
+}
+
+.list-content h3 a:hover {
+    color: #1a73e8;
+    text-decoration: underline;
+}
+
+.list-content p {
+    color: #546e7a;
+    margin-bottom: 5px;
+}
+
+.list-content .date {
+    display: block;
+    font-size: 0.85em;
+    color: #78909c;
+}
+
+/* --- Mobile Responsiveness --- */
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav {
+        margin-top: 10px;
+    }
+
+    nav a {
+        margin: 0 10px;
+        padding: 5px;
+    }
+    
+    .post-preview {
+        width: 100%; 
+    }
+    
+    .numbered-list-with-line {
+        margin-left: 5px; 
+    }
+    
+    .numbered-list-with-line li {
+        padding: 15px 15px 15px 45px;
+    }
+}
