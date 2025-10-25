@@ -4,7 +4,15 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f7f9fc; /* အရောင်နုတဲ့ နောက်ခံ */
+    /* နောက်ခံအရောင်ကို အပေါ်အောက် နှစ်ပိုင်းခွဲရန် linear-gradient ကို အသုံးပြုထားသည် */
+    background: linear-gradient(to bottom, 
+        #e9eff6 0%,      /* အပေါ်ပိုင်း (ပိုနုသော အပြာနုရောင်) - စတင် */
+        #e9eff6 50vh,    /* မျက်နှာပြင်၏ အလယ်ထိ (50% of viewport height) - ရပ်တန့် */
+        #f7f9fc 50vh,    /* ထိုနေရာမှစ၍ မူရင်း အရောင်နုကို ဆက်သုံး - စတင် */
+        #f7f9fc 100%     /* အောက်ဆုံးအထိ - အဆုံး */
+    ); 
+    background-attachment: fixed; /* နောက်ခံသည် scroll လုပ်သော်လည်း မရွေ့စေရန် */
+    min-height: 100vh; /* Gradient သည် မျက်နှာပြင်အပြည့်ဖြစ်စေရန် */
     color: #333;
     font-size: 16px;
 }
@@ -109,7 +117,7 @@ section h2 {
     margin-bottom: 10px;
 }
 
-/* -- 5. Blog Posts (Clean Card Style) */
+/* -- 5. Blog Posts (Clean Card Style) -- */
 #posts {
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
