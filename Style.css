@@ -4,12 +4,12 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f0f2f5; /* နောက်ခံအရောင် ပိုနုခြင်း */
-    color: #1c1e21; /* စာသားအရောင် အနက်ရောင်နီးပါး */
+    background-color: #f0f2f5; 
+    color: #1c1e21; 
 }
 
 a {
-    color: #007bff; /* Link အရောင်အပြာ */
+    color: #007bff; 
     text-decoration: none;
     transition: color 0.3s;
 }
@@ -21,23 +21,45 @@ a:hover {
 
 main {
     padding: 20px;
-    max-width: 900px; /* ပိုကျယ်လာခြင်း */
+    max-width: 900px; 
     margin: auto;
 }
 
-/* -- 2. Header (ဆွဲဆောင်မှုရှိသော ခေါင်းစီး) -- */
+/* -- 2. Header (Logo နှင့် ခေါင်းစဉ်အတွက်) -- */
 header {
-    background: linear-gradient(135deg, #007bff, #0056b3); /* အရောင်နှစ်ရောင်ဖြင့် နောက်ခံ */
+    background: linear-gradient(135deg, #333, #1c1e21); /* ခေါင်းစီးနောက်ခံကို အနက်ရောင်ပြောင်းလိုက်သည် */
     color: #fff;
-    padding: 25px 0;
+    padding: 15px 20px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
-    margin-bottom: 5px;
+.header-content {
+    display: flex; /* Logo နှင့် ခေါင်းစဉ်ကို တစ်တန်းတည်းစီရန် */
+    align-items: center;
+    justify-content: center; /* စင်တာမှာ ထားသည် */
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 50px; /* Logo အရွယ်အစား */
+    height: 50px;
+    border-radius: 50%; /* အဝိုင်းပုံဖြစ်စေရန် */
+    object-fit: cover; /* ပုံကို ဝိုင်းထဲ ပြည့်အောင်ထားရန် */
+    margin-right: 15px;
+    border: 3px solid #007bff; /* Logo ဘေးနား အပြာရောင် အဝိုင်း */
+}
+
+.site-title {
+    margin: 0;
     font-size: 2.5em;
     font-weight: 700;
+    color: #007bff; /* 'KP' စာလုံးကို အပြာရောင် လုပ်လိုက်သည် */
+}
+
+header nav {
+    text-align: center;
+    margin-top: 10px;
 }
 
 header nav a {
@@ -49,7 +71,7 @@ header nav a {
 }
 
 header nav a:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Hover မှာ အရောင်အနည်းငယ်ပြောင်းခြင်း */
+    background-color: rgba(255, 255, 255, 0.2); 
     text-decoration: none;
 }
 
@@ -58,13 +80,13 @@ section {
     background: #ffffff;
     padding: 30px;
     margin-bottom: 25px;
-    border-radius: 10px; /* ပိုမို ဝိုင်းစက်သော အနားသတ် */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* ပိုထင်ရှားသော အရိပ် */
+    border-radius: 10px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); 
 }
 
 section h2 {
     color: #333;
-    border-bottom: 2px solid #007bff; /* ခေါင်းစဉ်အောက် မျဉ်းပြာ */
+    border-bottom: 2px solid #007bff; 
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
@@ -72,7 +94,7 @@ section h2 {
 /* -- 4. Hero Section (မိတ်ဆက်) ဒီဇိုင်း -- */
 .hero {
     text-align: center;
-    background: #e9f0ff; /* နောက်ခံအရောင်နု */
+    background: #e9f0ff; 
     padding: 40px;
     border: 1px solid #cce5ff;
 }
@@ -84,15 +106,15 @@ section h2 {
 
 /* -- 5. Blog Posts (Card Style) -- */
 #posts {
-    display: grid; /* စာမူတွေကို ကွက်များဖြင့် စီခြင်း */
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* မျက်နှာပြင်အရွယ်အစားပေါ် မူတည်ပြီး ကွက်များဖွဲ့ခြင်း */
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
     gap: 20px;
 }
 
 .post-preview {
     border: none;
     padding: 20px;
-    margin: 0; /* grid သုံးထားလို့ margin ရှင်းထုတ်ခြင်း */
+    margin: 0; 
     background: #fdfdff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -100,12 +122,8 @@ section h2 {
 }
 
 .post-preview:hover {
-    transform: translateY(-5px); /* Hover မှာ အပေါ်ကို အနည်းငယ် တက်လာခြင်း */
+    transform: translateY(-5px); 
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.post-preview h3 {
-    margin-top: 0;
 }
 
 .post-preview .date {
@@ -117,7 +135,7 @@ section h2 {
 .read-more {
     display: inline-block;
     margin-top: 10px;
-    color: #28a745; /* အစိမ်းရောင် Link */
+    color: #28a745; 
     font-weight: bold;
 }
 
@@ -131,13 +149,13 @@ footer {
     margin-top: 30px;
 }
 
-/* -- 7. Mobile Responsive (ဖုန်းနဲ့ ကြည့်ဖို့ အဆင်ပြေစေရန်) -- */
+/* -- 7. Mobile Responsive -- */
 @media (max-width: 600px) {
     main {
         padding: 10px;
     }
     
-    header h1 {
+    .site-title {
         font-size: 2em;
     }
 
