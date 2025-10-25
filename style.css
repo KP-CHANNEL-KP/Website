@@ -3,7 +3,7 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f4f8; /* Background အရောင်ကို အဖြူနုလေး ပြောင်းလိုက်သည် */
+    background-color: #f0f4f8; 
     color: #333;
     line-height: 1.6;
 }
@@ -15,14 +15,14 @@ main {
 
 /* --- Header & Navigation --- */
 header {
-    background-color: #1a73e8; /* Header အရောင်ကို အပြာရင့်ရောင် လှလှလေး ပြောင်းလိုက်သည် */
+    background-color: #1a73e8; 
     color: white;
     padding: 10px 0;
     position: fixed; 
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Shadow ကို ပိုမိုပေါ်လွင်စေသည် */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
 }
 
 .header-content {
@@ -63,16 +63,16 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #3f51b5; /* Hover အရောင်ပြောင်းလိုက်သည် */
+    background-color: #3f51b5; 
 }
 
 /* --- Hero Section (Home Page) --- */
 .hero {
-    background: linear-gradient(135deg, #e8f5e9, #c8e6c9); /* အရောင်နှစ်ရောင်ဖြင့် gradient ပေးသည် */
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9); 
     color: #004d40;
     padding: 60px 20px;
     text-align: center;
-    border-bottom: 5px solid #4caf50; /* အစိမ်းရောင် ဘားတန်း ထည့်သည် */
+    border-bottom: 5px solid #4caf50; 
     margin-bottom: 40px;
 }
 
@@ -80,7 +80,7 @@ nav a:hover {
     font-size: 2.5em;
     margin-top: 0;
     font-weight: 800;
-    color: #1a73e8; /* ခေါင်းစဉ်ကို အပြာရောင် ပေးသည် */
+    color: #1a73e8; 
 }
 
 .hero p {
@@ -111,7 +111,7 @@ section h2 {
 .post-preview {
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Shadow ကို ပိုလှအောင် ပြင်သည် */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
     padding: 25px;
     width: calc(50% - 15px); 
     box-sizing: border-box;
@@ -120,7 +120,7 @@ section h2 {
 }
 
 .post-preview:hover {
-    transform: translateY(-8px); /* နည်းနည်းလေး ပိုတက်သွားအောင် ပြင်သည် */
+    transform: translateY(-8px); 
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -131,7 +131,7 @@ section h2 {
 }
 
 .post-preview h3 a {
-    color: #1a73e8; /* ခေါင်းစဉ်အရောင်ကို အပြာရောင် ပေးသည် */
+    color: #1a73e8; 
     text-decoration: none;
 }
 .post-preview h3 a:hover {
@@ -148,7 +148,7 @@ section h2 {
 .read-more {
     display: inline-block;
     margin-top: 15px;
-    color: #4caf50; /* Link အရောင်ကို အစိမ်းရောင် ပေးသည် */
+    color: #4caf50; 
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s;
@@ -162,11 +162,11 @@ section h2 {
 .contact-form-section {
     max-width: 700px;
     margin: 60px auto 40px auto; 
-    padding: 40px; /* Padding တိုးသည် */
-    background: #ffffff; /* နောက်ခံ အဖြူရောင် ပြောင်းသည် */
+    padding: 40px; 
+    background: #ffffff; 
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* ပိုပေါ်လွင်သော Shadow */
-    border-top: 5px solid #1a73e8; /* အပေါ်မှာ အပြာရောင် ဘားထည့်သည် */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+    border-top: 5px solid #1a73e8; 
     text-align: left;
 }
 
@@ -194,16 +194,11 @@ section h2 {
 .contact-form input[type="text"],
 .contact-form input[type="email"],
 .contact-form textarea {
-    .contact-form textarea {
     width: 100%;
-    min-height: 100px;
-    margin-bottom: 20px; /* input-container မှာ margin ပေးထားသဖြင့် ဒီမှာ 0 ထားသည် */
-    /* ... ကျန်တာတွေ ... */
-}
-
+    padding: 12px;
     margin-bottom: 20px;
     border: 1px solid #b0bec5; 
-    border-radius: 8px; /* Curve ပိုပေးသည် */
+    border-radius: 8px; 
     box-sizing: border-box;
     font-size: 1em;
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -212,17 +207,30 @@ section h2 {
 .contact-form input:focus,
 .contact-form textarea:focus {
     border-color: #1a73e8;
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); /* Focus ဝင်လျှင် အရောင်ပေါ်စေသည် */
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); 
     outline: none;
 }
 
------------------------------------------------------------- */
-
+/* --- စာပို့မည် (Submit Button) အတွက် CSS (စာသားပါသော Button) --- */
+.contact-form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #4caf50; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 4px #388e3c; 
+}
 
 .contact-form button[type="submit"]:hover {
     background-color: #388e3c;
     box-shadow: 0 2px #1b5e20;
-    transform: translateY(2px); /* နှိပ်လိုက်သလိုမျိုး effect ပေးသည် */
+    transform: translateY(2px); 
 }
 
 .contact-form button[type="submit"]:active {
@@ -233,7 +241,7 @@ section h2 {
 
 /* --- Footer --- */
 footer {
-    background-color: #263238; /* Footer ကို ပိုမိုရင့်သော အရောင် ပြောင်းလိုက်သည် */
+    background-color: #263238; 
     color: white;
     text-align: center;
     padding: 20px 0;
@@ -241,7 +249,7 @@ footer {
 }
 
 /* ####################################################### */
-/* --- posts.html (စာရင်းအသစ်) အတွက် ပုံစံများ --- */
+/* --- posts.html (စာရင်းအသစ်) အတွက် ပုံစံများ (ဤ Code များသည် posts.html တွင်သာ အကျိုးသက်ရောက်မည်) --- */
 
 .new-post-list-section {
     max-width: 800px;
@@ -253,37 +261,34 @@ footer {
     list-style: none;
     padding-left: 0;
     position: relative;
-    /* ဘယ်ဘက်ခြမ်းက ဒေါင်လိုက် မျဉ်းကြောင်း */
-    border-left: 3px solid #b0bec5; /* မျဉ်းကြောင်းကို နည်းနည်း ပိုထူလိုက်သည် */
+    border-left: 3px solid #b0bec5; 
 }
 
 .numbered-list-with-line li {
-    margin-bottom: 35px; /* အကွာအဝေး တိုးလိုက်သည် */
+    margin-bottom: 35px; 
     padding-left: 35px; 
     position: relative;
     background-color: white;
-    padding: 15px 15px 15px 45px; /* အတွင်း padding ထည့်သည် */
+    padding: 15px 15px 15px 45px; 
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* စာရင်းကို ပေါ်လွင်စေသည် */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
     transition: box-shadow 0.3s;
 }
 .numbered-list-with-line li:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-
-/* နံပါတ်စဥ်အတွက် စက်ဝိုင်းပုံ ပေါ်လွင်အောင် လုပ်ခြင်း */
 .list-number {
     position: absolute;
-    left: 2px; /* မျဉ်းကြောင်းပေါ်မှာ ပေါ်နေအောင် ချိန်လိုက်သည် */
-    top: 15px; /* အပေါ်ကနေ နည်းနည်း ဆင်းလာအောင် ချိန်သည် */
-    background: #1a73e8; /* နံပါတ်စဥ်ကို အပြာရင့်ရောင် ပေးသည် */
+    left: 2px; 
+    top: 15px; 
+    background: #1a73e8; 
     color: white;
     font-weight: 700;
     padding: 5px 8px; 
     border-radius: 50%; 
     font-size: 0.9em;
-    border: 3px solid #f0f4f8; /* background အရောင်အတိုင်း အစွန်းပေးသည် */
+    border: 3px solid #f0f4f8; 
     min-width: 30px;
     text-align: center;
 }
@@ -326,7 +331,7 @@ footer {
     nav {
         margin-top: 10px;
     }
-    
+
     nav a {
         margin: 0 10px;
         padding: 5px;
@@ -343,55 +348,4 @@ footer {
     .numbered-list-with-line li {
         padding: 15px 15px 15px 45px;
     }
-}
-/* Icon နဲ့ Textarea ကို ထုပ်ပိုးထားတဲ့ container */
-.input-container {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-/* စာလုံးအသေးလေး (Icon) ပုံစံ */
-.input-icon {
-    position: absolute;
-    top: 10px; 
-    left: 10px;
-    font-size: 1.2em;
-    color: #1a73e8; 
-    z-index: 5;
-}
-/* --- Input Field နှင့် Button တို့ကို စနစ်တကျ နေရာချရန် ထပ်ထည့်ရမည့် Code များ --- */
-
-/* 1. Icon နဲ့ Textarea ကို ထုပ်ပိုးထားတဲ့ Container (Textarea အတွက်ပဲ ထည့်သည်) */
-.input-container {
-    position: relative; /* Button ကို Absolute နဲ့ နေရာချဖို့အတွက် */
-    margin-bottom: 20px; /* Textarea တစ်ခုလုံးရဲ့ အောက်ခြေ အကွာအဝေး */
-}
-
-/* 2. စာလုံးအသေးလေး (Icon) ပုံစံ - မပြောင်းလဲပါ */
-.input-icon {
-    position: absolute;
-    top: 10px; 
-    left: 10px;
-    font-size: 1.2em;
-    color: #1a73e8; 
-    z-index: 5;
-}
-
-/* 3. Send ပုံပါသော ခလုတ်ကို Textarea ရဲ့ ညာဘက်အောက်ထောင့်မှာ ကပ်ရန် ပုံစံအသစ် */
-.submit-image-button-inline {
-    position: absolute;
-    bottom: 15px; /* အောက်ခြေမှ 15px ခွာရန် */
-    right: 15px; /* ညာဘက်အစွန်းမှ 15px ခွာရန် */
-    width: 30px; /* ခလုတ်၏ အရွယ်အစား */
-    height: 30px;
-    background: none;
-    padding: 0;
-    border: none;
-    cursor: pointer;
-    z-index: 10; /* Textarea ရဲ့ အပေါ်မှာ ပေါ်နေစေရန် */
-    transition: transform 0.2s;
-}
-
-.submit-image-button-inline:hover {
-    transform: scale(1.1);
 }
