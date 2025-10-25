@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KP Blog | နည်းပညာနှင့် အတွေ့အကြုံများ</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-and-title">
+                <img src="logo.jpg" alt="KP Logo" class="logo"> 
+                <h1 class="site-title">KP Blog</h1>
+            </div>
+            <nav>
+                <a href="#">မူလစာမျက်နှာ</a>
+                <a href="#">Posts</a>
+                <a href="#">အကြောင်း</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>ကျွန်ုပ်၏ Blog မှ ကြိုဆိုပါသည်</h2>
+            <p>နေ့စဉ်ဘဝ အတွေ့အကြုံများ၊ စိတ်ဝင်စားစရာ အကြောင်းအရာများ နှင့် အခြား အရာများကို ဤနေရာတွင် မျှဝေပေးသွားပါမည်။</p>
+        </section>
+
+        <section>
+            <h2>နောက်ဆုံးပေါ် စာမူများ</h2>
+            
+            <div id="posts">
+                
+                <article class="post-preview">
+                    <p class="date">October 25, 2025</p>
+                    <h3><a href="#">ပထမဆုံး Blog စတင်ခြင်း</a></h3>
+                    <p>ဒီနေရာကနေစပြီး Blog Post အသစ်အသစ် အကြောင်းအရာများကို ဖတ်ရှုလေ့လာနိုင်ပါသည်။ စိတ်ဝင်စားရင် အောက်ကခေါင်းစဉ်ကို နှိပ်ပြီး ဝင်ရောက်ဖတ်ရှုနိုင်ပါတယ်။</p>
+                    <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် »</a>
+                </article>
+
+                <article class="post-preview">
+                    <p class="date">October 15, 2025</p>
+                    <h3><a href="#">မြန်မာပြည်ရဲ့ ခရီးသွားလာရေး အတွေ့အကြုံများ</a></h3>
+                    <p>ကျွန်တော်/ကျွန်မ မြန်မာပြည်ရဲ့ နောက်ဆုံး ခရီးစဉ် အတွေ့အကြုံများအကြောင်း မျှဝေလိုက်ပါတယ်။ ပုံတွေလည်း ပါပါတယ်။</p>
+                    <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် »</a>
+                </article>
+                
+            </div>
+        </section>
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2024 KP Blog. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
