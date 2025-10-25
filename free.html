@@ -1,72 +1,42 @@
-<!DOCTYPE html>
-<html lang="my">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KP Blog | Free အကြောင်းအရာများ</title>
-    
-    <link rel="stylesheet" href="style.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <header>
-        <div class="header-content">
-            <div class="logo-and-title">
-                <img src="images/logo.png" alt="KP Logo" class="logo"> 
-                <h1 class="site-title">KP Blog</h1>
-            </div>
-            <nav>
-                <a href="index.html">မူလစာမျက်နှာ</a>
-                <a href="posts.html">Posts</a>
-                <a href="free.html">Free</a> 
-                <a href="buy.html">ဝယ်ယူရန်</a> 
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="free-content-section">
-            <h2>အခမဲ့ ဝန်ဆောင်မှုနှင့် အကြောင်းအရာများ</h2>
-            <p>KP Blog မှ အခမဲ့ မျှဝေပေးထားသော နည်းပညာများ၊ Tools များနှင့် အခြား အသုံးဝင်သည့် အချက်အလက်များ ဖြစ်ပါသည်။</p>
-            
-            <ul class="free-list-with-icons">
-                
-                <li>
-                    <div class="free-icon">🎁</div>
-                    <div class="free-info">
-                        <h3>အခမဲ့ Tool တစ်ခု</h3>
-                        <p>Web Site ပုံစံဖော်ရာတွင် အသုံးဝင်သည့် Online Tool အကြောင်း</p>
-                        <a href="#">Link ယူရန် →</a>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="free-icon">🔑</div>
-                    <div class="free-info">
-                        <h3>အခမဲ့ VPN Access</h3>
-                        <p>Mytel လိုင်းဖြတ်ဒေသများအတွက် စမ်းသပ်သုံးနိုင်မည့် VPN Key အချို့</p>
-                        <a href="#">Key ရယူရန် →</a>
-                    </div>
-                </li>
-                
-                <li>
-                    <div class="free-icon">📘</div>
-                    <div class="free-info">
-                        <h3>eBook အခမဲ့ရယူရန်</h3>
-                        <p>Digital Marketing နဲ့ ပတ်သက်တဲ့ အခြေခံ eBook ကို အခမဲ့ ရယူပါ။</p>
-                        <a href="#">Download ရယူရန် →</a>
-                    </div>
-                </li>
-
-            </ul>
-        </section>
+<main>
+    <section class="copy-tool-section">
+        <h2>အလွယ်တကူ ကူးယူနိုင်သော စာသားနေရာ</h2>
+        <p>သင်အလွယ်တကူ မျှဝေလိုသော စာသားများ (သို့မဟုတ် Key များ) ကို အောက်ပါနေရာမှ ကူးယူနိုင်ပါသည်။</p>
         
-    </main>
+        <div class="copy-container">
+            <textarea id="copyTextarea" rows="15" placeholder="ဤနေရာတွင် ကူးယူရမည့် စာသားများ ရှိပါသည်။ ကျေးဇူးပြု၍ copy ခလုတ်ကို နှိပ်ပါ။"></textarea>
+            
+            <button id="copyButton" class="copy-button">စာသား ကူးယူမည်</button>
+            <span id="copyMessage" class="copy-message"></span>
+        </div>
+        
+    </section>
+</main>
 
-    <footer>
-        <p>&copy; 2024 KP Blog. All rights reserved.</p>
-    </footer>
+<script>
+    document.getElementById('copyButton').addEventListener('click', function() {
+        var copyText = document.getElementById('copyTextarea');
+        
+        // Textarea ထဲက စာသားကို Select လုပ်ခြင်း
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // Mobile အတွက်
 
-</body>
-</html>
+        // စာသားကို ကူးယူခြင်း (Clipboard API ကို အသုံးပြုခြင်း)
+        navigator.clipboard.writeText(copyText.value).then(function() {
+            // အောင်မြင်ပါက Message ပြရန်
+            var message = document.getElementById('copyMessage');
+            message.textContent = "✅ ကူးယူပြီးပါပြီ!";
+            message.style.opacity = '1';
+            
+            // 3 စက္ကန့်ကြာရင် Message ကို ပျောက်သွားစေရန်
+            setTimeout(function() {
+                message.style.opacity = '0';
+            }, 3000);
+        }).catch(function(err) {
+            // မအောင်မြင်ပါက Message ပြရန်
+            var message = document.getElementById('copyMessage');
+            message.textContent = "❌ ကူးယူ၍ မရပါ။";
+            message.style.opacity = '1';
+        });
+    });
+</script>
