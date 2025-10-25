@@ -3,61 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KP Blog</title>
-    <link rel="stylesheet" href="style.css">
+    <title>KP Blog | နည်းပညာနှင့် အတွေ့အကြုံများ</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
         <div class="header-content">
             <div class="logo-and-title">
-                <img src="logo.png" alt="KP Logo" class="logo">
-                <h1 class="site-title">KP</h1>
+                <img src="logo.jpg" alt="KP Logo" class="logo"> 
+                <h1 class="site-title">KP Blog</h1>
             </div>
-            
             <nav>
-                <a href="index.html">ပင်မ</a>
-                <a href="#posts">စာမူများ</a>
-                <a href="#about">ကျွန်ုပ်အကြောင်း</a>
+                <a href="#">မူလစာမျက်နှာ</a>
+                <a href="#">Posts</a>
+                <a href="#">အကြောင်း</a>
             </nav>
         </div>
     </header>
-    
+
     <main>
-        
         <section class="hero">
-            <h2>ကျွန်ုပ်၏ Blog မှ ကြိုဆိုပါ၏</h2>
+            <h2>ကျွန်ုပ်၏ Blog မှ ကြိုဆိုပါသည်</h2>
             <p>နေ့စဉ်ဘဝ အတွေ့အကြုံများ၊ စိတ်ဝင်စားစရာ အကြောင်းအရာများ နှင့် အခြား အရာများကို ဤနေရာတွင် မျှဝေပေးသွားပါမည်။</p>
         </section>
 
-        <section id="posts">
+        <section>
             <h2>နောက်ဆုံးပေါ် စာမူများ</h2>
             
-            <article class="post-preview">
-                <h3><a href="#">ပထမဆုံး Blog စတင်ခြင်း</a></h3>
-                <p class="date">October 25, 2025</p>
-                <p>ဒီနေရာကနေ သင့် Blog Post အတိုချုပ် အကြောင်းအရာကို ဖော်ပြနိုင်ပါတယ်။ ဖတ်ချင်ရင် ခေါင်းစဉ်ကို နှိပ်ပြီး ဝင်ရောက်နိုင်ပါတယ်။</p>
-                <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် &raquo;</a>
-            </article>
+            <div id="posts">
+                
+                <article class="post-preview">
+                    <p class="date">October 25, 2025</p>
+                    <h3><a href="#">ပထမဆုံး Blog စတင်ခြင်း</a></h3>
+                    <p>ဒီနေရာကနေစပြီး Blog Post အသစ်အသစ် အကြောင်းအရာများကို ဖတ်ရှုလေ့လာနိုင်ပါသည်။ စိတ်ဝင်စားရင် အောက်ကခေါင်းစဉ်ကို နှိပ်ပြီး ဝင်ရောက်ဖတ်ရှုနိုင်ပါတယ်။</p>
+                    <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် »</a>
+                </article>
 
-            <article class="post-preview">
-                <h3><a href="#">မြန်မာပြည်ရဲ့ ခရီးသွားလာရေး အတွေ့အကြုံများ</a></h3>
-                <p class="date">October 15, 2025</p>
-                <p>ကျွန်တော်/ကျွန်မရဲ့ နောက်ဆုံး ခရီးစဉ် အတွေ့အကြုံများအကြောင်း မျှဝေလိုက်ပါတယ်။ ပုံတွေ၊ ဗီဒီယိုတွေလည်း ထည့်ထားပါတယ်။</p>
-                <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် &raquo;</a>
-            </article>
-            
+                <article class="post-preview">
+                    <p class="date">October 15, 2025</p>
+                    <h3><a href="#">မြန်မာပြည်ရဲ့ ခရီးသွားလာရေး အတွေ့အကြုံများ</a></h3>
+                    <p>ကျွန်တော်/ကျွန်မ မြန်မာပြည်ရဲ့ နောက်ဆုံး ခရီးစဉ် အတွေ့အကြုံများအကြောင်း မျှဝေလိုက်ပါတယ်။ ပုံတွေလည်း ပါပါတယ်။</p>
+                    <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် »</a>
+                </article>
+                
+                </div>
         </section>
-
-        <section id="about">
-            <h2>ကျွန်ုပ်အကြောင်း</h2>
-            <p>ကျွန်ုပ်သည် [သင့်အလုပ်/ဝါသနာ] ကို စိတ်ဝင်စားသောသူ ဖြစ်ပါသည်။ ဒီ Blog ကို စာဖတ်သူများနှင့် ဗဟုသုတများ မျှဝေဖို့ ရည်ရွယ်ပြီး စတင်ခဲ့ခြင်း ဖြစ်ပါသည်။ ကျွန်ုပ်နှင့် ဆက်သွယ်ရန် [Email လိပ်စာ] သို့ ပို့ပေးနိုင်ပါသည်။</p>
-        </section>
-
+        
     </main>
 
     <footer>
-        <p>&copy; 2025 KP. All rights reserved.</p>
+        <p>&copy; 2024 KP Blog. All rights reserved.</p>
     </footer>
 
 </body>
