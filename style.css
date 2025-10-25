@@ -211,21 +211,33 @@ section h2 {
     outline: none;
 }
 
-/* --- စာပို့မည် (Submit Button) ကို လှအောင် ပြင်ဆင်ခြင်း --- */
-.contact-form button[type="submit"] {
+/* --- စာပို့မည် (Submit Image) အတွက် ပုံစံအသစ် --- */
+.submit-image-button {
     display: block;
-    width: 100%;
-    padding: 15px;
-    background-color: #4caf50; /* အစိမ်းရောင်ကို အဓိကအရောင်အဖြစ် သုံးသည် */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.2em;
-    font-weight: 700;
+    width: 150px; /* ပုံရဲ့ အကျယ်ကို သင့်တော်သလို ချိန်ညှိပါ */
+    height: auto;
+    margin: 15px auto 0 auto; /* အလယ်မှာ နေရာချရန် */
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    box-shadow: 0 4px #388e3c; /* 3D effect အတွက် Shadow ပေးသည် */
+    border: none;
+    padding: 0;
+    background: none;
+    transition: opacity 0.3s, transform 0.1s;
+    /* လိုအပ်ပါက 3D effect ထည့်နိုင်သည် */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
+    border-radius: 5px;
 }
+
+.submit-image-button:hover {
+    opacity: 0.9;
+    transform: scale(1.05); /* နည်းနည်းလေး ကြီးလာစေသည် */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.submit-image-button:active {
+    transform: scale(1.0);
+}
+/* ---------------------------------------------------------------- */
+
 
 .contact-form button[type="submit"]:hover {
     background-color: #388e3c;
