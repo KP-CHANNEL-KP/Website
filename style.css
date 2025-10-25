@@ -196,9 +196,8 @@ section h2 {
 .contact-form textarea {
     .contact-form textarea {
     width: 100%;
-    padding: 12px 12px 12px 40px; /* <--- Icon အတွက် ဘယ်ဘက်မှာ 40px နေရာချန်သည် */
     min-height: 100px;
-    margin-bottom: 0; /* input-container မှာ margin ပေးထားသဖြင့် ဒီမှာ 0 ထားသည် */
+    margin-bottom: 20px; /* input-container မှာ margin ပေးထားသဖြင့် ဒီမှာ 0 ထားသည် */
     /* ... ကျန်တာတွေ ... */
 }
 
@@ -217,32 +216,7 @@ section h2 {
     outline: none;
 }
 
-/* --- စာပို့မည် (Submit Image) အတွက် ပုံစံအသစ် --- */
-.submit-image-button {
-    display: block;
-    width: 150px; /* ပုံရဲ့ အကျယ်ကို သင့်တော်သလို ချိန်ညှိပါ */
-    height: auto;
-    margin: 15px auto 0 auto; /* အလယ်မှာ နေရာချရန် */
-    cursor: pointer;
-    border: none;
-    padding: 0;
-    background: none;
-    transition: opacity 0.3s, transform 0.1s;
-    /* လိုအပ်ပါက 3D effect ထည့်နိုင်သည် */
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
-    border-radius: 5px;
-}
-
-.submit-image-button:hover {
-    opacity: 0.9;
-    transform: scale(1.05); /* နည်းနည်းလေး ကြီးလာစေသည် */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-.submit-image-button:active {
-    transform: scale(1.0);
-}
-/* ---------------------------------------------------------------- */
+------------------------------------------------------------ */
 
 
 .contact-form button[type="submit"]:hover {
@@ -384,4 +358,40 @@ footer {
     font-size: 1.2em;
     color: #1a73e8; 
     z-index: 5;
+}
+/* --- Input Field နှင့် Button တို့ကို စနစ်တကျ နေရာချရန် ထပ်ထည့်ရမည့် Code များ --- */
+
+/* 1. Icon နဲ့ Textarea ကို ထုပ်ပိုးထားတဲ့ Container (Textarea အတွက်ပဲ ထည့်သည်) */
+.input-container {
+    position: relative; /* Button ကို Absolute နဲ့ နေရာချဖို့အတွက် */
+    margin-bottom: 20px; /* Textarea တစ်ခုလုံးရဲ့ အောက်ခြေ အကွာအဝေး */
+}
+
+/* 2. စာလုံးအသေးလေး (Icon) ပုံစံ - မပြောင်းလဲပါ */
+.input-icon {
+    position: absolute;
+    top: 10px; 
+    left: 10px;
+    font-size: 1.2em;
+    color: #1a73e8; 
+    z-index: 5;
+}
+
+/* 3. Send ပုံပါသော ခလုတ်ကို Textarea ရဲ့ ညာဘက်အောက်ထောင့်မှာ ကပ်ရန် ပုံစံအသစ် */
+.submit-image-button-inline {
+    position: absolute;
+    bottom: 15px; /* အောက်ခြေမှ 15px ခွာရန် */
+    right: 15px; /* ညာဘက်အစွန်းမှ 15px ခွာရန် */
+    width: 30px; /* ခလုတ်၏ အရွယ်အစား */
+    height: 30px;
+    background: none;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    z-index: 10; /* Textarea ရဲ့ အပေါ်မှာ ပေါ်နေစေရန် */
+    transition: transform 0.2s;
+}
+
+.submit-image-button-inline:hover {
+    transform: scale(1.1);
 }
