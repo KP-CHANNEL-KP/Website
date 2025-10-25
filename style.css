@@ -1,62 +1,76 @@
-<!DOCTYPE html>
-<html lang="my">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KP Blog | နည်းပညာနှင့် အတွေ့အကြုံများ</title>
-    
-    <link rel="stylesheet" href="style.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+/* -- 1. Global Reset & Basic Styles -- */
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    /* DUAL-TONE BACKGROUND: မျက်နှာပြင် အမြင့် (100vh) ကို နှစ်ပိုင်းခွဲသည်။ */
+    background: linear-gradient(to bottom, 
+        #e9eff6 0%,      /* အပေါ်ပိုင်း အရောင် (ပိုနုသော အပြာနုရောင်) */
+        #e9eff6 50vh,    /* မျက်နှာပြင်၏ အလယ်ထိ (50% of viewport height) */
+        #f7f9fc 50vh,    /* ထိုနေရာမှစ၍ မူရင်း အဖြူနုရောင်ကို ဆက်သုံး */
+        #f7f9fc 100%     
+    ); 
+    background-attachment: fixed; 
+    min-height: 100vh; 
+    color: #333;
+    font-size: 16px;
+}
 
-    <header>
-        <div class="header-content">
-            <div class="logo-and-title">
-                <img src="logo.jpg" alt="KP Logo" class="logo"> 
-                <h1 class="site-title">KP Blog</h1>
-            </div>
-            <nav>
-                <a href="#">မူလစာမျက်နှာ</a>
-                <a href="#">Posts</a>
-                <a href="#">အကြောင်း</a>
-            </nav>
-        </div>
-    </header>
+a { color: #00796b; text-decoration: none; transition: color 0.3s, text-decoration 0.3s; }
+a:hover { color: #004d40; text-decoration: underline; }
+main { padding: 30px 20px; max-width: 1000px; margin: auto; background: transparent; }
 
-    <main>
-        <section class="hero">
-            <h2>ကျွန်ုပ်၏ Blog မှ ကြိုဆိုပါသည်</h2>
-            <p>နေ့စဉ်ဘဝ အတွေ့အကြုံများ၊ စိတ်ဝင်စားစရာ အကြောင်းအရာများ နှင့် အခြား အရာများကို ဤနေရာတွင် မျှဝေပေးသွားပါမည်။</p>
-        </section>
+/* -- 2. Header (Logo & Navigation) -- */
+header {
+    background: #263238; 
+    color: #ffffff;
+    padding: 15px 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
 
-        <section>
-            <h2>နောက်ဆုံးပေါ် စာမူများ</h2>
-            
-            <div id="posts">
-                
-                <article class="post-preview">
-                    <p class="date">October 25, 2025</p>
-                    <h3><a href="#">ပထမဆုံး Blog စတင်ခြင်း</a></h3>
-                    <p>ဒီနေရာကနေစပြီး Blog Post အသစ်အသစ် အကြောင်းအရာများကို ဖတ်ရှုလေ့လာနိုင်ပါသည်။ စိတ်ဝင်စားရင် အောက်ကခေါင်းစဉ်ကို နှိပ်ပြီး ဝင်ရောက်ဖတ်ရှုနိုင်ပါတယ်။</p>
-                    <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် »</a>
-                </article>
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    max-width: 1000px;
+    margin: 0 auto;
+}
 
-                <article class="post-preview">
-                    <p class="date">October 15, 2025</p>
-                    <h3><a href="#">မြန်မာပြည်ရဲ့ ခရီးသွားလာရေး အတွေ့အကြုံများ</a></h3>
-                    <p>ကျွန်တော်/ကျွန်မ မြန်မာပြည်ရဲ့ နောက်ဆုံး ခရီးစဉ် အတွေ့အကြုံများအကြောင်း မျှဝေလိုက်ပါတယ်။ ပုံတွေလည်း ပါပါတယ်။</p>
-                    <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် »</a>
-                </article>
-                
-            </div>
-        </section>
-        
-    </main>
+.logo-and-title { display: flex; align-items: center; }
 
-    <footer>
-        <p>&copy; 2024 KP Blog. All rights reserved.</p>
-    </footer>
+/* <-- Logo ပုံစံချပေးထားသည့် CSS --> */
+.logo {
+    width: 45px;          
+    height: 45px;         
+    border-radius: 50%;   
+    object-fit: cover;    /* ပုံကို မပျက်စီးဘဲ နေရာအပြည့် ဖြည့်စေရန် */
+    margin-right: 15px;
+    border: 3px solid #00bcd4; /* Logo ဘေးနားကို အပြာစိမ်းဖြင့် ဝန်းရံခြင်း */
+}
 
-</body>
-</html>
+.site-title { margin: 0; font-size: 1.8em; font-weight: 700; color: #00bcd4; }
+header nav a { color: #ffffff; margin-left: 20px; font-weight: 500; padding: 8px 15px; border-radius: 5px; transition: background-color 0.3s; }
+header nav a:hover { background-color: rgba(255, 255, 255, 0.15); text-decoration: none; }
+
+/* -- 3. Section (Card-based Layout) -- */
+section { background: transparent; padding: 30px 0; margin-bottom: 30px; border-radius: 8px; box-shadow: none; }
+section h2 { color: #00796b; border-bottom: 2px solid #e0f2f1; padding-bottom: 10px; margin-bottom: 25px; font-size: 1.7em; font-weight: 600; padding-left: 20px; }
+.hero { text-align: center; background: #e0f7fa; padding: 50px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); margin-bottom: 30px; }
+.hero h2 { color: #004d40; border-bottom: none; margin-bottom: 10px; }
+#posts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.post-preview { background: #ffffff; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); transition: box-shadow 0.3s, transform 0.3s; }
+.post-preview:hover { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); transform: translateY(-3px); }
+.post-preview h3 a { color: #333; font-size: 1.4em; font-weight: 600; }
+.post-preview .date { font-size: 0.85em; color: #9e9e9e; margin-bottom: 10px; display: block; }
+.read-more { color: #00796b; font-weight: 600; }
+
+/* -- 4. Footer & Responsive -- */
+footer { text-align: center; padding: 20px 0; background: #263238; color: #cfd8dc; font-size: 0.85em; margin-top: 40px; }
+@media (max-width: 650px) {
+    main { padding: 15px; }
+    .header-content { flex-direction: column; text-align: center; }
+    header nav { margin-top: 15px; }
+    header nav a { margin: 0 10px; padding: 5px 10px; display: inline-block; }
+    #posts { grid-template-columns: 1fr; }
+}
