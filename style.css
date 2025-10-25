@@ -194,8 +194,14 @@ section h2 {
 .contact-form input[type="text"],
 .contact-form input[type="email"],
 .contact-form textarea {
+    .contact-form textarea {
     width: 100%;
-    padding: 12px;
+    padding: 12px 12px 12px 40px; /* <--- Icon အတွက် ဘယ်ဘက်မှာ 40px နေရာချန်သည် */
+    min-height: 100px;
+    margin-bottom: 0; /* input-container မှာ margin ပေးထားသဖြင့် ဒီမှာ 0 ထားသည် */
+    /* ... ကျန်တာတွေ ... */
+}
+
     margin-bottom: 20px;
     border: 1px solid #b0bec5; 
     border-radius: 8px; /* Curve ပိုပေးသည် */
@@ -346,7 +352,7 @@ footer {
     nav {
         margin-top: 10px;
     }
-
+    
     nav a {
         margin: 0 10px;
         padding: 5px;
@@ -363,4 +369,19 @@ footer {
     .numbered-list-with-line li {
         padding: 15px 15px 15px 45px;
     }
+}
+/* Icon နဲ့ Textarea ကို ထုပ်ပိုးထားတဲ့ container */
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* စာလုံးအသေးလေး (Icon) ပုံစံ */
+.input-icon {
+    position: absolute;
+    top: 10px; 
+    left: 10px;
+    font-size: 1.2em;
+    color: #1a73e8; 
+    z-index: 5;
 }
