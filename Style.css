@@ -1,0 +1,83 @@
+/* အခြေခံ ဒီဇိုင်းများ */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9; /* နောက်ခံအရောင်နု */
+    color: #333;
+}
+
+a {
+    color: #007bff; /* Link အရောင် */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header (ထိပ်ဆုံးခေါင်းစီး) ဒီဇိုင်း */
+header {
+    background: #333;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 0.5em;
+}
+
+header nav a {
+    color: #fff;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+/* Main Content ဒီဇိုင်း */
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+section {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px; /* အနားသတ်ဝိုင်းခြင်း */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* အရိပ်အနည်းငယ် */
+}
+
+/* Blog Post Preview ဒီဇိုင်း */
+.post-preview {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+    margin-top: 15px;
+}
+
+.post-preview h3 a {
+    color: #333;
+}
+
+.post-preview .date {
+    font-size: 0.8em;
+    color: #777;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.read-more {
+    font-weight: bold;
+}
+
+/* Footer (အောက်ခြေ) ဒီဇိုင်း */
+footer {
+    text-align: center;
+    padding: 1em 0;
+    background: #333;
+    color: #fff;
+    margin-top: 20px;
+}
