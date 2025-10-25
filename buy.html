@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ဝယ်ယူရန် | KP Blog</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* buy.html အတွက် အပိုထပ်ဆောင်း ပုံစံများ (style.css ထဲ မပါဝင်ပါက ဤနေရာတွင် ထားနိုင်သည်) */
+        .buy-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        .buy-container h1 {
+            color: #004d40;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .product-card {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: flex; /* ပုံနဲ့စာကို ဘေးချင်းကပ်ထားရန် */
+            align-items: center;
+            gap: 20px;
+            transition: box-shadow 0.3s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .product-info {
+            flex-grow: 1;
+        }
+        .product-card img {
+            width: 100px; /* ထုတ်ကုန်ပုံသေး အရွယ်အစား */
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .product-card h2 {
+            color: #00bcd4;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .product-card .price {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #e53935;
+            margin-top: 10px;
+        }
+        .product-card a {
+            display: inline-block;
+            background-color: #004d40;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        .product-card a:hover {
+            background-color: #00796b;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .product-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-and-title">
+                <img src="images/logo.png" alt="KP Logo" class="logo"> 
+                <h1 class="site-title">KP Blog</h1>
+            </div>
+            <nav>
+                <a href="index.html">မူလစာမျက်နှာ</a>
+                <a href="posts.html">Posts</a>
+                <a href="#">အကြောင်း</a>
+                <a href="buy.html">ဝယ်ယူရန်</a> 
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="buy-container">
+            <h1>ဝယ်ယူနိုင်သည့် ဝန်ဆောင်မှုများနှင့် ကုန်ပစ္စည်းများ</h1>
+            <p>အောက်ပါ Service များကို စိတ်ဝင်စားပါက အသေးစိတ်ကြည့်ရှုပြီး ဆက်သွယ်ဝယ်ယူနိုင်ပါသည်။</p>
+            
+            <div class="product-card">
+                <img src="images/vpn-key-placeholder.jpg" alt="VPN Key"> 
+                <div class="product-info">
+                    <h2>Premium VPN Key (တစ်လစာ)</h2>
+                    <p>Mytel လိုင်းဖြတ်ဒေသများအတွက် အထူးသင့်တော်ပါသည်။ မြန်နှုန်းမြင့်ပြီး စိတ်ချရသည်။</p>
+                    <p class="price">စျေးနှုန်း: [သင့်စျေးနှုန်း ထည့်ပါ]</p>
+                    <a href="index.html#contact-form-section">ဆက်သွယ်မေးမြန်းရန်</a> 
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="images/service-placeholder.jpg" alt="Digital Service"> 
+                <div class="product-info">
+                    <h2>Digital Service များ</h2>
+                    <p>လိုအပ်သည့် Digital ဝန်ဆောင်မှုများ၊ Account ဖန်တီးခြင်း၊ အကူအညီပေးခြင်း။</p>
+                    <p class="price">စျေးနှုန်း: [ညှိနှိုင်း]</p>
+                    <a href="index.html#contact-form-section">ဆက်သွယ်မေးမြန်းရန်</a>
+                </div>
+            </div>
+            
+            </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 KP Blog. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
