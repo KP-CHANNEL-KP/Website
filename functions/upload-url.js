@@ -1,5 +1,5 @@
 // Cloudflare Pages Function: R2 သို့ တင်ရန် Signed URL ကို ထုတ်ပေးသည့် API Endpoint
-// Path: /upload-url
+// Path: wabsite/functions/upload-url.js
 export async function onRequest(context) {
     const { request, env } = context;
 
