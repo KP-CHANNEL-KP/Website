@@ -40,30 +40,52 @@ async function startR2Upload() {
     }
     
     const file = fileInput.files[0];
-    statusDiv.innerText = `🔄 ဖိုင်တင်နေသည်... ${file.name}`; 
+    statusDiv.innerText = `🔄 ဖိုင်တင်ရန် URL တောင်းဆိုနေသည်... ${file.name}`; 
 
+    // 1. Pages Function သို့ Signed URL ကို တောင်းဆိုခြင်း (GET Request)
     try {
-        const formData = new FormData();
-        formData.append('uploadFile', file); 
+        // file.type ကို URL Query တွင် ထည့်သွင်းပို့ပါ
+        const fileType = encodeURIComponent(file.type || 'application/octet-stream');
+        const apiEndpoint = '/upload-url?fileName=' + file.name + '&fileType=' + fileType;
 
-        const response = await fetch(UPLOAD_API_URL, {
-            method: 'POST',
-            body: formData
+        const response = await fetch(apiEndpoint);
+        
+        // Response က 500/400 Error များရှိမရှိ စစ်ဆေးပါ
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`API Call Failed. Status: ${response.status}. Response: ${errorText.substring(0, 50)}...`);
+        }
+        
+        const data = await response.json();
+        const signedUrl = data.uploadURL; // Pages Function မှ ပြန်ပေးသော Signed URL
+        
+        statusDiv.innerText = `🔄 R2 သို့ ဖိုင်တိုက်ရိုက်တင်နေသည်...`;
+
+        // 2. Signed URL ကိုသုံးပြီး R2 Bucket သို့ ဖိုင်တိုက်ရိုက် PUT Request ပို့ခြင်း
+        const uploadResponse = await fetch(signedUrl, {
+            method: 'GET',
+            body: file,
+            headers: {
+                // R2 ကို တင်ပို့မည့် Content Type
+                'Content-Type': file.type || 'application/octet-stream' 
+            }
         });
 
-        const text = await response.text();
-
-        if (response.ok) {
-            statusDiv.innerText = `✅ အောင်မြင်ပါသည်: ${text}`;
-            displayFileList(); // တင်ပြီးတာနဲ့ List ကို ခေါ်ထားပါသည် (HTML မှာ နေရာမရှိရင် မပေါ်ပါ)
+        if (uploadResponse.ok) {
+            statusDiv.innerText = `✅ အောင်မြင်ပါသည်! ဖိုင်အမည်: ${file.name}`;
+            // displayFileList(); // (လိုအပ်ရင် File List ကို ပြန်ခေါ်နိုင်သည်)
         } else {
-            statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: ${text}`;
+            const uploadErrorText = await uploadResponse.text();
+             throw new Error(`R2 Upload Failed. Status: ${uploadResponse.status}. Response: ${uploadErrorText.substring(0, 50)}...`);
         }
+
     } catch (error) {
-        statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Network Error!`;
-        console.error('Fetch Error:', error);
+        // API Call Failed (သို့) R2 Upload Failed ကို ဖမ်းပါ
+        statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Error: ${error.message}`;
+        console.error('Final Upload Error:', error);
     }
 }
+
 
 
 // =======================================================
