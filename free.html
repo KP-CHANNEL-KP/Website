@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Blog Free Page</title>
     <link rel="stylesheet" href="style.css"> 
+    
+    <style>
+        .vmess-textarea { 
+            /* စာသားထည့်သည့် အကွက်ကို မူလအရွယ်အစား ပြန်ဖြစ်စေရန် (ဥပမာ) */
+            width: 100%;
+            height: 100px; 
+            resize: none;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        /* ခေါင်းစဉ်များ ပြန်ပေါ်လာစေရန် CSS */
+        .copy-box-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .upload-status-message {
+            margin-top: 10px;
+            padding: 5px;
+            min-height: 20px; /* စာမပေါ်ရင်တောင် နေရာယူထားဖို့ */
+        }
+    </style>
 </head>
 <body>
 
@@ -17,9 +40,11 @@
             <p>ဤနေရာသည် Free အဆင့်မှ အခမဲ့ ပေးချင်သည့် အကြောင်းအရာများ နှင့် စာသားများကို ဖော်ပြမည့် နေရာဖြစ်ပါသည်။</p>
             
             <div class="copy-box">
-                <p class="copy-box-title">ကူးယူရန် စာသား</p>
-                <textarea readonly class="vmess-content">vmess://eyJhZGRyZXNzIjoiMTY1LjIzM1...oIiwiZGlkIjoiNDgyNDU0NzIiLCJ0eXAiOiIgbm9uZSIsImhvc3QiOiIifQ==</textarea>
-                <button class="copy-button">စာသား ကူးယူမည်</button>
+                <p class="copy-box-title">ကူးယူရန် စာသား:</p> 
+                
+                <textarea id="vmessContent" readonly class="vmess-textarea">vmess://eyJhZGRyZXNzIjoiMTY1LjIzM1...IinQ=</textarea>
+                
+                <button onclick="copyToClipboard('vmessContent')" class="copy-button">စာသား ကူးယူမည်</button>
             </div>
         </section>
 
