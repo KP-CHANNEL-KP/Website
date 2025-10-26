@@ -1,7 +1,7 @@
 // upload.js ဖိုင်အတွင်းမှ Code:
 
 // အဆင့် ၁ မှ Worker API URL ကို ဤနေရာတွင် ထည့်သွင်းပါ။
-const WORKER_API_URL = 'https://kp-upload-worker.kopang232003.workers.dev/upload'; 
+const WORKER_API_URL = 'https://kp-upload-worker.kopaing232003.workers.dev/upload'; 
 
 // CORS Headers ကို စီမံထားသည်ဟု ယူဆပါ။
 async function startR2Upload() {
