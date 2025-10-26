@@ -1,7 +1,8 @@
-// Worker Domain ကို စစ်ဆေးပြီး ပြောင်းလိုက်ပါပြီ
-const WORKER_BASE_URL = 'https://kp-upload-git.kopaing232003.workers.dev'; 
+// Worker Domain အသစ်ကို ဤနေရာတွင် ထည့်သွင်းရပါမည်
+const WORKER_BASE_URL = 'https://kpwork.kponly.ggff.net'; 
 const UPLOAD_API_URL = WORKER_BASE_URL + '/upload';
 const LIST_API_URL = WORKER_BASE_URL + '/list'; 
+ 
  
 
 
