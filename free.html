@@ -51,3 +51,53 @@
 
         <div class="upload-container">
             <input type="file" id="fileUploadInput" name="uploadFile" class="hidden-input">
+// 1. Copy Button အတွက် JavaScript
+document.getElementById('copyButton').addEventListener('click', function() {
+    var copyTextarea = document.getElementById('copyTextarea');
+    var textToCopy = copyTextarea.value;
+    var button = document.getElementById('copyButton');
+    var originalText = 'စာသား ကူးယူမည်';
+    var originalIcon = ' '; // Icon မရှိလျှင် ' '
+    
+    // ခေတ်မီသော Clipboard API ကို အသုံးပြုခြင်း
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy).then(function() {
+            // အောင်မြင်လျှင်
+            button.innerHTML = '<span class="button-icon">✅</span> ကူးယူပြီးပါပြီ!';
+            button.style.backgroundColor = '#28a745'; 
+            button.style.boxShadow = '0 5px #1e7e34'; 
+        }).catch(function(err) {
+            // မအောင်မြင်ပါက (သို့မဟုတ် Permissions မရှိပါက)
+            alert('❌ ကူးယူ၍ မရပါ။ (အကန့်အသတ်ရှိသော Browser ဖြစ်နေနိုင်သည်။)');
+            button.innerHTML = '<span class="button-icon">❌</span> ကူးယူ မအောင်မြင်ပါ!';
+            button.style.backgroundColor = '#dc3545'; 
+            button.style.boxShadow = '0 5px #990000';
+        });
+    } else {
+        // အကယ်၍ navigator.clipboard ကို မထောက်ပံ့ပါက၊ execCommand နည်းလမ်းကို အရန်အဖြစ် သုံးရန်
+        try {
+            copyTextarea.select();
+            copyTextarea.setSelectionRange(0, 99999); 
+            var successful = document.execCommand('copy');
+            if (successful) {
+                 button.innerHTML = '<span class="button-icon">✅</span> ကူးယူပြီးပါပြီ!';
+                 button.style.backgroundColor = '#28a745'; 
+                 button.style.boxShadow = '0 5px #1e7e34'; 
+            } else {
+                throw new Error("execCommand failed");
+            }
+        } catch(err) {
+            alert('❌ ကူးယူ၍ မရပါ။ စာသားကို လက်ဖြင့် ဖိနှိပ်၍ ကူးယူပေးပါရန်။');
+            button.innerHTML = '<span class="button-icon">❌</span> ကူးယူ မအောင်မြင်ပါ!';
+            button.style.backgroundColor = '#dc3545'; 
+            button.style.boxShadow = '0 5px #990000';
+        }
+    }
+    
+    // 2 စက္ကန့်ကြာရင် မူလအတိုင်း ပြန်ဖြစ်စေရန်
+    setTimeout(function() {
+        button.innerHTML = `<span class="button-icon"></span> ${originalText}`;
+        button.style.backgroundColor = ''; 
+        button.style.boxShadow = '';
+    }, 2000);
+});
