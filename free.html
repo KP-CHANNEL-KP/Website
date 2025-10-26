@@ -44,16 +44,71 @@
             <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
             
             <div class="upload-container">
-                <input type="file" id="r2FileInput"> 
-                <button onclick="startR2Upload()">
-                    <span>ဖိုင်ကို R2 သို့ တင်မည်</span>
-                </button>
-                <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
-            </div>
+    <label for="r2FileInput" class="custom-file-upload">
+        <span id="fileNameDisplay">Choose File</span>
+        <input type="file" id="r2FileInput" onchange="updateFileName(this)"> 
+    </label>
+
+    <button onclick="startR2Upload()">
+        <span>ဖိုင်ကို R2 သို့ တင်မည်</span>
+    </button>
+    <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
+</div>
+
         </section>
 
- 
+ <script>
+    // Copy function အသစ် - elementId ကို လက်ခံသည်
+    function copyToClipboard(elementId) {
+        var copyText = document.getElementById(elementId);
+
+        // textarea ထဲက စာသားကို ရွေးချယ်သည်
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); 
+
+        // စာသားကို ကူးယူသည်
+        document.execCommand("copy");
+
+        // ကူးယူမှု အခြေအနေကို ဖော်ပြသည် (သင့်ရဲ့ HTML မှာ <p id="copyStatus" class="copy-status"></p> ပါပြီးသားလို့ ယူဆပါတယ်)
+        document.getElementById("copyStatus").innerText = "✔ စာသား ကူးယူပြီးပါပြီ!";
+
+        // ၃ စက္ကန့်ကြာရင် Status ကို ပြန်ဖျောက်သည်
+        setTimeout(function(){
+            document.getElementById("copyStatus").innerText = "";
+        }, 3000);
+    }
+    
+    // ... အောက်မှာ တခြား JavaScript function တွေရှိပါက ဆက်ထားပါ...
+</script>
+
+        <script>
+    // ... copyToClipboard function ပြီးနောက် ...
+    
+    // ဖိုင်နာမည်ကို "Choose File" နေရာမှာ ပြပေးမယ့် Function
+    function updateFileName(input) {
+        var fileName = input.files[0] ? input.files[0].name : "Choose File";
+        document.getElementById('fileNameDisplay').innerText = fileName;
+    }
+    
+    // ... startR2Upload function ရှိရပါမည် ...
+    function startR2Upload() {
+        // ... သင့်ရဲ့ R2 Upload Logic များ ဒီနေရာမှာ ရှိပါမည် ...
         
+        // စတင်တက်နေကြောင်းပြရန်
+        document.getElementById('uploadMessage').innerText = 'ဖိုင်တင်နေပါသည်...';
+        
+        // **⚠️ သင့်ရဲ့ R2 API Call Logic ကို ပြန်စစ်ဆေးပါ**
+        // ဒီနေရာမှာ သင့်ရဲ့ R2 Upload code က ဖိုင်ကို ယူပြီး တင်ရပါမယ်။
+        // ဥပမာ-
+        // const file = document.getElementById('r2FileInput').files[0];
+        // if (!file) {
+        //    document.getElementById('uploadMessage').innerText = '❌ ဖိုင်ကို ရွေးချယ်ပေးပါဦး။';
+        //    return;
+        // }
+        // ... (R2 API call code here) ...
+    }
+</script>
+
         
         
         
