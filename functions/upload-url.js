@@ -5,10 +5,10 @@ export async function onRequest(context) {
     const { request, env } = context;
 
     // 1. R2 Binding ကို စစ်ဆေးပါ (Binding Name ကို BUCKET အဖြစ် သတ်မှတ်ထားပါသည်)
-    const bucket = env.BUCKET; 
+    const bucket = env.R2_STORAGE; 
     
     if (!bucket) {
-        return new Response(JSON.stringify({ error: 'Server Error: R2 Bucket binding "BUCKET" is not correctly configured.' }), {
+        return new Response(JSON.stringify({ error: 'Server Error: R2 Bucket binding "R2_STORAGE" is not correctly configured.' }), {
             status: 500,
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });
