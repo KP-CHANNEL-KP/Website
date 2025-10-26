@@ -1,42 +1,42 @@
-// upload.js ဖိုင်အတွင်းမှ Code:
-
-// အဆင့် ၁ မှ Worker API URL ကို ဤနေရာတွင် ထည့်သွင်းပါ။
+// upload.js ဖိုင်အတွင်း ထည့်သွင်းရန် Code အပြည့်အစုံ
 const WORKER_API_URL = 'https://kp-upload-worker.kopaing232003.workers.dev/upload'; 
 
-// CORS Headers ကို စီမံထားသည်ဟု ယူဆပါ။
 async function startR2Upload() {
     const fileInput = document.getElementById('r2FileInput');
-    const statusDiv = document.getElementById('uploadMessage');
-    const file = fileInput.files[0];
-
-    if (!file) {
-        statusDiv.innerText = 'ကျေးဇူးပြု၍ တင်မည့်ဖိုင်ကို ရွေးချယ်ပါ။';
+    const statusDiv = document.getElementById('uploadMessage'); 
+    
+    // ဖိုင်မရွေးရသေးရင်
+    if (fileInput.files.length === 0) {
+        statusDiv.innerText = '⚠️ ကျေးဇူးပြု၍ ဖိုင်ရွေးချယ်ပါ';
         return;
     }
-
-    statusDiv.innerText = `Uploading ${file.name}...`;
-
-    // 1. Form Data တည်ဆောက်ခြင်း
-    const formData = new FormData();
-    // Worker Code ထဲမှာ သတ်မှတ်ခဲ့တဲ့ key name 'uploadFile' နဲ့ တူရပါမယ်။
-    formData.append('uploadFile', file); 
+    
+    const file = fileInput.files[0];
+    statusDiv.innerText = `🔄 ဖိုင်တင်နေသည်... ${file.name}`; // Loading Message ပြခြင်း
 
     try {
-        // 2. Worker API ကို ခေါ်ဆိုခြင်း (R2 သို့ တင်ခြင်း)
+        const formData = new FormData();
+        formData.append('uploadFile', file); // Worker မှ မျှော်လင့်သော Key Name
+
         const response = await fetch(WORKER_API_URL, {
             method: 'POST',
-            body: formData, 
+            body: formData
         });
 
+        const text = await response.text();
+
         if (response.ok) {
-            statusDiv.innerText = `${file.name} ကို R2 တွင် အောင်မြင်စွာ တင်ပြီးပါပြီ။`;
+            // အောင်မြင်ပါက Message ပြသခြင်း
+            statusDiv.innerText = `✅ အောင်မြင်ပါသည်: ${text}`;
         } else {
-            const errorText = await response.text();
-            statusDiv.innerText = `Upload မအောင်မြင်ပါ: ${errorText}`;
-            console.error('API Error:', errorText);
+            // Error ရှိပါက Message ပြသခြင်း
+            statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: ${text}`;
         }
     } catch (error) {
-        statusDiv.innerText = `ကွန်ရက်ချိတ်ဆက်မှု ပြဿနာကြောင့် Upload မအောင်မြင်ပါ`;
+        // Network Error များ
+        statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Network ချိတ်ဆက်မှု အမှား`;
         console.error('Fetch Error:', error);
     }
 }
+
+// Pages Project တွင် ဖိုင်စာရင်းပြသရန် Logic မထည့်သေးပါ
