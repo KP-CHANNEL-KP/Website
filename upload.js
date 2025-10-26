@@ -1,8 +1,8 @@
-// Worker Domain ကို သေချာစစ်ဆေးပြီး ထည့်သွင်းပါ။ 
-// WORKER_BASE_URL သည် API Endpoints ၏ Root URL ဖြစ်ပါစေ။
+// Worker Domain ကို စစ်ဆေးပြီး ပြောင်းလိုက်ပါပြီ
 const WORKER_BASE_URL = 'https://kp-upload-git.kopaing232003.workers.dev'; 
 const UPLOAD_API_URL = WORKER_BASE_URL + '/upload';
 const LIST_API_URL = WORKER_BASE_URL + '/list'; 
+ 
 
 
 // =======================================================
