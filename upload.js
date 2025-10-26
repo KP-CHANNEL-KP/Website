@@ -1,21 +1,41 @@
 // upload.js ဖိုင်အတွင်း ထည့်သွင်းရန် Code အပြည့်အစုံ
 
-// သင့် Worker Domain ကို အတည်ပြုပြီး ထည့်သွင်းခြင်း
 const WORKER_BASE_URL = 'https://kp-upload-worker.kopaing232003.workers.dev'; 
 const UPLOAD_API_URL = WORKER_BASE_URL + '/upload';
 const LIST_API_URL = WORKER_BASE_URL + '/list'; 
 
 
 // =======================================================
-// 1. R2 သို့ ဖိုင်တင်ခြင်း (Upload)
+// A. စာသား ကူးယူခြင်း (Copy to Clipboard Function)
+// =======================================================
+function copyToClipboard(elementId) {
+    const copyText = document.getElementById(elementId);
+    
+    if (copyText) {
+        // Textarea ကို Select လုပ်ပြီး ကူးယူရန်
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // Mobile အတွက်
+        
+        try {
+            document.execCommand('copy');
+            alert("✅ စာသားကို ကူးယူပြီးပါပြီ!");
+        } catch (err) {
+            console.error('Copy failed', err);
+            alert("❌ ကူးယူမှု မအောင်မြင်ပါ");
+        }
+    }
+}
+
+
+// =======================================================
+// B. R2 သို့ ဖိုင်တင်ခြင်း (Upload)
 // =======================================================
 async function startR2Upload() {
-    // free.html မှ ID များ
     const fileInput = document.getElementById('r2FileInput');
     const statusDiv = document.getElementById('uploadMessage'); 
     
     if (!fileInput || !statusDiv) {
-        console.error("HTML IDs not found: r2FileInput or uploadMessage");
+        statusDiv.innerText = '❌ စနစ်အမှား: HTML ID များ စစ်ဆေးပါ';
         return; 
     }
 
@@ -29,7 +49,7 @@ async function startR2Upload() {
 
     try {
         const formData = new FormData();
-        formData.append('uploadFile', file); // Worker မှ မျှော်လင့်သော Key Name
+        formData.append('uploadFile', file); 
 
         const response = await fetch(UPLOAD_API_URL, {
             method: 'POST',
@@ -40,19 +60,19 @@ async function startR2Upload() {
 
         if (response.ok) {
             statusDiv.innerText = `✅ အောင်မြင်ပါသည်: ${text}`;
-            displayFileList(); // ဖိုင်တင်ပြီးတာနဲ့ စာရင်းကို ပြန်ခေါ်
+            displayFileList(); 
         } else {
             statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: ${text}`;
         }
     } catch (error) {
-        statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Network ချိတ်ဆက်မှု အမှား`;
+        statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Network Error!`;
         console.error('Fetch Error:', error);
     }
 }
 
 
 // =======================================================
-// 2. R2 မှ ဖိုင်စာရင်း ရယူပြီး ပြသခြင်း (List)
+// C. R2 မှ ဖိုင်စာရင်း ရယူပြီး ပြသခြင်း (List)
 // =======================================================
 async function displayFileList() {
     const container = document.getElementById('fileListContainer');
@@ -82,5 +102,5 @@ async function displayFileList() {
     }
 }
 
-// 3. Page စတင် load ချိန်တွင် ဖိုင်စာရင်းကို ချက်ချင်းခေါ်ရန်
+// 4. Page စတင် load ချိန်တွင် ဖိုင်စာရင်းကို ချက်ချင်းခေါ်ရန်
 document.addEventListener('DOMContentLoaded', displayFileList);
