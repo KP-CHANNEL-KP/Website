@@ -612,3 +612,60 @@ footer {
     overflow: hidden;
     z-index: -1; 
 }
+/* -- 11. Custom Styles for Copy Section -- */
+
+.text-copy-area {
+    /* ကဏ္ဍတစ်ခုလုံးကို နေရာချထားခြင်း */
+    max-width: 600px; /* အကွက်ရဲ့ အကျယ်ကို ကန့်သတ်ခြင်း */
+    margin: 20px auto; /* အလယ်တည့်တည့်သို့ ပို့ခြင်း */
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    text-align: center; /* ကဏ္ဍအတွင်းက items တွေကို အလယ်ပို့ရန် */
+}
+
+.copy-title {
+    font-weight: 800; /* စာလုံးကို ပိုထူစေရန် */
+    color: #1c1e21; /* အနက်ရောင်နီးပါး */
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.copy-input {
+    width: 90%; /* အကွက်ရဲ့ အကျယ်ကို ကြီးစေရန် */
+    max-width: 550px;
+    padding: 15px;
+    margin: 10px auto; /* အကွက်ကို အလယ်ပို့ရန် */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    resize: vertical; /* အကွက်ကို အထက်အောက် ဆွဲဆန့်နိုင်စေရန် */
+    display: block; /* အကွက်ကို အလယ်မှာ ထားနိုင်စေရန် */
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.text-copy-area button {
+    background-color: #00796b; /* Teal အရောင် Button */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.05em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+    display: inline-block; /* အလယ်မှာ ထားနိုင်စေရန် */
+}
+
+.text-copy-area button:hover {
+    background-color: #004d40;
+}
+
+.copy-status {
+    color: #00796b;
+    margin-top: 10px;
+    font-weight: 600;
+}
