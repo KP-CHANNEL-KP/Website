@@ -81,60 +81,80 @@
     // ... အောက်မှာ တခြား JavaScript function တွေရှိပါက ဆက်ထားပါ...
 </script>
 
-        <script>
-    // ... copyToClipboard function ပြီးနောက် ...
-    
-    // ဖိုင်နာမည်ကို "Choose File" နေရာမှာ ပြပေးမယ့် Function
-    function updateFileName(input) {
-        var fileName = input.files[0] ? input.files[0].name : "Choose File";
-        document.getElementById('fileNameDisplay').innerText = fileName;
-    }
-    
-    // ... startR2Upload function ရှိရပါမည် ...
-    function startR2Upload() {
-        // ... သင့်ရဲ့ R2 Upload Logic များ ဒီနေရာမှာ ရှိပါမည် ...
-        
-        // စတင်တက်နေကြောင်းပြရန်
-        document.getElementById('uploadMessage').innerText = 'ဖိုင်တင်နေပါသည်...';
-        
-        // **⚠️ သင့်ရဲ့ R2 API Call Logic ကို ပြန်စစ်ဆေးပါ**
-        // ဒီနေရာမှာ သင့်ရဲ့ R2 Upload code က ဖိုင်ကို ယူပြီး တင်ရပါမယ်။
-        // ဥပမာ-
-        // const file = document.getElementById('r2FileInput').files[0];
-        // if (!file) {
-        //    document.getElementById('uploadMessage').innerText = '❌ ဖိုင်ကို ရွေးချယ်ပေးပါဦး။';
-        //    return;
-        // }
-        // ... (R2 API call code here) ...
-    }
-</script>
+            <script>
+        // 1. Copy Function (vmessContent ID ကို သုံးပြီး ကူးယူရန်)
+        function copyToClipboard(elementId) {
+            var copyText = document.getElementById(elementId);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); 
+            document.execCommand("copy");
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        </main>
+            // Status ပြရန် (သင့်ရဲ့ HTML မှာ id="copyStatus" မပါသေးလျှင် ထည့်ပေးရမည်)
+            // document.getElementById("copyStatus").innerText = "✔ စာသား ကူးယူပြီးပါပြီ!";
+            // setTimeout(function(){
+            //     document.getElementById("copyStatus").innerText = "";
+            // }, 3000);
+            alert("စာသား ကူးယူပြီးပါပြီ!"); // လွယ်ကူစေရန် alert သုံးသည်
+        }
 
+        // 2. File Name Display Function (File ရွေးပြီးတာနဲ့ နာမည်ပေါ်စေရန်)
+        function updateFileName(input) {
+            var fileName = input.files[0] ? input.files[0].name : "No file chosen";
+            document.getElementById('fileNameDisplay').innerText = fileName;
+        }
 
+        // 3. R2 Upload Function (အဆင့် ၁ မှ Function ကို ခေါ်ရန်)
+        function startR2Upload() {
+            const fileInput = document.getElementById('r2FileInput');
+            const uploadMessage = document.getElementById('uploadMessage');
+            const file = fileInput.files[0];
 
-        
-    <footer>
-        <p>© 2024 KP Blog. All rights reserved.</p>
-    </footer>
+            if (!file) {
+                uploadMessage.innerHTML = '❌ ဖိုင်ကို ရွေးချယ်ပေးပါဦး။';
+                return;
+            }
 
-    <script src="upload.js"></script> 
+            uploadMessage.innerText = 'ဖိုင်တင်နေပါသည်...'; 
 
+            // ⚠️ Function Path ကို တိုက်ရိုက် ခေါ်ဆိုခြင်း (အဆင့် ၁ မှ Code နှင့် ကိုက်ညီသည်)
+            const apiEndpoint = '/upload-url?fileName=' + file.name;
+
+            fetch(apiEndpoint)
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(`API Call Failed. Status: ${response.status}. Response: ${text.substring(0, 50)}...`);
+                        });
+                    }
+                    return response.json(); 
+                })
+                .then(data => {
+                    const signedUrl = data.uploadURL; 
+                    
+                    // R2 သို့ ဖိုင်ကို တိုက်ရိုက် တင်ခြင်း (PUT Request)
+                    return fetch(signedUrl, {
+                        method: 'PUT',
+                        body: file,
+                        headers: {
+                            'Content-Type': file.type || 'application/octet-stream'
+                        }
+                    });
+                })
+                .then(uploadResponse => {
+                    if (uploadResponse.ok) {
+                        // 200 OK ရရင် အောင်မြင်သည်
+                        uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name})`;
+                    } else {
+                        // R2 ကနေ Error (403 Forbidden, 400 Bad Request) ပြန်လာရင်
+                        throw new Error(`R2 Upload Failed: ${uploadResponse.status} ${uploadResponse.statusText}`);
+                    }
+                })
+                .catch(error => {
+                    // Network Error သို့မဟုတ် API ချိတ်ဆက်မှု Error
+                    console.error('Final Upload Error:', error);
+                    uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
+                });
+        }
+    </script>
 </body>
 </html>
