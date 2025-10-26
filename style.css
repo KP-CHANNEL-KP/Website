@@ -869,3 +869,126 @@ main {
         height: 100px;
     }
 }
+/* ======================================== */
+/* -- UPLOAD SECTION STYLES (လှပသော Button များ) -- */
+/* ======================================== */
+
+/* 1. Upload Section ကြီးကို စနစ်တကျ နေရာချထားခြင်း */
+.upload-section {
+    max-width: 700px;
+    margin: 40px auto; /* Page အလယ်တည့်တည့်သို့ ပို့ရန် */
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background-color: #fcfcfc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.upload-section h2 {
+    color: #00796b;
+    font-size: 1.7em;
+    font-weight: 600;
+    border-bottom: 2px solid #e0f2f1;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.upload-section p {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* 2. Upload Container အတွင်းရှိ Element များကို စုစည်းပေးခြင်း */
+.upload-container {
+    display: flex;
+    justify-content: center; /* အားလုံးကို အလယ်တည့်တည့်သို့ပို့ရန် */
+    align-items: center;
+    gap: 15px; /* Element များကြား ခြားနားမှု */
+    flex-wrap: wrap; /* ဖုန်းမှာဆို အောက်ဆင်းစေရန် */
+    margin-top: 20px;
+}
+
+/* 3. "ဖိုင်ကို R2 သို့ တင်မည်" ခလုတ်ကို လှပအောင်လုပ်ခြင်း */
+.upload-container button {
+    background-color: #00bcd4; /* အပြာစိမ်းရောင် */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    font-weight: 600;
+    /* Margin တွေ မလိုအပ်တော့ဘူး၊ flex-wrap က နေရာချပေးထားလို့ */
+}
+
+.upload-container button:hover {
+    background-color: #0097a7; /* အရောင် နည်းနည်းရင့်သွားစေရန် */
+    box-shadow: 0 4px 8px rgba(0, 188, 212, 0.4);
+}
+
+/* 4. "Choose File" (File Input) ကို လှပသော ဒီဇိုင်းဖြင့် ဖုံးအုပ်ခြင်း */
+
+/* input[type="file"] ကို ဖုံးထားသော Custom Container */
+.custom-file-upload {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    padding: 12px 15px;
+    color: #555;
+    font-size: 1em;
+    font-weight: 500;
+    transition: border-color 0.3s, background-color 0.3s;
+    overflow: hidden; /* စာသားတွေကို ဖုံးထားရန် */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    min-width: 150px;
+    text-align: left;
+}
+
+.custom-file-upload:hover {
+    border-color: #00796b;
+    background-color: #f0fff4;
+}
+
+/* input[type="file"] ကို ဖုံးထားခြင်း */
+#r2FileInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* လုံးဝ ပျောက်ကွယ်စေရန် */
+    cursor: pointer;
+}
+
+/* 5. Upload Status Message */
+#uploadMessage {
+    margin-top: 15px;
+    font-weight: 500;
+    color: #00796b;
+    width: 100%; /* အောက်မှာ နေရာအပြည့် ယူထားရန် */
+}
+
+
+/* ဖုန်းအတွက် (Mobile View) */
+@media (max-width: 650px) {
+    .upload-container {
+        flex-direction: column; /* ဖုန်းမှာ ခလုတ်တွေ အပေါ်အောက်ဖြစ်စေရန် */
+        gap: 10px;
+    }
+    .custom-file-upload {
+        max-width: 100%; /* ဖုန်းမှာ အပြည့်ယူစေရန် */
+        min-width: 100%;
+    }
+    .upload-container button {
+        width: 100%;
+    }
+}
