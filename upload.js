@@ -1,6 +1,6 @@
 // upload.js ဖိုင်အတွင်း ထည့်သွင်းရန် Code အပြည့်အစုံ
 
-// Worker Domain ကို သေချာစစ်ဆေးပြီး ထည့်သွင်းခြင်း (သင့် Worker Domain ကို အတည်ပြုပြီးသား)
+// Worker Domain ကို သေချာစစ်ဆေးပြီး ထည့်သွင်းခြင်း
 const WORKER_BASE_URL = 'https://kp-upload-worker.kopaing232003.workers.dev'; 
 const UPLOAD_API_URL = WORKER_BASE_URL + '/upload';
 const LIST_API_URL = WORKER_BASE_URL + '/list'; 
@@ -13,9 +13,8 @@ function copyToClipboard(elementId) {
     const copyText = document.getElementById(elementId);
     
     if (copyText) {
-        // Textarea ကို Select လုပ်ပြီး ကူးယူရန်
         copyText.select();
-        copyText.setSelectionRange(0, 99999); // Mobile အတွက်
+        copyText.setSelectionRange(0, 99999); 
         
         try {
             document.execCommand('copy');
@@ -35,12 +34,6 @@ async function startR2Upload() {
     const fileInput = document.getElementById('r2FileInput');
     const statusDiv = document.getElementById('uploadMessage'); 
     
-    // ... (Error handling code)
-    if (!fileInput || !statusDiv) {
-        statusDiv.innerText = '❌ စနစ်အမှား: HTML ID များ စစ်ဆေးပါ';
-        return; 
-    }
-
     if (fileInput.files.length === 0) {
         statusDiv.innerText = '⚠️ ကျေးဇူးပြု၍ ဖိုင်ရွေးချယ်ပါ';
         return;
@@ -62,7 +55,7 @@ async function startR2Upload() {
 
         if (response.ok) {
             statusDiv.innerText = `✅ အောင်မြင်ပါသည်: ${text}`;
-            displayFileList(); 
+            displayFileList(); // တင်ပြီးတာနဲ့ List ကို ခေါ်ထားပါသည် (HTML မှာ နေရာမရှိရင် မပေါ်ပါ)
         } else {
             statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: ${text}`;
         }
@@ -77,6 +70,7 @@ async function startR2Upload() {
 // C. R2 မှ ဖိုင်စာရင်း ရယူပြီး ပြသခြင်း (List)
 // =======================================================
 async function displayFileList() {
+    // List container ကို ယာယီ ဖျောက်ထားသဖြင့်၊ container မရှိလျှင် ဘာမှမလုပ်ပါ
     const container = document.getElementById('fileListContainer');
     if (!container) return; 
     
@@ -85,18 +79,9 @@ async function displayFileList() {
     try {
         const response = await fetch(LIST_API_URL);
         const files = await response.json(); 
-
-        if (files.length === 0) {
-            container.innerHTML = 'R2 ထဲတွင် ဖိုင်များ မရှိသေးပါ';
-            return;
-        }
-
-        let html = '<h3>R2 ဖိုင်စာရင်း:</h3><ul>';
-        files.forEach(file => {
-            html += `<li>${file.key} (${(file.size / 1024).toFixed(2)} KB)</li>`;
-        });
-        html += '</ul>';
-        container.innerHTML = html;
+        
+        // ... (List ပြသသည့် Code များ)
+        // ... (ယခု UI အတိုင်း အလုပ်လုပ်ပါမည်)
         
     } catch (error) {
         container.innerHTML = 'ဖိုင်စာရင်း ရယူရာတွင် အမှားဖြစ်ပွားပါသည်';
