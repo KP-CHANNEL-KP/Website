@@ -477,3 +477,45 @@ footer {
     margin-top: 5px;
     font-weight: 500;
 }
+/* ======================================================= */
+/* --- Copy Button (စာသား ကူးယူမည် ခလုတ်) အလှဆင်ခြင်း --- */
+/* (Home Page မှ Submit Button ပုံစံအတိုင်း) */
+/* ======================================================= */
+
+#copyButton { /* free.html မှာရှိတဲ့ Copy Button ID */
+    /* အဓိက အရောင်နှင့် ပုံစံ */
+    background-color: #4CAF50; /* အဓိက အစိမ်းရောင် (KP Theme) */
+    color: white; /* စာသားအရောင် */
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 12px 30px; 
+    border: none;
+    border-radius: 8px; /* အနားကွပ်ဝိုင်းခြင်း */
+    cursor: pointer;
+    transition: box-shadow 0.1s, transform 0.1s;
+    width: 100%; /* Copy Area အောက်ခြေ အပြည့် ယူထားခြင်း */
+    max-width: 300px; /* အရမ်းမကြီးစေရန် ကန့်သတ်ခြင်း */
+    margin-top: 20px;
+    
+    /* 3D ပုံစံ အရိပ် (Home Page Submit ခလုတ်နှင့် တူအောင်) */
+    box-shadow: 0 5px #388e3c; /* ပိုမိုနက်သော အစိမ်းရောင် အရိပ် */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#copyButton:hover {
+    background-color: #5cb85c; /* Hover Effect */
+}
+
+#copyButton:active {
+    /* နှိပ်လိုက်တဲ့အခါ အောက်ဘက် အရိပ် ပျောက်ပြီး အပေါ်ကို တက်သွားသော ပုံစံ */
+    box-shadow: 0 2px #388e3c; 
+    transform: translateY(3px);
+}
+
+/* Icon (✅) အတွက် ပုံစံ */
+.button-icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
