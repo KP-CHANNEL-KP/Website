@@ -26,78 +26,112 @@
     </header>
 
     <main>
-    <section class="copy-tool-section">
-        <h2>FREE အကြောင်းအရာများ စာမျက်နှာ</h2>
-        <p>ဤနေရာသည် Free ဝန်ဆောင်မှု၊ အခမဲ့ ပေးချင်သည့် အကြောင်းအရာများနှင့် စာသားများကို ဖော်ပြမည့် နေရာဖြစ်ပါသည်။</p>
-        
-        <div class="copy-container">
-            <h3>ကူးယူရန် စာသား</h3>
-            <textarea id="copyTextarea" rows="15" placeholder="...အလွယ်တကူ ကူးယူရမည့် Key သို့မဟုတ် စာသားရှည်များ ထည့်ပါ။" readonly>
+        <section class="copy-tool-section">
+            <h2>FREE အကြောင်းအရာများ စာမျက်နှာ</h2>
+            <p>ဤနေရာသည် Free ဝန်ဆောင်မှု၊ အခမဲ့ ပေးချင်သည့် အကြောင်းအရာများနှင့် စာသားများကို ဖော်ပြမည့် နေရာဖြစ်ပါသည်။</p>
+            
+            <div class="copy-container">
+                <h3>ကူးယူရန် စာသား</h3>
+                <textarea id="copyTextarea" rows="15" placeholder="...အလွယ်တကူ ကူးယူရမည့် Key သို့မဟုတ် စာသားရှည်များ ထည့်ပါ။" readonly>
     vmess://eyJhZGRyZXNzIjoiMTY1LjIzMi44Ny4xOTciLCAicG9ydCI6NDQzLCAiaWQiOiIzNjY4NmE2Ni1iOTU4LTRjZjYtYWFlNC0wMWMxZTdmYTY4NzQiLCAiYWlkIjoiMCIsICJzY3kiOiJhdXRvIiwgIm5ldCI6InRjcCIsICJ0eXBlIjoibm9uZSIsICJob3N0Ijoia3BibG9nLnBwZyIsICJ0bHMiOiJ0bHMiLCAic25pIjoiIiwgImFscG4iOiIiLCAiZnAiOiIiLCAicHNhYXMiOiIiLCAiYWxsIjoiIiwiYmFrZWRfdXJsIjoia2JibG9nLnBwZyIsInBvcnRfaW50Ijo0NDMsInBvcnRfc3RyIjoiNDQzIn0=
-    </textarea>
-            
-            <button id="copyButton">
-                <span class="button-icon"></span> 
-                စာသား ကူးယူမည်
-            </button>
-            
+                </textarea>
+                
+                <button id="copyButton">
+                    <span class="button-icon"></span> 
+                    စာသား ကူးယူမည်
+                </button>
             </div>
+        </section>
+
+        <section class="file-upload-section">
+            <h2>ဖိုင်တင်ရန် နေရာ</h2>
+            <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်မျှဝေလိုသော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည် [အကန့်အသတ်ရှိနိုင်ပါသည်။]</p>
+
+            <div class="upload-container">
+                <input type="file" id="fileUploadInput" name="uploadFile" class="hidden-input">
+                
+                <label for="fileUploadInput" id="uploadButton" class="styled-upload-button">
+                    <span class="button-icon">📤</span> ဖိုင်ရွေးချယ်ပါ
+                </label>
+                
+                <span id="fileNameDisplay" class="file-name-display">ရွေးချယ်ထားသော ဖိုင်မရှိသေးပါ။</span>
+            </div>
+        </section>
+
+    </main>
+    
+    <script>
+    
+    // 1. Copy Button အတွက် JavaScript (navigator.clipboard ကို အဓိကထားပြီး execCommand ကို အရန်သုံး)
+    document.getElementById('copyButton').addEventListener('click', function() {
+        var copyTextarea = document.getElementById('copyTextarea');
+        var textToCopy = copyTextarea.value;
+        var button = document.getElementById('copyButton');
+        var originalText = 'စာသား ကူးယူမည်';
+        var originalIcon = ''; // Icon ကို HTML မှာ သတ်မှတ်ထားသောကြောင့် ဤနေရာတွင် မထည့်ပါ။
         
-    </section>
-
-    <section class="file-upload-section">
-        <h2>ဖိုင်တင်ရန် နေရာ</h2>
-        <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်မျှဝေလိုသော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည် [အကန့်အသတ်ရှိနိုင်ပါသည်။]</p>
-
-        <div class="upload-container">
-            <input type="file" id="fileUploadInput" name="uploadFile" class="hidden-input">
-// 1. Copy Button အတွက် JavaScript
-document.getElementById('copyButton').addEventListener('click', function() {
-    var copyTextarea = document.getElementById('copyTextarea');
-    var textToCopy = copyTextarea.value;
-    var button = document.getElementById('copyButton');
-    var originalText = 'စာသား ကူးယူမည်';
-    var originalIcon = ' '; // Icon မရှိလျှင် ' '
-    
-    // ခေတ်မီသော Clipboard API ကို အသုံးပြုခြင်း
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(textToCopy).then(function() {
-            // အောင်မြင်လျှင်
-            button.innerHTML = '<span class="button-icon">✅</span> ကူးယူပြီးပါပြီ!';
-            button.style.backgroundColor = '#28a745'; 
-            button.style.boxShadow = '0 5px #1e7e34'; 
-        }).catch(function(err) {
-            // မအောင်မြင်ပါက (သို့မဟုတ် Permissions မရှိပါက)
-            alert('❌ ကူးယူ၍ မရပါ။ (အကန့်အသတ်ရှိသော Browser ဖြစ်နေနိုင်သည်။)');
-            button.innerHTML = '<span class="button-icon">❌</span> ကူးယူ မအောင်မြင်ပါ!';
-            button.style.backgroundColor = '#dc3545'; 
-            button.style.boxShadow = '0 5px #990000';
-        });
-    } else {
-        // အကယ်၍ navigator.clipboard ကို မထောက်ပံ့ပါက၊ execCommand နည်းလမ်းကို အရန်အဖြစ် သုံးရန်
-        try {
-            copyTextarea.select();
-            copyTextarea.setSelectionRange(0, 99999); 
-            var successful = document.execCommand('copy');
-            if (successful) {
-                 button.innerHTML = '<span class="button-icon">✅</span> ကူးယူပြီးပါပြီ!';
-                 button.style.backgroundColor = '#28a745'; 
-                 button.style.boxShadow = '0 5px #1e7e34'; 
+        var copyAction = function(success) {
+            if (success) {
+                button.innerHTML = '<span class="button-icon">✅</span> ကူးယူပြီးပါပြီ!';
+                button.style.backgroundColor = '#28a745'; 
+                button.style.boxShadow = '0 5px #1e7e34'; 
             } else {
-                throw new Error("execCommand failed");
+                alert('❌ ကူးယူ၍ မရပါ။ စာသားကို လက်ဖြင့် ဖိနှိပ်၍ ကူးယူပေးပါရန်။');
+                button.innerHTML = '<span class="button-icon">❌</span> ကူးယူ မအောင်မြင်ပါ!';
+                button.style.backgroundColor = '#dc3545'; 
+                button.style.boxShadow = '0 5px #990000';
             }
-        } catch(err) {
-            alert('❌ ကူးယူ၍ မရပါ။ စာသားကို လက်ဖြင့် ဖိနှိပ်၍ ကူးယူပေးပါရန်။');
-            button.innerHTML = '<span class="button-icon">❌</span> ကူးယူ မအောင်မြင်ပါ!';
-            button.style.backgroundColor = '#dc3545'; 
-            button.style.boxShadow = '0 5px #990000';
+            
+            // 2 စက္ကန့်ကြာရင် မူလအတိုင်း ပြန်ဖြစ်စေရန်
+            setTimeout(function() {
+                // မူလ HTML ကို ပြန်ထည့်ရန်
+                button.innerHTML = `<span class="button-icon"></span> ${originalText}`;
+                // CSS မှာ သတ်မှတ်ထားတဲ့ မူလအရောင်များ ပြန်လည်အသုံးပြုခြင်း
+                button.style.backgroundColor = '#4caf50'; 
+                button.style.boxShadow = '0 5px #388e3c';
+            }, 2000);
+        };
+        
+        // ခေတ်မီသော Clipboard API ကို အသုံးပြုခြင်း
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => copyAction(true))
+                .catch(() => copyAction(false));
+        } else {
+            // execCommand ကို အရန်အဖြစ် အသုံးပြုခြင်း
+            try {
+                copyTextarea.select();
+                copyTextarea.setSelectionRange(0, 99999); 
+                var successful = document.execCommand('copy');
+                copyAction(successful);
+            } catch(err) {
+                copyAction(false);
+            }
         }
-    }
+    });
     
-    // 2 စက္ကန့်ကြာရင် မူလအတိုင်း ပြန်ဖြစ်စေရန်
-    setTimeout(function() {
-        button.innerHTML = `<span class="button-icon"></span> ${originalText}`;
-        button.style.backgroundColor = ''; 
-        button.style.boxShadow = '';
-    }, 2000);
-});
+    
+    // 2. File Upload အတွက် JavaScript (ရွေးချယ်ထားသော ဖိုင်အမည်ပြသရန်)
+    document.getElementById('fileUploadInput').addEventListener('change', function(e) {
+        const files = e.target.files;
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        
+        if (files.length > 0) {
+            // ဖိုင်အရေအတွက်နဲ့ ပြသရန်
+            // ဖိုင်တစ်ဖိုင်တည်းဆိုရင် မူရင်းဖိုင်အမည်၊ ဖိုင်များစွာဆိုရင် အရေအတွက်ကို ပြသပေးမည်။
+            let fileName = files.length > 1 ? `${files.length} ဖိုင်များကို ရွေးချယ်ပြီးပါပြီ။` : files[0].name;
+            
+            fileNameDisplay.textContent = fileName;
+            fileNameDisplay.style.color = '#4CAF50'; 
+            fileNameDisplay.style.fontWeight = '500';
+
+        } else {
+            // ဖိုင်မရှိရင် မူလအတိုင်း ပြန်ဖြစ်စေရန်
+            fileNameDisplay.textContent = 'ရွေးချယ်ထားသော ဖိုင်မရှိသေးပါ။';
+            fileNameDisplay.style.color = '#555';
+            fileNameDisplay.style.fontWeight = 'normal';
+        }
+    });
+    </script>
+    </body>
+</html>
