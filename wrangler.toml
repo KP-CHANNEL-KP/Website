@@ -1,8 +1,0 @@
-name = "kp-upload-worker"
-main = "worker.js"
-compatibility_date = "2024-01-01" # သင့်တော်သော date ထားပါ
-
-# R2 Binding ကို ဤနေရာတွင် သတ်မှတ်သည် (Dashboard ပေါ်မှာလည်း ထပ်စစ်ပါ)
-[[r2_buckets]]
-binding = "UPLOAD_BUCKET" # worker.js Code ထဲက UPLOAD_BUCKET
-bucket_name = "kpweb"     # သင်၏ R2 Bucket အမည်
