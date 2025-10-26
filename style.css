@@ -424,3 +424,43 @@ footer {
     font-size: 0.9em;
     z-index: 10;
 }
+/* ======================================================= */
+/* --- နေရာတိုင်းရှိ Content Section အတွက် အလှဆင်ခြင်း --- */
+/* ======================================================= */
+
+/* posts.html, free.html, buy.html တို့ရှိ အဓိက Content Section များ */
+.posts-section, /* posts.html မှာ အသုံးပြုမယ့် Section Class */
+.copy-tool-section, /* free.html မှာ အသုံးပြုမယ့် Section Class */
+.product-list-section, /* buy.html မှာ အသုံးပြုမယ့် Section Class */
+.basic-page-content { /* အခြားရိုးရှင်းသော Page များအတွက် */
+    /* Home Page မှ post-preview-section နှင့် ဆင်တူသော အရောင်နှင့် ပုံစံ ပေးခြင်း */
+    background-color: #f7f9fc; /* နူးညံ့သော အပြာနုရောင်/ခရင်မ်ရောင် */
+    border-radius: 15px; /* အဝိုင်းပုံစံ အနားကွပ် */
+    padding: 30px;
+    margin-bottom: 40px; /* အောက်ဘက် ခြားရန် */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* အနည်းငယ် အရိပ်ပေးခြင်း */
+    border-top: 5px solid #4CAF50; /* အစိမ်းရောင် Border အပေါ်က ထည့်ခြင်း (KP Theme အရောင်) */
+    
+    /* စာသားတွေ အလယ်မှာ စုနေရင် ကောင်းအောင် အကျယ်ဆုံး သတ်မှတ်ခြင်း */
+    max-width: 850px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ======================================================= */
+/* --- posts.html အတွက် ပုံစံ ထပ်ထည့်ခြင်း (ရှိပြီးသားကို မထိပါ) --- */
+/* ======================================================= */
+
+/* posts.html ရဲ့ posts-section မှာရှိတဲ့ post တွေကို အလှဆင်ခြင်း */
+.post-list .post-item {
+    background-color: white; /* Item တစ်ခုချင်းစီကို ဖြူအောင် ထားခြင်း */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #eceff1;
+    transition: box-shadow 0.3s;
+}
+
+.post-list .post-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
