@@ -1,9 +1,8 @@
 // Cloudflare Pages Function: R2 သို့ တင်ရန် Signed URL ကို ထုတ်ပေးသည့် API Endpoint
-// Path: /api/upload-url
+// Path: /upload-url
 export async function onRequest(context) {
     const { request, env } = context;
 
-    // request သည် GET method ဖြစ်ကြောင်း စစ်ဆေးပါ
     if (request.method !== 'GET') {
         return new Response('Method Not Allowed. Use GET.', { status: 405 });
     }
@@ -28,25 +27,24 @@ export async function onRequest(context) {
         // key: R2 တွင် သိမ်းဆည်းမည့် ဖိုင်နာမည်
         const { upload, url: publicUrl } = await bucket.upload.create({
             key: fileName,
-            // expiration: 60 * 60 // လိုအပ်ရင် 1 နာရီ သက်တမ်းထားနိုင်သည်
         });
         
         // 4. Signed URL ကို Front-end သို့ JSON အနေနဲ့ ပြန်ပို့ပေးပါ
         return new Response(JSON.stringify({ 
             uploadURL: upload.url, // Browser ကနေ PUT request ပို့ရမည့် URL
             key: fileName,
-            publicUrl: publicUrl // ဖိုင်ကို နောက်ပိုင်း Access လုပ်မည့် Public URL
+            publicUrl: publicUrl
         }), {
             headers: {
                 'Content-Type': 'application/json',
-                // CORS အတွက် ခွင့်ပြုချက် (Browser မှ R2 သို့ တင်ခြင်းကို ခွင့်ပြုရန်)
+                // CORS အတွက် ခွင့်ပြုချက် (Browser မှ API ကို ခေါ်ခြင်းအား ခွင့်ပြုရန်)
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'GET, OPTIONS'
             }
         });
     } catch (error) {
         console.error('Error creating signed URL:', error);
-        return new Response(JSON.stringify({ error: `Server Error: ${error.message}. Check R2 Binding.` }), { 
+        return new Response(JSON.stringify({ error: `Server Error: ${error.message}. Check R2 Binding & Deployment Logs.` }), { 
             status: 500,
             headers: { 'Content-Type': 'application/json' }
         });
