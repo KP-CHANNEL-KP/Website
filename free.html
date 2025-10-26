@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css"> 
     
     <style>
+        /* ဤ styles များသည် ယခင် UI ပုံစံမပျက်စေရန် အရေးကြီးပါသည်။ */
         .vmess-textarea { 
-            /* စာသားထည့်သည့် အကွက်ကို မူလအရွယ်အစား ပြန်ဖြစ်စေရန် (ဥပမာ) */
             width: 100%;
             height: 100px; 
             resize: none;
@@ -26,6 +26,35 @@
             padding: 5px;
             min-height: 20px; 
         }
+        
+        /* Header ပုံစံအတိုင်း ထွက်ပေါ်စေရန် ဥပမာ CSS */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #ffffff; /* မူရင်း ဘားအရောင် */
+            border-bottom: 1px solid #eee;
+        }
+        .logo {
+            font-weight: bold;
+            color: #0d47a1; /* KP Blog logo အရောင် (ဥပမာ) */
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav li a {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        nav li a.active {
+            color: #0d47a1;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -41,17 +70,12 @@
             </ul>
         </nav>
     </header>
-
     <main>
         <section class="free-content-section">
             <h2>FREE အကြောင်းအရာများ စာမျက်နှာ</h2>
-            <p>ဤနေရာသည် Free အဆင့်မှ အခမဲ့ ပေးချင်သည့် အကြောင်းအရာများ နှင့် စာသားများကို ဖော်ပြမည့် နေရာဖြစ်ပါသည်။</p>
-            
             <div class="copy-box">
                 <p class="copy-box-title">ကူးယူရန် စာသား:</p> 
-                
                 <textarea id="vmessContent" readonly class="vmess-textarea">vmess://eyJhZGRyZXNzIjoiMTY1LjIzM1...IinQ=</textarea>
-                
                 <button onclick="copyToClipboard('vmessContent')" class="copy-button">စာသား ကူးယူမည်</button>
             </div>
         </section>
@@ -62,11 +86,9 @@
             
             <div class="upload-container">
                 <input type="file" id="r2FileInput"> 
-
                 <button onclick="startR2Upload()">
                     <span>ဖိုင်ကို R2 သို့ တင်မည်</span>
                 </button>
-                
                 <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
             </div>
         </section>
