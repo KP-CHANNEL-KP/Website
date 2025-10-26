@@ -1,28 +1,32 @@
 // upload.js ဖိုင်အတွင်း ထည့်သွင်းရန် Code အပြည့်အစုံ
-// သင့်ရဲ့ Worker Domain ကို အတည်ပြုပြီး ထည့်သွင်းခြင်း
+
+// Worker Domain ကို သေချာစစ်ဆေးပြီး ထည့်သွင်းခြင်း
 const WORKER_BASE_URL = 'https://kp-upload-worker.kopaing232003.workers.dev'; 
 const UPLOAD_API_URL = WORKER_BASE_URL + '/upload';
 const LIST_API_URL = WORKER_BASE_URL + '/list'; 
 
 
-// 1. ဖိုင်တင်သည့် Function
+// =======================================================
+// 1. R2 သို့ ဖိုင်တင်ခြင်း (Upload)
+// =======================================================
 async function startR2Upload() {
-    // free.html မှ ID များ
     const fileInput = document.getElementById('r2FileInput');
     const statusDiv = document.getElementById('uploadMessage'); 
     
+    // HTML Element မတွေ့ရင် Error ပြခြင်း
     if (!fileInput || !statusDiv) {
         console.error("HTML IDs not found: r2FileInput or uploadMessage");
-        return; // HTML ID မတွေ့ရင် ဆက်မလုပ်
+        return; 
     }
 
+    // ဖိုင်ရွေးထားခြင်း ရှိ၊ မရှိ စစ်ဆေးခြင်း
     if (fileInput.files.length === 0) {
         statusDiv.innerText = '⚠️ ကျေးဇူးပြု၍ ဖိုင်ရွေးချယ်ပါ';
         return;
     }
     
     const file = fileInput.files[0];
-    statusDiv.innerText = `🔄 ဖိုင်တင်နေသည်... ${file.name}`;
+    statusDiv.innerText = `🔄 ဖိုင်တင်နေသည်... ${file.name}`; // Loading Message
 
     try {
         const formData = new FormData();
@@ -37,7 +41,7 @@ async function startR2Upload() {
 
         if (response.ok) {
             statusDiv.innerText = `✅ အောင်မြင်ပါသည်: ${text}`;
-            // Upload ပြီးတာနဲ့ ဖိုင်စာရင်းကို ပြန်ခေါ်ပြဖို့
+            // Upload ပြီးတာနဲ့ ဖိုင်စာရင်းကို ချက်ချင်း ပြန်ခေါ်ပြခြင်း
             displayFileList(); 
         } else {
             statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: ${text}`;
@@ -49,20 +53,18 @@ async function startR2Upload() {
 }
 
 
-// 2. R2 ထဲက ဖိုင်စာရင်း ပြသသည့် Function (Worker မှာ /list ကို Deploy ပြီးပြီဟု ယူဆသည်)
+// =======================================================
+// 2. R2 မှ ဖိုင်စာရင်း ရယူပြီး ပြသခြင်း (List)
+// =======================================================
 async function displayFileList() {
     const container = document.getElementById('fileListContainer');
+    if (!container) return; // HTML element မရှိရင် ရပ်လိုက်
 
-    if (!container) {
-        console.warn("HTML ID 'fileListContainer' not found.");
-        return; 
-    }
-    
-    container.innerHTML = 'Fetching files...';
+    container.innerHTML = 'Fetching files...'; // Loading Message
 
     try {
         const response = await fetch(LIST_API_URL);
-        const files = await response.json(); 
+        const files = await response.json(); // Worker က ပို့လာတဲ့ R2 object တွေ
 
         if (files.length === 0) {
             container.innerHTML = 'R2 ထဲတွင် ဖိုင်များ မရှိသေးပါ';
@@ -71,6 +73,7 @@ async function displayFileList() {
 
         let html = '<h3>R2 ဖိုင်စာရင်း:</h3><ul>';
         files.forEach(file => {
+            // ဖိုင်အမည်နှင့် အရွယ်အစားကို ပြသခြင်း
             html += `<li>${file.key} (${(file.size / 1024).toFixed(2)} KB)</li>`;
         });
         html += '</ul>';
