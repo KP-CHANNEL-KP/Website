@@ -760,3 +760,112 @@ footer {
 .upload-container button:hover {
     background-color: #0097a7;
 }
+/* ======================================== */
+/* -- FREE PAGE CUSTOM STYLES -- */
+/* ======================================== */
+
+/* Free Page ရဲ့ Main Content ကို အလယ်မှာ စုစည်းထားရန် */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 1. ကူးယူရန် ကဏ္ဍ (Copy Box) ကို အလယ်တည့်တည့် ထားခြင်း */
+.copy-box {
+    max-width: 700px; /* Copy Box ရဲ့ အကျယ်ကို ကြီးစေရန် */
+    margin: 30px auto; /* Page အလယ်တည့်တည့်သို့ ပို့ခြင်း */
+    padding: 30px;
+    border: 1px solid #cce5ff; 
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); 
+    text-align: center; /* ကဏ္ဍအတွင်းက items တွေကို အလယ်ပို့ရန် */
+}
+
+/* 2. "ကူးယူရန် စာသား" ခေါင်းစဉ်ကို စာလုံးထူ၊ အမည်းရောင်၊ အလယ်တည့်တည့် ထားခြင်း */
+.copy-box-title {
+    font-weight: 900; /* စာလုံးကို အထူဆုံး */
+    color: #000000; /* အမဲရောင် */
+    font-size: 1.6em; 
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* 3. စာသားထည့်မည့် အကွက် (Textarea) ကို အကြီးနဲ့ အလယ်တည့်တည့် ထားခြင်း */
+.vmess-textarea {
+    width: 95%; /* အကွက်ရဲ့ အကျယ်ကို ကြီးစေရန် */
+    height: 120px; /* အမြင့်ကို ကြီးစေရန် */
+    padding: 15px;
+    margin: 10px auto 20px auto; /* အကွက်ကို အလယ်ပို့ရန် */
+    border: 2px solid #00bcd4; /* အပြာစိမ်း ဘောင် */
+    border-radius: 8px;
+    font-size: 1.1em;
+    resize: none; /* အကွက်ကို ပြောင်းလဲခွင့် ပိတ်ထားသည် */
+    display: block; /* အကွက်ကို အလယ်မှာ ထားနိုင်စေရန် */
+    box-sizing: border-box;
+    text-align: left;
+    background-color: #f8f8f8;
+    color: #444;
+}
+
+/* 4. Copy ခလုတ်ကို အလယ်တည့်တည့် ထားခြင်း */
+.copy-button {
+    background-color: #00796b; /* Teal အရောင် Button */
+    color: white;
+    padding: 14px 30px; 
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    display: inline-block; /* အလယ်မှာ ထားနိုင်စေရန် */
+}
+
+.copy-button:hover {
+    background-color: #004d40;
+}
+
+
+/* -- ဖိုင်တင်ရန် နေရာ (Upload Section) ကို အလယ်တည့်တည့်ထားရန် -- */
+.upload-section {
+    max-width: 700px;
+    margin: 40px auto; /* အလယ်တည့်တည့်သို့ ပို့ရန် */
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.upload-section h2 {
+    color: #00796b;
+    border-bottom: 2px solid #e0f2f1;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.7em;
+    font-weight: 600;
+}
+
+.upload-container {
+    padding: 20px 0;
+}
+
+.upload-status-message {
+    margin-top: 15px;
+    font-weight: 500;
+    color: #00796b;
+}
+
+/* ဖုန်းအတွက် (Mobile View) */
+@media (max-width: 768px) {
+    .copy-box, .upload-section {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+    .vmess-textarea {
+        height: 100px;
+    }
+}
