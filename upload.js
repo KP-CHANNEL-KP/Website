@@ -50,7 +50,7 @@ async function startR2Upload() {
         formData.append('uploadFile', file); 
 
         const response = await fetch(UPLOAD_API_URL, {
-            method: 'POST',
+            method: 'GET',
             body: formData
         });
 
