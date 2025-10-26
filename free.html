@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-    <title>KP Blog | Copy Tool</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KP Blog | Free အကြောင်းအရာများ</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -19,91 +24,12 @@
             </nav>
         </div>
     </header>
+
     <main>
-        <section class="copy-tool-section">
-            <h2>အလွယ်တကူ ကူးယူနိုင်သော စာသားနေရာ</h2>
-            <p>သင်အလွယ်တကူ မျှဝေလိုသော စာသားများ (သို့မဟုတ် Key များ) ကို အောက်ပါနေရာမှ ကူးယူနိုင်ပါသည်။</p>
+        <section class="basic-page-content" style="max-width: 800px; margin: 40px auto; padding: 20px;">
+            <h2>Free အကြောင်းအရာများ စာမျက်နှာ</h2>
+            <p>ဤနေရာတွင် Free ဝန်ဆောင်မှု၊ အခမဲ့ ပေးချင်သည့် အကြောင်းအရာများနှင့် စာသားများကို စိတ်ကြိုက် ထည့်သွင်းနိုင်ပါသည်။</p>
             
-            <div class="copy-container">
-                <textarea id="copyTextarea" rows="15" placeholder="ဤနေရာတွင် ကူးယူရမည့် စာသားများ ရှိပါသည်။ ကျေးဇူးပြု၍ copy ခလုတ်ကို နှိပ်ပါ။"></textarea>
+            <div style="border: 1px dashed #ccc; padding: 20px; margin-top: 30px; text-align: center;">
+                <h3>အသေးစိတ် အကြောင်းအရာ ထည့်ရန်</h3>
                 
-                <button id="copyButton" class="copy-button">စာသား ကူးယူမည်</button>
-                <span id="copyMessage" class="copy-message"></span>
-            </div>
-            
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; 2024 KP Blog. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // ... (ယခင်က ထည့်ထားသော Copy Script Code များ) ...
-        document.getElementById('copyButton').addEventListener('click', function() {
-            var copyText = document.getElementById('copyTextarea');
-            
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); 
-
-            navigator.clipboard.writeText(copyText.value).then(function() {
-                var message = document.getElementById('copyMessage');
-                message.textContent = "✅ ကူးယူပြီးပါပြီ!";
-                message.style.opacity = '1';
-                
-                setTimeout(function() {
-                    message.style.opacity = '0';
-                }, 3000);
-            }).catch(function(err) {
-                var message = document.getElementById('copyMessage');
-                message.textContent = "❌ ကူးယူ၍ မရပါ။";
-                message.style.opacity = '1';
-            });
-        });
-    </script>
-
-</body>
-</html>
-
-<main>
-    <section class="copy-tool-section">
-        <h2>အလွယ်တကူ ကူးယူနိုင်သော စာသားနေရာ</h2>
-        <p>သင်အလွယ်တကူ မျှဝေလိုသော စာသားများ (သို့မဟုတ် Key များ) ကို အောက်ပါနေရာမှ ကူးယူနိုင်ပါသည်။</p>
-        
-        <div class="copy-container">
-            <textarea id="copyTextarea" rows="15" placeholder="ဤနေရာတွင် ကူးယူရမည့် စာသားများ ရှိပါသည်။ ကျေးဇူးပြု၍ copy ခလုတ်ကို နှိပ်ပါ။"></textarea>
-            
-            <button id="copyButton" class="copy-button">စာသား ကူးယူမည်</button>
-            <span id="copyMessage" class="copy-message"></span>
-        </div>
-        
-    </section>
-</main>
-
-<script>
-    document.getElementById('copyButton').addEventListener('click', function() {
-        var copyText = document.getElementById('copyTextarea');
-        
-        // Textarea ထဲက စာသားကို Select လုပ်ခြင်း
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); // Mobile အတွက်
-
-        // စာသားကို ကူးယူခြင်း (Clipboard API ကို အသုံးပြုခြင်း)
-        navigator.clipboard.writeText(copyText.value).then(function() {
-            // အောင်မြင်ပါက Message ပြရန်
-            var message = document.getElementById('copyMessage');
-            message.textContent = "✅ ကူးယူပြီးပါပြီ!";
-            message.style.opacity = '1';
-            
-            // 3 စက္ကန့်ကြာရင် Message ကို ပျောက်သွားစေရန်
-            setTimeout(function() {
-                message.style.opacity = '0';
-            }, 3000);
-        }).catch(function(err) {
-            // မအောင်မြင်ပါက Message ပြရန်
-            var message = document.getElementById('copyMessage');
-            message.textContent = "❌ ကူးယူ၍ မရပါ။";
-            message.style.opacity = '1';
-        });
-    });
-</script>
