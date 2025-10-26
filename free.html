@@ -37,66 +37,17 @@
     </textarea>
             
             <button id="copyButton">
-    <span class="button-icon"></span> 
-    စာသား ကူးယူမည်
-</button>
-
-
-
-            <span id="copyMessage" class="copy-message"></span>
-        </div>
+                <span class="button-icon"></span> 
+                စာသား ကူးယူမည်
+            </button>
+            
+            </div>
         
-<script>
-    document.getElementById('copyButton').addEventListener('click', function() {
-        var copyTextarea = document.getElementById('copyTextarea');
-        
-        // 1. Textarea ကို Select လုပ်ခြင်း
-        copyTextarea.select();
-        copyTextarea.setSelectionRange(0, 99999); // Mobile Browser များအတွက်ပါ
+    </section>
 
-        var successful;
-        try {
-            // 2. စာသားကို ကူးယူရန် ကြိုးစားခြင်း (execCommand ကို အသုံးပြု)
-            successful = document.execCommand('copy');
-        } catch (err) {
-            successful = false;
-        }
+    <section class="file-upload-section">
+        <h2>ဖိုင်တင်ရန် နေရာ</h2>
+        <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်မျှဝေလိုသော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည် [အကန့်အသတ်ရှိနိုင်ပါသည်။]</p>
 
-        // 3. ကူးယူမှု အခြေအနေကို ခလုတ်ပေါ်မှာ ပြသခြင်း
-        var button = document.getElementById('copyButton');
-        var originalHtml = button.innerHTML; 
-
-        if (successful) {
-            button.innerHTML = '<span class="button-icon">✅</span> ကူးယူပြီးပါပြီ!';
-            button.style.backgroundColor = '#28a745'; // အစိမ်းရောင်
-            button.style.boxShadow = '0 5px #1e7e34'; 
-        } else {
-            // မအောင်မြင်ပါက Alert ပေးခြင်း
-            alert('❌ ကူးယူ၍ မရပါ။ စာသားကို လက်ဖြင့် ဖိနှိပ်၍ ကူးယူပေးပါရန်။');
-            button.innerHTML = '<span class="button-icon">❌</span> ကူးယူ မအောင်မြင်ပါ!';
-            button.style.backgroundColor = '#dc3545'; // အနီရောင်
-            button.style.boxShadow = '0 5px #990000';
-        }
-
-        // 4. 2 စက္ကန့်ကြာရင် မူလအတိုင်း ပြန်ဖြစ်စေရန်
-        setTimeout(function() {
-            button.innerHTML = originalHtml;
-            button.style.backgroundColor = '#4caf50'; // မူလအရောင်
-            button.style.boxShadow = '0 5px #388e3c';
-        }, 2000);
-    });
-</script>
-<section class="file-upload-section">
-    <h2>ဖိုင်တင်ရန် နေရာ</h2>
-    <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်မျှဝေလိုသော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည် [အကန့်အသတ်ရှိနိုင်ပါသည်။]</p>
-
-    <div class="upload-container">
-        <input type="file" id="fileUploadInput" name="uploadFile" class="hidden-input">
-        
-        <label for="fileUploadInput" id="uploadButton" class="styled-upload-button">
-            <span class="button-icon">📤</span> ဖိုင်ရွေးချယ်ပါ
-        </label>
-        
-        <span id="fileNameDisplay" class="file-name-display">ရွေးချယ်ထားသော ဖိုင်မရှိသေးပါ။</span>
-    </div>
-</section>
+        <div class="upload-container">
+            <input type="file" id="fileUploadInput" name="uploadFile" class="hidden-input">
