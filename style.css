@@ -464,3 +464,33 @@ footer {
 .post-list .post-item:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+/* ======================================================= */
+/* --- posts.html စာသား အရွယ်အစား ချိန်ညှိခြင်း (New Styles) --- */
+/* ======================================================= */
+
+/* posts.html မှ Post ခေါင်းစဉ်များ (Post Titles) ကို အရွယ်အစား လျှော့ချခြင်း */
+.post-list .post-item h3 {
+    font-size: 1.35em; /* ကြည့်ကောင်းသော အရွယ်အစား (ပုံမှန်ထက် နည်းငယ်ကြီး) */
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #1a73e8; /* (KP Theme အရောင်) */
+    line-height: 1.3;
+}
+
+/* Post အတိုချုပ် (စာသား/Description) များ */
+.post-list .post-item p {
+    font-size: 1em; /* ပုံမှန် စာဖတ်အရွယ်အစား (16px ခန့်) */
+    color: #37474f;
+    line-height: 1.6; /* စာဖတ်ရလွယ်ကူစေရန် စာကြောင်းကြား ခြားနားမှု */
+    margin-bottom: 10px;
+}
+
+/* Post ရက်စွဲ (Date) များကို ပုံစံချခြင်း */
+.post-list .post-item .date-info {
+    font-size: 0.85em; /* သေးငယ်သော အရွယ်အစား */
+    color: #78909c;
+    display: block; 
+    margin-top: 5px;
+    font-weight: 500;
+}
