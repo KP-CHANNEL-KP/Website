@@ -1,10 +1,10 @@
 // Path: Website/functions/upload-url.js
 export async function onRequest(context) {
     const { request, env } = context;
-    const bucket = env.BUCKET; // Pages Binding Name: BUCKET
+    const bucket = env.KP; // Pages Binding Name: BUCKET
 
     if (!bucket) {
-        return new Response(JSON.stringify({ error: 'Server Error: R2 Bucket binding "BUCKET" is not configured.' }), { status: 500, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' } });
+        return new Response(JSON.stringify({ error: 'Server Error: R2 Bucket binding "KP" is not configured.' }), { status: 500, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' } });
     }
     
     if (request.method !== 'GET') {
