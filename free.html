@@ -141,7 +141,7 @@
                     
                     // R2 သို့ ဖိုင်ကို တိုက်ရိုက် တင်ခြင်း (PUT Request)
                     return fetch(signedUrl, {
-                        method: 'PUT',
+                        method: 'POST',
                         body: file,
                         headers: {
                             'Content-Type': file.type || 'application/octet-stream'
