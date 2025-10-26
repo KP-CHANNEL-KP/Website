@@ -45,17 +45,17 @@
 
         <section class="file-upload-section">
             <h2>ဖိုင်တင်ရန် နေရာ</h2>
-            <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်မျှဝေလိုသော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည် [အကန့်အသတ်ရှိနိုင်ပါသည်။]</p>
+<p>ပုံများ၊ PDF များ သို့မဟုတ် သင်ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
+<div class="copy-container">
+    
+    <input type="file" id="r2FileInput"> 
 
-            <div class="upload-container">
-                <input type="file" id="fileUploadInput" name="uploadFile" class="hidden-input">
-                
-                <label for="fileUploadInput" id="uploadButton" class="styled-upload-button">
-                    <span class="button-icon">📤</span> ဖိုင်ရွေးချယ်ပါ
-                </label>
-                
-                <span id="fileNameDisplay" class="file-name-display">ရွေးချယ်ထားသော ဖိုင်မရှိသေးပါ။</span>
-            </div>
+    <button id="uploadButton" class="styled-copy-button" onclick="startR2Upload()">
+        <span>ဖိုင်ကို R2 သို့ တင်မည်</span>
+    </button>
+    <span id="uploadMessage" class="copy-message"></span>
+</div>
+
         </section>
 
     </main>
@@ -132,9 +132,8 @@
             fileNameDisplay.style.fontWeight = 'normal';
         }
     });
-    </script>
         <script src="upload.js"></script>
-
+    
 </body>
 </html>
 
