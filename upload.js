@@ -1,5 +1,5 @@
 // Worker Domain ကို သေချာစစ်ဆေးပြီး ထည့်သွင်းပါ။ 
-// (သင့် Worker ရဲ့ Domain ကို အစားထိုးနိုင်ပါတယ်။ ဥပမာ: kp-upload-worker.kopaing232003.workers.dev)
+// WORKER_BASE_URL သည် API Endpoints ၏ Root URL ဖြစ်ပါစေ။
 const WORKER_BASE_URL = 'https://kp-upload-worker.kopaing232003.workers.dev'; 
 const UPLOAD_API_URL = WORKER_BASE_URL + '/upload';
 const LIST_API_URL = WORKER_BASE_URL + '/list'; 
@@ -46,24 +46,32 @@ async function startR2Upload() {
 
     try {
         const formData = new FormData();
-        // Worker.js က လက်ခံမယ့် နာမည်အတိုင်း ပို့ရပါမည်။
         formData.append('uploadFile', file); 
 
+        // 🚨 ပြင်ဆင်ချက် ၁: method ကို 'POST' ပြောင်းလိုက်သည်
         const response = await fetch(UPLOAD_API_URL, {
-            method: 'GET',
+            method: 'POST',
             body: formData
         });
 
-        // Response ကို text အနေနဲ့ ရယူသည်
-        const text = await response.text(); 
+        // 🚨 ပြင်ဆင်ချက် ၂: response.json() ကို သုံးပြီး Error Handling ပိုကောင်းအောင် လုပ်သည်
+        let result;
+        try {
+            result = await response.json(); 
+        } catch (e) {
+            // JSON ပြန်မလာရင် String အနေနဲ့ ယူပါ (Fallback)
+            const textResponse = await response.text();
+            result = { error: `Invalid API Response Format or Server Error: ${textResponse}` };
+        }
 
         if (response.ok) {
-            statusDiv.innerText = `✅ အောင်မြင်ပါသည်: ${text}`;
+            // Upload Logic: result.url ကို ပြသသည်
+            statusDiv.innerText = `✅ အောင်မြင်ပါသည်! URL: ${result.url}`;
             // အောင်မြင်လျှင် ဖိုင်စာရင်းကို ပြန်ခေါ်ပါမည်
             displayFileList(); 
         } else {
-            // Error Message ကို တိုက်ရိုက် ပြသသည်
-            statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Status ${response.status}. Response: ${text}`; 
+            // Error Message ကို ပြသသည်
+            statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Status ${response.status}. Error: ${result.error || result.message || 'Unknown Error'}`; 
         }
     } catch (error) {
         statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Network Error!`;
@@ -76,11 +84,10 @@ async function startR2Upload() {
 // C. R2 မှ ဖိုင်စာရင်း ရယူပြီး ပြသခြင်း (List Logic)
 // =======================================================
 async function displayFileList() {
-    // free.html ထဲတွင် List Container ကို ဖြုတ်ထားပါက ဤအပိုင်းသည် အလုပ်လုပ်မည်မဟုတ်ပါ။
     const container = document.getElementById('fileListContainer');
     if (!container) return; 
     
-    container.innerHTML = 'Fetching files...'; 
+    container.innerHTML = '🔄 Fetching files...'; 
 
     try {
         const response = await fetch(LIST_API_URL);
@@ -89,8 +96,8 @@ async function displayFileList() {
         if (files && files.length > 0) {
             let listHtml = '<ul>';
             files.forEach(file => {
-                // R2 ၏ Public URL ကို ပြသရန်
-                const fileUrl = `${WORKER_BASE_URL.replace('/upload', '')}/${file.key}`;
+                // 🚨 ပြင်ဆင်ချက် ၃: URL တည်ဆောက်ပုံကို ပိုရှင်းအောင် ပြင်လိုက်သည်
+                const fileUrl = `${WORKER_BASE_URL}/${file.key}`; // Worker ၏ Base URL ကို တိုက်ရိုက်သုံးသည်
                 listHtml += `<li><a href="${fileUrl}" target="_blank">${file.key}</a> (${(file.size / 1024).toFixed(2)} KB)</li>`;
             });
             listHtml += '</ul>';
