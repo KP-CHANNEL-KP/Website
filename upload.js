@@ -1,6 +1,5 @@
-// upload.js ဖိုင်အတွင်း ထည့်သွင်းရန် Code အပြည့်အစုံ
-
-// Worker Domain ကို သေချာစစ်ဆေးပြီး ထည့်သွင်းခြင်း
+// Worker Domain ကို သေချာစစ်ဆေးပြီး ထည့်သွင်းပါ။ 
+// (သင့် Worker ရဲ့ Domain ကို အစားထိုးနိုင်ပါတယ်။ ဥပမာ: kp-upload-worker.kopaing232003.workers.dev)
 const WORKER_BASE_URL = 'https://kp-upload-worker.kopaing232003.workers.dev'; 
 const UPLOAD_API_URL = WORKER_BASE_URL + '/upload';
 const LIST_API_URL = WORKER_BASE_URL + '/list'; 
@@ -10,14 +9,16 @@ const LIST_API_URL = WORKER_BASE_URL + '/list';
 // A. စာသား ကူးယူခြင်း (Copy to Clipboard Function)
 // =======================================================
 function copyToClipboard(elementId) {
-    const copyText = document.getElementById(elementId);
+    // free.html ထဲက vmessContent ID ကို ခေါ်သည်
+    const copyText = document.getElementById(elementId); 
     
     if (copyText) {
         copyText.select();
         copyText.setSelectionRange(0, 99999); 
         
         try {
-            document.execCommand('copy');
+            // Copy Command
+            document.execCommand('copy'); 
             alert("✅ စာသားကို ကူးယူပြီးပါပြီ!");
         } catch (err) {
             console.error('Copy failed', err);
@@ -28,9 +29,10 @@ function copyToClipboard(elementId) {
 
 
 // =======================================================
-// B. R2 သို့ ဖိုင်တင်ခြင်း (Upload)
+// B. R2 သို့ ဖိုင်တင်ခြင်း (Upload Logic)
 // =======================================================
 async function startR2Upload() {
+    // free.html ထဲက ID များကို ခေါ်ယူသည်
     const fileInput = document.getElementById('r2FileInput');
     const statusDiv = document.getElementById('uploadMessage'); 
     
@@ -40,59 +42,41 @@ async function startR2Upload() {
     }
     
     const file = fileInput.files[0];
-    statusDiv.innerText = `🔄 ဖိုင်တင်ရန် URL တောင်းဆိုနေသည်... ${file.name}`; 
+    statusDiv.innerText = `🔄 ဖိုင်တင်နေသည်... ${file.name}`; 
 
-    // 1. Pages Function သို့ Signed URL ကို တောင်းဆိုခြင်း (GET Request)
     try {
-        // file.type ကို URL Query တွင် ထည့်သွင်းပို့ပါ
-        const fileType = encodeURIComponent(file.type || 'application/octet-stream');
-        const apiEndpoint = '/upload-url?fileName=' + file.name + '&fileType=' + fileType;
+        const formData = new FormData();
+        // Worker.js က လက်ခံမယ့် နာမည်အတိုင်း ပို့ရပါမည်။
+        formData.append('uploadFile', file); 
 
-        const response = await fetch(apiEndpoint);
-        
-        // Response က 500/400 Error များရှိမရှိ စစ်ဆေးပါ
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`API Call Failed. Status: ${response.status}. Response: ${errorText.substring(0, 50)}...`);
-        }
-        
-        const data = await response.json();
-        const signedUrl = data.uploadURL; // Pages Function မှ ပြန်ပေးသော Signed URL
-        
-        statusDiv.innerText = `🔄 R2 သို့ ဖိုင်တိုက်ရိုက်တင်နေသည်...`;
-
-        // 2. Signed URL ကိုသုံးပြီး R2 Bucket သို့ ဖိုင်တိုက်ရိုက် PUT Request ပို့ခြင်း
-        const uploadResponse = await fetch(signedUrl, {
-            method: 'GET',
-            body: file,
-            headers: {
-                // R2 ကို တင်ပို့မည့် Content Type
-                'Content-Type': file.type || 'application/octet-stream' 
-            }
+        const response = await fetch(UPLOAD_API_URL, {
+            method: 'POST',
+            body: formData
         });
 
-        if (uploadResponse.ok) {
-            statusDiv.innerText = `✅ အောင်မြင်ပါသည်! ဖိုင်အမည်: ${file.name}`;
-            // displayFileList(); // (လိုအပ်ရင် File List ကို ပြန်ခေါ်နိုင်သည်)
-        } else {
-            const uploadErrorText = await uploadResponse.text();
-             throw new Error(`R2 Upload Failed. Status: ${uploadResponse.status}. Response: ${uploadErrorText.substring(0, 50)}...`);
-        }
+        // Response ကို text အနေနဲ့ ရယူသည်
+        const text = await response.text(); 
 
+        if (response.ok) {
+            statusDiv.innerText = `✅ အောင်မြင်ပါသည်: ${text}`;
+            // အောင်မြင်လျှင် ဖိုင်စာရင်းကို ပြန်ခေါ်ပါမည်
+            displayFileList(); 
+        } else {
+            // Error Message ကို တိုက်ရိုက် ပြသသည်
+            statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Status ${response.status}. Response: ${text}`; 
+        }
     } catch (error) {
-        // API Call Failed (သို့) R2 Upload Failed ကို ဖမ်းပါ
-        statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Error: ${error.message}`;
-        console.error('Final Upload Error:', error);
+        statusDiv.innerText = `❌ Upload မအောင်မြင်ပါ: Network Error!`;
+        console.error('Fetch Error:', error);
     }
 }
 
 
-
 // =======================================================
-// C. R2 မှ ဖိုင်စာရင်း ရယူပြီး ပြသခြင်း (List)
+// C. R2 မှ ဖိုင်စာရင်း ရယူပြီး ပြသခြင်း (List Logic)
 // =======================================================
 async function displayFileList() {
-    // List container ကို ယာယီ ဖျောက်ထားသဖြင့်၊ container မရှိလျှင် ဘာမှမလုပ်ပါ
+    // free.html ထဲတွင် List Container ကို ဖြုတ်ထားပါက ဤအပိုင်းသည် အလုပ်လုပ်မည်မဟုတ်ပါ။
     const container = document.getElementById('fileListContainer');
     if (!container) return; 
     
@@ -102,8 +86,18 @@ async function displayFileList() {
         const response = await fetch(LIST_API_URL);
         const files = await response.json(); 
         
-        // ... (List ပြသသည့် Code များ)
-        // ... (ယခု UI အတိုင်း အလုပ်လုပ်ပါမည်)
+        if (files && files.length > 0) {
+            let listHtml = '<ul>';
+            files.forEach(file => {
+                // R2 ၏ Public URL ကို ပြသရန်
+                const fileUrl = `${WORKER_BASE_URL.replace('/upload', '')}/${file.key}`;
+                listHtml += `<li><a href="${fileUrl}" target="_blank">${file.key}</a> (${(file.size / 1024).toFixed(2)} KB)</li>`;
+            });
+            listHtml += '</ul>';
+            container.innerHTML = listHtml;
+        } else {
+            container.innerHTML = 'ဖိုင်များ မရှိပါ';
+        }
         
     } catch (error) {
         container.innerHTML = 'ဖိုင်စာရင်း ရယူရာတွင် အမှားဖြစ်ပွားပါသည်';
@@ -111,5 +105,5 @@ async function displayFileList() {
     }
 }
 
-// 4. Page စတင် load ချိန်တွင် ဖိုင်စာရင်းကို ချက်ချင်းခေါ်ရန်
+// Page စတင် load ချိန်တွင် ဖိုင်စာရင်းကို ချက်ချင်းခေါ်ရန် (Optional)
 document.addEventListener('DOMContentLoaded', displayFileList);
