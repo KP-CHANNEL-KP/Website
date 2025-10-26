@@ -117,7 +117,15 @@
             uploadMessage.innerText = 'ဖိုင်တင်နေပါသည်...'; 
 
             // ⚠️ Function Path ကို တိုက်ရိုက် ခေါ်ဆိုခြင်း (အဆင့် ၁ မှ Code နှင့် ကိုက်ညီသည်)
-            const apiEndpoint = '/upload-url?fileName=' + file.name;
+            // ... (free.html ထဲက startR2Upload function)
+
+    // ⚠️ API Endpoint မှာ file.type ကို ထပ်ပို့ပါ
+    const fileType = encodeURIComponent(file.type || 'application/octet-stream'); 
+    const apiEndpoint = '/upload-url?fileName=' + file.name + '&fileType=' + fileType;
+
+    fetch(apiEndpoint)
+// ... (ကျန်တာ အတူတူပဲ ထားပါ)
+
 
             fetch(apiEndpoint)
                 .then(response => {
