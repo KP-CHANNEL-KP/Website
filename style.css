@@ -519,3 +519,80 @@ footer {
     margin-right: 8px;
     font-size: 1.2em;
 }
+/* ======================================================= */
+/* --- File Upload (ဖိုင်တင်ရန်) Section ပုံစံ --- */
+/* ======================================================= */
+
+.file-upload-section {
+    max-width: 850px; /* content section ရဲ့ အကျယ်အတိုင်း ယူထားခြင်း */
+    margin: 40px auto 20px auto; 
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Home Page box-shadow ပုံစံ */
+}
+
+.upload-container {
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* input type="file" အစစ်အမှန်ကို ဝှက်ထားခြင်း */
+.hidden-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1; /* Screen ပေါ်မှ လုံးဝ ဖျောက်ထားခြင်း */
+}
+
+/* ======================================================= */
+/* --- Upload Button (Label) ကို ပုံစံချခြင်း (Copy ခလုတ်နှင့် ပုံစံတူ) --- */
+/* ======================================================= */
+
+.styled-upload-button {
+    /* အဓိက အရောင်နှင့် ပုံစံ */
+    background-color: #4CAF50; /* အဓိက အစိမ်းရောင် */
+    color: white; 
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 12px 30px; 
+    border: none;
+    border-radius: 8px; /* အနားကွပ်ဝိုင်းခြင်း */
+    cursor: pointer;
+    transition: box-shadow 0.1s, transform 0.1s;
+    
+    /* 3D ပုံစံ အရိပ် */
+    box-shadow: 0 5px #388e3c; 
+    display: inline-flex; /* display: flex အစား label အတွက် inline-flex */
+    align-items: center;
+    justify-content: center;
+    
+    max-width: 300px;
+    margin-bottom: 10px;
+    /* width: 100%; (လိုအပ်ပါက ဖွင့်နိုင်သည်) */
+}
+
+.styled-upload-button:hover {
+    background-color: #5cb85c; 
+}
+
+.styled-upload-button:active {
+    /* နှိပ်လိုက်တဲ့အခါ အပေါ်ကို တက်သွားသော ပုံစံ */
+    box-shadow: 0 2px #388e3c; 
+    transform: translateY(3px);
+}
+
+.styled-upload-button .button-icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+/* ဖိုင်အမည်ပြသရန် ပုံစံ */
+.file-name-display {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #555;
+}
