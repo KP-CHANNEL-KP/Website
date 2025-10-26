@@ -8,14 +8,18 @@
 </head>
 <body>
 
+    <header>
+        </header>
+
     <main>
         <section class="free-content-section">
             <h2>FREE အကြောင်းအရာများ စာမျက်နှာ</h2>
             <p>ဤနေရာသည် Free အဆင့်မှ အခမဲ့ ပေးချင်သည့် အကြောင်းအရာများ နှင့် စာသားများကို ဖော်ပြမည့် နေရာဖြစ်ပါသည်။</p>
             
             <div class="copy-box">
-                <textarea readonly>vmess://eyJhZGRyZXNzIjoiMTY1LjIzM1...oIiwiZGlkIjoiNDgyNDU0NzIiLCJ0eXAiOiIgbm9uZSIsImhvc3QiOiIifQ==</textarea>
-                <button>စာသား ကူးယူမည်</button>
+                <p class="copy-box-title">ကူးယူရန် စာသား</p>
+                <textarea readonly class="vmess-content">vmess://eyJhZGRyZXNzIjoiMTY1LjIzM1...oIiwiZGlkIjoiNDgyNDU0NzIiLCJ0eXAiOiIgbm9uZSIsImhvc3QiOiIifQ==</textarea>
+                <button class="copy-button">စာသား ကူးယူမည်</button>
             </div>
         </section>
 
@@ -24,19 +28,19 @@
             <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
             
             <div class="upload-container">
-                <input type="file" id="r2FileInput" style="margin-bottom: 10px;"> 
+                <input type="file" id="r2FileInput"> 
 
                 <button onclick="startR2Upload()">
                     <span>ဖိုင်ကို R2 သို့ တင်မည်</span>
                 </button>
                 
-                <div id="uploadMessage" style="margin-top: 10px; color: #4CAF50;">Upload status will appear here.</div>
+                <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
             </div>
         </section>
         
-        <section class="file-list-section" style="margin-top: 30px;">
+        <section class="file-list-section">
             <h2>R2 ဖိုင်များ စာရင်း</h2>
-            <div id="fileListContainer" style="padding: 10px; border: 1px solid #ccc;">
+            <div id="fileListContainer" class="list-container">
                 Loading file list...
             </div>
         </section>
