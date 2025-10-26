@@ -5,76 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Blog Free Page</title>
     <link rel="stylesheet" href="style.css"> 
-    
-    <style>
-        /* Header Style (ပုံ 1000012376.jpg/1000012373.jpg အတိုင်း) */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            /* မူရင်းပုံ 1000012376.jpg မှာ အဖြူရောင်/ခပ်ပြာပြာ နည်းနည်းလေးပဲ ရှိသဖြင့် အပြာရောင်ကို ဖယ်လိုက်သည် */
-            background-color: #ffffff; 
-            border-bottom: 1px solid #ccc; /* အောက်ခြေ နည်းနည်းလေး စည်းခြားရန် */
-        }
-        .logo {
-            font-weight: bold;
-            color: #000;
-            display: flex;
-            align-items: center;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-        }
-        nav li a {
-            padding: 5px 10px;
-            text-decoration: none;
-            color: #333;
-        }
-        nav li a.active {
-            font-weight: bold;
-            color: #0d47a1; 
-        }
-
-        /* Vmess Content Area (စာသားအကွက်အရွယ်အစား ပြန်ကြီးစေရန်) */
-        .vmess-textarea { 
-            width: 100%;
-            height: 100px; 
-            resize: vertical; 
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-        }
-        
-        .copy-box-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        /* Upload Status Message */
-        .upload-status-message {
-            margin-top: 10px;
-            padding: 5px;
-            min-height: 20px; 
-        }
-        
-        /* KP WEBSITE PAGE မှ ကြိုဆိုသည် ဆိုသည့် အစိမ်းရောင် bar */
-        .intro-bar {
-            background-color: #e8f5e9; /* ပုံ 1000012376.jpg အောက်က အစိမ်းနုရောင် */
-            padding: 20px 0;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-    </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">KP Blog</div>
+        <div class="logo">
+            KP Blog
+        </div>
         <nav>
             <ul>
                 <li><a href="/">မူလစာမျက်နှာ</a></li>
@@ -114,11 +51,12 @@
                 <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
             </div>
         </section>
-        
-        </main>
+
+    </main>
 
     <footer>
-        </footer>
+        <p>© 2024 KP Blog. All rights reserved.</p>
+    </footer>
 
     <script src="upload.js"></script> 
 
