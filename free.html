@@ -7,7 +7,51 @@
     <link rel="stylesheet" href="style.css"> 
     
     <style>
-        /* ဤ styles များသည် ယခင် UI ပုံစံမပျက်စေရန် အရေးကြီးပါသည်။ */
+        /* ======================================================= */
+        /* Header Bar Style (ပုံ 1000012377.png အတိုင်း ပြင်ဆင်ခြင်း) */
+        /* ======================================================= */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #0d47a1; /* တောက်ပသော အပြာရောင် */
+            color: white; /* စာသားအရောင်ကို ဖြူစေခြင်း */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: white; 
+        }
+        /* logo ပုံကို မပါရင် စာသားပဲ ပေါ်ပါမယ် */
+        .logo img {
+            width: 30px; /* logo ပုံအရွယ်အစား */
+            height: 30px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav li a {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: white; /* Link အရောင်ကို ဖြူစေခြင်း */
+            font-weight: normal;
+        }
+        nav li a.active {
+            font-weight: bold;
+            /* active link ကို မူရင်းပုံစံအတိုင်းပဲ ထားလိုက်သည် */
+        }
+        /* ======================================================= */
+        /* ယခင် ပြင်ဆင်ထားသော စာသားနှင့် Upload Area Styles */
+        /* ======================================================= */
         .vmess-textarea { 
             width: 100%;
             height: 100px; 
@@ -26,91 +70,26 @@
             padding: 5px;
             min-height: 20px; 
         }
-        
-        /* Header ပုံစံအတိုင်း ထွက်ပေါ်စေရန် ဥပမာ CSS */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #ffffff; /* မူရင်း ဘားအရောင် */
-            border-bottom: 1px solid #eee;
-        }
-        .logo {
-            font-weight: bold;
-            color: #0d47a1; /* KP Blog logo အရောင် (ဥပမာ) */
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-        }
-        nav li a {
-            padding: 5px 10px;
-            text-decoration: none;
-            color: #333;
-        }
-        nav li a.active {
-            color: #0d47a1;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-content">
-            <div class="logo-and-title">
-                <img src="images/logo.png" alt="KP Logo" class="logo"> 
-                <h1 class="site-title">KP Blog</h1>
-            </div>
-            
-            <nav>
-                <a href="index.html">မူလစာမျက်နှာ</a>
-                <a href="posts.html">Posts</a>
-                <a href="free.html">Free</a>
-                
-                <a href="buy.html">ဝယ်ယူရန်</a> 
-                </nav>
+        <div class="logo">
+            KP Blog
         </div>
+        <nav>
+            <ul>
+                <li><a href="/">မူလစာမျက်နှာ</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/free" class="active">Free</a></li>
+                <li><a href="/buy">ဝယ်ယူရန်</a></li>
+            </ul>
+        </nav>
     </header>
+
+
     <main>
         <section class="free-content-section">
             <h2>FREE အကြောင်းအရာများ စာမျက်နှာ</h2>
-            <div class="copy-box">
-                <p class="copy-box-title">ကူးယူရန် စာသား:</p> 
-                <textarea id="vmessContent" readonly class="vmess-textarea">vmess://eyJhZGRyZXNzIjoiMTY1LjIzM1...IinQ=</textarea>
-                <button onclick="copyToClipboard('vmessContent')" class="copy-button">စာသား ကူးယူမည်</button>
-            </div>
-        </section>
-
-        <section class="upload-section">
-            <h2>ဖိုင်တင်ရန် နေရာ</h2>
-            <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
-            
-            <div class="upload-container">
-                <input type="file" id="r2FileInput"> 
-                <button onclick="startR2Upload()">
-                    <span>ဖိုင်ကို R2 သို့ တင်မည်</span>
-                </button>
-                <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
-            </div>
-        </section>
-        
-        <section class="file-list-section">
-            <h2>R2 ဖိုင်များ စာရင်း</h2>
-            <div id="fileListContainer" class="list-container">
-                Loading file list...
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        </footer>
-
-    <script src="upload.js"></script> 
-
-</body>
-</html>
+            <p>ဤနေရာသည် Free အဆင့်မှ အခမဲ့ ပေးချင်သည့် အကြောင်းအရာများ နှင့်
