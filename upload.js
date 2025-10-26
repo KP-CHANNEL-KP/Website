@@ -1,5 +1,6 @@
 // upload.js ဖိုင်အတွင်း ထည့်သွင်းရန် Code အပြည့်အစုံ
 
+// Worker Domain ကို သေချာစစ်ဆေးပြီး ထည့်သွင်းခြင်း (သင့် Worker Domain ကို အတည်ပြုပြီးသား)
 const WORKER_BASE_URL = 'https://kp-upload-worker.kopaing232003.workers.dev'; 
 const UPLOAD_API_URL = WORKER_BASE_URL + '/upload';
 const LIST_API_URL = WORKER_BASE_URL + '/list'; 
@@ -34,6 +35,7 @@ async function startR2Upload() {
     const fileInput = document.getElementById('r2FileInput');
     const statusDiv = document.getElementById('uploadMessage'); 
     
+    // ... (Error handling code)
     if (!fileInput || !statusDiv) {
         statusDiv.innerText = '❌ စနစ်အမှား: HTML ID များ စစ်ဆေးပါ';
         return; 
