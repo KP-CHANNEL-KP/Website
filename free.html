@@ -26,65 +26,92 @@
     <div class="intro-bar">
        
         <main>
-        <section class="posts-section"> </section>
-        <h1>KP WEBSITE FREE PAGE</h1>
+            <section class="posts-section"> </section>
+            <h1>KP WEBSITE FREE PAGE</h1>
         
-        <div class="copy-box">
-            <p class="copy-box-title">ကူးယူရန် စာသားများ / သင်ထည့်သွင်းသော စာများ:</p> 
-            <textarea id="mainTextArea" class="big-textarea" 
-                rows="20" readonly 
-                placeholder="စာသားများ ဤနေရာတွင် ပေါ်လာပါမည်။ (Scroll လုပ်နိုင်သည်)">
-                vmess://eyJhZGRyZXNzIjoiMTY1LjIzM3...IinQ=  
-            </textarea>
-            
-            <p class="copy-box-title" style="margin-top: 15px;">စာသားအသစ် ထည့်သွင်းရန်:</p>
-            <input type="text" id="inputLine" class="small-input-line" 
-                   placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ...">
-            
-            <button onclick="copyToClipboard('mainTextArea')" class="copy-button" style="margin-bottom: 10px;">
-                စာသား ကူးယူမည်
-            </button>
+            <div class="copy-box">
+                <p class="copy-box-title">ကူးယူရန် စာသားများ:</p> 
+                <p class="copy-box-title" style="margin-top: 15px;">**အများပြည်သူ မြင်တွေ့နိုင်သော မှတ်တမ်းများ**</p>
+                <div id="posts-display-area" class="big-textarea" style="height: 300px; overflow-y: scroll; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; color: #333; margin-bottom: 20px;">
+                    ဒေတာများကို စတင်ဆွဲယူနေပါသည်။
+                </div>
 
-            <button id="saveButton" onclick="saveToMainTextarea()" class="save-button">
-                စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
-            </button>
-        </div>
-        <section class="upload-section">
-            <h2>ဖိုင်တင်ရန် နေရာ</h2>
-            <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
-            
-            <div class="upload-container">
-                <label for="r2FileInput" class="custom-file-upload">
-                    <span id="fileNameDisplay">Choose File</span>
-                    <input type="file" id="r2FileInput" onchange="updateFileName(this)"> 
-                </label>
 
-                <button onclick="startR2Upload()">
-                    <span>✔</span>
+                <p class="copy-box-title" style="margin-top: 15px;">စာသားအသစ် ထည့်သွင်းရန်:</p>
+                <input type="text" id="inputLine" class="small-input-line" 
+                       placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ...">
+                
+                <button onclick="copyFirstPostToClipboard()" class="copy-button" style="margin-bottom: 10px;">
+                    နောက်ဆုံး စာသား ကူးယူမည်
                 </button>
-                <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
+
+                <button id="saveButton" onclick="saveNewPost()" class="save-button">
+                    စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
+                </button>
             </div>
-        </section>
+
+            <section class="upload-section">
+                <h2>ဖိုင်တင်ရန် နေရာ</h2>
+                <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
+                
+                <div class="upload-container">
+                    <label for="r2FileInput" class="custom-file-upload">
+                        <span id="fileNameDisplay">Choose File</span>
+                        <input type="file" id="r2FileInput" onchange="updateFileName(this)"> 
+                    </label>
+
+                    <button onclick="startR2Upload()">
+                        <span>✔</span>
+                    </button>
+                    <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
+                </div>
+            </section>
         </main>
     </div>
 
     <script>
-        // 1. Copy Function 
-        function copyToClipboard(elementId) {
-            var copyText = document.getElementById(elementId);
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); 
-            document.execCommand("copy");
-            alert("စာသား ကူးယူပြီးပါပြီ!"); 
+        // *** WORKER URL ကို သတ်မှတ်ခြင်း ***
+        const WORKER_URL = 'https://kpupload01.kopaing232003.workers.dev';
+
+        // HTML element များကို ရယူခြင်း
+        const inputField = document.getElementById('inputLine');
+        const saveButton = document.getElementById('saveButton');
+        const displayArea = document.getElementById('posts-display-area');
+
+        // Helper function for showing messages (Alert အစား console/alert တွင် ပြသပါမည်)
+        function showMessage(message, isSuccess = true) {
+            if (isSuccess) {
+                console.log(`SUCCESS: ${message}`);
+            } else {
+                alert(`ERROR: ${message}`); // Error ဖြစ်ရင် alert ပြမယ်
+            }
         }
 
-        // 2. File Name Display Function
+        // 1. Copy Function ကို ပြင်ဆင်ခြင်း (နောက်ဆုံး ပို့စ်ကို ကူးယူရန်)
+        function copyFirstPostToClipboard() {
+            const firstPost = displayArea.querySelector('.post-content');
+            if (firstPost) {
+                const textToCopy = firstPost.innerText;
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        alert("စာသား ကူးယူပြီးပါပြီ!"); 
+                    })
+                    .catch(err => {
+                        console.error('Copy Error:', err);
+                        alert("ကူးယူရန် မအောင်မြင်ပါ!");
+                    });
+            } else {
+                alert("ကူးယူရန် စာသား မရှိပါ!");
+            }
+        }
+
+        // 2. File Name Display Function (မူရင်းအတိုင်း)
         function updateFileName(input) {
             var fileName = input.files[0] ? input.files[0].name : "Choose File";
             document.getElementById('fileNameDisplay').innerText = fileName;
         }
 
-        // 3. R2 Upload Function (သင့်ရဲ့ မူရင်း Code ကို အောက်တွင် ထားရှိပါ)
+        // 3. R2 Upload Function (မူရင်းအတိုင်း)
         function startR2Upload() {
             const fileInput = document.getElementById('r2FileInput');
             const uploadMessage = document.getElementById('uploadMessage');
@@ -134,32 +161,80 @@
                 });
         }
         
-        // 4. Save Function (စာသား ထည့်သွင်းခြင်း ပြဿနာ ဖြေရှင်းပြီး)
-        function saveToMainTextarea() {
-            const mainTextarea = document.getElementById('mainTextArea');
-            const inputLine = document.getElementById('inputLine');
-            
-            const newText = inputLine.value.trim(); 
-            
-            if (newText === '') {
-                alert('ထည့်သွင်းရန် စာသား မရှိပါ။');
+        // 4. မှတ်စုကို Worker API သို့ ပို့ပြီး သိမ်းဆည်းသည့် Function (CREATE)
+        async function saveNewPost() {
+            const content = inputField.value.trim();
+            if (!content) {
+                showMessage('စာရိုက်ထည့်ရန် လိုအပ်ပါသည်။', false);
                 return;
             }
-            
-            // စာသားကို အကွက်ကြီးထဲ ပေါင်းထည့်ခြင်း
-            if (mainTextarea.value.trim() !== "") {
-                 mainTextarea.value += '\n\n' + newText; 
-            } else {
-                 mainTextarea.value = newText;
+
+            saveButton.disabled = true;
+            saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
+
+            try {
+                const response = await fetch(`${WORKER_URL}/save`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ content: content })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    showMessage('မှတ်စုကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။', true);
+                    inputField.value = ''; // Input ကို ရှင်းထုတ်
+                    fetchAndDisplayPosts(); // စာရင်းအသစ်ကို ချက်ချင်း ပြန်ဆွဲထုတ်
+                } else {
+                    showMessage(`သိမ်းဆည်းမှု မအောင်မြင်ပါ: ${data.message}`, false);
+                }
+
+            } catch (error) {
+                console.error("Save Error:", error);
+                showMessage('Server သို့ ချိတ်ဆက်ရာတွင် ပြဿနာ ဖြစ်ပွားပါသည်။', false);
+            } finally {
+                saveButton.disabled = false;
+                saveButton.innerText = 'စာသားထည့်သွင်း/သိမ်းဆည်း (Save)';
             }
-           
-            inputLine.value = '';
-            
-            alert('✅ စာသား အောင်မြင်စွာ ထည့်သွင်းပြီးပါပြီ။');
-            // Scroll ကို အောက်ဆုံးသို့ အလိုအလျောက် ရွှေ့ပေးခြင်း
-            mainTextarea.scrollTop = mainTextarea.scrollHeight; 
         }
-        
-    </script>
-</body> 
-</html>
+
+
+        // 5. Posts များကို Worker API မှ ဆွဲထုတ်ပြီး ပြသသည့် Function (READ)
+        async function fetchAndDisplayPosts() {
+            displayArea.innerHTML = '<p style="color: gray;">ဒေတာများ ဆွဲယူနေပါသည်...</p>'; 
+
+            try {
+                const response = await fetch(WORKER_URL); // GET /
+                const data = await response.json();
+
+                if (data.status === 'ok' && Array.isArray(data.posts)) {
+                    displayArea.innerHTML = ''; 
+                    
+                    if (data.posts.length === 0) {
+                        displayArea.innerHTML = '<p style="color: gray;">မှတ်တမ်းစာရင်း မရှိသေးပါ</p>';
+                        return;
+                    }
+
+                    // Post များကို ပြသရန်
+                    data.posts.forEach(post => {
+                        const postElement = document.createElement('div');
+                        // post-item CSS ကို သင့် style.css တွင် ထည့်သွင်းနိုင်ပါသည်။
+                        postElement.className = 'post-item'; 
+                        
+                        const date = new Date(post.timestamp).toLocaleString('my-MM', {
+                            dateStyle: 'medium', 
+                            timeStyle: 'short',
+                            hour12: true
+                        });
+
+                        postElement.innerHTML = `
+                            <p class="post-content" style="white-space: pre-wrap; font-weight: bold; margin-bottom: 5px;">${post.content}</p>
+                            <small style="color: #666; display: block; text-align: right; font-size: 11px;">မှတ်တမ်းတင်ချိန်: ${date}</small>
+                            <hr style="margin-top: 5px; border-top: 1px dashed #ccc;">
+                        `;
+                        displayArea.appendChild(postElement);
+                    });
+                } else {
+                    displayArea.innerHTML = '<p style="color: red;">ဒ
