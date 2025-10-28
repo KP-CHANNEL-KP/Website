@@ -994,10 +994,12 @@ main {
 }
 /* free.html အတွက် လိုအပ်သော Styles များ */
 
-/* အကွက်ကြီးအတွက် CSS (Vmess Key ထည့်သည့် နေရာ - ပိုရှည်ပြီး Scroll ရရန်) */
+/* style.css ဖိုင်ထဲက ပြင်ဆင်ရမည့် နေရာ */
+
+/* အကွက်ကြီးအတွက် CSS (Vmess Key ထည့်သည့် နေရာ - ပိုမိုကျယ်အောင်) */
 .big-textarea {
-    width: 200%;
-    /* Vmess Key အတွက် အပေါ်အောက် အရှည်ကို 200px သို့ ပြန်တိုးလိုက်သည် */
+    width: 100%;
+    /* 👈 ဤနေရာတွင် အမြင့်ကို 300px သို့ ထပ်တိုးလိုက်သည်။ */
     min-height: 300px; 
     padding: 15px;
     margin-bottom: 15px;
@@ -1008,6 +1010,9 @@ main {
     overflow-y: scroll; 
     resize: vertical; 
 }
+
+/* ... ကျန်တဲ့ CSS တွေက အတူတူပဲ ... */
+
 
 /* စာရေးရန် အကွက်အသေးလေးအတွက် CSS (Copy ခလုတ်အပေါ်တွင် ရှိသည်) */
 .small-input-line {
