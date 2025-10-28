@@ -141,7 +141,7 @@
             
             try {
                 // GET request ဖြင့် စာသားကို /api/text (Worker) မှ ရယူခြင်း
-                const response = await fetch('/text'); 
+                const response = await fetch('/api/text'); 
                 const text = await response.text();
 
                 // Textarea ထဲသို့ ထည့်သွင်းခြင်း
@@ -169,7 +169,7 @@
             
             // API (POST) ဖြင့် စာသားကို KV တွင် သိမ်းဆည်းခြင်း
             try {
-                const response = await fetch('/text', {
+                const response = await fetch('/api/text', {
                     method: 'POST',
                     body: updatedText,
                     headers: { 'Content-Type': 'text/plain' }
