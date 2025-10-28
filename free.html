@@ -31,15 +31,24 @@
         <section class="posts-section"> </section>
         <h1>KP WEBSITE FREE PAGE</h1>
         
-        
-            <div class="copy-box">
-                <p class="copy-box-title">ကူးယူရန် စာသား:</p> 
-                <textarea id="vmessContent" readonly class="vmess-textarea">vmess://eyJhZGRyZXNzIjoiMTY1LjIzM1...IinQ=</textarea>
-                <button onclick="copyToClipboard('vmessContent')" class="copy-button">စာသား ကူးယူမည်</button>
-            </div>
-        </section>
-
+        <div class="input-container">
+            <p class="copy-box-title">ကူးယူရန် စာသားများ / သင်ထည့်သွင်းသော စာများ:</p> 
+            <textarea id="mainTextArea" class="big-textarea" 
+                rows="10" 
+                placeholder="စာသားများ ဤနေရာတွင် ပေါ်လာပါမည်။ (အပေါ်/အောက် ဆွဲ၍ ကြည့်နိုင်သည်)">
+                vmess://eyJhZGRyZXNzIjoiMTY1LjIzM3...IinQ=  </textarea>
+            <button onclick="copyToClipboard('mainTextArea')" class="copy-button">စာသား ကူးယူမည်</button>
+            
+            <hr style="margin: 20px 0;"> <p class="copy-box-title">စာသားအသစ် ထည့်သွင်းရန်:</p>
+            <input type="text" id="inputLine" class="small-input-line" 
+                   placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ...">
+                   
+            <button id="saveButton" onclick="saveToMainTextarea()">
+                စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
+            </button>
+        </div>
         <section class="upload-section">
+
             <h2>ဖိုင်တင်ရန် နေရာ</h2>
             <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
             
