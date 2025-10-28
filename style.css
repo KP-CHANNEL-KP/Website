@@ -992,3 +992,51 @@ main {
         width: 100%;
     }
 }
+/* စာသား ထည့်သွင်း/ပြသသည့် နေရာများ */
+
+/* အကွက်ကြီးအတွက် CSS (ပိုရှည်ပြီး Scroll ရရန်) */
+.big-textarea {
+    width: 100%;
+    /* အပေါ်အောက် အရှည်ကို ပိုကျယ်အောင် လုပ်ခြင်း */
+    min-height: 250px; /* ဥပမာ: 250 pixels */
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    /* Scroll လုပ်နိုင်ရန် */
+    overflow-y: scroll; 
+    resize: vertical; /* အသုံးပြုသူကိုယ်တိုင် အရှည်ကို ပြောင်းလဲနိုင်ရန် */
+}
+
+/* စာရေးရန် အကွက်အသေးလေးအတွက် CSS */
+.small-input-line {
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #28a745; /* ခလုတ်အရောင်နဲ့ လိုက်ဖက်အောင် */
+    border-radius: 8px;
+    font-size: 16px;
+    height: 40px; /* စာရေးရန်လောက်သာ အမြင့်ထားခြင်း */
+}
+
+/* "Save" ခလုတ်ကို အလှဆင်ခြင်း */
+#saveButton {
+    background-color: #28a745; /* အစိမ်းရောင် */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 25px; /* ပိုလှအောင် ဘေးထောင့်ဝိုင်းခြင်း */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#saveButton:hover {
+    background-color: #218838; /* Mouse ကပ်ရင် ပိုရင့်သော အစိမ်းရောင်သို့ ပြောင်းပါမည် */
+}
