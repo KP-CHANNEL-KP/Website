@@ -172,7 +172,57 @@
                     uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
                 });
         }
+    <script>
+        // 1. Copy Function ...
+        function copyToClipboard(elementId) {
+            // ... (လက်ရှိ copyToClipboard function Code များ) ...
+        }
+
+        // 2. File Name Display Function ...
+        function updateFileName(input) {
+            // ... (လက်ရှိ updateFileName function Code များ) ...
+        }
+
+        // 3. R2 Upload Function ...
+        function startR2Upload() {
+            // ... (လက်ရှိ startR2Upload function Code များ) ...
+        }
+        
+        // =============================================
+        // 🎯 ဤနေရာတွင် 'saveToMainTextarea()' Function ကို ထည့်သွင်းရပါမည်။
+        function saveToMainTextarea() {
+            const mainTextarea = document.getElementById('mainTextArea');
+            const inputLine = document.getElementById('inputLine');
+            
+            // input အသေးထဲက စာသားကို ယူခြင်း
+            const newText = inputLine.value.trim(); 
+            
+            if (newText === '') {
+                alert('ထည့်သွင်းရန် စာသား မရှိပါ။');
+                return;
+            }
+            
+            // အကွက်အကြီးထဲမှာ လက်ရှိရှိနေတဲ့ စာသားနဲ့ အသစ်ထည့်တာကို ပေါင်းထည့်ခြင်း
+            if (mainTextarea.value.trim() !== "") {
+                 mainTextarea.value += '\n\n' + newText; 
+            } else {
+                 mainTextarea.value = newText;
+            }
+           
+
+            // စာထည့်ပြီးရင် input အသေးကို ရှင်းပစ်ခြင်း
+            inputLine.value = '';
+            
+            // အောင်မြင်ကြောင်းပြပြီး Scroll ကို အောက်ဆုံးထိ ရွှေ့ပေးခြင်း
+            alert('✅ စာသား အောင်မြင်စွာ ထည့်သွင်းပြီးပါပြီ။');
+            mainTextarea.scrollTop = mainTextarea.scrollHeight; 
+        }
+        // =============================================
+        
     </script>
+</body> 
+</html>
+
 </body>
 </html>
 
