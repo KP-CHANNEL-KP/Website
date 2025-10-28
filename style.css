@@ -1000,9 +1000,9 @@ main {
 
 /* အကွက်ကြီးအတွက် CSS (Vmess Key ထည့်သည့် နေရာ - အမြင့်ကို လျှော့ချခြင်း) */
 .big-textarea {
-    width: 100%;
+    width: 150%;
     /* 👈 ဤနေရာတွင် အမြင့်ကို 300px မှ 150px သို့ ပြန်လျှော့လိုက်သည် */
-    min-height: 150px; 
+    min-height: 200px; 
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
