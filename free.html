@@ -15,18 +15,16 @@
                 <h1 class="site-title">KP Blog</h1>
             </div>
             <nav>
-    <a href="index.html">မူလစာမျက်နှာ</a>
-    <a href="posts.html">Posts</a>
-    <a href="free.html">Free</a> 
-    <a href="buy.html">ဝယ်ယူရန်</a> 
-</nav>
-
+                <a href="index.html">မူလစာမျက်နှာ</a>
+                <a href="posts.html">Posts</a>
+                <a href="free.html">Free</a> 
+                <a href="buy.html">ဝယ်ယူရန်</a> 
+            </nav>
         </div>
     </header>
 
     <div class="intro-bar">
        
-        
         <main>
         <section class="posts-section"> </section>
         <h1>KP WEBSITE FREE PAGE</h1>
@@ -34,13 +32,10 @@
         <div class="copy-box">
             <p class="copy-box-title">ကူးယူရန် စာသားများ / သင်ထည့်သွင်းသော စာများ:</p> 
             <textarea id="mainTextArea" class="big-textarea" 
-                rows="20"  
-                readonly  placeholder="စာသားများ ဤနေရာတွင် ပေါ်လာပါမည်။ (Scroll လုပ်နိုင်သည်)">vmess://eyJhZGRyZXNzIjoiMTY1LjIzM3...IinQ= 
+                rows="20" readonly 
+                placeholder="စာသားများ ဤနေရာတွင် ပေါ်လာပါမည်။ (Scroll လုပ်နိုင်သည်)">
+                vmess://eyJhZGRyZXNzIjoiMTY1LjIzM3...IinQ=  
             </textarea>
-
-
-
-
             
             <p class="copy-box-title" style="margin-top: 15px;">စာသားအသစ် ထည့်သွင်းရန်:</p>
             <input type="text" id="inputLine" class="small-input-line" 
@@ -53,74 +48,43 @@
             <button id="saveButton" onclick="saveToMainTextarea()" class="save-button">
                 စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
             </button>
-
         </div>
         <section class="upload-section">
-
             <h2>ဖိုင်တင်ရန် နေရာ</h2>
             <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
             
             <div class="upload-container">
-    <label for="r2FileInput" class="custom-file-upload">
-        <span id="fileNameDisplay">Choose File</span>
-        <input type="file" id="r2FileInput" onchange="updateFileName(this)"> 
-    </label>
+                <label for="r2FileInput" class="custom-file-upload">
+                    <span id="fileNameDisplay">Choose File</span>
+                    <input type="file" id="r2FileInput" onchange="updateFileName(this)"> 
+                </label>
 
-    <button onclick="startR2Upload()">
-        <span>✔</span>
-    </button>
-    <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
-</div>
-
+                <button onclick="startR2Upload()">
+                    <span>✔</span>
+                </button>
+                <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
+            </div>
         </section>
+        </main>
+    </div>
 
- <script>
-    // Copy function အသစ် - elementId ကို လက်ခံသည်
-    function copyToClipboard(elementId) {
-        var copyText = document.getElementById(elementId);
-
-        // textarea ထဲက စာသားကို ရွေးချယ်သည်
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); 
-
-        // စာသားကို ကူးယူသည်
-        document.execCommand("copy");
-
-        // ကူးယူမှု အခြေအနေကို ဖော်ပြသည် (သင့်ရဲ့ HTML မှာ <p id="copyStatus" class="copy-status"></p> ပါပြီးသားလို့ ယူဆပါတယ်)
-        document.getElementById("copyStatus").innerText = "✔ စာသား ကူးယူပြီးပါပြီ!";
-
-        // ၃ စက္ကန့်ကြာရင် Status ကို ပြန်ဖျောက်သည်
-        setTimeout(function(){
-            document.getElementById("copyStatus").innerText = "";
-        }, 3000);
-    }
-    
-    // ... အောက်မှာ တခြား JavaScript function တွေရှိပါက ဆက်ထားပါ...
-</script>
-
-            <script>
-        // 1. Copy Function (vmessContent ID ကို သုံးပြီး ကူးယူရန်)
+    <script>
+        // 1. Copy Function 
         function copyToClipboard(elementId) {
             var copyText = document.getElementById(elementId);
             copyText.select();
             copyText.setSelectionRange(0, 99999); 
             document.execCommand("copy");
-
-            // Status ပြရန် (သင့်ရဲ့ HTML မှာ id="copyStatus" မပါသေးလျှင် ထည့်ပေးရမည်)
-            // document.getElementById("copyStatus").innerText = "✔ စာသား ကူးယူပြီးပါပြီ!";
-            // setTimeout(function(){
-            //     document.getElementById("copyStatus").innerText = "";
-            // }, 3000);
-            alert("စာသား ကူးယူပြီးပါပြီ!"); // လွယ်ကူစေရန် alert သုံးသည်
+            alert("စာသား ကူးယူပြီးပါပြီ!"); 
         }
 
-        // 2. File Name Display Function (File ရွေးပြီးတာနဲ့ နာမည်ပေါ်စေရန်)
+        // 2. File Name Display Function
         function updateFileName(input) {
-            var fileName = input.files[0] ? input.files[0].name : "No file chosen";
+            var fileName = input.files[0] ? input.files[0].name : "Choose File";
             document.getElementById('fileNameDisplay').innerText = fileName;
         }
 
-        // 3. R2 Upload Function (အဆင့် ၁ မှ Function ကို ခေါ်ရန်)
+        // 3. R2 Upload Function (သင့်ရဲ့ မူရင်း Code ကို အောက်တွင် ထားရှိပါ)
         function startR2Upload() {
             const fileInput = document.getElementById('r2FileInput');
             const uploadMessage = document.getElementById('uploadMessage');
@@ -133,16 +97,8 @@
 
             uploadMessage.innerText = 'ဖိုင်တင်နေပါသည်...'; 
 
-            // ⚠️ Function Path ကို တိုက်ရိုက် ခေါ်ဆိုခြင်း (အဆင့် ၁ မှ Code နှင့် ကိုက်ညီသည်)
-            // ... (free.html ထဲက startR2Upload function)
-
-    // ⚠️ API Endpoint မှာ file.type ကို ထပ်ပို့ပါ
-    const fileType = encodeURIComponent(file.type || 'application/octet-stream'); 
-    const apiEndpoint = '/upload-url?fileName=' + file.name + '&fileType=' + fileType;
-
-    fetch(apiEndpoint)
-// ... (ကျန်တာ အတူတူပဲ ထားပါ)
-
+            const fileType = encodeURIComponent(file.type || 'application/octet-stream'); 
+            const apiEndpoint = '/upload-url?fileName=' + file.name + '&fileType=' + fileType;
 
             fetch(apiEndpoint)
                 .then(response => {
@@ -156,7 +112,7 @@
                 .then(data => {
                     const signedUrl = data.uploadURL; 
                     
-                    // R2 သို့ ဖိုင်ကို တိုက်ရိုက် တင်ခြင်း (PUT Request)
+                    // R2 သို့ ဖိုင်ကို တိုက်ရိုက် တင်ခြင်း (POST Request)
                     return fetch(signedUrl, {
                         method: 'POST',
                         body: file,
@@ -167,42 +123,22 @@
                 })
                 .then(uploadResponse => {
                     if (uploadResponse.ok) {
-                        // 200 OK ရရင် အောင်မြင်သည်
                         uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name})`;
                     } else {
-                        // R2 ကနေ Error (403 Forbidden, 400 Bad Request) ပြန်လာရင်
                         throw new Error(`R2 Upload Failed: ${uploadResponse.status} ${uploadResponse.statusText}`);
                     }
                 })
                 .catch(error => {
-                    // Network Error သို့မဟုတ် API ချိတ်ဆက်မှု Error
                     console.error('Final Upload Error:', error);
                     uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
                 });
         }
-    <script>
-        // 1. Copy Function ...
-        function copyToClipboard(elementId) {
-            // ... (လက်ရှိ copyToClipboard function Code များ) ...
-        }
-
-        // 2. File Name Display Function ...
-        function updateFileName(input) {
-            // ... (လက်ရှိ updateFileName function Code များ) ...
-        }
-
-        // 3. R2 Upload Function ...
-        function startR2Upload() {
-            // ... (လက်ရှိ startR2Upload function Code များ) ...
-        }
         
-        // =============================================
-        // 🎯 ဤနေရာတွင် 'saveToMainTextarea()' Function ကို ထည့်သွင်းရပါမည်။
+        // 4. Save Function (စာသား ထည့်သွင်းခြင်း ပြဿနာ ဖြေရှင်းပြီး)
         function saveToMainTextarea() {
             const mainTextarea = document.getElementById('mainTextArea');
             const inputLine = document.getElementById('inputLine');
             
-            // input အသေးထဲက စာသားကို ယူခြင်း
             const newText = inputLine.value.trim(); 
             
             if (newText === '') {
@@ -210,27 +146,20 @@
                 return;
             }
             
-            // အကွက်အကြီးထဲမှာ လက်ရှိရှိနေတဲ့ စာသားနဲ့ အသစ်ထည့်တာကို ပေါင်းထည့်ခြင်း
+            // စာသားကို အကွက်ကြီးထဲ ပေါင်းထည့်ခြင်း
             if (mainTextarea.value.trim() !== "") {
                  mainTextarea.value += '\n\n' + newText; 
             } else {
                  mainTextarea.value = newText;
             }
            
-
-            // စာထည့်ပြီးရင် input အသေးကို ရှင်းပစ်ခြင်း
             inputLine.value = '';
             
-            // အောင်မြင်ကြောင်းပြပြီး Scroll ကို အောက်ဆုံးထိ ရွှေ့ပေးခြင်း
             alert('✅ စာသား အောင်မြင်စွာ ထည့်သွင်းပြီးပါပြီ။');
+            // Scroll ကို အောက်ဆုံးသို့ အလိုအလျောက် ရွှေ့ပေးခြင်း
             mainTextarea.scrollTop = mainTextarea.scrollHeight; 
         }
-        // =============================================
         
     </script>
 </body> 
 </html>
-
-</body>
-</html>
-
