@@ -992,23 +992,24 @@ main {
         width: 100%;
     }
 }
-/* free.html အတွက် CSS Styles */
+/* free.html အတွက် လိုအပ်သော Styles များ */
 
-/* အကွက်ကြီးအတွက် CSS (တစ်ကြောင်းစာသာ မြင်ရပြီး Scroll ရရန်) */
+/* အကွက်ကြီးအတွက် CSS (Vmess Key ထည့်သည့် နေရာ - ပိုရှည်ပြီး Scroll ရရန်) */
 .big-textarea {
-    width: 200%;
-    /* rows="1" သုံးထားသော်လည်း scroll ရရန် */
+    width: 100%;
+    /* Vmess Key အတွက် အပေါ်အောက် အရှည်ကို 200px သို့ ပြန်တိုးလိုက်သည် */
     min-height: 200px; 
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
-    overflow-y: scroll; /* စာများရင် အပေါ်အောက် scroll ရရန် */
+    /* Scroll လုပ်နိုင်ရန် */
+    overflow-y: scroll; 
     resize: vertical; 
 }
 
-/* စာရေးရန် အကွက်အသေးလေးအတွက် CSS */
+/* စာရေးရန် အကွက်အသေးလေးအတွက် CSS (Copy ခလုတ်အပေါ်တွင် ရှိသည်) */
 .small-input-line {
     width: 100%;
     padding: 10px 15px;
@@ -1021,8 +1022,7 @@ main {
 
 /* Copy ခလုတ်အတွက် (မူလပုံစံအတိုင်း) */
 .copy-button {
-    /* သင့်ရဲ့ မူလ copy-button style များကို ဒီနေရာမှာ ထည့်ပါ */
-    background-color: #008080; /* ဒါက ဥပမာအရောင် */
+    background-color: #008080; /* ဥပမာအရောင် (သင့်မူရင်းအရောင်ကို သုံးနိုင်သည်) */
     color: white;
     border: none;
     padding: 12px 25px;
@@ -1031,9 +1031,10 @@ main {
     border-radius: 25px; 
     cursor: pointer;
     font-weight: bold;
+    margin-bottom: 10px; /* Save ခလုတ်နဲ့ မခြားအောင် နည်းနည်း ခြားထားသည် */
 }
 
-/* Save ခလုတ်ကို အလှဆင်ခြင်း (Copy ခလုတ်နဲ့ မတူဘဲ ပိုလှအောင်) */
+/* Save ခလုတ်ကို အလှဆင်ခြင်း (Copy ခလုတ်အောက်တွင် ရှိသည်) */
 .save-button {
     background-color: #28a745; /* အစိမ်းရောင် */
     color: white;
@@ -1049,9 +1050,11 @@ main {
     transition: background-color 0.3s ease;
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 10px; /* Copy ခလုတ်နဲ့ နည်းနည်းခြားထားသည် */
+    margin-top: 10px; 
 }
 
 .save-button:hover {
     background-color: #218838; 
 }
+
+/* ... ကျန်တဲ့ သင့်ရဲ့ မူလ style များ ဒီအောက်မှာ ဆက်ရှိနိုင်ပါသည် ... */
