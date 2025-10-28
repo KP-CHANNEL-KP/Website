@@ -998,7 +998,7 @@ main {
 .big-textarea {
     width: 100%;
     /* rows="1" သုံးထားသော်လည်း scroll ရရန် */
-    min-height: 40px; 
+    min-height: 100px; 
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
