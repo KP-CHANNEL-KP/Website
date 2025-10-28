@@ -1002,7 +1002,7 @@ main {
 .big-textarea {
     width: 150%;
     /* 👈 ဤနေရာတွင် အမြင့်ကို 300px မှ 150px သို့ ပြန်လျှော့လိုက်သည် */
-    min-height: 100px; 
+    min-height: 50px; 
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
