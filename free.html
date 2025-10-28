@@ -141,7 +141,7 @@
             
             try {
                 // GET request ဖြင့် စာသားကို /api/text (Worker) မှ ရယူခြင်း
-                const response = await fetch('/api/text'); 
+                const response = await fetch('/text'); 
                 const text = await response.text();
 
                 // Textarea ထဲသို့ ထည့်သွင်းခြင်း
@@ -169,7 +169,31 @@
             
             // API (POST) ဖြင့် စာသားကို KV တွင် သိမ်းဆည်းခြင်း
             try {
-                const response = await fetch('/api/text', {
+                const response = await fetch('/text', {
                     method: 'POST',
                     body: updatedText,
                     headers: { 'Content-Type': 'text/plain' }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Server error: ' + response.statusText);
+                }
+
+                // သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
+                mainTextarea.value = updatedText; 
+                inputLine.value = '';
+                alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အခြားသူများ မြင်နိုင်သည်)');
+                mainTextarea.scrollTop = mainTextarea.scrollHeight; 
+
+            } catch (error) {
+                alert('❌ သိမ်းဆည်းမှု မအောင်မြင်ပါ။ Error: ' + error.message + '. KV Binding နှင့် /functions/api/text.js ကို စစ်ဆေးပါ။');
+                console.error('Save error:', error);
+            }
+        }
+        // =============================================
+
+        // Website စဖွင့်တာနဲ့ စာသားကို တစ်ခါတည်း ဆွဲယူပြီး ပြသရန်
+        window.onload = fetchInitialText; 
+    </script>
+</body> 
+</html>
