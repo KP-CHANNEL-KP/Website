@@ -1,32 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free | KP Blog</title>
-    
-    <link rel="stylesheet" href="style.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>KP WEBSITE FREE PAGE</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-        <header>
-        <div class="header-content">
-            <div class="logo-and-title">
-                <img src="images/logo.png" alt="KP Logo" class="logo"> 
-                <h1 class="site-title">KP Blog</h1>
-            </div>
-            
-            <nav>
-                <a href="index.html">မူလစာမျက်နှာ</a>
-                <a href="posts.html">Posts</a>
-                <a href="free.html">Free</a>
-                
-                <a href="buy.html">ဝယ်ယူရန်</a> 
-                </nav>
-        </div>
+    <header>
+        <h1>KP WEBSITE FREE PAGE</h1>
+        <nav>
+            <a href="index.html">ပင်မ</a>
+            <a href="buy.html">ဝယ်ယူရန်</a>
+            <a href="posts.html">Posts</a>
+            <a href="free.html" class="active">Free</a>
+        </nav>
     </header>
+
     <main>
         <div class="card">
             <h2>ကူးယူရမည့် စာသားများ / ထည့်သွင်းသော စာသားများ</h2>
@@ -68,7 +58,7 @@
         }
 
         // =============================================
-        // 1. R2 Upload Functions (FIXED)
+        // 1. R2 Upload Functions (FIXED & Corrected for POST/JSON)
         async function startR2Upload() {
             const fileInput = document.getElementById('fileInput');
             const uploadMessage = document.getElementById('uploadMessage');
@@ -81,7 +71,7 @@
             const file = fileInput.files[0];
             uploadMessage.innerHTML = `⌛ ${file.name} ကို Upload ပြုလုပ်နေပါသည်။...`;
             
-            // Pages Function အတွက် Absolute Path နှင့် Endpoint သတ်မှတ်
+            // Pages Function အတွက် Absolute Path နှင့် Endpoint
             const apiEndpoint = "/api/upload"; 
 
             // Form Data အဖြစ် ပြောင်းလဲပြီး POST request ဖြင့် ပို့ရန်
@@ -91,7 +81,7 @@
             try {
                 // R2 Upload Function ကို POST method ဖြင့် ခေါ်ဆိုခြင်း
                 const uploadResponse = await fetch(apiEndpoint, {
-                    method: 'POST', // 🎯 FIX: POST method သုံးခြင်း
+                    method: 'POST', // POST method ကို အတိအကျ သုံးခြင်း
                     body: formData // Form Data ကို ပို့ခြင်း
                 });
 
