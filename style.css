@@ -1000,7 +1000,7 @@ main {
 .big-textarea {
     width: 200%;
     /* 👈 ဤနေရာတွင် အမြင့်ကို 300px သို့ ထပ်တိုးလိုက်သည်။ */
-    min-height: 300px; 
+    min-height: 200px; 
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
