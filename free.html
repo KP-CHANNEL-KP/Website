@@ -32,20 +32,20 @@
             <div class="copy-box">
                 <p class="copy-box-title">ကူးယူရန် စာသားများ:</p> 
                 <p class="copy-box-title" style="margin-top: 15px;">**အများပြည်သူ မြင်တွေ့နိုင်သော မှတ်တမ်းများ**</p>
-                <div id="posts-display-area" class="big-textarea" style="height: 300px; overflow-y: scroll; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; color: #333; margin-bottom: 20px;">
+                <textarea id="mainTextArea" rows="15" readonly style="height: 300px; overflow-y: scroll; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; color: #333; margin-bottom: 20px;">
                     ဒေတာများကို စတင်ဆွဲယူနေပါသည်။
-                </div>
+                </textarea>
 
 
                 <p class="copy-box-title" style="margin-top: 15px;">စာသားအသစ် ထည့်သွင်းရန်:</p>
                 <input type="text" id="inputLine" class="small-input-line" 
                        placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ...">
                 
-                <button onclick="copyFirstPostToClipboard()" class="copy-button" style="margin-bottom: 10px;">
+                <button onclick="copyMainTextToClipboard()" class="copy-button" style="margin-bottom: 10px;">
                     နောက်ဆုံး စာသား ကူးယူမည်
                 </button>
 
-                <button id="saveButton" onclick="saveNewPost()" class="save-button">
+                <button id="saveButton" onclick="saveToMainTextarea()" class="save-button">
                     စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
                 </button>
             </div>
@@ -55,9 +55,9 @@
                 <p>ပုံများ၊ PDF များ သို့မဟုတ် သင်ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
                 
                 <div class="upload-container">
-                    <label for="r2FileInput" class="custom-file-upload">
+                    <label for="fileInput" class="custom-file-upload">
                         <span id="fileNameDisplay">Choose File</span>
-                        <input type="file" id="r2FileInput" onchange="updateFileName(this)"> 
+                        <input type="file" id="fileInput" onchange="updateFileName(this)"> 
                     </label>
 
                     <button onclick="startR2Upload()">
@@ -68,30 +68,21 @@
             </section>
         </main>
     </div>
+    
+    <footer>
+        <p>&copy; 2025 KP WEBSITE</p>
+    </footer>
 
     <script>
-        // *** WORKER URL ကို သတ်မှတ်ခြင်း ***
-        const WORKER_URL = 'https://kpupload01.kopaing232003.workers.dev';
-
         // HTML element များကို ရယူခြင်း
-        const inputField = document.getElementById('inputLine');
+        const mainTextarea = document.getElementById('mainTextArea'); // KV Display Area
+        const inputLine = document.getElementById('inputLine');
         const saveButton = document.getElementById('saveButton');
-        const displayArea = document.getElementById('posts-display-area');
-
-        // Helper function for showing messages (Alert အစား console/alert တွင် ပြသပါမည်)
-        function showMessage(message, isSuccess = true) {
-            if (isSuccess) {
-                console.log(`SUCCESS: ${message}`);
-            } else {
-                alert(`ERROR: ${message}`); // Error ဖြစ်ရင် alert ပြမယ်
-            }
-        }
-
-        // 1. Copy Function ကို ပြင်ဆင်ခြင်း (နောက်ဆုံး ပို့စ်ကို ကူးယူရန်)
-        function copyFirstPostToClipboard() {
-            const firstPost = displayArea.querySelector('.post-content');
-            if (firstPost) {
-                const textToCopy = firstPost.innerText;
+        
+        // 1. Copy Function (Textarea ထဲက စာအားလုံးကို ကူးရန်)
+        function copyMainTextToClipboard() {
+            const textToCopy = mainTextarea.value;
+            if (textToCopy && textToCopy !== 'Loading...') {
                 navigator.clipboard.writeText(textToCopy)
                     .then(() => {
                         alert("စာသား ကူးယူပြီးပါပြီ!"); 
@@ -110,146 +101,112 @@
             var fileName = input.files[0] ? input.files[0].name : "Choose File";
             document.getElementById('fileNameDisplay').innerText = fileName;
         }
-
-        // 3. R2 Upload Function (မူရင်းအတိုင်း)
-        function startR2Upload() {
-            const fileInput = document.getElementById('r2FileInput');
+        
+        // =============================================
+        // 3. R2 Upload Function (POST Request ဖြင့် ပြန်လည်ပြင်ဆင်ထားသည်)
+        async function startR2Upload() {
+            const fileInput = document.getElementById('fileInput');
             const uploadMessage = document.getElementById('uploadMessage');
-            const file = fileInput.files[0];
-
-            if (!file) {
-                uploadMessage.innerHTML = '❌ ဖိုင်ကို ရွေးချယ်ပေးပါဦး။';
+            
+            if (fileInput.files.length === 0) {
+                uploadMessage.innerHTML = '❌ ဖိုင်ရွေးချယ်ရန် လိုအပ်ပါသည်။';
                 return;
             }
 
-            uploadMessage.innerText = 'ဖိုင်တင်နေပါသည်...'; 
+            const file = fileInput.files[0];
+            uploadMessage.innerHTML = `⌛ ${file.name} ကို Upload ပြုလုပ်နေပါသည်။...`;
+            
+            // Pages Function အတွက် Absolute Path
+            const apiEndpoint = "/api/upload"; 
 
-            const fileType = encodeURIComponent(file.type || 'application/octet-stream'); 
-            const apiEndpoint = '/upload-url?fileName=' + file.name + '&fileType=' + fileType;
+            // Form Data အဖြစ် ပြောင်းလဲပြီး POST request ဖြင့် ပို့ခြင်း
+            const formData = new FormData();
+            formData.append('file', file); // Server-side မှာ 'file' key နဲ့ ဆွဲယူပါမည်
 
-            fetch(apiEndpoint)
-                .then(response => {
-                    if (!response.ok) {
-                        return response.text().then(text => {
-                            throw new Error(`API Call Failed. Status: ${response.status}. Response: ${text.substring(0, 50)}...`);
-                        });
-                    }
-                    return response.json(); 
-                })
-                .then(data => {
-                    const signedUrl = data.uploadURL; 
-                    
-                    // R2 သို့ ဖိုင်ကို တိုက်ရိုက် တင်ခြင်း (POST Request)
-                    return fetch(signedUrl, {
-                        method: 'POST',
-                        body: file,
-                        headers: {
-                            'Content-Type': file.type || 'application/octet-stream'
-                        }
-                    });
-                })
-                .then(uploadResponse => {
-                    if (uploadResponse.ok) {
-                        uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name})`;
-                    } else {
-                        throw new Error(`R2 Upload Failed: ${uploadResponse.status} ${uploadResponse.statusText}`);
-                    }
-                })
-                .catch(error => {
-                    console.error('Final Upload Error:', error);
-                    uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
+            try {
+                // R2 Upload Function ကို POST method ဖြင့် ခေါ်ဆိုခြင်း
+                const uploadResponse = await fetch(apiEndpoint, {
+                    method: 'POST', 
+                    body: formData // Form Data ကို ပို့ခြင်း
                 });
+
+                // Server က JSON ကို ပြန်ပို့မှာ ဖြစ်သောကြောင့် JSON အဖြစ် ဖတ်သည်
+                const result = await uploadResponse.json(); 
+
+                if (uploadResponse.ok && result.status === 'SUCCESS') {
+                    // အောင်မြင်သော Response မှ status 'SUCCESS' ကို စစ်ဆေးခြင်း
+                    uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name}). Message: ${result.message || ''}`;
+                } else {
+                    // Server-side error (400, 500) များကို ကိုင်တွယ်ခြင်း
+                    throw new Error(`Upload Failed: ${result.message || uploadResponse.statusText}`);
+                }
+            } catch (error) {
+                console.error('Final Upload Error:', error);
+                uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
+            }
         }
         
-        // 4. မှတ်စုကို Worker API သို့ ပို့ပြီး သိမ်းဆည်းသည့် Function (CREATE)
-        async function saveNewPost() {
-            const content = inputField.value.trim();
-            if (!content) {
-                showMessage('စာရိုက်ထည့်ရန် လိုအပ်ပါသည်။', false);
+        // =============================================
+        // 4. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (KV /api/text GET)
+        async function fetchInitialText() {
+            try {
+                // GET request ဖြင့် စာသားကို /api/text (Pages Function) မှ ရယူခြင်း
+                const response = await fetch('/api/text'); 
+                const text = await response.text();
+
+                // Textarea ထဲသို့ ထည့်သွင်းခြင်း
+                mainTextarea.value = text;
+            } catch (error) {
+                console.error('Failed to fetch initial text:', error);
+                mainTextarea.value = 'Data load မလုပ်နိုင်ပါ။ Backend/KV ချိတ်ဆက်မှု စစ်ဆေးပါ။';
+            }
+        }
+
+        // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (KV /api/text POST)
+        async function saveToMainTextarea() {
+            const newText = inputLine.value.trim(); 
+            
+            if (newText === '') {
+                alert('ထည့်သွင်းရန် စာသား မရှိပါ။');
                 return;
             }
-
+            
+            // လက်ရှိ စာသား နှင့် အသစ်ထည့်သော စာသားကို ပေါင်းစပ်
+            const updatedText = mainTextarea.value.trim() + '\n\n' + newText;
+            
             saveButton.disabled = true;
             saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
 
+            // API (POST) ဖြင့် စာသားကို KV တွင် သိမ်းဆည်းခြင်း
             try {
-                const response = await fetch(`${WORKER_URL}/save`, {
+                const response = await fetch('/api/text', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ content: content })
+                    body: updatedText,
+                    headers: { 'Content-Type': 'text/plain' }
                 });
 
-                const data = await response.json();
-
-                if (data.status === 'success') {
-                    showMessage('မှတ်စုကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။', true);
-                    inputField.value = ''; // Input ကို ရှင်းထုတ်
-                    fetchAndDisplayPosts(); // စာရင်းအသစ်ကို ချက်ချင်း ပြန်ဆွဲထုတ်
-                } else {
-                    showMessage(`သိမ်းဆည်းမှု မအောင်မြင်ပါ: ${data.message}`, false);
+                if (!response.ok) {
+                    throw new Error('Server error: ' + response.statusText);
                 }
 
+                // သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
+                mainTextarea.value = updatedText; 
+                inputLine.value = '';
+                alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အခြားသူများ မြင်နိုင်သည်)');
+                mainTextarea.scrollTop = mainTextarea.scrollHeight; 
+
             } catch (error) {
-                console.error("Save Error:", error);
-                showMessage('Server သို့ ချိတ်ဆက်ရာတွင် ပြဿနာ ဖြစ်ပွားပါသည်။', false);
+                alert('❌ သိမ်းဆည်းမှု မအောင်မြင်ပါ။ Error: ' + error.message + '. KV Binding နှင့် /functions/api/text.js ကို စစ်ဆေးပါ။');
+                console.error('Save error:', error);
             } finally {
                 saveButton.disabled = false;
                 saveButton.innerText = 'စာသားထည့်သွင်း/သိမ်းဆည်း (Save)';
             }
         }
+        // =============================================
 
-
-        // 5. Posts များကို Worker API မှ ဆွဲထုတ်ပြီး ပြသသည့် Function (READ)
-        async function fetchAndDisplayPosts() {
-            displayArea.innerHTML = '<p style="color: gray;">ဒေတာများ ဆွဲယူနေပါသည်...</p>'; 
-
-            try {
-                const response = await fetch(WORKER_URL); // GET /
-                const data = await response.json();
-
-                if (data.status === 'ok' && Array.isArray(data.posts)) {
-                    displayArea.innerHTML = ''; 
-                    
-                    if (data.posts.length === 0) {
-                        displayArea.innerHTML = '<p style="color: gray;">မှတ်တမ်းစာရင်း မရှိသေးပါ</p>';
-                        return;
-                    }
-
-                    // Post များကို ပြသရန်
-                    data.posts.forEach(post => {
-                        const postElement = document.createElement('div');
-                        // post-item CSS ကို သင့် style.css တွင် ထည့်သွင်းနိုင်ပါသည်။
-                        postElement.className = 'post-item'; 
-                        
-                        const date = new Date(post.timestamp).toLocaleString('my-MM', {
-                            dateStyle: 'medium', 
-                            timeStyle: 'short',
-                            hour12: true
-                        });
-
-                        postElement.innerHTML = `
-                            <p class="post-content" style="white-space: pre-wrap; font-weight: bold; margin-bottom: 5px;">${post.content}</p>
-                            <small style="color: #666; display: block; text-align: right; font-size: 11px;">မှတ်တမ်းတင်ချိန်: ${date}</small>
-                            <hr style="margin-top: 5px; border-top: 1px dashed #ccc;">
-                        `;
-                        displayArea.appendChild(postElement);
-                    });
-                } else {
-                    displayArea.innerHTML = '<p style="color: red;">ဒေတာဆွဲယူရာတွင် အမှားအယွင်းရှိပါသည်</p>';
-                }
-
-            } catch (error) {
-                console.error("Fetch Error:", error);
-                displayArea.innerHTML = `<p style="color: red;">API ချိတ်ဆက်မှု မအောင်မြင်ပါ: ${error.message}</p>`;
-            }
-        }
-
-        // Page စဖွင့်သည်နှင့် ဒေတာများကို စတင်ဆွဲထုတ်ပြသခြင်း
-        document.addEventListener('DOMContentLoaded', fetchAndDisplayPosts);
-
-        
+        // Website စဖွင့်တာနဲ့ စာသားကို တစ်ခါတည်း ဆွဲယူပြီး ပြသရန်
+        document.addEventListener('DOMContentLoaded', fetchInitialText);
     </script>
 </body> 
 </html>
