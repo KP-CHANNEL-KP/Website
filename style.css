@@ -1021,7 +1021,7 @@ main {
 
 /* စာရေးရန် အကွက်အသေးလေးအတွက် CSS (Copy ခလုတ်အပေါ်တွင် ရှိသည်) */
 .small-input-line {
-    width: 80%;
+    width: 60%;
     padding: 10px 15px;
     margin-bottom: 15px;
     border: 1px solid #28a745; 
