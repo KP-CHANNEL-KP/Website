@@ -994,19 +994,18 @@ main {
 }
 /* free.html အတွက် CSS Styles */
 
-/* အကွက်ကြီးအတွက် CSS (ပိုရှည်ပြီး Scroll ရရန်) */
+/* အကွက်ကြီးအတွက် CSS (တစ်ကြောင်းစာသာ မြင်ရပြီး Scroll ရရန်) */
 .big-textarea {
     width: 100%;
-    /* အပေါ်အောက် အရှည်ကို ပိုကျယ်အောင် လုပ်ခြင်း */
-    min-height: 250px; 
+    /* rows="1" သုံးထားသော်လည်း scroll ရရန် */
+    min-height: 40px; 
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
-    /* Scroll လုပ်နိုင်ရန် */
-    overflow-y: scroll; 
-    resize: vertical; /* အသုံးပြုသူကိုယ်တိုင် အရှည်ကို ပြောင်းလဲနိုင်ရန် */
+    overflow-y: scroll; /* စာများရင် အပေါ်အောက် scroll ရရန် */
+    resize: vertical; 
 }
 
 /* စာရေးရန် အကွက်အသေးလေးအတွက် CSS */
@@ -1020,25 +1019,39 @@ main {
     height: 40px; 
 }
 
-/* "Save" ခလုတ်ကို အလှဆင်ခြင်း */
-#saveButton {
+/* Copy ခလုတ်အတွက် (မူလပုံစံအတိုင်း) */
+.copy-button {
+    /* သင့်ရဲ့ မူလ copy-button style များကို ဒီနေရာမှာ ထည့်ပါ */
+    background-color: #008080; /* ဒါက ဥပမာအရောင် */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    width: 100%;
+    text-align: center;
+    border-radius: 25px; 
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Save ခလုတ်ကို အလှဆင်ခြင်း (Copy ခလုတ်နဲ့ မတူဘဲ ပိုလှအောင်) */
+.save-button {
     background-color: #28a745; /* အစိမ်းရောင် */
     color: white;
     border: none;
     padding: 12px 25px;
     text-align: center;
     text-decoration: none;
-    display: block; /* တစ်ကြောင်းလုံး ယူထားရန် */
+    display: block; 
     width: 100%;
     font-size: 16px;
-    border-radius: 25px; /* ပိုလှအောင် ဘေးထောင့်ဝိုင်းခြင်း */
+    border-radius: 25px; 
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
+    margin-top: 10px; /* Copy ခလုတ်နဲ့ နည်းနည်းခြားထားသည် */
 }
 
-#saveButton:hover {
+.save-button:hover {
     background-color: #218838; 
 }
