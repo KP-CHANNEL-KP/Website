@@ -1,0 +1,7 @@
+{
+  "name": "kp-website-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Pages functions for KV persistence",
+  "type": "module"
+}
