@@ -1,21 +1,108 @@
 <!DOCTYPE html>
-                    });
-                })
-                .then(uploadResponse => {
-                    if (uploadResponse.ok) {
-                        uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name})`;
-                    } else {
-                        throw new Error(`R2 Upload Failed: ${uploadResponse.status} ${uploadResponse.statusText}`);
-                    }
-                })
-                .catch(error => {
-                    console.error('Final Upload Error:', error);
-                    uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KP WEBSITE FREE PAGE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>KP WEBSITE FREE PAGE</h1>
+        <nav>
+            <a href="index.html">ပင်မ</a>
+            <a href="buy.html">ဝယ်ယူရန်</a>
+            <a href="posts.html">Posts</a>
+            <a href="free.html" class="active">Free</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            <h2>ကူးယူရမည့် စာသားများ / ထည့်သွင်းသော စာသားများ</h2>
+            <textarea id="mainTextArea" rows="15" readonly>Loading...</textarea>
+        </div>
+
+        <div class="card input-section">
+            <h2>စာသားအသစ် ထည့်သွင်းခြင်း</h2>
+            <input type="text" id="inputLine" placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ။..." aria-label="New text input">
+            <button onclick="fetchInitialText()">စာသား ကူးယူမည်</button>
+            <button onclick="saveToMainTextarea()">စာသားထည့်သွင်း/သိမ်းဆည်း (Save)</button>
+        </div>
+
+        <div class="card upload-section">
+            <h2>ဖိုင်တင်ရန် နေရာ</h2>
+            <p class="description">ပုံများ၊ PDF များ သို့မဟုတ် သင် ကြိုက်နှစ်သက်သော ဖိုင်များကို ဤနေရာတွင် တင်နိုင်ပါသည်။</p>
+            <input type="file" id="fileInput" class="file-input-hidden" onchange="updateFileName(this)">
+            <label for="fileInput" class="custom-file-upload">
+                <span id="fileNameDisplay">Choose File</span>
+            </label>
+            <button onclick="startR2Upload()" class="upload-button">✅</button>
+            <p id="uploadMessage" class="upload-status">Upload status will appear here.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 KP WEBSITE</p>
+    </footer>
+
+    <script>
+        // File Input တွင် ဖိုင်နာမည် ပြောင်းလဲရန် Function
+        function updateFileName(input) {
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            if (input.files.length > 0) {
+                fileNameDisplay.textContent = input.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'Choose File';
+            }
+        }
+
+        // =============================================
+        // 1. R2 Upload Functions (FIXED)
+        async function startR2Upload() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadMessage = document.getElementById('uploadMessage');
+            
+            if (fileInput.files.length === 0) {
+                uploadMessage.innerHTML = '❌ ဖိုင်ရွေးချယ်ရန် လိုအပ်ပါသည်။';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            uploadMessage.innerHTML = `⌛ ${file.name} ကို Upload ပြုလုပ်နေပါသည်။...`;
+            
+            // Pages Function အတွက် Absolute Path နှင့် Endpoint သတ်မှတ်
+            const apiEndpoint = "/api/upload"; 
+
+            // Form Data အဖြစ် ပြောင်းလဲပြီး POST request ဖြင့် ပို့ရန်
+            const formData = new FormData();
+            formData.append('file', file); // Server-side (upload.js) မှာ 'file' key နဲ့ ဆွဲယူပါမည်
+
+            try {
+                // R2 Upload Function ကို POST method ဖြင့် ခေါ်ဆိုခြင်း
+                const uploadResponse = await fetch(apiEndpoint, {
+                    method: 'POST', // 🎯 FIX: POST method သုံးခြင်း
+                    body: formData // Form Data ကို ပို့ခြင်း
                 });
+
+                // Server က JSON ကို ပြန်ပို့မှာ ဖြစ်သောကြောင့် JSON အဖြစ် ဖတ်သည်
+                const result = await uploadResponse.json(); 
+
+                if (uploadResponse.ok && result.status === 'SUCCESS') {
+                    // အောင်မြင်သော Response မှ status 'SUCCESS' ကို စစ်ဆေးခြင်း
+                    uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name}). Message: ${result.message || ''}`;
+                } else {
+                    // Server-side error (400, 500) များကို ကိုင်တွယ်ခြင်း
+                    throw new Error(`Upload Failed: ${result.message || uploadResponse.statusText}`);
+                }
+            } catch (error) {
+                console.error('Final Upload Error:', error);
+                uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
+            }
         }
         
         // =============================================
-        // 4. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (Website စဖွင့်သည်နှင့် အလုပ်လုပ်မည်)
+        // 2. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (Website စဖွင့်သည်နှင့် အလုပ်လုပ်မည်)
         async function fetchInitialText() {
             const mainTextarea = document.getElementById('mainTextArea');
             
@@ -32,7 +119,7 @@
             }
         }
 
-        // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (အခြားသူများ မြင်စေရန်)
+        // 3. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (အခြားသူများ မြင်စေရန်)
         async function saveToMainTextarea() {
             const mainTextarea = document.getElementById('mainTextArea');
             const inputLine = document.getElementById('inputLine');
@@ -44,7 +131,7 @@
                 return;
             }
             
-            // လက်ရှိ စာသား (Vmess) နှင့် အသစ်ထည့်သော စာသားကို ပေါင်းစပ်
+            // လက်ရှိ စာသား နှင့် အသစ်ထည့်သော စာသားကို ပေါင်းစပ်
             const updatedText = mainTextarea.value.trim() + '\n\n' + newText;
             
             // API (POST) ဖြင့် စာသားကို KV တွင် သိမ်းဆည်းခြင်း
