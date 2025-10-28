@@ -992,13 +992,13 @@ main {
         width: 100%;
     }
 }
-/* စာသား ထည့်သွင်း/ပြသသည့် နေရာများ */
+/* free.html အတွက် CSS Styles */
 
 /* အကွက်ကြီးအတွက် CSS (ပိုရှည်ပြီး Scroll ရရန်) */
 .big-textarea {
     width: 100%;
     /* အပေါ်အောက် အရှည်ကို ပိုကျယ်အောင် လုပ်ခြင်း */
-    min-height: 250px; /* ဥပမာ: 250 pixels */
+    min-height: 250px; 
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -1014,10 +1014,10 @@ main {
     width: 100%;
     padding: 10px 15px;
     margin-bottom: 15px;
-    border: 1px solid #28a745; /* ခလုတ်အရောင်နဲ့ လိုက်ဖက်အောင် */
+    border: 1px solid #28a745; 
     border-radius: 8px;
     font-size: 16px;
-    height: 40px; /* စာရေးရန်လောက်သာ အမြင့်ထားခြင်း */
+    height: 40px; 
 }
 
 /* "Save" ခလုတ်ကို အလှဆင်ခြင်း */
@@ -1028,15 +1028,17 @@ main {
     padding: 12px 25px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: block; /* တစ်ကြောင်းလုံး ယူထားရန် */
+    width: 100%;
     font-size: 16px;
     border-radius: 25px; /* ပိုလှအောင် ဘေးထောင့်ဝိုင်းခြင်း */
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
 }
 
 #saveButton:hover {
-    background-color: #218838; /* Mouse ကပ်ရင် ပိုရင့်သော အစိမ်းရောင်သို့ ပြောင်းပါမည် */
+    background-color: #218838; 
 }
