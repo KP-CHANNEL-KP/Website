@@ -115,3 +115,30 @@ async function displayFileList() {
 
 // Page စတင် load ချိန်တွင် ဖိုင်စာရင်းကို ချက်ချင်းခေါ်ရန် (Optional)
 document.addEventListener('DOMContentLoaded', displayFileList);
+// Path: upload.js (သို့မဟုတ် သက်ဆိုင်ရာ JS ဖိုင်)
+
+// ... (အခြား JavaScript function များ)
+
+function saveToMainTextarea() {
+    const mainTextarea = document.getElementById('mainTextArea');
+    const inputLine = document.getElementById('inputLine');
+    
+    // input အသေးထဲက စာသားကို ယူခြင်း
+    const newText = inputLine.value.trim(); 
+    
+    if (newText === '') {
+        alert('ထည့်သွင်းရန် စာသား မရှိပါ။');
+        return;
+    }
+    
+    // အကွက်အကြီးထဲမှာ လက်ရှိရှိနေတဲ့ စာသားနဲ့ အသစ်ထည့်တာကို ပေါင်းထည့်ခြင်း
+    // အောက်ဆုံးမှာ ထည့်ချင်ရင် \n\n (အောက်တစ်ကြောင်းဆင်းခြင်း) ဖြင့် ခြားပါ
+    mainTextarea.value += '\n\n' + newText; 
+
+    // စာထည့်ပြီးရင် input အသေးကို ရှင်းပစ်ခြင်း
+    inputLine.value = '';
+    
+    // အောင်မြင်ကြောင်းပြပြီး Scroll ကို အောက်ဆုံးထိ ရွှေ့ပေးခြင်း
+    alert('✅ စာသား အောင်မြင်စွာ ထည့်သွင်းပြီးပါပြီ။');
+    mainTextarea.scrollTop = mainTextarea.scrollHeight; 
+}
