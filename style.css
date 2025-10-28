@@ -996,9 +996,9 @@ main {
 
 /* အကွက်ကြီးအတွက် CSS (Vmess Key ထည့်သည့် နေရာ - ပိုရှည်ပြီး Scroll ရရန်) */
 .big-textarea {
-    width: 100%;
+    width: 200%;
     /* Vmess Key အတွက် အပေါ်အောက် အရှည်ကို 200px သို့ ပြန်တိုးလိုက်သည် */
-    min-height: 200px; 
+    min-height: 300px; 
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
