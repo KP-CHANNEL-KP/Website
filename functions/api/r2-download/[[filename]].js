@@ -1,4 +1,4 @@
-// functions/api/r2-download/[[filename]].js (ပြုပြင်ထားသော Code)
+// functions/api/r2-download/[[filename]].js (Final Version for stable download)
 
 export async function onRequestGet(context) {
     const { env, params } = context;
@@ -18,26 +18,22 @@ export async function onRequestGet(context) {
             return new Response(`File not found: ${key}`, { status: 404 });
         }
         
-        // 🚨 ပြင်ဆင်ချက် ၁: object.body မရှိရင် Server Error ပြန်ပါ
         if (!object.body) {
-            // R2 က object ပြန်ပေးပေမယ့် body မပါရင် (ဥပမာ: Server-side Error)
             return new Response('R2 object found, but no body/content available.', { status: 500 });
         }
         
-        // 2. ဖိုင်ကို Download ချပေးရန် Headers များ သတ်မှတ်ခြင်း
         const headers = new Headers();
         
-        // Browser က Download အဖြစ် မြင်စေရန်
+        // 1. Content-Disposition ကို Download အဖြစ် တိကျစွာ သတ်မှတ်ခြင်း (မဖြစ်မနေ Download ဆွဲစေရန်)
         headers.set('Content-Disposition', `attachment; filename="${key}"`);
         
-        // 🚨 ပြင်ဆင်ချက် ၂: object.headers ရှိမှသာ forEach ကို ခေါ်ပါ
-        if (object.headers) {
-             // R2 ၏ Content-Type နှင့် အခြား Headers များကို ယူသုံးခြင်း
-            object.headers.forEach((value, name) => {
-                headers.set(name, value);
-            });
-        }
-       
+        // 2. R2 ကပေးပို့တဲ့ Headers တွေအစား Content-Type ကို ကိုယ်တိုင် ပြန်သတ်မှတ်ပါ။
+        //    (object.headers.forEach(...) အပိုင်းကို ဖြုတ်လိုက်ပါ)
+        
+        // 3. R2 ရဲ့ Content-Type ကို ယူသုံးမယ်။ မရှိရင် binary stream အဖြစ် သတ်မှတ်မယ်။
+        const contentType = object.httpMetadata?.contentType || 'application/octet-stream';
+        headers.set('Content-Type', contentType);
+
         // CORS အတွက်
         headers.set('Access-Control-Allow-Origin', '*');
         
@@ -47,7 +43,6 @@ export async function onRequestGet(context) {
         });
 
     } catch (error) {
-        // ... (catch block သည် မပြောင်းလဲပါ) ...
         return new Response(`Download Server Error: ${error.message}`, { status: 500 });
     }
 }
