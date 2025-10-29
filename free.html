@@ -23,9 +23,10 @@
         </div>
     </header>
 
-             <div class="intro-bar">
+    <div class="intro-bar">
        
-        <main>  <section class="posts-section"> </section>
+        <main>
+            <section class="posts-section"> </section>
             <h1>KP WEBSITE FREE PAGE</h1>
         
             <div class="copy-box"> 
@@ -50,22 +51,22 @@
 
                 <p class="copy-box-title" style="margin-top: 10px;">စာသားအသစ် ထည့်သွင်းရန်:</p>
                 <input type="text" id="inputLine" class="small-input-line" 
-                       placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ...">
+                       placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ..." style="width: 95%;">
                 
-                               <button onclick="copyMainTextToClipboard()" class="copy-button" style="
+                <button onclick="copyMainTextToClipboard()" class="copy-button" style="
                     margin-bottom: 10px; 
-                    width: 100% !important; 
+                    width: 95% !important; 
                     display: block !important; 
-                    padding: 10px; /* အနည်းငယ် ကြီးလာစေရန် */
+                    padding: 10px; 
                     box-sizing: border-box;
                 ">
                     နောက်ဆုံး စာသား ကူးယူမည်
                 </button>
 
                 <button id="saveButton" onclick="saveToMainTextarea()" class="save-button" style="
-                    width: 100% !important; 
+                    width: 95% !important; 
                     display: block !important; 
-                    padding: 10px; /* အနည်းငယ် ကြီးလာစေရန် */
+                    padding: 10px; 
                     box-sizing: border-box;
                 ">
                     စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
@@ -73,10 +74,6 @@
             </div>
 
             <section class="upload-section">
-                </section>
-        </main>
-    </div>
-
                 <h2>ဖိုင်တင်ရန် နေရာ</h2>
                 <p>သင်မှာ ရှိသော free File/Key တို့ကို ဤနေရာတွင် ပြန်လည်မျှဝေနိုင်သည်။</p>
                 
@@ -92,9 +89,24 @@
                     <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
                 </div>
             </section>
+            
+            <section class="download-list-section" style="margin-top: 50px;">
+                <h2>⬇️ ဖိုင်စာရင်း (Download)</h2>
+                <p>ဖိုင်များအားလုံးကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။</p>
+                
+                <iframe 
+                    id="r2-file-list-iframe" 
+                    src="/api/r2-list" 
+                    style="width: 100%; min-height: 500px; border: 1px solid #ccc; border-radius: 8px; margin-top: 15px;" 
+                    frameborder="0">
+                </iframe>
+            </section>
         </main>
     </div>
-
+    
+    <footer>
+        <p>&copy; 2025 KP WEBSITE</p>
+    </footer>
 
         <script>
         // HTML element များကို ရယူခြင်း
@@ -260,23 +272,6 @@
 
         // Website စဖွင့်တာနဲ့ စာသားကို တစ်ခါတည်း ဆွဲယူပြီး ပြသရန်
         document.addEventListener('DOMContentLoaded', fetchInitialText);
-    </script>
-
-
-    <section class="download-list-section" style="margin-top: 50px;">
-        <h2>⬇️ ဖိုင်စာရင်း (Download)</h2>
-        <p>ဖိုင်များအားလုံးကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။</p>
-        
-        <iframe 
-            id="r2-file-list-iframe" 
-            src="/api/r2-list" 
-            style="width: 100%; min-height: 500px; border: 1px solid #ccc; border-radius: 8px; margin-top: 15px;" 
-            frameborder="0">
-        </iframe>
-    </section>
-
-    <script>
-        // ... (ခင်ဗျားရဲ့ JavaScript Functions များ) ...
     </script>
 </body>
 </html>
