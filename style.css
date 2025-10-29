@@ -1125,3 +1125,22 @@ main {
     box-shadow: none;
 }
 
+/* ======================================== */
+/* 🚀 FINAL FIX: Buttons အသစ်အတွက် CSS Styles */
+/* ======================================== */
+
+/* Button နှိပ်လိုက်တဲ့အခါ 3D effect ကို ဖြုတ်ပြီး အပေါ်ကို တက်သွားသော ပုံစံ */
+.new-btn:active {
+    transform: translateY(4px);
+    box-shadow: none !important; /* Inline Style ကို overwrite လုပ်ရန် */
+}
+
+/* Copy Button Hover Effect */
+.copy-action-btn:hover {
+    background-color: #1e7e34 !important; /* ပိုရင့်သွားစေရန် */
+}
+
+/* Save Button Hover Effect */
+.save-action-btn:hover {
+    background-color: #c82333 !important; /* ပိုရင့်သွားစေရန် */
+}
