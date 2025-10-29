@@ -29,49 +29,34 @@
             <section class="posts-section"> </section>
             <h1>KP WEBSITE FREE PAGE</h1>
         
-            <div class="copy-box"> 
-                <p class="copy-box-title">ကူးယူရန် စာသားများ:</p> 
-                <p class="copy-box-title" style="margin-top: 20px;">**သင်လဲ မျှဝေပေးသွားလိူ့ရပါတယ် File/Key တခုခုပေါ့**</p>
-                
-                <textarea id="mainTextArea" rows="25" readonly style="
-                    height: 400px; 
-                    width: 95% !important; 
-                    max-width: 95% !important; 
-                    overflow-y: scroll; 
-                    padding: 15px; 
-                    border: 1px solid #007bff; 
-                    border-radius: 8px; 
-                    background: #fdfdff; 
-                    color: #333; 
-                    margin-bottom: 20px;
-                    box-sizing: border-box; 
-                ">
-    ဒေတာများကို စတင်ဆွဲယူနေပါသည်။
-</textarea>
+            <div class="text-copy-area copy-box">
+    <textarea id="mainTextarea" name="copy_box_title" readonly style="
+        height: 400px;
+        color: white; /* စာလုံးအဖြူ */
+        background-color: #333; /* နောက်ခံအမဲရောင် */
+        border: 1px solid #555;
+        font-size: 14px;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: block; /* တစ်ကြောင်းလုံး နေရာယူစေရန် */
+        width: 100%; /* အကျယ်အပြည့် */
+        box-sizing: border-box;
+    ">
+        သင် ပေးသွင်းထားသော File/Key တစ်ခုခုပဲ။
+    </textarea>
+    
+    <input type="text" placeholder="စာသားအသစ် ထည့်သွင်းရန် ရေးပါ။" class="copy-input small-input-line" id="newTextInput" style="margin-top: 10px;">
+    
+    <div class="button-group" style="max-width: 90%; margin: 10px auto;">
+        
+        <button id="copyButton" onclick="copyTextToClipboard(this)" class="copy-button"> နောက်ဆုံး ထားသော စာသား ကူးယူမည်</button>
+        
+        <button id="saveButton" onclick="saveNewText()" class="save-button">စာသားအသစ် ထည့်သွင်း/သိမ်းဆည်းမည် (Save)</button>
+        
+    </div>
+    
+</div>
 
-                <p class="copy-box-title" style="margin-top: 10px;">စာသားအသစ် ထည့်သွင်းရန်:</p>
-                <input type="text" id="inputLine" class="small-input-line" 
-                       placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ..." style="width: 95%;">
-                
-                <button onclick="copyMainTextToClipboard()" class="copy-button" style="
-                    margin-bottom: 10px; 
-                    width: 95% !important; 
-                    display: block !important; 
-                    padding: 10px; 
-                    box-sizing: border-box;
-                ">
-                    နောက်ဆုံး စာသား ကူးယူမည်
-                </button>
-
-                <button id="saveButton" onclick="saveToMainTextarea()" class="save-button" style="
-                    width: 95% !important; 
-                    display: block !important; 
-                    padding: 10px; 
-                    box-sizing: border-box;
-                ">
-                    စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
-                </button>
-            </div>
 
             <section class="upload-section">
                 <h2>ဖိုင်တင်ရန် နေရာ</h2>
