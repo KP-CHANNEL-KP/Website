@@ -25,10 +25,8 @@ export async function onRequestGet(context) {
             'Cache-Control': 'no-cache',
         };
         
-        // ... (Code အပေါ်ပိုင်း)
-
-// 3. HTML Layout နှင့် Style ပြင်ဆင်ခြင်း
-let htmlContent = `
+        // 3. HTML Layout နှင့် Style ပြင်ဆင်ခြင်း (Download ခလုတ် Style ပါဝင်ပြီး)
+        let htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +39,7 @@ let htmlContent = `
         .file-list { list-style: none; padding: 0; }
         .file-item { 
             display: flex; 
-            flex-direction: column; /* ဖိုင်အမည်နဲ့ အချက်အလက်ကို အပေါ်အောက် ခွဲလိုက်သည် */
+            flex-direction: column; 
             padding: 10px 0; 
             border-bottom: 1px dashed #e0e0e0; 
         }
@@ -50,6 +48,7 @@ let htmlContent = `
             justify-content: space-between;
             align-items: center;
             margin-bottom: 5px;
+            width: 100%; /* 100% ယူဖို့ သေချာစေရန် */
         }
         .file-name { flex-grow: 1; margin-right: 10px; }
         .file-name a { color: #007bff; text-decoration: none; font-weight: bold; font-size: 1.05em; word-break: break-all; }
@@ -57,19 +56,18 @@ let htmlContent = `
 
         .file-metadata { 
             display: flex; 
-            justify-content: flex-start; /* အချက်အလက်ကို ဘယ်ဘက်က စစီမည် */
+            justify-content: flex-start; 
             align-items: center; 
             font-size: 0.85em; 
             color: #666; 
             white-space: nowrap; 
-            width: 100%; /* 100% နေရာယူမည် */
+            width: 100%; 
         }
         .file-size { margin-right: 15px; }
         .file-date { margin-right: 25px; }
 
-        /* Download ခလုတ် Style ကို ပိုမို ထင်ရှားအောင် ပြင်လိုက်သည် */
         .download-btn {
-            background-color: #007bff; /* အပြာရောင် သုံးလိုက်သည် */
+            background-color: #007bff; /* အပြာရောင် */
             color: white;
             border: none;
             padding: 5px 12px;
@@ -80,13 +78,11 @@ let htmlContent = `
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
-            font-weight: normal; /* စာလုံးအထူကို လျှော့လိုက်သည် */
-            order: 99; /* Download ခလုတ်ကို အောက်ဆုံး/ညာဘက် အစွန်ဆုံးထားမည် */
+            font-weight: normal; 
             margin-left: auto; /* ညာဘက်အစွန်ဆုံးသို့ ကပ်စေရန် */
         }
         .download-btn:hover { background-color: #0056b3; }
         
-        /* Error Message Style */
         .error-message { color: red; font-weight: bold; text-align: center; padding: 20px; }
     </style>
 </head>
@@ -96,7 +92,7 @@ let htmlContent = `
         <ul class="file-list">
         `;
 
-        // 4. ဖိုင်တစ်ခုချင်းစီကို HTML List ထဲသို့ ထည့်သွင်းခြင်း (HTML Structure ပြောင်းလဲခြင်း)
+        // 4. ဖိုင်တစ်ခုချင်းစီကို HTML List ထဲသို့ ထည့်သွင်းခြင်း
         if (sortedObjects.length === 0) {
             htmlContent += `<p class="error-message">ဖိုင်များမရှိသေးပါ။</p>`;
         } else {
@@ -121,5 +117,19 @@ let htmlContent = `
                 `;
             });
         }
-// ... (Code အောက်ပိုင်း)
 
+        htmlContent += `
+        </ul>
+    </div>
+</body>
+</html>`;
+
+        return new Response(htmlContent, { headers });
+
+    } catch (error) {
+        return new Response(`<h3>❌ R2 Listing Error</h3><p>Server Error: ${error.message}</p>`, { 
+            status: 500,
+            headers: { 'Content-Type': 'text/html; charset=utf-8' }
+        });
+    }
+}
