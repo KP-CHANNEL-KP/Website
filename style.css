@@ -1126,21 +1126,21 @@ main {
 }
 
 /* ======================================== */
-/* 🚀 FINAL FIX: Buttons အသစ်အတွက် CSS Styles */
+/* 🟢 Buttons များအတွက် Hover/Active Styles */
 /* ======================================== */
 
-/* Button နှိပ်လိုက်တဲ့အခါ 3D effect ကို ဖြုတ်ပြီး အပေါ်ကို တက်သွားသော ပုံစံ */
-.new-btn:active {
+.action-btn:active {
+    /* Button နှိပ်လိုက်တဲ့အခါ 3D effect ကို ဖျောက်ပြီး အပေါ်တက်စေရန် */
     transform: translateY(4px);
-    box-shadow: none !important; /* Inline Style ကို overwrite လုပ်ရန် */
+    box-shadow: none !important; 
 }
 
-/* Copy Button Hover Effect */
+/* Copy Button Hover */
 .copy-action-btn:hover {
-    background-color: #1e7e34 !important; /* ပိုရင့်သွားစေရန် */
+    background-color: #1b5e20 !important;
 }
 
-/* Save Button Hover Effect */
+/* Save Button Hover */
 .save-action-btn:hover {
-    background-color: #c82333 !important; /* ပိုရင့်သွားစေရန် */
+    background-color: #388e3c !important;
 }
