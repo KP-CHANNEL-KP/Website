@@ -1,4 +1,4 @@
-// functions/api/r2-delete.js (ဖိုင်ဖျက်ခွင့် Passcode စစ်ဆေးခြင်း)
+// functions/api/r2-delete.js
 
 export async function onRequestPost(context) {
     const { env, request } = context;
@@ -37,7 +37,7 @@ export async function onRequestPost(context) {
         }
         
         // 1. Passcode စစ်ဆေးခြင်း (Authentication)
-        if (providedPasscode !== env.ADMIN_PASSCODE) {
+        if (providedPasscode !== env.ADMIN_PASSCODE) { // ADMIN_PASSCODE = 232003 ကို အသုံးပြုမည်
             return new Response("Permission Denied. Invalid Admin Passcode.", { 
                 status: 401, 
                 headers 
