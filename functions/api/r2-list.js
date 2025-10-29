@@ -1,12 +1,9 @@
 // functions/api/r2-list.js
-// R2 Bucket Bindings: UPLOAD_BUCKET ကို ဤနေရာတွင် အသုံးပြုမည်
 
 export async function onRequestGet(context) {
     const { env } = context;
 
-    // R2 Binding ကို စစ်ဆေးပါ (Upload အတွက် ချိတ်ထားပြီးသား UPLOAD_BUCKET ကိုပဲ သုံးပါမည်)
     if (!env.UPLOAD_BUCKET) {
-        // Backend Error ကို JSON မဟုတ်ဘဲ HTML ဖြင့် ပြန်ပို့ပါ (iFrame ထဲမှာ မြင်ရအောင်)
         return new Response("<h3>❌ R2 Binding Error</h3><p>UPLOAD_BUCKET binding is missing in Pages Settings!</p>", { 
             status: 500,
             headers: { 'Content-Type': 'text/html; charset=utf-8' }
@@ -17,13 +14,18 @@ export async function onRequestGet(context) {
         // 1. R2 List Object ကို ခေါ်ယူခြင်း
         const listing = await env.UPLOAD_BUCKET.list();
         
+        // 2. ဖိုင်စာရင်းကို နောက်ဆုံး တင်ထားသည့် အချိန်အလိုက် စီခြင်း (အသစ်ဆုံးက အပေါ်ဆုံး)
+        const sortedObjects = listing.objects.sort((a, b) => 
+            new Date(b.uploaded).getTime() - new Date(a.uploaded).getTime()
+        );
+
         const headers = {
             'Content-Type': 'text/html; charset=utf-8',
-            'Access-Control-Allow-Origin': '*', // free.html မှ ခေါ်ယူနိုင်ရန်
+            'Access-Control-Allow-Origin': '*',
             'Cache-Control': 'no-cache',
         };
         
-        // 2. HTML စာရင်း စတင် တည်ဆောက်ခြင်း
+        // 3. HTML Layout နှင့် Style ပြင်ဆင်ခြင်း
         let htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -31,38 +33,66 @@ export async function onRequestGet(context) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>R2 File List</title>
     <style>
-        body { font-family: Arial, sans-serif; background: white; margin: 0; padding: 10px; }
-        .file-container { max-width: 100%; margin: 0 auto; padding: 0; border-radius: 8px; }
+        body { font-family: Arial, sans-serif; background: #fff; margin: 0; padding: 0; }
+        .file-container { width: 100%; margin: 0; padding: 10px; box-sizing: border-box; }
         h3 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 5px; margin-top: 0; font-size: 1.1em; }
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-        a { color: #007bff; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
-        .file-info { font-size: 0.85em; color: #666; }
+        .file-list { list-style: none; padding: 0; }
+        .file-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 10px 0; 
+            border-bottom: 1px dashed #e0e0e0; 
+        }
+        .file-name { flex-grow: 1; margin-right: 10px; }
+        .file-name a { color: #333; text-decoration: none; font-weight: bold; font-size: 1.05em; word-break: break-all; }
+        .file-metadata { display: flex; align-items: center; font-size: 0.8em; color: #666; white-space: nowrap; }
+        .file-size { margin-right: 10px; }
+        .download-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9em;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .download-btn:hover { background-color: #218838; }
+        /* Error Message Style */
+        .error-message { color: red; font-weight: bold; text-align: center; padding: 20px; }
     </style>
 </head>
 <body>
     <div class="file-container">
-        <h3>📂 R2 File List (${listing.objects.length} files)</h3>
-        <ul>
+        <h3>📂 R2 File List (${sortedObjects.length} files) - Newest First</h3>
+        <ul class="file-list">
         `;
 
-        // 3. ဖိုင်တစ်ခုချင်းစီကို HTML List ထဲသို့ ထည့်သွင်းခြင်း
-        if (listing.objects.length === 0) {
-            htmlContent += `<li><p style="color:#999;">ဖိုင်များမရှိသေးပါ</p></li>`;
+        // 4. ဖိုင်တစ်ခုချင်းစီကို HTML List ထဲသို့ ထည့်သွင်းခြင်း
+        if (sortedObjects.length === 0) {
+            htmlContent += `<p class="error-message">ဖိုင်များမရှိသေးပါ။</p>`;
         } else {
-            listing.objects.forEach(obj => {
-                // Pages Function Route ကိုပဲ သုံးပြီး Download လုပ်ပါမည် (အခြား API တစ်ခု လိုအပ်)
-                // လောလောဆယ် Download နေရာမှာ Placeholder ထားပါမည်။
-                // Download URL ကို /download/[key] လိုမျိုး နောက်ထပ် Pages Function တစ်ခုနဲ့မှ လုပ်ရမည်။
-                const downloadPlaceholderUrl = `/r2-download-link/${obj.key}`; 
+            sortedObjects.forEach(obj => {
+                // Download URL ကို နောက်တစ်ဆင့်အတွက် Placeholder အဖြစ်ထားပါမည်
+                // /api/r2-download/[filename] ဆိုတဲ့ Pages Function အသစ် လိုအပ်ပါမည်
+                const downloadUrl = `/api/r2-download/${obj.key}`; 
                 
                 const sizeMB = (obj.size / (1024 * 1024)).toFixed(2); 
 
                 htmlContent += `
-                    <li>
-                        <a href="${downloadPlaceholderUrl}" target="_blank">${obj.key}</a>
-                        <span class="file-info">${sizeMB} MB | ${new Date(obj.uploaded).toLocaleDateString()}</span>
+                    <li class="file-item">
+                        <div class="file-name">
+                            <a href="${downloadUrl}" target="_blank">${obj.key}</a>
+                        </div>
+                        <div class="file-metadata">
+                            <span class="file-size">${sizeMB} MB</span>
+                            <span class="file-date">${new Date(obj.uploaded).toLocaleDateString()}</span>
+                            <a href="${downloadUrl}" target="_blank" class="download-btn" style="margin-left: 10px;">Download</a>
+                        </div>
                     </li>
                 `;
             });
