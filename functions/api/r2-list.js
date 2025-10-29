@@ -25,7 +25,7 @@ export async function onRequestGet(context) {
             'Cache-Control': 'no-cache',
         };
         
-        // 3. HTML Layout နှင့် Style ပြင်ဆင်ခြင်း (Download ခလုတ် Style ပါဝင်ပြီး)
+        // 3. HTML Layout နှင့် Style ပြင်ဆင်ခြင်း
         let htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -48,7 +48,7 @@ export async function onRequestGet(context) {
             justify-content: space-between;
             align-items: center;
             margin-bottom: 5px;
-            width: 100%; /* 100% ယူဖို့ သေချာစေရန် */
+            width: 100%;
         }
         .file-name { flex-grow: 1; margin-right: 10px; }
         .file-name a { color: #007bff; text-decoration: none; font-weight: bold; font-size: 1.05em; word-break: break-all; }
@@ -67,7 +67,7 @@ export async function onRequestGet(context) {
         .file-date { margin-right: 25px; }
 
         .download-btn {
-            background-color: #007bff; /* အပြာရောင် */
+            background-color: #007bff;
             color: white;
             border: none;
             padding: 5px 12px;
@@ -79,9 +79,51 @@ export async function onRequestGet(context) {
             cursor: pointer;
             transition: background-color 0.3s;
             font-weight: normal; 
-            margin-left: auto; /* ညာဘက်အစွန်ဆုံးသို့ ကပ်စေရန် */
+            margin-left: auto;
         }
         .download-btn:hover { background-color: #0056b3; }
+        
+        /* Delete ခလုတ် style */
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.85em;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: normal; 
+            margin-left: 10px;
+        }
+        .delete-btn:hover { background-color: #c82333; }
+        
+        /* Passcode Form Style */
+        #passcode-form {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        #passcode-form input {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+        #passcode-form label {
+            white-space: nowrap;
+            font-weight: bold;
+            margin-right: 10px;
+            color: #333;
+        }
         
         .error-message { color: red; font-weight: bold; text-align: center; padding: 20px; }
     </style>
@@ -89,6 +131,12 @@ export async function onRequestGet(context) {
 <body>
     <div class="file-container">
         <h3>📂 R2 File List (${sortedObjects.length} files) - Newest First</h3>
+        
+        <div id="passcode-form">
+            <label for="admin-passcode">Admin Passcode (For Delete):</label>
+            <input type="password" id="admin-passcode" placeholder="Enter Passcode to Enable Deletion">
+        </div>
+        
         <ul class="file-list">
         `;
 
@@ -101,12 +149,14 @@ export async function onRequestGet(context) {
                 const sizeMB = (obj.size / (1024 * 1024)).toFixed(2); 
 
                 htmlContent += `
-                    <li class="file-item">
+                    <li class="file-item" data-key="${obj.key}">
                         <div class="file-name-row">
                             <div class="file-name">
                                 <a href="${downloadUrl}" title="${obj.key}">${obj.key}</a>
                             </div>
                             <a href="${downloadUrl}" target="_blank" class="download-btn">Download</a>
+                            
+                            <button class="delete-btn" onclick="deleteFile('${obj.key}')">Delete</button>
                         </div>
                         
                         <div class="file-metadata">
@@ -121,6 +171,49 @@ export async function onRequestGet(context) {
         htmlContent += `
         </ul>
     </div>
+    
+    <script>
+        async function deleteFile(key) {
+            const passcodeInput = document.getElementById('admin-passcode');
+            const passcode = passcodeInput.value;
+
+            if (!passcode) {
+                alert("Please enter the Admin Passcode in the field above to delete the file.");
+                return;
+            }
+
+            if (!confirm(\`Are you sure you want to delete \${key}?\`)) {
+                return;
+            }
+
+            const deleteUrl = '/api/r2-delete';
+
+            try {
+                const formData = new FormData();
+                formData.append('key', key);
+                formData.append('passcode', passcode);
+
+                // Delete Function ကို ခေါ်ယူခြင်း
+                const response = await fetch(deleteUrl, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.text();
+
+                if (response.ok) {
+                    alert('Successfully deleted: ' + key);
+                    // ဖျက်ပြီးပါက စာရင်းကို refresh လုပ်ရန်
+                    window.location.reload(); 
+                } else {
+                    alert('Failed to delete: ' + result);
+                }
+
+            } catch (error) {
+                alert('An error occurred during deletion: ' + error.message);
+            }
+        }
+    </script>
 </body>
 </html>`;
 
