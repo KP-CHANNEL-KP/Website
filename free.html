@@ -4,272 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Blog Free Page</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        /* Myanmar Font - Add your preferred font here */
+        body { font-family: 'Myanmar Sans Pro', 'Padauk', Arial, sans-serif; } 
+    </style>
 </head>
 <body>
 
     <header>
-        <div class="header-content">
-            <div class="logo-and-title">
-                <img src="images/logo.png" alt="KP Logo" class="logo"> 
-                <h1 class="site-title">KP Blog</h1>
-            </div>
-            <nav>
-                <a href="index.html">မူလစာမျက်နှာ</a>
-                <a href="posts.html">Posts</a>
-                <a href="free.html">Free</a> 
-                <a href="buy.html">ဝယ်ယူရန်</a> 
-            </nav>
+        <div class="logo-and-title">
+            <a href="./index.html" class="logo-link">
+                <img src="logo.png" alt="KP Blog Logo" class="logo-img"> 
+            </a>
+            <h1 class="site-title-kp-blog">KP Blog</h1>
         </div>
+        
+        <nav class="nav-bar">
+            <a href="./index.html">မူလစာမျက်နှာ</a>
+            <a href="./posts.html">Posts</a>
+            <a href="./free.html" class="active-link">Free</a>
+            <a href="./about.html">အကြောင်း</a>
+        </nav>
     </header>
 
-    <div class="intro-bar">
-       
-        <main>
-            <section class="posts-section"> </section>
-            <h1>KP WEBSITE FREE PAGE</h1>
+    <div class="intro-banner">
+        <h2>KP WEBSITE FREE PAGE (New UI)</h2>
+    </div>
+
+    <main>
+        <section class="copy-box">
+            <h2 class="copy-box-title">စာသားထည့်သွင်းခြင်းနှင့် ကူးယူခြင်း</h2>
+            
+            <div class="text-input-area">
+                <input type="text" id="newKeyInput" class="new-key-input" placeholder="အသစ်ထည့်သွင်းမည့် စာသား/Key ကို ရေးပါ">
+                <button id="addTextButton" class="action-btn add-text-btn">စာသားထည့်သွင်းရန်</button>
+            </div>
+            
+            <hr class="mini-divider">
+            
+            <textarea id="vmessTextarea" class="vmess-textarea" readonly>**အထက်တွင် ထည့်သွင်းလိုက်သော စာသားကို ဤနေရာတွင် ပြသမည်**</textarea>
+            
+            <div class="button-group">
+                <button id="copyToClipboardKP" class="copy-button action-btn">ကူးယူမည် (Copy)</button>
+                <button id="saveMainTextToKey" class="save-button action-btn">စာသားသိမ်းဆည်းရန် (Save)</button>
+            </div>
+        </section>
         
-                        <div class="copy-box" style="
-                max-width: 95%; 
-                margin: 0 auto; /* စာမျက်နှာ အလယ်မှာ နေစေရန် */
-                padding: 10px; /* Textbox ၏ အတွင်းဘက် Padding */
-            ">
-                <p class="copy-box-title">ကူးယူရန် စာသားများ:</p> 
-                <p class="copy-box-title" style="margin-top: 20px;">**သင်လဲ မျှဝေပေးသွားလိူ့ရပါတယ် File/Key တခုခုပေါ့**</p>
+        <hr class="section-divider">
+
+        <section class="upload-section">
+            <h2 class="upload-title">⬆️ ဖိုင်တင်ရန် နေရာ</h2>
+            <p class="upload-description">ဖိုင်များ (Key / File) ကို ရွေးချယ်ပြီး တင်နိုင်ပါသည်။</p>
+            
+            <div class="upload-container">
+                <input type="file" id="fileInput" class="hidden-input">
+                <label for="fileInput" class="choose-file-btn">Choose File ...</label>
+                <span id="fileNameDisplay" class="file-name-display">File မရွေးရသေးပါ</span>
                 
-                <textarea id="mainTextArea" rows="25" readonly style="
-                    height: 400px; 
-                    width: 100%; /* Parent ၏ အကျယ်အပြည့်ယူရန် */
-                    overflow-y: scroll; 
-                    padding: 15px; 
-                    border: 1px solid #007bff; 
-                    border-radius: 8px; 
-                    background: #fdfdff; 
-                    color: #333; 
-                    margin-bottom: 20px;
-                    box-sizing: border-box; 
-                ">
-    ဒေတာများကို စတင်ဆွဲယူနေပါသည်။
-</textarea>
-
-
-                <p class="copy-box-title" style="margin-top: 10px;">စာသားအသစ် ထည့်သွင်းရန်:</p>
-                <input type="text" id="inputLine" class="small-input-line" 
-                       placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ...">
-                
-                <button onclick="copyMainTextToClipboard()" class="copy-button" style="margin-bottom: 10px;">
-                    နောက်ဆုံး စာသား ကူးယူမည်
-                </button>
-
-                <button id="saveButton" onclick="saveToMainTextarea()" class="save-button">
-                    စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
+                <button id="uploadButton" class="upload-action-btn checkmark-btn" disabled>
+                    <svg class="checkmark-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                 </button>
             </div>
+            <p id="uploadStatus" class="upload-status">Upload status will appear here.</p>
+        </section>
+        
+        <hr class="section-divider">
 
-            <section class="upload-section">
-                <h2>ဖိုင်တင်ရန် နေရာ</h2>
-                <p>သင်မှာ ရှိသော free File/Key တို့ကို ဤနေရာတွင် ပြန်လည်မျှဝေနိုင်သည်။</p>
-                
-                <div class="upload-container">
-                    <label for="fileInput" class="custom-file-upload">
-                        <span id="fileNameDisplay">Choose File</span>
-                        <input type="file" id="fileInput" onchange="updateFileName(this)"> 
-                    </label>
+        <section class="download-section">
+            <h2 class="download-title">⬇️ တင်ထားသော ဖိုင်များ စာရင်း</h2>
+            <p class="download-info">နောက်ဆုံးတင်ထားသော ဖိုင်ကို အပေါ်ဆုံးတွင် ပြသထားပါသည်။</p>
 
-                    <button onclick="startR2Upload()">
-                        <span>✔</span>
-                    </button>
-                    <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
-                </div>
-            </section>
-        </main>
-    </div>
-    
+            <div class="admin-passcode-area">
+                <label for="adminPasscode">Admin Passcode (ဖျက်ရန်):</label>
+                <input type="password" id="adminPasscode" placeholder="Passcode ထည့်ပါ">
+            </div>
+
+            <div class="file-table-container">
+                <table id="fileListTable" class="file-list-table">
+                    <thead>
+                        <tr>
+                            <th class="col-filename">File Name</th>
+                            <th class="col-filesize">Size</th>
+                            <th class="col-filedate">Date</th>
+                            <th class="col-action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-filename">example_file_1.txt</td>
+                            <td class="col-filesize">1.2 KB</td>
+                            <td class="col-filedate">2025-10-29</td>
+                            <td class="col-action">
+                                <a href="#" class="download-btn-table">Download</a>
+                                <button class="delete-btn-table" data-filename="example_file_1.txt">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+    </main>
+
     <footer>
-        <p>&copy; 2025 KP WEBSITE</p>
+        <p>© 2025 KP WEBSITE</p>
     </footer>
 
-        <script>
-        // HTML element များကို ရယူခြင်း
-        const mainTextarea = document.getElementById('mainTextArea'); 
-        const inputLine = document.getElementById('inputLine');
-        const saveButton = document.getElementById('saveButton');
-        
-        // 1. Copy Function (Textarea ထဲက စာအားလုံးကို ကူးရန်)
-        function copyMainTextToClipboard() {
-            const textToCopy = mainTextarea.value;
-            if (textToCopy && textToCopy !== 'Loading...') {
-                navigator.clipboard.writeText(textToCopy)
-                    .then(() => {
-                        alert("စာသား ကူးယူပြီးပါပြီ!"); 
-                    })
-                    .catch(err => {
-                        console.error('Copy Error:', err);
-                        alert("ကူးယူရန် မအောင်မြင်ပါ!");
-                    });
-            } else {
-                alert("ကူးယူရန် စာသား မရှိပါ!");
-            }
-        }
+    <script src="./script.js"></script>
 
-        // 2. File Name Display Function (မူရင်းအတိုင်း)
-        function updateFileName(input) {
-            var fileName = input.files[0] ? input.files[0].name : "Choose File";
-            document.getElementById('fileNameDisplay').innerText = fileName;
-        }
-        
-        // =====================================
-         // R2 Upload Functions (File Upload Error များ မဖြစ်စေရန် ပြန်စစ်ထားသည်)
-        // 1. ဖိုင်ကို Server (Functions/api/upload.js) သို့ တင်ခြင်း
-        async function startR2Upload() {
-            const fileInput = document.getElementById('fileInput');
-            const uploadMessage = document.getElementById('uploadMessage');
-            
-            if (fileInput.files.length === 0) {
-                uploadMessage.innerHTML = '❌ ဖိုင်ရွေးချယ်ရန် လိုအပ်ပါသည်။';
-                return;
-            }
-
-            const file = fileInput.files[0];
-            uploadMessage.innerHTML = `⌛ ${file.name} ကို Upload ပြုလုပ်နေပါသည်။...`;
-            
-            // Pages Function အတွက် Absolute Path
-            const apiEndpoint = "/api/upload"; 
-
-            // Form Data အဖြစ် ပြောင်းလဲပြီး POST request ဖြင့် ပို့ခြင်း
-            const formData = new FormData();
-            formData.append('file', file); 
-
-            try {
-                // R2 Upload Function ကို ခေါ်ဆိုခြင်း
-                const uploadResponse = await fetch(apiEndpoint, {
-                    method: 'POST', 
-                    body: formData 
-                });
-
-                // Server က JSON ကို ပြန်ပို့မှာ ဖြစ်သောကြောင့် ဤနေရာတွင် JSON အဖြစ် ဖတ်သည်
-                const result = await uploadResponse.json(); 
-
-                if (uploadResponse.ok && result.status === 'SUCCESS') {
-                    uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name}). Message: ${result.message}`;
-                    // Upload အောင်မြင်ရင် File List (iframe) ကို Refresh လုပ်ရန်
-                    const iframe = document.getElementById('r2-file-list-iframe');
-                    if (iframe) {
-                        iframe.src = iframe.src; 
-                    }
-                } else {
-                    // Server-side error (400, 500) များကို ကိုင်တွယ်ခြင်း
-                    // JSON response ကို မရရင်တောင် error message ပြနိုင်ရန်
-                    const errorText = result.message || uploadResponse.statusText;
-                    uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${errorText}`;
-                    throw new Error(`Upload Failed: ${errorText}`);
-                }
-            } catch (error) {
-                console.error('Final Upload Error:', error);
-                uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
-            }
-        }
-// =============================================
-        // 4. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (KV /api/text GET)
-        async function fetchInitialText() {
-            try {
-                // GET request ဖြင့် စာသားကို /api/text (Pages Function) မှ ရယူခြင်း
-                const response = await fetch('/api/text'); 
-                const text = await response.text();
-
-                // Textarea ထဲသို့ ထည့်သွင်းခြင်း
-                mainTextarea.value = text;
-            } catch (error) {
-                console.error('Failed to fetch initial text:', error);
-                mainTextarea.value = 'Data load မလုပ်နိုင်ပါ။ Backend/KV ချိတ်ဆက်မှု စစ်ဆေးပါ။';
-            }
-        }
-
-        // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (KV /api/text POST)
-        // 🚨 New Content Prepending Logic (အသစ်ဆုံးကို အပေါ်ဆုံးတွင် ထားခြင်း) 🚨
-        async function saveToMainTextarea() {
-            const newText = inputLine.value.trim(); 
-            
-            if (newText === '') {
-                alert('ထည့်သွင်းရန် စာသား မရှိပါ။');
-                return;
-            }
-            
-            let oldContent = mainTextarea.value.trim();
-            
-            // Default စာသားများကို စစ်ဆေးပြီး ရှင်းထုတ်ခြင်း
-            if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent.includes('Data load မလုပ်နိုင်ပါ') || oldContent === 'Hello' || oldContent === '') {
-                oldContent = '';
-            }
-            
-            // လက်ရှိရက်စွဲနှင့် အချိန်ကို ဖော်ပြခြင်း
-            const now = new Date();
-            const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-
-            const divider = '\n\n==============\n';
-            const newEntry = `[${timestamp}]\n\n${newText}`;
-
-            let updatedText;
-            
-            // 🚨 Core Logic: newEntry + Divider + oldContent
-            if (oldContent === '') {
-                updatedText = newEntry; // စာဟောင်းမရှိရင် စာအသစ်တစ်ခုတည်း ထား
-            } else {
-                updatedText = newEntry + divider + oldContent; // စာအသစ်ကို အပေါ်ဆုံးမှာ ထား
-            }
-            
-            saveButton.disabled = true;
-            saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
-
-            // API (POST) ဖြင့် စာသားကို KV တွင် သိမ်းဆည်းခြင်း
-            try {
-                const response = await fetch('/api/text', {
-                    method: 'POST',
-                    body: updatedText,
-                    headers: { 'Content-Type': 'text/plain' }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Server error: ' + response.statusText);
-                }
-
-                // သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
-                mainTextarea.value = updatedText; 
-                inputLine.value = ''; // Input Field ရှင်းပစ်
-                alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အသစ်ဆုံးစာ အပေါ်ဆုံးတွင် ရောက်နေပါမည်)');
-                
-                // Textarea ကို အပေါ်ဆုံး (0) ကို ချက်ချင်း ပြန်ရွှေ့ပေးခြင်း
-                mainTextarea.scrollTop = 0; 
-
-            } catch (error) {
-                alert('❌ သိမ်းဆည်းမှု မအောင်မြင်ပါ။ Error: ' + error.message + '. KV Binding နှင့် /functions/api/text.js ကို စစ်ဆေးပါ။');
-                console.error('Save error:', error);
-            } finally {
-                saveButton.disabled = false;
-                saveButton.innerText = 'စာသားထည့်သွင်း/သိမ်းဆည်း (Save)';
-            }
-        }
-        // =============================================
-
-        // Website စဖွင့်တာနဲ့ စာသားကို တစ်ခါတည်း ဆွဲယူပြီး ပြသရန်
-        document.addEventListener('DOMContentLoaded', fetchInitialText);
-    </script>
-
-
-    <section class="download-list-section" style="margin-top: 50px;">
-        <h2>⬇️ ဖိုင်စာရင်း (Download)</h2>
-        <p>ဖိုင်များအားလုံးကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။</p>
-        
-        <iframe 
-            id="r2-file-list-iframe" 
-            src="/api/r2-list" 
-            style="width: 100%; min-height: 500px; border: 1px solid #ccc; border-radius: 8px; margin-top: 15px;" 
-            frameborder="0">
-        </iframe>
-    </section>
-
-    <script>
-        // ... (ခင်ဗျားရဲ့ JavaScript Functions များ) ...
-    </script>
 </body>
 </html>
