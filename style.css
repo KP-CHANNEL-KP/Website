@@ -1214,3 +1214,24 @@ main {
     }
 }
 
+/* ပုံ ၁ အတိုင်း အစိမ်းရောင် ခလုတ်များအတွက် */
+.copy-button,
+.save-button {
+    /* မူရင်းအရောင်နှင့် Shadow ကို သတ်မှတ်ခြင်း */
+    background-color: #4CAF50 !important; /* အစိမ်းရောင် (Green) */
+    box-shadow: 0 5px #388E3C; /* နက်မှောင်သော အစိမ်းရောင်ဖြင့် အောက်ခြေ Shadow */
+    transition: all 0.1s; /* နှိပ်တဲ့အခါ Smooth ဖြစ်စေရန် */
+}
+
+/* နှိပ်လိုက်သောအခါ (Active State) */
+.copy-button:active,
+.save-button:active {
+    /* ၁။ ခလုတ်ကို အောက်သို့ အနည်းငယ် ဖိချလိုက်သလို ဖြစ်စေရန် */
+    transform: translateY(3px); 
+    
+    /* ၂။ Shadow ကို ဖျောက်လိုက်ခြင်း (ဒါမှ ခလုတ်က အောက်သို့ နစ်ဝင်သွားသလို မြင်ရမည်) */
+    box-shadow: 0 2px #388E3C; /* Shadow ကို လျှော့ချခြင်း */
+    
+    /* ၃။ နှိပ်တဲ့အခါ အရောင်ကို နည်းနည်း နက်မှောင်သွားစေခြင်း */
+    background-color: #388E3C !important;
+}
