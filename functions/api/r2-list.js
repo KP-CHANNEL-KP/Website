@@ -1,4 +1,5 @@
 // functions/api/r2-list.js
+// Delete ခလုတ်၊ Passcode Form နှင့် Local Storage ဖြင့် Passcode မှတ်သားခြင်း Logic ပါဝင်ပြီး
 
 export async function onRequestGet(context) {
     const { env } = context;
@@ -173,8 +174,16 @@ export async function onRequestGet(context) {
     </div>
     
     <script>
+        const PASSCODE_STORAGE_KEY = 'adminR2Passcode';
+        const passcodeInput = document.getElementById('admin-passcode');
+
+        // 1. စာမျက်နှာဖွင့်ဖွင့်ချင်း Local Storage ကနေ Passcode ကို ပြန်ထည့်ပေးခြင်း
+        const storedPasscode = localStorage.getItem(PASSCODE_STORAGE_KEY);
+        if (storedPasscode) {
+            passcodeInput.value = storedPasscode;
+        }
+
         async function deleteFile(key) {
-            const passcodeInput = document.getElementById('admin-passcode');
             const passcode = passcodeInput.value;
 
             if (!passcode) {
@@ -185,6 +194,9 @@ export async function onRequestGet(context) {
             if (!confirm(\`Are you sure you want to delete \${key}?\`)) {
                 return;
             }
+
+            // 2. Delete မလုပ်ခင် Passcode ကို Local Storage မှာ သိမ်းထားခြင်း
+            localStorage.setItem(PASSCODE_STORAGE_KEY, passcode); 
 
             const deleteUrl = '/api/r2-delete';
 
@@ -207,6 +219,11 @@ export async function onRequestGet(context) {
                     window.location.reload(); 
                 } else {
                     alert('Failed to delete: ' + result);
+                    // 3. Passcode မှားရင် Local Storage ကနေ ဖျက်ပစ်ခြင်း
+                    if (response.status === 401) { 
+                        localStorage.removeItem(PASSCODE_STORAGE_KEY);
+                        passcodeInput.value = ''; // Input Field ကို ရှင်းပစ်
+                    }
                 }
 
             } catch (error) {
