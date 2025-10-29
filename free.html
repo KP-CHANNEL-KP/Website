@@ -34,16 +34,13 @@
     margin: 0 auto;
     padding: 10px;
 ">
-    <p class="copy-box-title">ကူးယူရန် စာသားများ:</p> 
-    <p class="copy-box-title" style="margin-top: 20px;">**သင်လဲ မျှဝေပေးသွားလိူ့ရပါတယ် File/Key တခုခုပေါ့**</p>
-    
     <textarea id="mainTextArea" rows="25" readonly style="
         height: 400px; 
         width: 100%;
         overflow-y: scroll; 
         padding: 15px; 
         border: 1px solid #007bff; 
-        border-radius: 8px; 
+        border-radius: 8px; /* Textarea ကို 8px ထားသည် */
         background: #fdfdff; 
         color: #333; 
         margin-bottom: 20px;
@@ -57,18 +54,19 @@
     
     <input type="text" id="inputLine" class="small-input-line" 
            placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ..."
-           style="margin-bottom: 10px; width: 100%; padding: 10px; box-sizing: border-box;">
+           style="margin-bottom: 10px; width: 100%; padding: 10px; box-sizing: border-box; border-radius: 25px;">
     
     <button onclick="copyMainTextToClipboard()" class="copy-button" 
-            style="margin-bottom: 10px; width: 100%; background-color: #4CAF50; border: none; padding: 12px; color: white; font-weight: bold; border-radius: 8px;">
+            style="margin-bottom: 10px; width: 100%; background-color: #4CAF50; border: none; padding: 12px; color: white; font-weight: bold; border-radius: 50px;">
         နောက်ဆုံး စာသား ကူးယူမည်
     </button>
 
     <button id="saveButton" onclick="saveToMainTextarea()" class="save-button"
-            style="margin-bottom: 10px; width: 100%; background-color: #4CAF50; border: none; padding: 12px; color: white; font-weight: bold; border-radius: 8px;">
+            style="margin-bottom: 10px; width: 100%; background-color: #4CAF50; border: none; padding: 12px; color: white; font-weight: bold; border-radius: 50px;">
         စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
     </button>
 </div>
+
 
 
             <section class="upload-section">
