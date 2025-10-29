@@ -263,17 +263,45 @@
     </script>
 
 
-    <section class="download-list-section" style="margin-top: 50px;">
-        <h2>⬇️ ဖိုင်စာရင်း (Download)</h2>
-        <p>ဖိုင်များအားလုံးကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။</p>
+        <section class="download-list-section" style="
+        margin-top: 50px; 
+        padding: 25px; /* Section အတွင်းဘက် နေရာလွတ် */
+        background-color: #ffffff; /* နောက်ခံအရောင်ဖြူ */
+        border-radius: 12px; /* ထောင့်ဝိုင်း */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* အနည်းငယ် Shadow */
+        max-width: 95%; 
+        margin: 50px auto 20px auto; /* စာမျက်နှာ အလယ်မှာ နေစေရန် */
+    ">
+        
+        <h2 style="
+            color: #00796b; /* ခေါင်းစဉ်အရောင် */
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 10px; 
+            margin-top: 0; 
+            font-size: 1.5em; /* စာလုံးအကြီးအသေး */
+        ">
+            ⬇️ တင်ထားသော ဖိုင်များ စာရင်း (DOWNLOAD)
+        </h2>
+        
+        <p style="margin-bottom: 20px; color: #555;">
+            ဖိုင်များအားလုံးကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။ (အသစ်ဆုံးဖိုင်ကို အပေါ်ဆုံးတွင် ပြသမည်)
+        </p>
         
         <iframe 
             id="r2-file-list-iframe" 
             src="/api/r2-list" 
-            style="width: 100%; min-height: 500px; border: 1px solid #ccc; border-radius: 8px; margin-top: 15px;" 
+            style="
+                width: 100%; 
+                min-height: 500px; 
+                border: 1px solid #ccc; 
+                border-radius: 8px; /* iframe ကိုလည်း ထောင့်ဝိုင်းထားသည် */
+                margin-top: 15px; 
+                margin-bottom: 15px; /* iframe အပေါ်အောက် နေရာချောင်စေရန် */
+            " 
             frameborder="0">
         </iframe>
     </section>
+
 
     <script>
         // ... (ခင်ဗျားရဲ့ JavaScript Functions များ) ...
