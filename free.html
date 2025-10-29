@@ -147,6 +147,8 @@
             }
         }
 // =============================================
+        // ... (ယခင် Functions များအတိုင်း ထားပါ) ...
+
         // 4. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (KV /api/text GET)
         async function fetchInitialText() {
             try {
@@ -163,6 +165,7 @@
         }
 
         // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (KV /api/text POST)
+        // 🚨 ဤနေရာတွင် New Content Prepending Logic ကို ပြင်ဆင်ထားသည် 🚨
         async function saveToMainTextarea() {
             const newText = inputLine.value.trim(); 
             
@@ -171,8 +174,25 @@
                 return;
             }
             
-            // လက်ရှိ စာသား နှင့် အသစ်ထည့်သော စာသားကို ပေါင်းစပ်
-            const updatedText = mainTextarea.value.trim() + '\n\n' + newText;
+            // လက်ရှိရက်စွဲနှင့် အချိန်ကို ဖော်ပြခြင်း
+            const now = new Date();
+            const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+
+            // စာအသစ်အတွက် ပုံစံပြုလုပ်ခြင်း
+            const newEntry = `[${timestamp}] \n${newText}`;
+
+            // 1. စာအဟောင်းကို ယူခြင်း (အသစ်တင်ရန်အတွက်)
+            const oldContent = mainTextarea.value.trim();
+            
+            // 2. စာအသစ် (newEntry) ကို စာအဟောင်း (oldContent) ရဲ့ အပေါ်ဆုံးမှာ ထည့်သွင်းခြင်း
+            let updatedText;
+            if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent === 'Data load မလုပ်နိုင်ပါ။ Backend/KV ချိတ်ဆက်မှု စစ်ဆေးပါ။') {
+                // ပထမဆုံး စတင်သိမ်းဆည်းခြင်း
+                updatedText = newEntry;
+            } else {
+                // စာအဟောင်းရှိပြီးသားဆိုရင် အပေါ်ဆုံးမှာ ထည့်သွင်းခြင်း
+                updatedText = newEntry + '\n\n' + oldContent; 
+            }
             
             saveButton.disabled = true;
             saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
@@ -192,8 +212,8 @@
                 // သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
                 mainTextarea.value = updatedText; 
                 inputLine.value = '';
-                alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အခြားသူများ မြင်နိုင်သည်)');
-                mainTextarea.scrollTop = mainTextarea.scrollHeight; 
+                alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အသစ်ဆုံးစာ အပေါ်ဆုံးတွင် ရောက်နေပါမည်)');
+                mainTextarea.scrollTop = 0; // 🚨 အပေါ်ဆုံးကို ပြန်ရွှေ့ရန်
 
             } catch (error) {
                 alert('❌ သိမ်းဆည်းမှု မအောင်မြင်ပါ။ Error: ' + error.message + '. KV Binding နှင့် /functions/api/text.js ကို စစ်ဆေးပါ။');
@@ -210,6 +230,7 @@
     </script>
 </body> 
 </html>
+
     <section class="download-list-section" style="margin-top: 50px;">
         <h2>⬇️ ဖိုင်စာရင်း (Download)</h2>
         <p>ဖိုင်များအားလုံးကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။</p>
