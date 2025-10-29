@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Blog Free Page</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css?v=2025102903"> 
 </head>
 <body>
 
@@ -30,65 +30,22 @@
             <h1>KP WEBSITE FREE PAGE</h1>
         
             <div class="text-copy-area copy-box">
-    <textarea id="mainTextarea" name="copy_box_title" readonly style="
-        height: 400px;
-        color: white; 
-        background-color: #333; 
-        border: 1px solid #555;
-        font-size: 14px;
-        padding: 15px;
-        margin-bottom: 20px;
-        display: block; 
-        width: 100%; 
-        box-sizing: border-box;
-    ">
-        သင် ပေးသွင်းထားသော File/Key တစ်ခုခုပဲ။
-    </textarea>
-    
-    <div class="input-and-buttons-group" style="
-        display: flex; 
-        flex-direction: column; 
-        gap: 10px; 
-        padding: 5px; 
-        margin-top: -5px; 
-    ">
-
-        <input type="text" placeholder="စာသားအသစ် ထည့်သွင်းရန် ရေးပါ။" class="new-text-input" id="newTextInput" style="
-            padding: 12px; 
-            border: 1px solid #ccc; 
-            border-radius: 5px; 
-            font-size: 1em;
-        ">
-        
-        <button id="copyButton" onclick="copyTextToClipboard(this)" class="action-btn copy-action-btn" style="
-            background-color: #2e7d32; /* Deep Green */
-            color: white; 
-            padding: 15px 20px; 
-            font-size: 1.1em; 
-            font-weight: bold; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            box-shadow: 0 4px #1b5e20; 
-            transition: all 0.1s;
-        ">နောက်ဆုံး ထားသော စာသား ကူးယူမည်</button>
-        
-        <button id="saveButton" onclick="saveNewText()" class="action-btn save-action-btn" style="
-            background-color: #4caf50; /* Green */
-            color: white; 
-            padding: 15px 20px; 
-            font-size: 1.1em; 
-            font-weight: bold; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            box-shadow: 0 4px #388e3c; 
-            transition: all 0.1s;
-        ">စာသားအသစ် ထည့်သွင်း/သိမ်းဆည်းမည် (Save)</button>
-        
-    </div>
-    
-</div>
+                <textarea id="mainTextarea" name="copy_box_title" readonly style="
+                    height: 400px;
+                    color: white; 
+                    background-color: #333; 
+                    border: 1px solid #555;
+                    font-size: 14px;
+                    padding: 15px;
+                    margin-bottom: 20px;
+                    display: block; 
+                    width: 100%; 
+                    box-sizing: border-box;
+                ">
+                    သင် ပေးသွင်းထားသော File/Key တစ်ခုခုပဲ။
+                </textarea>
+                
+                </div>
 
 
             <section class="upload-section">
@@ -126,38 +83,18 @@
         <p>&copy; 2025 KP WEBSITE</p>
     </footer>
 
-        <script>
+    <script>
         // HTML element များကို ရယူခြင်း
-        const mainTextarea = document.getElementById('mainTextArea'); 
-        const inputLine = document.getElementById('inputLine');
-        const saveButton = document.getElementById('saveButton');
+        const mainTextarea = document.getElementById('mainTextarea'); 
         
-        // 1. Copy Function (Textarea ထဲက စာအားလုံးကို ကူးရန်)
-        function copyMainTextToClipboard() {
-            const textToCopy = mainTextarea.value;
-            if (textToCopy && textToCopy !== 'Loading...') {
-                navigator.clipboard.writeText(textToCopy)
-                    .then(() => {
-                        alert("စာသား ကူးယူပြီးပါပြီ!"); 
-                    })
-                    .catch(err => {
-                        console.error('Copy Error:', err);
-                        alert("ကူးယူရန် မအောင်မြင်ပါ!");
-                    });
-            } else {
-                alert("ကူးယူရန် စာသား မရှိပါ!");
-            }
-        }
-
-        // 2. File Name Display Function (မူရင်းအတိုင်း)
+        // 1. File Name Display Function (မူရင်းအတိုင်း)
         function updateFileName(input) {
             var fileName = input.files[0] ? input.files[0].name : "Choose File";
             document.getElementById('fileNameDisplay').innerText = fileName;
         }
         
         // =====================================
-         // R2 Upload Functions (File Upload Error များ မဖြစ်စေရန် ပြန်စစ်ထားသည်)
-        // 1. ဖိုင်ကို Server (Functions/api/upload.js) သို့ တင်ခြင်း
+         // R2 Upload Functions (ယခင်အတိုင်း ထားရှိပါသည်)
         async function startR2Upload() {
             const fileInput = document.getElementById('fileInput');
             const uploadMessage = document.getElementById('uploadMessage');
@@ -170,33 +107,27 @@
             const file = fileInput.files[0];
             uploadMessage.innerHTML = `⌛ ${file.name} ကို Upload ပြုလုပ်နေပါသည်။...`;
             
-            // Pages Function အတွက် Absolute Path
             const apiEndpoint = "/api/upload"; 
 
-            // Form Data အဖြစ် ပြောင်းလဲပြီး POST request ဖြင့် ပို့ခြင်း
             const formData = new FormData();
             formData.append('file', file); 
 
             try {
-                // R2 Upload Function ကို ခေါ်ဆိုခြင်း
                 const uploadResponse = await fetch(apiEndpoint, {
                     method: 'POST', 
                     body: formData 
                 });
 
-                // Server က JSON ကို ပြန်ပို့မှာ ဖြစ်သောကြောင့် ဤနေရာတွင် JSON အဖြစ် ဖတ်သည်
                 const result = await uploadResponse.json(); 
 
                 if (uploadResponse.ok && result.status === 'SUCCESS') {
                     uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name}). Message: ${result.message}`;
-                    // Upload အောင်မြင်ရင် File List (iframe) ကို Refresh လုပ်ရန်
                     const iframe = document.getElementById('r2-file-list-iframe');
                     if (iframe) {
+                        // iframe ကို အောင်မြင်စွာ Refresh လုပ်ခြင်း
                         iframe.src = iframe.src; 
                     }
                 } else {
-                    // Server-side error (400, 500) များကို ကိုင်တွယ်ခြင်း
-                    // JSON response ကို မရရင်တောင် error message ပြနိုင်ရန်
                     const errorText = result.message || uploadResponse.statusText;
                     uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${errorText}`;
                     throw new Error(`Upload Failed: ${errorText}`);
@@ -206,15 +137,12 @@
                 uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
             }
         }
-// =============================================
-        // 4. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (KV /api/text GET)
+        // =============================================
+        // 4. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (Textarea အတွက်)
         async function fetchInitialText() {
             try {
-                // GET request ဖြင့် စာသားကို /api/text (Pages Function) မှ ရယူခြင်း
                 const response = await fetch('/api/text'); 
                 const text = await response.text();
-
-                // Textarea ထဲသို့ ထည့်သွင်းခြင်း
                 mainTextarea.value = text;
             } catch (error) {
                 console.error('Failed to fetch initial text:', error);
@@ -222,72 +150,8 @@
             }
         }
 
-        // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (KV /api/text POST)
-        // 🚨 New Content Prepending Logic (အသစ်ဆုံးကို အပေါ်ဆုံးတွင် ထားခြင်း) 🚨
-        async function saveToMainTextarea() {
-            const newText = inputLine.value.trim(); 
-            
-            if (newText === '') {
-                alert('ထည့်သွင်းရန် စာသား မရှိပါ။');
-                return;
-            }
-            
-            let oldContent = mainTextarea.value.trim();
-            
-            // Default စာသားများကို စစ်ဆေးပြီး ရှင်းထုတ်ခြင်း
-            if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent.includes('Data load မလုပ်နိုင်ပါ') || oldContent === 'Hello' || oldContent === '') {
-                oldContent = '';
-            }
-            
-            // လက်ရှိရက်စွဲနှင့် အချိန်ကို ဖော်ပြခြင်း
-            const now = new Date();
-            const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-
-            const divider = '\n\n==============\n';
-            const newEntry = `[${timestamp}]\n\n${newText}`;
-
-            let updatedText;
-            
-            // 🚨 Core Logic: newEntry + Divider + oldContent
-            if (oldContent === '') {
-                updatedText = newEntry; // စာဟောင်းမရှိရင် စာအသစ်တစ်ခုတည်း ထား
-            } else {
-                updatedText = newEntry + divider + oldContent; // စာအသစ်ကို အပေါ်ဆုံးမှာ ထား
-            }
-            
-            saveButton.disabled = true;
-            saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
-
-            // API (POST) ဖြင့် စာသားကို KV တွင် သိမ်းဆည်းခြင်း
-            try {
-                const response = await fetch('/api/text', {
-                    method: 'POST',
-                    body: updatedText,
-                    headers: { 'Content-Type': 'text/plain' }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Server error: ' + response.statusText);
-                }
-
-                // သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
-                mainTextarea.value = updatedText; 
-                inputLine.value = ''; // Input Field ရှင်းပစ်
-                alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အသစ်ဆုံးစာ အပေါ်ဆုံးတွင် ရောက်နေပါမည်)');
-                
-                // Textarea ကို အပေါ်ဆုံး (0) ကို ချက်ချင်း ပြန်ရွှေ့ပေးခြင်း
-                mainTextarea.scrollTop = 0; 
-
-            } catch (error) {
-                alert('❌ သိမ်းဆည်းမှု မအောင်မြင်ပါ။ Error: ' + error.message + '. KV Binding နှင့် /functions/api/text.js ကို စစ်ဆေးပါ။');
-                console.error('Save error:', error);
-            } finally {
-                saveButton.disabled = false;
-                saveButton.innerText = 'စာသားထည့်သွင်း/သိမ်းဆည်း (Save)';
-            }
-        }
-        // =============================================
-
+        // 5. saveToMainTextarea Function ကို ဖယ်ရှားလိုက်ပါပြီ။
+        
         // Website စဖွင့်တာနဲ့ စာသားကို တစ်ခါတည်း ဆွဲယူပြီး ပြသရန်
         document.addEventListener('DOMContentLoaded', fetchInitialText);
     </script>
