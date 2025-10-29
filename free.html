@@ -166,8 +166,8 @@
 
         // ... (ယခင် Functions များအတိုင်း ထားပါ) ...
 
-        // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (KV /api/text POST)
-        // 🚨 ဤနေရာတွင် New Content Prepending Logic ကို ပြင်ဆင်ထားသည် 🚨
+                // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (KV /api/text POST)
+        // 🚨 ဤနေရာတွင် New Content Prepending Logic ကို နောက်ဆုံး ပြင်ဆင်ထားသည် 🚨
         async function saveToMainTextarea() {
             const newText = inputLine.value.trim(); 
             
@@ -176,27 +176,33 @@
                 return;
             }
             
-            // 1. စာအဟောင်းကို ယူခြင်း
-            // mainTextarea.value ကို Trim() လုပ်ပြီး သုံးပါက စာလုံးအလွတ်များ ပါဝင်ခြင်းကို ကာကွယ်သည်။
-            const oldContent = mainTextarea.value.trim();
+            // 1. စာအဟောင်းကို ယူခြင်း (KV မှ load လုပ်ထားသော စာသား)
+            let oldContent = mainTextarea.value.trim();
+            
+            // 2. Default စာသားများကို ရှင်းထုတ်ခြင်း (Clear out any initial/loading messages)
+            if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent.includes('Data load မလုပ်နိုင်ပါ') || oldContent === '') {
+                oldContent = '';
+            }
             
             // လက်ရှိရက်စွဲနှင့် အချိန်ကို ဖော်ပြခြင်း
             const now = new Date();
             const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
 
-            // စာအသစ်အတွက် ပုံစံပြုလုပ်ခြင်း
+            // 3. စာအသစ်အတွက် ပုံစံပြုလုပ်ခြင်း
             // စာအသစ်တစ်ခုနှင့်တစ်ခု ရှင်းလင်းစွာ ခွဲခြားရန် === Divider ထည့်သွင်းထားသည်
-            const newEntry = `\n\n================================\n[${timestamp}] \n${newText}`;
+            const divider = '\n\n================================\n';
+            const newEntry = `[${timestamp}] \n${newText}`;
 
             let updatedText;
             
-            // 2. စာဟောင်း၊ စာအသစ် ပေါင်းစပ်ခြင်း (အသစ်ကို အပေါ်ဆုံးတွင် ထားခြင်း)
-            if (oldContent === '' || oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent.includes('Data load မလုပ်နိုင်ပါ')) {
-                // Textarea အလွတ်ဖြစ်နေရင် ဒါမှမဟုတ် default စာသားဖြစ်နေရင်
-                updatedText = newEntry.trim(); // Divider မပါဘဲ စာအသစ်တစ်ခုတည်း သိမ်းပါ
+            // 4. စာဟောင်း၊ စာအသစ် ပေါင်းစပ်ခြင်း (အသစ်ကို အပေါ်ဆုံးတွင် ထားခြင်း)
+            if (oldContent === '') {
+                // Textarea အလွတ်ဖြစ်နေရင် စာအသစ်တစ်ခုတည်း သိမ်းပါ
+                updatedText = newEntry;
             } else {
-                // စာအဟောင်း ရှိပြီးသားဆိုရင် စာအသစ်ကို အပေါ်ဆုံးမှာ ထည့်သွင်းခြင်း
-                updatedText = newEntry + '\n' + oldContent; 
+                // စာအဟောင်း ရှိပြီးသားဆိုရင် စာအသစ်ကို အပေါ်ဆုံးမှာ Divider ခံပြီး ထည့်သွင်းခြင်း
+                // 🚨 Key Logic: newEntry + divider + oldContent
+                updatedText = newEntry + divider + oldContent; 
             }
             
             saveButton.disabled = true;
@@ -214,12 +220,12 @@
                     throw new Error('Server error: ' + response.statusText);
                 }
 
-                // 3. သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
+                // 5. သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
                 mainTextarea.value = updatedText; 
                 inputLine.value = ''; // စာအသစ်ရိုက်တဲ့ Input Field ကို ရှင်းပစ်
                 alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အသစ်ဆုံးစာ အပေါ်ဆုံးတွင် ရောက်နေပါမည်)');
                 
-                // 4. Textarea ကို အပေါ်ဆုံး (0) ကို ချက်ချင်း ပြန်ရွှေ့ပေးခြင်း
+                // 6. Textarea ကို အပေါ်ဆုံး (0) ကို ချက်ချင်း ပြန်ရွှေ့ပေးခြင်း
                 mainTextarea.scrollTop = 0; 
 
             } catch (error) {
@@ -230,13 +236,7 @@
                 saveButton.innerText = 'စာသားထည့်သွင်း/သိမ်းဆည်း (Save)';
             }
         }
-        // =============================================
 
-        // Website စဖွင့်တာနဲ့ စာသားကို တစ်ခါတည်း ဆွဲယူပြီး ပြသရန်
-        document.addEventListener('DOMContentLoaded', fetchInitialText);
-    </script>
-</body> 
-</html>
 
 
     <section class="download-list-section" style="margin-top: 50px;">
