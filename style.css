@@ -789,3 +789,298 @@ main {
         width: 100%;
     }
 }
+/* ======================================== */
+/* 🚀 FINAL FIX: Buttons ကို သပ်ရပ်စွာ ပေါ်စေရန် (free.html အတွက်) */
+/* ======================================== */
+
+/* မျက်နှာပြင် အလယ်ဗဟိုမှာ ပိုမိုလှပစေရန် */
+.copy-box {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+    max-width: 600px; /* ဗဟိုချက် ပြုရန် */
+}
+
+/* စာသား ထည့်/ပြ အကွက် */
+.vmess-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.9em;
+    resize: vertical;
+    box-sizing: border-box; /* Padding က အကျယ်ကို မပြောင်းအောင် */
+}
+
+/* Button Group ကို အလယ်ချရန် */
+.button-group {
+    display: flex; /* Buttons တွေကို စုစည်းရန် */
+    flex-direction: column; /* Buttons တွေကို အပေါ်အောက် ထားရန် */
+    gap: 15px; /* Buttons များကြား ခြားနားမှု */
+    align-items: center; /* Buttons တွေကို အလယ်မှာ ထားရန် */
+    padding: 0 10px; 
+    max-width: 400px; /* Buttons group ကို အရမ်းမကြီးစေရန် ကန့်သတ်ခြင်း */
+    margin: 0 auto; /* group ကို အလယ်ပို့ရန် */
+}
+
+/* Button နှစ်ခုလုံးအတွက် ပုံစံ */
+.action-btn {
+    width: 100%; /* Parent div ရဲ့ နေရာကို အပြည့်ယူစေရန် */
+    padding: 14px 30px; 
+    font-size: 1.1em;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    text-decoration: none; 
+    display: block; 
+}
+
+/* Copy Button (Teal - မူရင်း အရောင်) */
+.copy-button {
+    background-color: #00796b; 
+    color: white;
+    box-shadow: 0 4px #004d40;
+}
+.copy-button:hover {
+    background-color: #004d40;
+}
+
+/* Save Button (Green - မူရင်း အရောင်) */
+.save-button {
+    background-color: #4CAF50; 
+    color: white;
+    box-shadow: 0 4px #388e3c;
+}
+.save-button:hover {
+    background-color: #388e3c;
+}
+
+/* Button နှိပ်လိုက်တဲ့အခါ 3D effect ကို ဖြုတ်ပြီး အပေါ်ကို တက်သွားသော ပုံစံ */
+.action-btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+/* Upload Section */
+.upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 600px;
+    margin: 15px auto;
+}
+
+.hidden-input {
+    display: none;
+}
+
+.choose-file-btn {
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 40%;
+}
+
+.file-name-display {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #666;
+}
+
+.checkmark-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: #2196F3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.checkmark-btn:disabled {
+    background-color: #bdbdbd;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.checkmark-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.upload-status {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* Download Section */
+.download-section {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.download-title {
+    text-align: center;
+    color: #1a73e8;
+    margin-bottom: 10px;
+}
+
+.r2-file-list-header {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-bottom: 2px solid #eee;
+}
+
+.admin-passcode-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+#adminPasscode {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1;
+}
+
+.file-list-container {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fafafa;
+}
+
+.file-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+}
+
+.file-row:last-child {
+    border-bottom: none;
+}
+
+.file-name {
+    flex: 3;
+    font-weight: 600;
+    color: #333;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.file-size, .file-date {
+    flex: 1.5;
+    color: #666;
+    white-space: nowrap;
+}
+
+.download-btn {
+    background-color: #1a73e8;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: background-color 0.2s;
+    font-size: 0.8em;
+}
+
+.download-btn:hover {
+    background-color: #155bb5;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: background-color 0.2s;
+    font-size: 0.8em;
+    pointer-events: none; /* Default: Disable delete button */
+    opacity: 0.5;
+}
+
+.delete-btn.enabled {
+    background-color: #f44336;
+    pointer-events: auto; /* Enable when passcode is correct */
+    opacity: 1;
+}
+
+.delete-btn.enabled:hover {
+    background-color: #d32f2f;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+    .file-row {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    .file-name {
+        flex: 100%;
+    }
+    .file-size, .file-date {
+        flex: 1;
+        min-width: 45%;
+    }
+    .download-btn, .delete-btn {
+        margin-top: 5px;
+        min-width: 45%;
+        text-align: center;
+    }
+    
+    .upload-container {
+        flex-wrap: wrap;
+    }
+    
+    .choose-file-btn, .file-name-display {
+        max-width: 100%;
+        width: 100%;
+        flex-grow: 0;
+    }
+
+    .checkmark-btn {
+        margin-top: 10px;
+    }
+}
+
