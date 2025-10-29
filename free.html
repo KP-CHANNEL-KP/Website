@@ -164,6 +164,8 @@
             }
         }
 
+        // ... (ယခင် Functions များအတိုင်း ထားပါ) ...
+
         // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (KV /api/text POST)
         // 🚨 ဤနေရာတွင် New Content Prepending Logic ကို ပြင်ဆင်ထားသည် 🚨
         async function saveToMainTextarea() {
@@ -174,24 +176,27 @@
                 return;
             }
             
+            // 1. စာအဟောင်းကို ယူခြင်း
+            // mainTextarea.value ကို Trim() လုပ်ပြီး သုံးပါက စာလုံးအလွတ်များ ပါဝင်ခြင်းကို ကာကွယ်သည်။
+            const oldContent = mainTextarea.value.trim();
+            
             // လက်ရှိရက်စွဲနှင့် အချိန်ကို ဖော်ပြခြင်း
             const now = new Date();
             const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
 
             // စာအသစ်အတွက် ပုံစံပြုလုပ်ခြင်း
-            const newEntry = `[${timestamp}] \n${newText}`;
+            // စာအသစ်တစ်ခုနှင့်တစ်ခု ရှင်းလင်းစွာ ခွဲခြားရန် === Divider ထည့်သွင်းထားသည်
+            const newEntry = `\n\n================================\n[${timestamp}] \n${newText}`;
 
-            // 1. စာအဟောင်းကို ယူခြင်း (အသစ်တင်ရန်အတွက်)
-            const oldContent = mainTextarea.value.trim();
-            
-            // 2. စာအသစ် (newEntry) ကို စာအဟောင်း (oldContent) ရဲ့ အပေါ်ဆုံးမှာ ထည့်သွင်းခြင်း
             let updatedText;
-            if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent === 'Data load မလုပ်နိုင်ပါ။ Backend/KV ချိတ်ဆက်မှု စစ်ဆေးပါ။') {
-                // ပထမဆုံး စတင်သိမ်းဆည်းခြင်း
-                updatedText = newEntry;
+            
+            // 2. စာဟောင်း၊ စာအသစ် ပေါင်းစပ်ခြင်း (အသစ်ကို အပေါ်ဆုံးတွင် ထားခြင်း)
+            if (oldContent === '' || oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent.includes('Data load မလုပ်နိုင်ပါ')) {
+                // Textarea အလွတ်ဖြစ်နေရင် ဒါမှမဟုတ် default စာသားဖြစ်နေရင်
+                updatedText = newEntry.trim(); // Divider မပါဘဲ စာအသစ်တစ်ခုတည်း သိမ်းပါ
             } else {
-                // စာအဟောင်းရှိပြီးသားဆိုရင် အပေါ်ဆုံးမှာ ထည့်သွင်းခြင်း
-                updatedText = newEntry + '\n\n' + oldContent; 
+                // စာအဟောင်း ရှိပြီးသားဆိုရင် စာအသစ်ကို အပေါ်ဆုံးမှာ ထည့်သွင်းခြင်း
+                updatedText = newEntry + '\n' + oldContent; 
             }
             
             saveButton.disabled = true;
@@ -209,11 +214,13 @@
                     throw new Error('Server error: ' + response.statusText);
                 }
 
-                // သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
+                // 3. သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
                 mainTextarea.value = updatedText; 
-                inputLine.value = '';
+                inputLine.value = ''; // စာအသစ်ရိုက်တဲ့ Input Field ကို ရှင်းပစ်
                 alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အသစ်ဆုံးစာ အပေါ်ဆုံးတွင် ရောက်နေပါမည်)');
-                mainTextarea.scrollTop = 0; // 🚨 အပေါ်ဆုံးကို ပြန်ရွှေ့ရန်
+                
+                // 4. Textarea ကို အပေါ်ဆုံး (0) ကို ချက်ချင်း ပြန်ရွှေ့ပေးခြင်း
+                mainTextarea.scrollTop = 0; 
 
             } catch (error) {
                 alert('❌ သိမ်းဆည်းမှု မအောင်မြင်ပါ။ Error: ' + error.message + '. KV Binding နှင့် /functions/api/text.js ကို စစ်ဆေးပါ။');
@@ -230,6 +237,7 @@
     </script>
 </body> 
 </html>
+
 
     <section class="download-list-section" style="margin-top: 50px;">
         <h2>⬇️ ဖိုင်စာရင်း (Download)</h2>
