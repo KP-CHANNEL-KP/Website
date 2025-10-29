@@ -1083,4 +1083,134 @@ main {
         margin-top: 10px;
     }
 }
+/* ======================================== */
+/* 🎨 ဇယားကွက် ပုံစံနှင့် Scrollable ပြုလုပ်ခြင်း (Download Section) */
+/* ======================================== */
+
+.download-section {
+    max-width: 800px; /* ဇယားကွက်ကို ပိုမိုကျယ်စေရန် */
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.file-table-container {
+    max-height: 400px; /* Scroll လုပ်ရန် အမြင့် ကန့်သတ်ချက် */
+    overflow-y: auto; /* ဒေါင်လိုက် scrollbar ပေါ်စေရန် */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.file-list-table {
+    width: 100%;
+    border-collapse: collapse; /* ဇယားလိုင်းများ ပူးစေရန် */
+    min-width: 600px; /* ဇယားကွက် ပုံသေ အကျယ် */
+}
+
+.file-list-table thead {
+    background-color: #f5f5f5;
+    position: sticky; /* ခေါင်းစဉ်ကို scroll လုပ်နေစဉ် ပေါ်စေရန် */
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.file-list-table th, 
+.file-list-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+}
+
+.file-list-table th {
+    font-weight: 700;
+    color: #333;
+}
+
+.file-list-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Column Widths */
+.col-filename { width: 45%; }
+.col-filesize { width: 15%; }
+.col-filedate { width: 20%; }
+.col-action { 
+    width: 20%; 
+    white-space: nowrap; /* Button တွေ မကျအောင် */
+}
+
+/* Table Buttons */
+.download-btn-table,
+.delete-btn-table {
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.download-btn-table {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+}
+.download-btn-table:hover {
+    background-color: #155bb5;
+}
+
+.delete-btn-table {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    pointer-events: none; /* Default: Disable delete button */
+    opacity: 0.5;
+}
+
+.delete-btn-table.enabled {
+    background-color: #f44336;
+    pointer-events: auto; /* Enable when passcode is correct */
+    opacity: 1;
+}
+
+.delete-btn-table.enabled:hover {
+    background-color: #d32f2f;
+}
+
+/* Admin Passcode Area - Table ဇယားကွက်နှင့် တွဲဖက်ရန် */
+.admin-passcode-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    padding: 0 10px;
+}
+
+#adminPasscode {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1;
+    max-width: 250px;
+}
+
+/* Mobile responsive adjustments for table */
+@media (max-width: 768px) {
+    .file-table-container {
+        overflow-x: auto; /* ဇယားကွက် ကြီးပါက ဘေးတိုက် scroll လုပ်ရန် */
+    }
+    .file-list-table {
+        min-width: 700px; /* ဖုန်းဖြင့်ကြည့်လျှင်လည်း သေသပ်စေရန် အနည်းဆုံး width */
+    }
+}
 
