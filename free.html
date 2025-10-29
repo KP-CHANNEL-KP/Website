@@ -34,19 +34,21 @@
                 <p class="copy-box-title" style="margin-top: 20px;">**သင်လဲ မျှဝေပေးသွားလိူ့ရပါတယ် File/Key တခုခုပေါ့**</p>
                 <textarea id="mainTextArea" rows="25" readonly style="
     height: 400px; 
-    width: 100%; /* 🚨 ဤအချက်ကို အဓိက ထည့်သွင်း/ပြင်ဆင်လိုက်သည် */
+    width: 98%; /* 🚨 100% ပေးပြီးလည်း မပြောင်းရင် 98% ပေးပြီး ထပ်စစ်ပါ။ */
+    max-width: 100%; /* အများဆုံး အကျယ်အဝန်းကို ကန့်သတ်ခြင်း */
+    min-width: 98%; /* အနည်းဆုံး အကျယ်အဝန်းကို ကန့်သတ်ခြင်း */
     overflow-y: scroll; 
-    padding: 15px; /* Padding ကို နည်းနည်း လျှော့လိုက်သည် */
-    border: 1px solid #007bff; /* Border ကို လေးထောင့် ပုံစံ ဖြစ်အောင် ပိုမို ခေတ်မီစေရန် ပြင်သည် */
-    border-radius: 8px; /* ထောင့်မှန် စတုဂံ ပုံစံမျိုး ဖြစ်အောင် ထောင့်လေးတွေကို အနည်းငယ် ဝိုင်းလိုက်သည် */
+    padding: 15px; 
+    border: 1px solid #007bff; 
+    border-radius: 8px; 
     background: #fdfdff; 
     color: #333; 
     margin-bottom: 20px;
-    box-sizing: border-box; /* Width 100% မှာ Padding ဝင်ပါစေရန် */
+    box-sizing: border-box; 
+    display: block; /* Textarea ကို Block level element ဖြစ်အောင် သတ်မှတ်ခြင်း */
 ">
     ဒေတာများကို စတင်ဆွဲယူနေပါသည်။
 </textarea>
-
 
 
 
