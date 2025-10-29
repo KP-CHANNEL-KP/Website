@@ -390,25 +390,6 @@ footer {
     margin-bottom: 15px;
 }
 
-.copy-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #4caf50; 
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    box-shadow: 0 3px #388e3c; 
-}
-
-.copy-button:hover {
-    background-color: #388e3c;
-    box-shadow: 0 1px #1b5e20;
-    transform: translateY(2px);
-}
 
 .copy-message {
     position: absolute;
@@ -477,48 +458,7 @@ footer {
     margin-top: 5px;
     font-weight: 500;
 }
-/* ======================================================= */
-/* --- Copy Button (စာသား ကူးယူမည် ခလုတ်) အလှဆင်ခြင်း --- */
-/* (Home Page မှ Submit Button ပုံစံအတိုင်း) */
-/* ======================================================= */
 
-#copyButton { /* free.html မှာရှိတဲ့ Copy Button ID */
-    /* အဓိက အရောင်နှင့် ပုံစံ */
-    background-color: #4CAF50; /* အဓိက အစိမ်းရောင် (KP Theme) */
-    color: white; /* စာသားအရောင် */
-    font-size: 1.1em;
-    font-weight: 600;
-    padding: 12px 30px; 
-    border: none;
-    border-radius: 8px; /* အနားကွပ်ဝိုင်းခြင်း */
-    cursor: pointer;
-    transition: box-shadow 0.1s, transform 0.1s;
-    width: 100%; /* Copy Area အောက်ခြေ အပြည့် ယူထားခြင်း */
-    max-width: 300px; /* အရမ်းမကြီးစေရန် ကန့်သတ်ခြင်း */
-    margin-top: 20px;
-    
-    /* 3D ပုံစံ အရိပ် (Home Page Submit ခလုတ်နှင့် တူအောင်) */
-    box-shadow: 0 5px #388e3c; /* ပိုမိုနက်သော အစိမ်းရောင် အရိပ် */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#copyButton:hover {
-    background-color: #5cb85c; /* Hover Effect */
-}
-
-#copyButton:active {
-    /* နှိပ်လိုက်တဲ့အခါ အောက်ဘက် အရိပ် ပျောက်ပြီး အပေါ်ကို တက်သွားသော ပုံစံ */
-    box-shadow: 0 2px #388e3c; 
-    transform: translateY(3px);
-}
-
-/* Icon (✅) အတွက် ပုံစံ */
-.button-icon {
-    margin-right: 8px;
-    font-size: 1.2em;
-}
 /* ======================================================= */
 /* --- File Upload (ဖိုင်တင်ရန်) Section ပုံစံ --- */
 /* ======================================================= */
@@ -571,7 +511,6 @@ footer {
     
     max-width: 300px;
     margin-bottom: 10px;
-    /* width: 100%; (လိုအပ်ပါက ဖွင့်နိုင်သည်) */
 }
 
 .styled-upload-button:hover {
@@ -596,6 +535,7 @@ footer {
     font-size: 0.9em;
     color: #555;
 }
+
 /* ======================================================= */
 /* --- input type="file" ကို ဝှက်ထားသော CSS (Mobile-Friendly) --- */
 /* ======================================================= */
@@ -612,6 +552,7 @@ footer {
     overflow: hidden;
     z-index: -1; 
 }
+
 /* -- 11. Custom Styles for Copy Section -- */
 
 .text-copy-area {
@@ -633,136 +574,13 @@ footer {
     margin-bottom: 15px;
 }
 
-.copy-input {
-    width: 90%; /* အကွက်ရဲ့ အကျယ်ကို ကြီးစေရန် */
-    max-width: 550px;
-    padding: 15px;
-    margin: 10px auto; /* အကွက်ကို အလယ်ပို့ရန် */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-    resize: vertical; /* အကွက်ကို အထက်အောက် ဆွဲဆန့်နိုင်စေရန် */
-    display: block; /* အကွက်ကို အလယ်မှာ ထားနိုင်စေရန် */
-    box-sizing: border-box;
-    text-align: left;
-}
-
-.text-copy-area button {
-    background-color: #00796b; /* Teal အရောင် Button */
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.05em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 15px;
-    display: inline-block; /* အလယ်မှာ ထားနိုင်စေရန် */
-}
-
-.text-copy-area button:hover {
-    background-color: #004d40;
-}
-
 .copy-status {
     color: #00796b;
     margin-top: 10px;
     font-weight: 600;
 }
-/* ======================================== */
-/* -- FREE PAGE CUSTOM STYLES (New) -- */
-/* ======================================== */
 
-/* -- 11. Copy Text Section Styles -- */
-.text-copy-area {
-    /* ကဏ္ဍတစ်ခုလုံးကို နေရာချထားခြင်း */
-    max-width: 600px; 
-    margin: 30px auto; /* Page အလယ်တည့်တည့်သို့ ပို့ခြင်း */
-    padding: 25px; 
-    border: 1px solid #cce5ff; 
-    border-radius: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); 
-    text-align: center; /* ကဏ္ဍအတွင်းက items တွေကို အလယ်ပို့ရန် */
-}
-
-.copy-title {
-    font-weight: 900; /* စာလုံးကို အထူဆုံး */
-    color: #000000; /* အမဲရောင် */
-    font-size: 1.6em; 
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-.copy-input {
-    width: 95%; /* အကွက်ရဲ့ အကျယ်ကို ကြီးစေရန် */
-    height: 120px; 
-    padding: 15px;
-    margin: 10px auto 20px auto; 
-    border: 2px solid #00bcd4; /* အပြာစိမ်း ဘောင် */
-    border-radius: 8px;
-    font-size: 1.1em;
-    resize: vertical; 
-    display: block; 
-    box-sizing: border-box;
-    text-align: left;
-    background-color: #f8f8f8;
-}
-
-.text-copy-area button {
-    background-color: #00796b; /* Teal အရောင် Button */
-    color: white;
-    padding: 14px 30px; 
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
-    display: inline-block; 
-}
-
-.text-copy-area button:hover {
-    background-color: #004d40;
-}
-
-/* -- 12. ပိုင်ဆိုင်ရန် နေရာ (Upload Section) Styles -- */
-/* သင့်ရဲ့ ပုံထဲက "ပိုင်ဆိုင်ရန် နေရာ" ကဏ္ဍကို ပိုမို သပ်ရပ်စေရန် */
-
-.content-section h2 {
-    /* ဒီဟာက Free Page ရဲ့ "FREE အကြောင်းအရာများ ကဏ္ဍ" ခေါင်းစဉ်ကို ရည်ညွှန်းသည် */
-    text-align: center; /* ခေါင်းစဉ်များကို အလယ်ပို့ရန် */
-}
-
-/* အရင်က ပေးခဲ့တဲ့ "ပိုင်ဆိုင်ရန် နေရာ" အတွက် ဒီဇိုင်းကို ပိုမို ရှင်းလင်းအောင် ပြင်ဆင်ပါမည်။ */
-/* သင့်ရဲ့ HTML မှာ ဒီလို div class တစ်ခု ရှိတယ်လို့ ယူဆပြီး ရေးသားထားသည် */
-.upload-container { 
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 30px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    text-align: center;
-    background-color: #fdfdfd;
-}
-
-.upload-container p {
-    line-height: 1.5;
-    margin-bottom: 20px;
-    font-size: 1em;
-    color: #444;
-}
-
-.upload-container button {
-    background-color: #00bcd4;
-}
-
-.upload-container button:hover {
-    background-color: #0097a7;
-}
-/* ======================================== */
 /* -- FREE PAGE CUSTOM STYLES -- */
-/* ======================================== */
 
 /* Free Page ရဲ့ Main Content ကို အလယ်မှာ စုစည်းထားရန် */
 main {
@@ -809,25 +627,6 @@ main {
     color: #444;
 }
 
-/* 4. Copy ခလုတ်ကို အလယ်တည့်တည့် ထားခြင်း */
-.copy-button {
-    background-color: #00796b; /* Teal အရောင် Button */
-    color: white;
-    padding: 14px 30px; 
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
-    display: inline-block; /* အလယ်မှာ ထားနိုင်စေရန် */
-}
-
-.copy-button:hover {
-    background-color: #004d40;
-}
-
-
 /* -- ဖိုင်တင်ရန် နေရာ (Upload Section) ကို အလယ်တည့်တည့်ထားရန် -- */
 .upload-section {
     max-width: 700px;
@@ -847,6 +646,7 @@ main {
     margin-bottom: 20px;
     font-size: 1.7em;
     font-weight: 600;
+    text-align: center;
 }
 
 .upload-container {
@@ -869,9 +669,7 @@ main {
         height: 100px;
     }
 }
-/* ======================================== */
 /* -- UPLOAD SECTION STYLES (လှပသော Button များ) -- */
-/* ======================================== */
 
 /* 1. Upload Section ကြီးကို စနစ်တကျ နေရာချထားခြင်း */
 .upload-section {
@@ -922,7 +720,6 @@ main {
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
     font-weight: 600;
-    /* Margin တွေ မလိုအပ်တော့ဘူး၊ flex-wrap က နေရာချပေးထားလို့ */
 }
 
 .upload-container button:hover {
@@ -991,156 +788,4 @@ main {
     .upload-container button {
         width: 100%;
     }
-}
-/* free.html အတွက် လိုအပ်သော Styles များ */
-
-/* style.css ဖိုင်ထဲက ပြင်ဆင်ရမည့် နေရာ */
-
-/* style.css ဖိုင်ထဲက ပြင်ဆင်ရမည့် နေရာ */
-
-/* အကွက်ကြီးအတွက် CSS (Vmess Key ထည့်သည့် နေရာ - အမြင့်ကို လျှော့ချခြင်း) */
-.big-textarea {
-    width: 100%;
-    /* 👈 ဤနေရာတွင် အမြင့်ကို 300px မှ 150px သို့ ပြန်လျှော့လိုက်သည် */
-    min-height: 150px; 
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    /* Scroll လုပ်နိုင်ရန် */
-    overflow-y: scroll; 
-    resize: vertical; 
-}
-
-/* ... ကျန်တဲ့ CSS တွေက အတူတူပဲ ... */
-
-
-/* ... ကျန်တဲ့ CSS တွေက အတူတူပဲ ... */
-
-
-/* စာရေးရန် အကွက်အသေးလေးအတွက် CSS (Copy ခလုတ်အပေါ်တွင် ရှိသည်) */
-.small-input-line {
-    width: 60%;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border: 1px solid #28a745; 
-    border-radius: 8px;
-    font-size: 16px;
-    height: 40px; 
-}
-
-/* Copy ခလုတ်အတွက် (မူလပုံစံအတိုင်း) */
-.copy-button {
-    background-color: #28a745; /* ဥပမာအရောင် (သင့်မူရင်းအရောင်ကို သုံးနိုင်သည်) */
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    width: 100%;
-    text-align: center;
-    border-radius: 25px; 
-    cursor: pointer;
-    font-weight: bold;
-    margin-bottom: 10px; /* Save ခလုတ်နဲ့ မခြားအောင် နည်းနည်း ခြားထားသည် */
-}
-
-/* Save ခလုတ်ကို အလှဆင်ခြင်း (Copy ခလုတ်အောက်တွင် ရှိသည်) */
-.save-button {
-    background-color: #28a745; /* အစိမ်းရောင် */
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: block; 
-    width: 100%;
-    font-size: 16px;
-    border-radius: 25px; 
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 10px; 
-}
-
-.save-button:hover {
-    background-color: #218838; 
-}
-
-/* ... ကျန်တဲ့ သင့်ရဲ့ မူလ style များ ဒီအောက်မှာ ဆက်ရှိနိုင်ပါသည် ... */
-/* ======================================== */
-/* 🚀 FINAL FIX: Buttons ကို သပ်ရပ်စွာ ပေါ်စေရန် */
-/* ======================================== */
-
-/* Button Group ကို အလယ်ချရန် (အပေါ်က HTML တွင် max-width ပေးပြီးဖြစ်သည်) */
-.button-group {
-    display: flex; /* Buttons တွေကို စုစည်းရန် */
-    flex-direction: column; /* Buttons တွေကို အပေါ်အောက် ထားရန် */
-    gap: 15px; /* Buttons များကြား ခြားနားမှု */
-    align-items: center; /* Buttons တွေကို အလယ်မှာ ထားရန် */
-    padding: 0 10px; /* ဘေးဘက် မကပ်စေရန် */
-}
-
-/* Button နှစ်ခုလုံးအတွက် ပုံစံ */
-.copy-button,
-.save-button {
-    /* 🚨 display: block ကို ဖျက်ပြီး width: 100% သာ ထားပါ */
-    width: 100%; /* Parent div (button-group) ရဲ့ နေရာကို အပြည့်ယူစေရန် */
-    
-    /* မူရင်း styles များ */
-    padding: 14px 30px; 
-    font-size: 1.1em;
-    font-weight: 700;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
-}
-
-/* Copy Button (Teal) */
-.copy-button {
-    background-color: #00796b; 
-    color: white;
-    box-shadow: 0 4px #004d40;
-}
-.copy-button:hover {
-    background-color: #004d40;
-}
-
-/* Save Button (Red-Brown) */
-.save-button {
-    background-color: #f44336; 
-    color: white;
-    box-shadow: 0 4px #d32f2f;
-}
-.save-button:hover {
-    background-color: #d32f2f;
-}
-
-/* Button နှိပ်လိုက်တဲ့အခါ 3D effect ကို ဖြုတ်ပြီး အပေါ်ကို တက်သွားသော ပုံစံ */
-.copy-button:active,
-.save-button:active {
-    transform: translateY(4px);
-    box-shadow: none;
-}
-
-/* ======================================== */
-/* 🟢 Buttons များအတွက် Hover/Active Styles */
-/* ======================================== */
-
-.action-btn:active {
-    /* Button နှိပ်လိုက်တဲ့အခါ 3D effect ကို ဖျောက်ပြီး အပေါ်တက်စေရန် */
-    transform: translateY(4px);
-    box-shadow: none !important; 
-}
-
-/* Copy Button Hover */
-.copy-action-btn:hover {
-    background-color: #1b5e20 !important;
-}
-
-/* Save Button Hover */
-.save-action-btn:hover {
-    background-color: #388e3c !important;
 }
