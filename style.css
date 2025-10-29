@@ -1068,3 +1068,39 @@ main {
 }
 
 /* ... ကျန်တဲ့ သင့်ရဲ့ မူလ style များ ဒီအောက်မှာ ဆက်ရှိနိုင်ပါသည် ... */
+
+/* ======================================== */
+/* 🚨 FIX: Buttons တွေ မပေါ်တာကို ဖြေရှင်းရန် */
+/* ======================================== */
+
+/* free.html မှာရှိတဲ့ copy-button နဲ့ save-button နှစ်ခုစလုံးကို အတင်းအကျပ် ပေါ်စေခြင်း */
+/* ၎င်းကို .text-copy-area button ရဲ့ display: inline-block ကို overwrite လုပ်ရန် !important ဖြင့် တွန်းပို့သည် */
+.copy-button,
+.save-button {
+    /* 🚨 ဤနှစ်ကြောင်းသည် အဓိကသော့ချက်ဖြစ်သည် */
+    display: block !important; /* အမြဲတမ်း တစ်ကြောင်းစီ နေရာယူပြီး ပေါ်နေစေရန် */
+    width: 95% !important;     /* အကျယ်ကိုလည်း သတ်မှတ်ထားပြီး အလယ်မှာ ထားနိုင်စေရန် */
+    
+    /* အခြား style တွေ ပိုလှအောင် ပြန်ထည့်ခြင်း */
+    margin: 10px auto; 
+    padding: 14px 30px; 
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+/* Save Button အတွက် အရောင်ခွဲခြားပေးခြင်း (အစိမ်းရောင်နဲ့ မတူအောင်) */
+.save-button {
+    background-color: #f44336; /* နီညိုရောင် (Save ကို ပိုမို ထင်ရှားစေရန်) */
+}
+
+.save-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Copy Button ကို မူရင်းအစိမ်းရောင် ပြန်ပေးခြင်း */
+.copy-button {
+    background-color: #00796b; 
+}
+.copy-button:hover {
+    background-color: #004d40;
+}
