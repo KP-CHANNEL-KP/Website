@@ -1,16 +1,10 @@
-// functions/api/r2-download/[[filename]].js
-// URL Decode ကို ကိုယ်တိုင်လုပ်ပြီး Space ပါသော ဖိုင်များကို ရှာနိုင်စေရန် ပြင်ဆင်ထားသော Code
+// functions/api/r2-download/[[filename]].js (ပြုပြင်ထားသော Code)
 
 export async function onRequestGet(context) {
     const { env, params } = context;
     
-    // Catch-all Route (e.g., /api/r2-download/folder/file.txt) မှ Path segments များကို ယူသည်
-    // (params.filename သည် Array တစ်ခုဖြစ်သည်)
-    
-    // Path segments များကို '/' ဖြင့် ပြန်ဆက်၍ Encoded Key ကို ရယူသည်
+    // ... (ကနဦး စစ်ဆေးခြင်းနှင့် Decode လုပ်ခြင်း အပိုင်း) ...
     const encodedKey = params.filename.join('/'); 
-
-    // URL Decode လုပ်ခြင်း (ဥပမာ: '%20' ကို ' ' နေရာလွတ် ပြန်ပြောင်းရန်)
     const key = decodeURIComponent(encodedKey);
 
     if (!key) {
@@ -18,24 +12,32 @@ export async function onRequestGet(context) {
     }
 
     try {
-        // 1. R2 Bucket ထဲက ဖိုင်ကို ဆွဲထုတ်ခြင်း (Decode လုပ်ပြီးသား key ဖြင့် ရှာပါမည်)
         const object = await env.UPLOAD_BUCKET.get(key);
 
         if (object === null) {
             return new Response(`File not found: ${key}`, { status: 404 });
         }
         
+        // 🚨 ပြင်ဆင်ချက် ၁: object.body မရှိရင် Server Error ပြန်ပါ
+        if (!object.body) {
+            // R2 က object ပြန်ပေးပေမယ့် body မပါရင် (ဥပမာ: Server-side Error)
+            return new Response('R2 object found, but no body/content available.', { status: 500 });
+        }
+        
         // 2. ဖိုင်ကို Download ချပေးရန် Headers များ သတ်မှတ်ခြင်း
         const headers = new Headers();
         
-        // Browser က Download အဖြစ် မြင်စေရန် Content-Disposition သတ်မှတ်ခြင်း
+        // Browser က Download အဖြစ် မြင်စေရန်
         headers.set('Content-Disposition', `attachment; filename="${key}"`);
         
-        // R2 Metadata မှ Content-Type နှင့် အခြား Headers များကို ယူသုံးခြင်း
-        object.headers.forEach((value, name) => {
-            headers.set(name, value);
-        });
-        
+        // 🚨 ပြင်ဆင်ချက် ၂: object.headers ရှိမှသာ forEach ကို ခေါ်ပါ
+        if (object.headers) {
+             // R2 ၏ Content-Type နှင့် အခြား Headers များကို ယူသုံးခြင်း
+            object.headers.forEach((value, name) => {
+                headers.set(name, value);
+            });
+        }
+       
         // CORS အတွက်
         headers.set('Access-Control-Allow-Origin', '*');
         
@@ -45,6 +47,7 @@ export async function onRequestGet(context) {
         });
 
     } catch (error) {
+        // ... (catch block သည် မပြောင်းလဲပါ) ...
         return new Response(`Download Server Error: ${error.message}`, { status: 500 });
     }
 }
