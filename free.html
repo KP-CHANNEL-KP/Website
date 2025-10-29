@@ -74,9 +74,9 @@
         <p>&copy; 2025 KP WEBSITE</p>
     </footer>
 
-    <script>
+        <script>
         // HTML element များကို ရယူခြင်း
-        const mainTextarea = document.getElementById('mainTextArea'); // KV Display Area
+        const mainTextarea = document.getElementById('mainTextArea'); 
         const inputLine = document.getElementById('inputLine');
         const saveButton = document.getElementById('saveButton');
         
@@ -104,7 +104,7 @@
         }
         
         // =====================================
-         // R2 Upload Functions
+         // R2 Upload Functions (File Upload Error များ မဖြစ်စေရန် ပြန်စစ်ထားသည်)
         // 1. ဖိုင်ကို Server (Functions/api/upload.js) သို့ တင်ခြင်း
         async function startR2Upload() {
             const fileInput = document.getElementById('fileInput');
@@ -123,13 +123,13 @@
 
             // Form Data အဖြစ် ပြောင်းလဲပြီး POST request ဖြင့် ပို့ခြင်း
             const formData = new FormData();
-            formData.append('file', file); // Server-side (upload.js) မှာ 'file' key နဲ့ ဆွဲယူမှာ ဖြစ်ပါတယ်။
+            formData.append('file', file); 
 
             try {
                 // R2 Upload Function ကို ခေါ်ဆိုခြင်း
                 const uploadResponse = await fetch(apiEndpoint, {
-                    method: 'POST', // POST method ကို သေချာ သုံးရပါမယ်
-                    body: formData // Form Data ကို တိုက်ရိုက် ပို့လိုက်ခြင်း
+                    method: 'POST', 
+                    body: formData 
                 });
 
                 // Server က JSON ကို ပြန်ပို့မှာ ဖြစ်သောကြောင့် ဤနေရာတွင် JSON အဖြစ် ဖတ်သည်
@@ -137,9 +137,17 @@
 
                 if (uploadResponse.ok && result.status === 'SUCCESS') {
                     uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name}). Message: ${result.message}`;
+                    // Upload အောင်မြင်ရင် File List (iframe) ကို Refresh လုပ်ရန်
+                    const iframe = document.getElementById('r2-file-list-iframe');
+                    if (iframe) {
+                        iframe.src = iframe.src; 
+                    }
                 } else {
                     // Server-side error (400, 500) များကို ကိုင်တွယ်ခြင်း
-                    throw new Error(`Upload Failed: ${result.message || uploadResponse.statusText}`);
+                    // JSON response ကို မရရင်တောင် error message ပြနိုင်ရန်
+                    const errorText = result.message || uploadResponse.statusText;
+                    uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${errorText}`;
+                    throw new Error(`Upload Failed: ${errorText}`);
                 }
             } catch (error) {
                 console.error('Final Upload Error:', error);
@@ -147,8 +155,6 @@
             }
         }
 // =============================================
-        // ... (ယခင် Functions များအတိုင်း ထားပါ) ...
-
         // 4. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (KV /api/text GET)
         async function fetchInitialText() {
             try {
@@ -164,10 +170,8 @@
             }
         }
 
-        // ... (ယခင် Functions များအတိုင်း ထားပါ) ...
-
-                // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (KV /api/text POST)
-        // 🚨 ဤနေရာတွင် New Content Prepending Logic ကို နောက်ဆုံး ပြင်ဆင်ထားသည် 🚨
+        // 5. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (KV /api/text POST)
+        // 🚨 New Content Prepending Logic (အသစ်ဆုံးကို အပေါ်ဆုံးတွင် ထားခြင်း) 🚨
         async function saveToMainTextarea() {
             const newText = inputLine.value.trim(); 
             
@@ -176,11 +180,10 @@
                 return;
             }
             
-            // 1. စာအဟောင်းကို ယူခြင်း (KV မှ load လုပ်ထားသော စာသား)
             let oldContent = mainTextarea.value.trim();
             
-            // 2. Default စာသားများကို ရှင်းထုတ်ခြင်း (Clear out any initial/loading messages)
-            if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent.includes('Data load မလုပ်နိုင်ပါ') || oldContent === '') {
+            // Default စာသားများကို စစ်ဆေးပြီး ရှင်းထုတ်ခြင်း
+            if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent.includes('Data load မလုပ်နိုင်ပါ') || oldContent === 'Hello' || oldContent === '') {
                 oldContent = '';
             }
             
@@ -188,21 +191,16 @@
             const now = new Date();
             const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
 
-            // 3. စာအသစ်အတွက် ပုံစံပြုလုပ်ခြင်း
-            // စာအသစ်တစ်ခုနှင့်တစ်ခု ရှင်းလင်းစွာ ခွဲခြားရန် === Divider ထည့်သွင်းထားသည်
             const divider = '\n\n================================\n';
             const newEntry = `[${timestamp}] \n${newText}`;
 
             let updatedText;
             
-            // 4. စာဟောင်း၊ စာအသစ် ပေါင်းစပ်ခြင်း (အသစ်ကို အပေါ်ဆုံးတွင် ထားခြင်း)
+            // 🚨 Core Logic: newEntry + Divider + oldContent
             if (oldContent === '') {
-                // Textarea အလွတ်ဖြစ်နေရင် စာအသစ်တစ်ခုတည်း သိမ်းပါ
-                updatedText = newEntry;
+                updatedText = newEntry; // စာဟောင်းမရှိရင် စာအသစ်တစ်ခုတည်း ထား
             } else {
-                // စာအဟောင်း ရှိပြီးသားဆိုရင် စာအသစ်ကို အပေါ်ဆုံးမှာ Divider ခံပြီး ထည့်သွင်းခြင်း
-                // 🚨 Key Logic: newEntry + divider + oldContent
-                updatedText = newEntry + divider + oldContent; 
+                updatedText = newEntry + divider + oldContent; // စာအသစ်ကို အပေါ်ဆုံးမှာ ထား
             }
             
             saveButton.disabled = true;
@@ -220,12 +218,12 @@
                     throw new Error('Server error: ' + response.statusText);
                 }
 
-                // 5. သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
+                // သိမ်းဆည်းမှု အောင်မြင်ရင် Front-end ကို ပြန်အပ်ဒိတ်
                 mainTextarea.value = updatedText; 
-                inputLine.value = ''; // စာအသစ်ရိုက်တဲ့ Input Field ကို ရှင်းပစ်
+                inputLine.value = ''; // Input Field ရှင်းပစ်
                 alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အသစ်ဆုံးစာ အပေါ်ဆုံးတွင် ရောက်နေပါမည်)');
                 
-                // 6. Textarea ကို အပေါ်ဆုံး (0) ကို ချက်ချင်း ပြန်ရွှေ့ပေးခြင်း
+                // Textarea ကို အပေါ်ဆုံး (0) ကို ချက်ချင်း ပြန်ရွှေ့ပေးခြင်း
                 mainTextarea.scrollTop = 0; 
 
             } catch (error) {
@@ -236,7 +234,11 @@
                 saveButton.innerText = 'စာသားထည့်သွင်း/သိမ်းဆည်း (Save)';
             }
         }
+        // =============================================
 
+        // Website စဖွင့်တာနဲ့ စာသားကို တစ်ခါတည်း ဆွဲယူပြီး ပြသရန်
+        document.addEventListener('DOMContentLoaded', fetchInitialText);
+    </script>
 
 
     <section class="download-list-section" style="margin-top: 50px;">
