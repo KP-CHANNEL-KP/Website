@@ -52,15 +52,26 @@
                 <input type="text" id="inputLine" class="small-input-line" 
                        placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ...">
                 
-                <button onclick="copyMainTextToClipboard()" class="copy-button" style="margin-bottom: 10px;">
+                               <button onclick="copyMainTextToClipboard()" class="copy-button" style="
+                    margin-bottom: 10px; 
+                    width: 100% !important; 
+                    display: block !important; 
+                    padding: 10px; /* အနည်းငယ် ကြီးလာစေရန် */
+                    box-sizing: border-box;
+                ">
                     နောက်ဆုံး စာသား ကူးယူမည်
                 </button>
 
-                <button id="saveButton" onclick="saveToMainTextarea()" class="save-button">
+                <button id="saveButton" onclick="saveToMainTextarea()" class="save-button" style="
+                    width: 100% !important; 
+                    display: block !important; 
+                    padding: 10px; /* အနည်းငယ် ကြီးလာစေရန် */
+                    box-sizing: border-box;
+                ">
                     စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
                 </button>
             </div>
-            
+
             <section class="upload-section">
                 </section>
         </main>
