@@ -1,9 +1,9 @@
-// functions/api/r2-download/[[filename]].js (Final Version for stable download)
+// functions/api/r2-download/[[filename]].js (Download Function)
 
 export async function onRequestGet(context) {
     const { env, params } = context;
     
-    // ... (ကနဦး စစ်ဆေးခြင်းနှင့် Decode လုပ်ခြင်း အပိုင်း) ...
+    // URL Decode လုပ်ခြင်း (Space ပါသော ဖိုင်အမည်များအတွက်)
     const encodedKey = params.filename.join('/'); 
     const key = decodeURIComponent(encodedKey);
 
@@ -24,13 +24,10 @@ export async function onRequestGet(context) {
         
         const headers = new Headers();
         
-        // 1. Content-Disposition ကို Download အဖြစ် တိကျစွာ သတ်မှတ်ခြင်း (မဖြစ်မနေ Download ဆွဲစေရန်)
+        // Download ကို အတင်းအကျပ် သတ်မှတ်ခြင်း
         headers.set('Content-Disposition', `attachment; filename="${key}"`);
         
-        // 2. R2 ကပေးပို့တဲ့ Headers တွေအစား Content-Type ကို ကိုယ်တိုင် ပြန်သတ်မှတ်ပါ။
-        //    (object.headers.forEach(...) အပိုင်းကို ဖြုတ်လိုက်ပါ)
-        
-        // 3. R2 ရဲ့ Content-Type ကို ယူသုံးမယ်။ မရှိရင် binary stream အဖြစ် သတ်မှတ်မယ်။
+        // R2 ရဲ့ Content-Type ကို ယူသုံးမယ်။ မရှိရင် binary stream အဖြစ် သတ်မှတ်မယ်။
         const contentType = object.httpMetadata?.contentType || 'application/octet-stream';
         headers.set('Content-Type', contentType);
 
