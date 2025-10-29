@@ -30,49 +30,66 @@
             <h1>KP WEBSITE FREE PAGE</h1>
         
             <div class="text-copy-area copy-box">
-    <textarea id="mainTextarea" name="copy_box_title" readonly style=" ... ">
-        ...
-    </textarea>
-    
-    <input type="text" placeholder="စာသားအသစ် ထည့်သွင်းရန် ရေးပါ။" class="new-text-input" id="newTextInput" style="margin-top: 10px; width: 100%; box-sizing: border-box; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
-    
-    <div class="action-buttons-container" style="
-        display: flex; 
-        flex-direction: column; 
-        gap: 12px; 
-        padding: 10px; 
+    <textarea id="mainTextarea" name="copy_box_title" readonly style="
+        height: 400px;
+        color: white; 
+        background-color: #333; 
+        border: 1px solid #555;
+        font-size: 14px;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: block; 
         width: 100%; 
         box-sizing: border-box;
-        margin-top: 10px;
     ">
+        သင် ပေးသွင်းထားသော File/Key တစ်ခုခုပဲ။
+    </textarea>
+    
+    <div class="input-and-buttons-group" style="
+        display: flex; 
+        flex-direction: column; 
+        gap: 10px; 
+        padding: 5px; 
+        margin-top: -5px; 
+    ">
+
+        <input type="text" placeholder="စာသားအသစ် ထည့်သွင်းရန် ရေးပါ။" class="new-text-input" id="newTextInput" style="
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            font-size: 1em;
+        ">
         
-        <button id="newCopyButton" onclick="copyTextToClipboard(this)" class="new-btn copy-action-btn" style="
-            background-color: #28a745; 
+        <button id="copyButton" onclick="copyTextToClipboard(this)" class="action-btn copy-action-btn" style="
+            background-color: #2e7d32; /* Deep Green */
             color: white; 
-            padding: 14px 20px; 
+            padding: 15px 20px; 
             font-size: 1.1em; 
             font-weight: bold; 
             border: none; 
             border-radius: 8px; 
             cursor: pointer; 
-            box-shadow: 0 4px #1e7e34; /* 3D effect */
+            box-shadow: 0 4px #1b5e20; 
+            transition: all 0.1s;
         ">နောက်ဆုံး ထားသော စာသား ကူးယူမည်</button>
         
-        <button id="newSaveButton" onclick="saveNewText()" class="new-btn save-action-btn" style="
-            background-color: #dc3545; 
+        <button id="saveButton" onclick="saveNewText()" class="action-btn save-action-btn" style="
+            background-color: #4caf50; /* Green */
             color: white; 
-            padding: 14px 20px; 
+            padding: 15px 20px; 
             font-size: 1.1em; 
             font-weight: bold; 
             border: none; 
             border-radius: 8px; 
             cursor: pointer; 
-            box-shadow: 0 4px #c82333; /* 3D effect */
+            box-shadow: 0 4px #388e3c; 
+            transition: all 0.1s;
         ">စာသားအသစ် ထည့်သွင်း/သိမ်းဆည်းမည် (Save)</button>
         
     </div>
     
 </div>
+
 
             <section class="upload-section">
                 <h2>ဖိုင်တင်ရန် နေရာ</h2>
