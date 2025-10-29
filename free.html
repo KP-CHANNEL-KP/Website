@@ -104,7 +104,48 @@
         }
         
         // =============================================
-        
+         // R2 Upload Functions
+        // 1. ဖိုင်ကို Server (Functions/api/upload.js) သို့ တင်ခြင်း
+        async function startR2Upload() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadMessage = document.getElementById('uploadMessage');
+            
+            if (fileInput.files.length === 0) {
+                uploadMessage.innerHTML = '❌ ဖိုင်ရွေးချယ်ရန် လိုအပ်ပါသည်။';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            uploadMessage.innerHTML = `⌛ ${file.name} ကို Upload ပြုလုပ်နေပါသည်။...`;
+            
+            // Pages Function အတွက် Absolute Path
+            const apiEndpoint = "/api/upload"; 
+
+            // Form Data အဖြစ် ပြောင်းလဲပြီး POST request ဖြင့် ပို့ခြင်း
+            const formData = new FormData();
+            formData.append('file', file); // Server-side (upload.js) မှာ 'file' key နဲ့ ဆွဲယူမှာ ဖြစ်ပါတယ်။
+
+            try {
+                // R2 Upload Function ကို ခေါ်ဆိုခြင်း
+                const uploadResponse = await fetch(apiEndpoint, {
+                    method: 'POST', // POST method ကို သေချာ သုံးရပါမယ်
+                    body: formData // Form Data ကို တိုက်ရိုက် ပို့လိုက်ခြင်း
+                });
+
+                // Server က JSON ကို ပြန်ပို့မှာ ဖြစ်သောကြောင့် ဤနေရာတွင် JSON အဖြစ် ဖတ်သည်
+                const result = await uploadResponse.json(); 
+
+                if (uploadResponse.ok && result.status === 'SUCCESS') {
+                    uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name}). Message: ${result.message}`;
+                } else {
+                    // Server-side error (400, 500) များကို ကိုင်တွယ်ခြင်း
+                    throw new Error(`Upload Failed: ${result.message || uploadResponse.statusText}`);
+                }
+            } catch (error) {
+                console.error('Final Upload Error:', error);
+                uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
+            }
+        }
         
         // =============================================
         // 4. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (KV /api/text GET)
