@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KP Blog Free Page</title>
+    
+    <link rel="stylesheet" href="./free-style.css"> 
+    
+    <style>
+        /* Myanmar Font - Add your preferred font here */
+        body { font-family: 'Myanmar Sans Pro', 'Padauk', Arial, sans-serif; } 
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-and-title">
+            <a href="./index.html" class="logo-link">
+                <img src="your_logo.png" alt="KP Blog Logo" class="logo-img"> 
+            </a>
+            <h1 class="site-title-kp-blog">KP Blog</h1>
+        </div>
+        
+        <nav class="nav-bar">
+            <a href="./index.html">မူလစာမျက်နှာ</a>
+            <a href="./posts.html">Posts</a>
+            <a href="./free.html" class="active-link">Free</a>
+            <a href="./about.html">အကြောင်း</a>
+        </nav>
+    </header>
+
+    <div class="intro-banner">
+        <h2>KP WEBSITE FREE PAGE (New UI)</h2>
+    </div>
+
+    <main>
+        <section class="copy-box">
+            <h2 class="copy-box-title">စာသားထည့်သွင်းခြင်းနှင့် ကူးယူခြင်း</h2>
+            
+            <div class="text-input-area">
+                <input type="text" id="newKeyInput" class="new-key-input" placeholder="အသစ်ထည့်သွင်းမည့် စာသား/Key ကို ရေးပါ">
+                <button id="addTextButton" class="action-btn add-text-btn">စာသားထည့်သွင်းရန်</button>
+            </div>
+            
+            <hr class="mini-divider">
+            
+            <textarea id="vmessTextarea" class="vmess-textarea" readonly>**အထက်တွင် ထည့်သွင်းလိုက်သော စာသားကို ဤနေရာတွင် ပြသမည်**</textarea>
+            
+            <div class="button-group">
+                <button id="copyToClipboardKP" class="copy-button action-btn">ကူးယူမည် (Copy)</button>
+                <button id="saveMainTextToKey" class="save-button action-btn">စာသားသိမ်းဆည်းရန် (Save)</button>
+            </div>
+        </section>
+        
+        <hr class="section-divider">
+
+        <section class="upload-section">
+            <h2 class="upload-title">⬆️ ဖိုင်တင်ရန် နေရာ</h2>
+            <p class="upload-description">ဖိုင်များ (Key / File) ကို ရွေးချယ်ပြီး တင်နိုင်ပါသည်။</p>
+            
+            <div class="upload-container">
+                <input type="file" id="fileInput" class="hidden-input">
+                <label for="fileInput" class="choose-file-btn">Choose File ...</label>
+                <span id="fileNameDisplay" class="file-name-display">File မရွေးရသေးပါ</span>
+                
+                <button id="uploadButton" class="upload-action-btn checkmark-btn" disabled>
+                    <svg class="checkmark-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                </button>
+            </div>
+            <p id="uploadStatus" class="upload-status">Upload status will appear here.</p>
+        </section>
+        
+        <hr class="section-divider">
+
+        <section class="download-section">
+            <h2 class="download-title">⬇️ တင်ထားသော ဖိုင်များ စာရင်း</h2>
+            <p class="download-info">နောက်ဆုံးတင်ထားသော ဖိုင်ကို အပေါ်ဆုံးတွင် ပြသထားပါသည်။</p>
+
+            <div class="admin-passcode-area">
+                <label for="adminPasscode">Admin Passcode (ဖျက်ရန်):</label>
+                <input type="password" id="adminPasscode" placeholder="Passcode ထည့်ပါ">
+            </div>
+
+            <div class="file-table-container">
+                <table id="fileListTable" class="file-list-table">
+                    <thead>
+                        <tr>
+                            <th class="col-filename">File Name</th>
+                            <th class="col-filesize">Size</th>
+                            <th class="col-filedate">Date</th>
+                            <th class="col-action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-filename" colspan="4" style="text-align: center;">ဖိုင်စာရင်းများကို Loading လုပ်နေသည်...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer>
+        <p>© 2025 KP WEBSITE</p>
+    </footer>
+
+    <script src="./script.js"></script>
+
+</body>
+</html>
