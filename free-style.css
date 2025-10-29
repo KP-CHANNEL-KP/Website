@@ -84,7 +84,8 @@ header {
 /* ======================================== */
 /* COMMON SECTION STYLES */
 /* ======================================== */
-.copy-box, .upload-section, .download-section {
+/* copy-box, upload-section, download-section တို့အတွက် */
+.copy-box, .upload-section, .download-section, .blank-section-for-ad { 
     padding: 25px;
     border-radius: 12px;
     background-color: #ffffff;
@@ -101,8 +102,10 @@ h2 {
 }
 
 /* ======================================== */
-/* 1. TEXT ENTRY & COPY SECTION */
+/* 1. TEXT ENTRY & COPY SECTION (UNUSED IN FINAL HTML) */
 /* ======================================== */
+
+/* (Original styles left here in case they are needed for other pages) */
 
 .text-input-area {
     display: flex;
@@ -185,6 +188,26 @@ h2 {
     transform: translateY(4px);
     box-shadow: none;
 }
+
+/* ======================================== */
+/* 1.5. BLANK SECTION / AD SECTION STYLES (NEW) */
+/* ======================================== */
+
+.blank-section-for-ad {
+    /* COMMON SECTION STYLES ကို အသုံးပြုထားပြီးဖြစ်၍ နောက်ခံ အဖြူရောင်ဖြစ်နေပြီ */
+    border: 1px solid #ddd; /* အဖြူရောင် ကွက်လပ်ကို ထင်ရှားစေရန် ရိုးရှင်းသော မီးခိုးရောင် ဘောင် */
+}
+
+/* free.html မှာ ခေါင်းစဉ်နှင့် စာသားများ ဖြုတ်ထားသည့်အတွက် */
+.ad-title, .ad-content p {
+    display: none; 
+}
+.ad-content {
+    /* နေရာလွတ် အမြင့်သတ်မှတ်ရန် */
+    padding: 0;
+    margin: 0;
+}
+
 
 /* ======================================== */
 /* 2. UPLOAD SECTION */
@@ -283,7 +306,9 @@ h2 {
 }
 
 .file-table-container {
-    max-height: 400px; 
+    /* 🚨 ဤနေရာတွင် ၄/၅ ခုစာ မြင်ရရန် ပြင်ဆင်လိုက်သည် 🚨 */
+    max-height: 250px; 
+    
     overflow-y: auto; 
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -298,6 +323,7 @@ h2 {
 
 .file-list-table thead {
     background-color: #f5f5f5;
+    /* Sticky Header */
     position: sticky; 
     top: 0;
     z-index: 10;
