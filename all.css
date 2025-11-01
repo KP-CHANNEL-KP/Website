@@ -1,24 +1,74 @@
 /* all.css */
 
-/* 'All' page အတွက်သာ အသုံးပြုမည့် style များ */
-
-/* Main Section ကို အလယ်မှာ နေရာချချင်တယ်ဆိုရင် */
+/* Main Section ကို ဗဟိုပြုခြင်း (ယခင်က ရေးသားပြီးသားဖြစ်နိုင်သည်) */
 main {
     max-width: 900px;
     margin: 40px auto;
     padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* ခေါင်းစဉ် h1 ကို ပုံစံပေးခြင်း */
-main h1 {
-    color: #2c3e50;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 10px;
+/* Product တစ်ခုချင်းစီအတွက် ပုံစံ */
+.product-item {
+    display: flex; /* အိုင်ကွန်နှင့် စာသားကို ဘေးချင်းကပ်ထားရန် */
+    align-items: center; 
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* အနည်းငယ် အရိပ်ပေးခြင်း */
+    background-color: #f9f9f9;
+    transition: transform 0.2s;
 }
 
-/* ဒီနေရာမှာ သင့်ရဲ့ ထုတ်ကုန် စာရင်းအတွက် Style တွေ ထပ်ထည့်နိုင်ပါတယ် */
-/* ဥပမာ: .product-item, .product-price, etc. */
+.product-item:hover {
+    transform: translateY(-3px); /* နှိပ်ချင်စဖွယ် ဖြစ်အောင် ရွှေ့ပေးခြင်း */
+}
+
+/* Item Icon ပုံစံ */
+.item-icon {
+    font-size: 30px;
+    margin-right: 20px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #ecf0f1;
+    line-height: 1; /* စာသား (Emoji) ကို အလယ်ရောက်စေရန် */
+}
+
+/* အသေးစိတ် အချက်အလက် */
+.item-details {
+    flex-grow: 1; /* ကျန်ရှိသော နေရာကို အားလုံးယူစေရန် */
+}
+
+/* ခေါင်းစဉ်နှင့် ဖော်ပြချက် */
+.item-title {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.item-desc {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.item-price {
+    font-weight: bold;
+    color: #e74c3c; /* ဈေးနှုန်းကို မီးမောင်းထိုးပြခြင်း */
+    margin-bottom: 15px;
+}
+
+/* ဝယ်ယူရန် ခလုတ် (အစိမ်းရောင် ခလုတ်ပုံစံ) */
+.buy-button {
+    display: inline-block;
+    background-color: #27ae60; /* အစိမ်းရောင် */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none; /* Link အောက်က မျဉ်းကို ဖျောက်ခြင်း */
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.buy-button:hover {
+    background-color: #2ecc71;
+}
