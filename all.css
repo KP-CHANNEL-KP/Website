@@ -1,0 +1,24 @@
+/* all.css */
+
+/* 'All' page အတွက်သာ အသုံးပြုမည့် style များ */
+
+/* Main Section ကို အလယ်မှာ နေရာချချင်တယ်ဆိုရင် */
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ခေါင်းစဉ် h1 ကို ပုံစံပေးခြင်း */
+main h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* ဒီနေရာမှာ သင့်ရဲ့ ထုတ်ကုန် စာရင်းအတွက် Style တွေ ထပ်ထည့်နိုင်ပါတယ် */
+/* ဥပမာ: .product-item, .product-price, etc. */
