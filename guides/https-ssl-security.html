@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTPS/SSL Certificate သည် Website လုံခြုံရေးအတွက် မရှိမဖြစ်လိုအပ်ပုံ - KP Blog</title>
+    <link rel="stylesheet" href="../guides.css"> 
+</head>
+<body>
+    <header>
+        </header>
+
+    <main>
+        <div class="post-detail-container">
+            
+            <h1 class="post-detail-title">HTTPS/SSL Certificate သည် Website လုံခြုံရေးနှင့် Google Ranking အတွက် မရှိမဖြစ်လိုအပ်ပုံ</h1>
+            <div class="post-meta">
+                <span>📅 November 12, 2025</span> | 
+                <span>📌 Website လုံခြုံရေးနှင့် SEO</span>
+            </div>
+            
+            <p>
+                Website တစ်ခုကို ဝင်လိုက်တဲ့အခါ Browser ရဲ့ Address Bar မှာ **`http://`** အစား **`https://`** ကို တွေ့မြင်ရပါလိမ့်မယ်။ ဒီ 's' လေးကပဲ သင့်ရဲ့ အွန်လိုင်း လုံခြုံရေးအတွက် ကြီးမားတဲ့ အာမခံချက်ကို ပေးနိုင်ပါတယ်။ `HTTPS` ဆိုသည်မှာ Secure Hypertext Transfer Protocol ကို ဆိုလိုပြီး၊ ၎င်းဟာ SSL (Secure Sockets Layer) သို့မဟုတ် TLS (Transport Layer Security) Certificate ကို အသုံးပြုကာ သင့်ရဲ့ Browser နဲ့ Website Server ကြားက Data လွှဲပြောင်းမှုတွေကို **လုံးဝ လုံခြုံအောင် Encrypt** လုပ်ပေးပါတယ်။ ဤ Guide တွင် HTTPS ကို ဘာကြောင့် သုံးသင့်လဲ၊ မသုံးရင် ဘယ်လို အန္တရာယ်တွေ ရှိနိုင်လဲဆိုတာကို ရှင်းပြပေးပါမယ်။
+            </p>
+            
+            <h2>၁။ HTTPS ၏ အဓိက အကျိုးကျေးဇူး ၃ ချက်</h2>
+            <p>
+                HTTPS ကို အသုံးပြုခြင်းဟာ သုံးစွဲသူနဲ့ Website ပိုင်ရှင် နှစ်ဦးစလုံးအတွက် အကျိုးကျေးဇူးများစွာ ရှိပါတယ်။
+                <ol>
+                    <li>**Data Encryption:** သင့်ရဲ့ Password များ၊ Credit Card နံပါတ်များနှင့် အခြား ကိုယ်ရေးအချက်အလက်များကို Hacker များ ကြားဖြတ်ဖမ်းယူခြင်းမှ ကာကွယ်ပေးသည်။</li>
+                    <li>**Authentication (ယုံကြည်မှု):** သုံးစွဲသူဟာ ဝင်ရောက်နေတာ တကယ်ပဲ မှန်ကန်တဲ့ Website ဖြစ်ကြောင်း အတည်ပြုပေးပြီး Phishing တိုက်ခိုက်မှုများကို ကာကွယ်ပေးသည်။</li>
+                    <li>**Google Ranking:** Google သည် HTTPS ကို လုံခြုံရေးအချက်အဖြစ် သတ်မှတ်ထားပြီး၊ HTTPS သုံးထားသော Website များကို Search Engine တွင် ပိုမို မြှင့်တင်ပေးသည်။</li>
+                </ol>
+            </p>
+            
+            <h2>၂။ SSL Certificate အမျိုးအစားများ</h2>
+            <div class="highlight-box">
+                <h4>📜 အဓိက SSL အမျိုးအစားများ</h4>
+                <ul>
+                    <li>**Domain Validation (DV):** အခြေခံအကျဆုံးဖြစ်ပြီး၊ Domain ပိုင်ဆိုင်မှုကိုသာ အတည်ပြုသည်။ (Website အများစု အခမဲ့ ရရှိနိုင်)</li>
+                    <li>**Organization Validation (OV):** Domain ပိုင်ဆိုင်မှုအပြင်၊ ကုမ္ပဏီရဲ့ စီးပွားရေးဆိုင်ရာ အချက်အလက်များကိုပါ အတည်ပြုသည်။</li>
+                    <li>**Extended Validation (EV):** အမြင့်ဆုံး လုံခြုံရေးဖြစ်ပြီး၊ Address Bar တွင် ကုမ္ပဏီအမည်ကို ပြသပေးလေ့ရှိသည်။ (ဘဏ်များနှင့် အီး-ကောမတ်စ်ကြီးများ အသုံးပြုသည်)</li>
+                </ul>
+            </div>
+            
+            <h2>၃။ SSL မသုံးသော Website များ၏ အန္တရာယ် (Not Secure)</h2>
+            <p>
+                သင့် Website မှာ SSL/HTTPS မပါဝင်ဘူးဆိုရင်၊ သင့် Browser ဟာ Website ရဲ့ဘေးမှာ **"Not Secure"** ဆိုပြီး ပြသပါလိမ့်မယ်။ ၎င်းဟာ သုံးစွဲသူရဲ့ ယုံကြည်မှုကို ထိခိုက်စေပြီး၊ သင်၏ ဒေတာများ ကြားဖြတ် ခိုးယူခံရနိုင်တဲ့ အလားအလာများစွာ ရှိပါတယ်။ ထို့အပြင် Browser များစွာက HTTPS မပါတဲ့ Website များတွင် Form ဖြည့်သွင်းခြင်းကိုလည်း ပိတ်ပင်ထားလေ့ရှိပါတယ်။
+            </p>
+            
+            <h2>၄။ နိဂုံးချုပ်: HTTPS သည် စံနှုန်းတစ်ခု ဖြစ်သည်</h2>
+            <p>
+                ယနေ့ခေတ်မှာ HTTPS ကို အသုံးပြုခြင်းဟာ ရွေးချယ်စရာမဟုတ်တော့ဘဲ၊ Website တိုင်းအတွက် မရှိမဖြစ်တဲ့ စံနှုန်းတစ်ခု ဖြစ်နေပါပြီ။ သင့် Website ရဲ့ လုံခြုံရေး၊ သုံးစွဲသူ ယုံကြည်မှုနဲ့ Search Engine Ranking ကို မြှင့်တင်ဖို့အတွက် SSL Certificate ကို တပ်ဆင်အသုံးပြုဖို့ အမြဲတမ်း အကြံပြုလိုပါတယ်။
+            </p>
+            
+            <a href="../guides.html" class="buy-button" style="display:block; width:250px; margin-top:30px; text-align:center; background-color:#1a73e8; color:white; padding:10px; border-radius:5px; text-decoration:none;">အခြား နည်းပညာ လမ်းညွှန်များကို ကြည့်ရန်</a>
+
+        </div>
+    </main>
+    <footer>
+        </footer>
+</body>
+</html>
