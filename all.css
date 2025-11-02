@@ -187,36 +187,29 @@ p {
 
 /* --- Mobile View Adjustments (Buy Page Header Style) --- */
 @media (max-width: 768px) {
-    /* Header ကို Buy Page ပုံစံအတိုင်း ဘေးတိုက် တန်းစီရန် */
     .header-content {
-        flex-direction: row; 
-        justify-content: space-between; 
+        flex-direction: column;
         align-items: center;
-        padding: 0 15px; 
-    }
-
-    .logo-and-title {
-        margin-bottom: 0; /* Header Link များ အောက်မဆင်းစေရန် */
     }
 
     nav {
-        /* Links များကို ညာဘက်တွင် တန်းစီပြီး နေရာလွတ် လျှော့ချပါ */
-        display: flex;
-        white-space: nowrap; 
-        overflow-x: auto;
-        padding-left: 10px; 
+        margin-top: 10px;
     }
 
     nav a {
-        margin-left: 10px;
-        margin-right: 0;
-        font-size: 0.8em; 
+        margin: 0 10px;
         padding: 5px;
     }
     
-    /* Card Box များ Mobile တွင် ပိုမိုလှပစေရန် */
-    .product-item {
-        width: 98%; 
-        padding: 15px;
+    .post-preview {
+        width: 100%; 
+    }
+    
+    .numbered-list-with-line {
+        margin-left: 5px; 
+    }
+    
+    .numbered-list-with-line li {
+        padding: 15px 15px 15px 45px;
     }
 }
