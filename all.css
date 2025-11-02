@@ -13,7 +13,7 @@ header {
     background-color: #1a73e8; 
     color: white;
     padding: 10px 0;
-    position: fixed; 
+    position: fixed; /* Header ကို အပေါ်ဆုံးမှာ ကပ်ထားရန် */
     width: 100%;
     top: 0;
     z-index: 1000;
@@ -68,7 +68,7 @@ main {
     
     /* Main Content Area ကို အကျယ်ကန့်သတ်ပြီး အလယ်ဗဟို ချိန်ညှိခြင်း */
     max-width: 1000px;
-    margin: 0 auto; /* အပေါ်အောက် 0၊ ဘေးတိုက် အလယ်ဗဟို */
+    margin: 0 auto; 
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -96,7 +96,7 @@ p {
     box-shadow: none;
     background-color: transparent;
     
-    /* Box များကို အလယ်တည့်တည့်သို့ ပို့ပေးမည့် အဓိက code */
+    /* Card Box များကို အလယ်တည့်တည့်သို့ ပို့ပေးမည့် အဓိက code */
     display: flex;
     flex-direction: column; 
     align-items: center; 
@@ -105,7 +105,7 @@ p {
 /* --- Product Item (THE BOX CARD) --- */
 .product-item {
     display: flex;
-    align-items: flex-start; /* Icon နှင့် စာသားများကို အပေါ်ဆုံးက စီပါ */
+    align-items: flex-start;
     
     /* Card Box ကို အကျယ်ကန့်သတ်ပြီး သပ်ရပ်စေခြင်း */
     width: 95%; 
@@ -135,8 +135,8 @@ p {
     margin-right: 15px; 
     padding: 8px; 
     border-radius: 50%;
-    background-color: #fcf8e3; /* Key Icon အရောင် */
-    color: #8a6d3b;
+    background-color: #fcf8e3; /* Icon နောက်ခံအရောင် */
+    color: #8a6d3b; /* Icon အရောင် */
     line-height: 1;
     flex-shrink: 0;
     margin-top: 2px;
@@ -185,54 +185,38 @@ p {
     background-color: #4cae4c;
 }
 
-/* --- Mobile View Adjustments (Responsive) --- */
+/* --- Mobile View Adjustments (Buy Page Header Style) --- */
 @media (max-width: 768px) {
-    /* Header နေရာချထားမှုကို Mobile အတွက် ပြင်ဆင်ပါ */
+    /* Header ကို Buy Page ပုံစံအတိုင်း ဘေးတိုက် တန်းစီရန် */
     .header-content {
-        flex-direction: column;
-        padding: 0 10px 10px 10px;
+        flex-direction: row; 
+        justify-content: space-between; 
+        align-items: center;
+        padding: 0 15px; 
     }
 
     .logo-and-title {
-        margin-bottom: 10px;
+        margin-bottom: 0; /* Header Link များ အောက်မဆင်းစေရန် */
     }
 
     nav {
+        /* Links များကို ညာဘက်တွင် တန်းစီပြီး နေရာလွတ် လျှော့ချပါ */
         display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        white-space: nowrap; 
+        overflow-x: auto;
+        padding-left: 10px; 
     }
 
     nav a {
-        margin: 0 5px 5px 5px;
-        font-size: 0.85em;
+        margin-left: 10px;
+        margin-right: 0;
+        font-size: 0.8em; 
+        padding: 5px;
     }
     
     /* Card Box များ Mobile တွင် ပိုမိုလှပစေရန် */
     .product-item {
-        width: 98%; /* Mobile မှာ ဘေးဘောင်နှင့် ပိုကပ်ပြီး နေရာအပြည့်နီးပါး ယူစေရန် */
+        width: 98%; 
         padding: 15px;
     }
 }
-
-header {
-    background-color: #1a73e8; 
-    color: white;
-    padding: 10px 0;
-    position: fixed; /* Header ကို အပေါ်ဆုံးမှာ ကပ်ထားရန် */
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
-}
-/* ... (Header ရဲ့ ကျန်ရှိသော CSS များ) ... */
-
-/* --- Mobile View Adjustments --- */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column; /* Mobile မှာ အပေါ်အောက် စီရန် */
-        padding: 0 10px 10px 10px;
-    }
-    /* ... (Nav links များကို စုစည်းပေးသော CSS များ) ... */
-}
-
