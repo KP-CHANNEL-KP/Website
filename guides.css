@@ -1,0 +1,241 @@
+/* --- Global Styles for Guides --- */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8; 
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- Header & Navigation (Consistent with KP Blog Design) --- */
+header {
+    background-color: #1a73e8; 
+    color: white;
+    padding: 10px 0;
+    position: fixed; 
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+}
+
+.header-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-and-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%; 
+    margin-right: 10px;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: white !important; 
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #3f51b5; 
+}
+
+/* --- Main Content Area & Alignment --- */
+main {
+    padding-top: 90px; 
+    padding-bottom: 50px;
+    max-width: 1000px;
+    margin: 0 auto; 
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+/* ---------------------------------------------------------------- */
+/* --- GUIDES LIST PAGE (guides.html) --- */
+/* ---------------------------------------------------------------- */
+
+.posts-list-container {
+    max-width: 800px; 
+    margin: 0 auto;
+    padding: 20px; 
+}
+
+.posts-list-container h1 {
+    color: #1a73e8; 
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 2em;
+}
+
+.posts-list-container > p {
+    text-align: center;
+    margin-bottom: 35px;
+    color: #555;
+    font-size: 1em;
+}
+
+/* Individual Guide Preview Card */
+.post-preview {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    margin-bottom: 18px;
+    background-color: white;
+    border-radius: 10px; /* အဝိုင်းပုံစံ ပိုဆန်လာစေရန် */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Shadow ကို ပိုမိုပေါ်လွင်စေရန် */
+    transition: box-shadow 0.3s, transform 0.3s;
+    border-left: 5px solid #5cb85c; /* အစိမ်းရောင် ဘေးဘား */
+}
+
+.post-preview:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+.post-icon {
+    flex-shrink: 0;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8em;
+    color: #1a73e8;
+}
+
+.icon-label {
+    font-size: 0.6em;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.post-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #1a73e8; 
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.post-title:hover {
+    color: #3f51b5;
+}
+
+.post-excerpt {
+    font-size: 0.95em;
+    color: #444;
+    margin: 5px 0 10px 0;
+}
+
+.post-date {
+    font-size: 0.8em;
+    color: #999;
+    font-weight: 500;
+}
+
+/* ---------------------------------------------------------------- */
+/* --- SINGLE GUIDE DETAIL PAGE (e.g., vpn-protocol-deep-dive.html) --- */
+/* ---------------------------------------------------------------- */
+
+.post-detail-container {
+    max-width: 780px; 
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+}
+
+.post-detail-title {
+    color: #2c3e50; /* အပြာရောင်အစား ခဲပြာရောင်ဖြင့် စာဖတ်ရလွယ်ကူစေရန် */
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 2.2em;
+    border-bottom: 2px solid #e8f0fe;
+    padding-bottom: 10px;
+    font-weight: 800;
+}
+
+.post-meta {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    border-bottom: 1px dashed #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.post-detail-container h2 {
+    color: #1a73e8; 
+    margin-top: 35px;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    font-weight: 700;
+}
+
+.post-detail-container h3 {
+    color: #3f51b5; 
+    margin-top: 25px;
+    font-size: 1.3em;
+}
+
+.post-detail-container p {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 18px;
+    text-align: justify; /* စာသားကို တန်းစေရန် */
+}
+
+/* Highlight Box (ဥပမာ- အားသာချက်များ) */
+.highlight-box {
+    padding: 20px;
+    border-left: 6px solid #f9a825; /* လိမ္မော်ဝါရောင် ဘားတန်း */
+    background-color: #fffde7; /* အလွန်နုသော အဝါရောင် နောက်ခံ */
+    margin: 25px 0;
+    border-radius: 6px;
+}
+
+.highlight-box ul {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style: disc;
+}
+
+/* --- Mobile View Adjustments --- */
+@media (max-width: 600px) {
+    .post-preview {
+        flex-direction: column;
+    }
+    .post-icon {
+        margin-right: 0;
+        margin-bottom: 10px;
+        font-size: 1.5em;
+    }
+    .post-detail-title {
+        font-size: 1.8em;
+    }
+}
