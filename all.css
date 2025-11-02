@@ -214,3 +214,25 @@ p {
         padding: 15px;
     }
 }
+
+header {
+    background-color: #1a73e8; 
+    color: white;
+    padding: 10px 0;
+    position: fixed; /* Header ကို အပေါ်ဆုံးမှာ ကပ်ထားရန် */
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+}
+/* ... (Header ရဲ့ ကျန်ရှိသော CSS များ) ... */
+
+/* --- Mobile View Adjustments --- */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column; /* Mobile မှာ အပေါ်အောက် စီရန် */
+        padding: 0 10px 10px 10px;
+    }
+    /* ... (Nav links များကို စုစည်းပေးသော CSS များ) ... */
+}
+
