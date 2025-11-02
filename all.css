@@ -66,57 +66,29 @@ nav a:hover {
     background-color: #3f51b5; 
 }
 
-/* Product တစ်ခုချင်းစီ (Card) - သတ်သတ်ရပ်ရပ် Box/Card ပုံစံ */
+/* all.css တွင် ရှိသော .product-item ၏ code ကို ဤ code ဖြင့် အစားထိုးပါ */
 .product-item {
     display: flex;
     align-items: flex-start;
     
-    /* Box (Card) အဖြစ် ဘောင်ခတ်ခြင်း */
-    border: 1px solid #e0e0e0; /* ပေါ့ပါးသော ဘောင် */
-    border-radius: 8px; /* အနားများကို ဝိုင်းခြင်း */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* သိမ်မွေ့သော အရိပ် */
-    background-color: white; /* နောက်ခံ အဖြူ */
+    /* Box ကို အလယ်ဗဟို တွင် တိုတိုလေး ဖြစ်စေရန် အကျယ် ကန့်သတ်ခြင်း */
+    width: 95%; /* နေရာအပြည့် မယူစေရန် */
+    max-width: 600px; /* အကျယ်ဆုံး 600px ဖြင့် ကန့်သတ်လိုက်ပါသည် (သင် နှစ်သက်သလို ပြောင်းနိုင်သည်) */
     
-    padding: 20px; /* အတွင်းနေရာလွတ်ကို ပိုပေးခြင်း */
-    margin-bottom: 20px; /* item တစ်ခုနှင့်တစ်ခုကြား နေရာခွဲခြားခြင်း */
+    /* Card Box ပုံစံ */
+    border: 1px solid #e0e0e0; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
+    background-color: white; 
     
-    border-bottom: none; /* ယခင်က list ခွဲထားသော မျဉ်းကို ဖယ်ရှားပါသည် */
+    padding: 20px; 
+    margin-bottom: 20px; /* Card တစ်ခုနှင့်တစ်ခုကြား နေရာခွဲခြားရန် */
+    
     transition: box-shadow 0.3s, transform 0.3s;
 }
 
-/* Hover Effect - သပ်သပ်ရပ်ရပ်နှင့် အမြင်ဆွဲဆောင်မှု ရှိစေရန် */
+/* Hover Effect (optional) */
 .product-item:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
-}
-
-/* နောက်ဆုံး item ၏ မလိုအပ်သော မျဉ်းများကို ဖယ်ရှားခြင်း */
-.product-item:last-child {
-    border-bottom: 1px solid #e0e0e0; /* ဤနေရာတွင် ဘာမှ မလုပ်တော့ပါ */
-}
-
-/* Item Icon ပုံစံ - နေရာတကျ ရှိစေရန် */
-.item-icon {
-    font-size: 24px;
-    margin-right: 20px; /* အိုင်ကွန်နှင့် စာသားကြား ပိုမိုခွာပေးခြင်း */
-    padding: 8px; 
-    border-radius: 50%;
-    /* အရောင်များကို နမူနာအတိုင်း ထားရှိဆဲ */
-    background-color: #fcf8e3;
-    color: #8a6d3b;
-    line-height: 1;
-    flex-shrink: 0;
-    margin-top: 2px; /* icon ချိန်ညှိမှု */
-}
-
-/* အခြား စာသား ပုံစံများနှင့် ခလုတ် ပုံစံများသည် ယခင်အတိုင်း ထားရှိနိုင်ပါသည်။ */
-
-.item-title {
-    color: #2e648c;
-    margin-bottom: 5px;
-}
-
-.item-price {
-    color: #d9534f;
-    margin-bottom: 10px;
 }
