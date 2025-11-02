@@ -45,8 +45,11 @@ header {
     margin: 0;
     font-size: 1.5em;
     font-weight: 700;
-    colour: white;
+    
+    /* ပြင်ဆင်ချက်: စာသားအရောင်ကို အဖြူရောင် (White) သို့ Force ပြောင်းခြင်း */
+    color: white !important; 
 }
+
 
 nav a {
     color: white;
