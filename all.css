@@ -1,115 +1,114 @@
-/* all.css - ဓာတ်ပုံနမူနာနှင့် အနီးစပ်ဆုံးတူအောင် ပြင်ဆင်ထားသော စတိုင် */
+/* all.css - ပုံ ၁ ၏ UI အတိုင်း အတိအကျ ပြင်ဆင်ထားသော စတိုင် */
 
-/* Main Section */
+/* Main Section နှင့် စာသားများ */
 main {
-    max-width: 800px; /* နမူနာပုံအတိုင်း ပိုမိုကျဉ်းမြောင်းသော ဧရိယာ */
+    max-width: 800px;
     margin: 40px auto;
     padding: 20px;
 }
 
-/* ခေါင်းစဉ်များ */
 h1 {
-    font-size: 1.8em;
-    color: #34495e;
+    font-size: 1.6em; /* ခေါင်းစဉ် အရွယ်အစား */
+    color: #2c3e50;
     text-align: left;
     margin-bottom: 5px;
 }
 
 p {
-    font-size: 0.95em;
+    font-size: 0.9em;
     color: #7f8c8d;
     text-align: left;
-    margin-bottom: 30px; /* အောက်ဘက် အကွာအဝေး */
+    margin-bottom: 25px;
 }
 
-/* Product Container - နမူနာအတိုင်း တစ်ခုချင်း အပေါ်အောက် ဆက်နေစေရန် */
+/* Product Container */
 .product-list-container {
-    display: block; /* Flex/Grid ကို ဖယ်ရှားပြီး block ပုံစံ ပြန်ထားပါသည် */
     padding: 0;
+    /* နမူနာပုံတွင် list တစ်ခုလုံးကို border ပါသော box ကြီးတစ်ခုအဖြစ် ထားရှိပုံရသည် */
+    border: 1px solid #dcdcdc; /* box အကြီးအတွက် border */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* အနည်းငယ်သော အရိပ် */
+    background-color: white;
 }
 
-/* Product တစ်ခုချင်းစီအတွက် ပုံစံ - ရှင်းလင်းသော Border/Box */
+/* Product တစ်ခုချင်းစီ (List Item) */
 .product-item {
-    display: flex; /* အိုင်ကွန်နဲ့ အသေးစိတ် ဘေးချင်းကပ်ထားရန် */
-    align-items: flex-start; /* အပေါ်ဆုံးက စတင် alignment လုပ်ပါ */
+    display: flex;
+    align-items: flex-start;
+    padding: 15px; /* item တစ်ခုစီ၏ အတွင်း padding */
     
-    /* နမူနာပုံစံအတိုင်း အောက်ခြေမျဉ်းသာ ထားပါ */
-    border: none;
-    border-bottom: 1px solid #dcdcdc; /* အောက်ခြေမှာသာ ပါးလွှာသော မျဉ်းကြောင်း */
-    border-radius: 0; 
-    
-    padding: 20px 0; /* ဘေးဘက် padding ဖယ်ရှားပြီး အပေါ်/အောက်သာ ထားပါ */
-    margin-bottom: 0; /* ကပ်နေစေရန် */
-    box-shadow: none; /* အရိပ် ဖယ်ရှားပါ */
-    background-color: transparent; /* နောက်ခံအရောင် ဖယ်ရှားပါ */
-    transition: none;
+    /* item တစ်ခုစီ၏ အောက်ခြေတွင် မျဉ်းတားရန် */
+    border-bottom: 1px solid #eeeeee; 
 }
 
-.product-item:hover {
-    transform: none; /* hover effect ဖယ်ရှားပါ */
-    background-color: #f7f7f7; /* hover လုပ်ရင် အနည်းငယ် အရောင်ပြပါ */
+/* နောက်ဆုံး item ၏ အောက်ဆုံးမျဉ်းကို ဖယ်ရှားခြင်း */
+.product-item:last-child {
+    border-bottom: none;
 }
 
-/* Item Icon ပုံစံ - ဓာတ်ပုံနမူနာအတိုင်း */
+/* Item Icon ပုံစံ - နမူနာအတိုင်း ဝိုင်းပြီး အရောင်ဖျော့သော နောက်ခံ */
 .item-icon {
-    font-size: 24px; /* Icon အရွယ်အစားကို သေးငယ်လိုက်ပါ */
+    font-size: 20px;
     margin-right: 15px;
-    padding: 10px; 
+    padding: 8px; /* icon အတွင်း padding */
     border-radius: 50%;
-    /* နမူနာပုံစံတွင် icon နောက်ခံသည် အဝါဖျော့/အပြာဖျော့ ဖြစ်နေသည် */
-    background-color: #f5f5f5; /* ဖျော့သော နောက်ခံ */
-    color: #34495e; /* Icon အရောင် */
-    line-height: 1; 
-    flex-shrink: 0; /* နေရာမကျုံ့စေရန် */
+    /* နမူနာပုံစံ၏ key icon အရောင်နှင့် အနီးစပ်ဆုံး */
+    background-color: #fcf8e3; /* အဝါဖျော့ (key icon အတွက်) */
+    color: #8a6d3b; /* icon အရောင် (key icon အတွက်) */
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 5px; /* ခေါင်းစဉ်နှင့် ညီမျှစေရန် */
 }
 
-/* အသေးစိတ် အချက်အလက် */
+/* အသေးစိတ် အချက်အလက်များ */
 .item-details {
-    flex-grow: 1; 
-    padding-top: 5px; /* ခေါင်းစဉ်ကို icon နဲ့ ညီအောင် အနည်းငယ် မြှင့်ပါ */
+    flex-grow: 1;
 }
 
-/* ခေါင်းစဉ်နှင့် ဖော်ပြချက် */
+/* ခေါင်းစဉ် (Title) */
 .item-title {
-    color: #2c3e50;
+    color: #2e648c; /* နမူနာအတိုင်း အပြာရောင် */
     margin-top: 0;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     font-weight: 600;
+    font-size: 1.1em;
 }
 
-.item-desc {
-    color: #7f8c8d;
-    font-size: 0.9em;
-    margin-bottom: 5px; /* နမူနာအတိုင်း အကွာအဝေး နည်းပါစေ */
-}
-
+/* ဈေးနှုန်း (Price) */
 .item-price {
-    font-weight: 500; /* အနည်းငယ် ပါးသော စာလုံးအထူ */
-    color: #e74c3c; /* ဈေးနှုန်းအရောင် */
+    font-weight: 500;
+    color: #d9534f; /* နမူနာအတိုင်း အနီရောင် */
     font-size: 0.9em;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
-/* ဝယ်ယူရန် ခလုတ် - နမူနာအတိုင်း (ဘောင်ရှိပြီး အစိမ်းရောင်စာသား) */
+/* ဖော်ပြချက် (Description) */
+.item-desc {
+    color: #333; /* စာသားကို အနည်းငယ် ပိုမဲပါစေ */
+    font-size: 0.85em;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+/* ဝယ်ယူရန် ခလုတ် (Button) - နမူနာအတိုင်း နောက်ခံအပြည့်နှင့် စာသား ရှင်းရှင်းလင်းလင်း */
 .buy-button {
     display: inline-block;
-    background-color: transparent; /* နောက်ခံအရောင် ဖယ်ရှားပါ */
-    color: #27ae60; /* စာသားကို အစိမ်းရောင်ထားပါ */
-    padding: 5px 10px; /* ခလုတ် padding ကို လျှော့ချပါ */
+    background-color: #5cb85c; /* အစိမ်းရောင် (Primary Green) */
+    color: white;
+    padding: 6px 12px;
     text-decoration: none; 
-    border: 1px solid #27ae60; /* အစိမ်းရောင် ဘောင် (Border) ထားပါ */
-    border-radius: 5px;
+    border: none; 
+    border-radius: 4px;
     font-weight: 500;
     font-size: 0.9em;
 }
 
 .buy-button:hover {
-    background-color: #e8f5e9; /* hover လျှင် အစိမ်းဖျော့ နောက်ခံ */
+    background-color: #4cae4c; /* အနည်းငယ် နက်သော အစိမ်း */
 }
 
-/* ဖုန်းနှင့်ကြည့်သောအခါ */
-@media (max-width: 600px) {
-    main {
-        padding: 10px;
-    }
+/* 🚀 Starlink Icon အတွက် အရောင်များ ပြင်ဆင်ခြင်း (Optional) */
+.product-item:nth-child(3) .item-icon { /* ဥပမာ- တတိယ item (VPN) အတွက် */
+    background-color: #f9f9f9; 
+    color: #5bc0de; /* ပိုမိုပေါ့ပါးသော အရောင် */
 }
