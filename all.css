@@ -1,114 +1,85 @@
-/* all.css - ပုံ ၁ ၏ UI အတိုင်း အတိအကျ ပြင်ဆင်ထားသော စတိုင် */
+/* all.css - Box/Card အဖြစ် ပြောင်းလဲခြင်းနှင့် အလယ်ဗဟို ချိန်ညှိခြင်း */
 
-/* Main Section နှင့် စာသားများ */
+/* Main Section */
 main {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 40px auto; /* ဝဘ်ဆိုဒ် အလယ်ဗဟို တည့်တည့်တွင် ထားရှိရန် */
     padding: 20px;
 }
 
 h1 {
-    font-size: 1.6em; /* ခေါင်းစဉ် အရွယ်အစား */
+    font-size: 1.6em;
     color: #2c3e50;
-    text-align: left;
+    text-align: center; /* ခေါင်းစဉ်ကို အလယ်ဗဟို ချိန်ညှိခြင်း */
     margin-bottom: 5px;
 }
 
 p {
     font-size: 0.9em;
     color: #7f8c8d;
-    text-align: left;
+    text-align: center; /* ဖော်ပြချက်ကို အလယ်ဗဟို ချိန်ညှိခြင်း */
     margin-bottom: 25px;
 }
 
-/* Product Container */
+/* Product Container - ယခု container ကို border မခတ်တော့ဘဲ item များကိုသာ ခတ်ပါမည် */
 .product-list-container {
     padding: 0;
-    /* နမူနာပုံတွင် list တစ်ခုလုံးကို border ပါသော box ကြီးတစ်ခုအဖြစ် ထားရှိပုံရသည် */
-    border: 1px solid #dcdcdc; /* box အကြီးအတွက် border */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* အနည်းငယ်သော အရိပ် */
-    background-color: white;
+    border: none; /* container ဘောင်ကို ဖယ်ရှားပါသည် */
+    box-shadow: none; /* container အရိပ်ကို ဖယ်ရှားပါသည် */
+    background-color: transparent; /* နောက်ခံအရောင် ဖယ်ရှားပါသည် */
 }
 
-/* Product တစ်ခုချင်းစီ (List Item) */
+/* Product တစ်ခုချင်းစီ (Card) - သတ်သတ်ရပ်ရပ် Box/Card ပုံစံ */
 .product-item {
     display: flex;
     align-items: flex-start;
-    padding: 15px; /* item တစ်ခုစီ၏ အတွင်း padding */
     
-    /* item တစ်ခုစီ၏ အောက်ခြေတွင် မျဉ်းတားရန် */
-    border-bottom: 1px solid #eeeeee; 
+    /* Box (Card) အဖြစ် ဘောင်ခတ်ခြင်း */
+    border: 1px solid #e0e0e0; /* ပေါ့ပါးသော ဘောင် */
+    border-radius: 8px; /* အနားများကို ဝိုင်းခြင်း */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* သိမ်မွေ့သော အရိပ် */
+    background-color: white; /* နောက်ခံ အဖြူ */
+    
+    padding: 20px; /* အတွင်းနေရာလွတ်ကို ပိုပေးခြင်း */
+    margin-bottom: 20px; /* item တစ်ခုနှင့်တစ်ခုကြား နေရာခွဲခြားခြင်း */
+    
+    border-bottom: none; /* ယခင်က list ခွဲထားသော မျဉ်းကို ဖယ်ရှားပါသည် */
+    transition: box-shadow 0.3s, transform 0.3s;
 }
 
-/* နောက်ဆုံး item ၏ အောက်ဆုံးမျဉ်းကို ဖယ်ရှားခြင်း */
+/* Hover Effect - သပ်သပ်ရပ်ရပ်နှင့် အမြင်ဆွဲဆောင်မှု ရှိစေရန် */
+.product-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* နောက်ဆုံး item ၏ မလိုအပ်သော မျဉ်းများကို ဖယ်ရှားခြင်း */
 .product-item:last-child {
-    border-bottom: none;
+    border-bottom: 1px solid #e0e0e0; /* ဤနေရာတွင် ဘာမှ မလုပ်တော့ပါ */
 }
 
-/* Item Icon ပုံစံ - နမူနာအတိုင်း ဝိုင်းပြီး အရောင်ဖျော့သော နောက်ခံ */
+/* Item Icon ပုံစံ - နေရာတကျ ရှိစေရန် */
 .item-icon {
-    font-size: 20px;
-    margin-right: 15px;
-    padding: 8px; /* icon အတွင်း padding */
+    font-size: 24px;
+    margin-right: 20px; /* အိုင်ကွန်နှင့် စာသားကြား ပိုမိုခွာပေးခြင်း */
+    padding: 8px; 
     border-radius: 50%;
-    /* နမူနာပုံစံ၏ key icon အရောင်နှင့် အနီးစပ်ဆုံး */
-    background-color: #fcf8e3; /* အဝါဖျော့ (key icon အတွက်) */
-    color: #8a6d3b; /* icon အရောင် (key icon အတွက်) */
+    /* အရောင်များကို နမူနာအတိုင်း ထားရှိဆဲ */
+    background-color: #fcf8e3;
+    color: #8a6d3b;
     line-height: 1;
     flex-shrink: 0;
-    margin-top: 5px; /* ခေါင်းစဉ်နှင့် ညီမျှစေရန် */
+    margin-top: 2px; /* icon ချိန်ညှိမှု */
 }
 
-/* အသေးစိတ် အချက်အလက်များ */
-.item-details {
-    flex-grow: 1;
-}
+/* အခြား စာသား ပုံစံများနှင့် ခလုတ် ပုံစံများသည် ယခင်အတိုင်း ထားရှိနိုင်ပါသည်။ */
 
-/* ခေါင်းစဉ် (Title) */
 .item-title {
-    color: #2e648c; /* နမူနာအတိုင်း အပြာရောင် */
-    margin-top: 0;
-    margin-bottom: 3px;
-    font-weight: 600;
-    font-size: 1.1em;
-}
-
-/* ဈေးနှုန်း (Price) */
-.item-price {
-    font-weight: 500;
-    color: #d9534f; /* နမူနာအတိုင်း အနီရောင် */
-    font-size: 0.9em;
-    margin-bottom: 8px;
-}
-
-/* ဖော်ပြချက် (Description) */
-.item-desc {
-    color: #333; /* စာသားကို အနည်းငယ် ပိုမဲပါစေ */
-    font-size: 0.85em;
-    line-height: 1.4;
+    color: #2e648c;
     margin-bottom: 5px;
 }
 
-/* ဝယ်ယူရန် ခလုတ် (Button) - နမူနာအတိုင်း နောက်ခံအပြည့်နှင့် စာသား ရှင်းရှင်းလင်းလင်း */
-.buy-button {
-    display: inline-block;
-    background-color: #5cb85c; /* အစိမ်းရောင် (Primary Green) */
-    color: white;
-    padding: 6px 12px;
-    text-decoration: none; 
-    border: none; 
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: 0.9em;
-}
-
-.buy-button:hover {
-    background-color: #4cae4c; /* အနည်းငယ် နက်သော အစိမ်း */
-}
-
-/* 🚀 Starlink Icon အတွက် အရောင်များ ပြင်ဆင်ခြင်း (Optional) */
-.product-item:nth-child(3) .item-icon { /* ဥပမာ- တတိယ item (VPN) အတွက် */
-    background-color: #f9f9f9; 
-    color: #5bc0de; /* ပိုမိုပေါ့ပါးသော အရောင် */
+.item-price {
+    color: #d9534f;
+    margin-bottom: 10px;
 }
