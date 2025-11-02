@@ -1,74 +1,109 @@
-/* all.css */
+/* all.css - ပြောင်းလဲထားသော Box/Card Layout */
 
-/* Main Section ကို ဗဟိုပြုခြင်း (ယခင်က ရေးသားပြီးသားဖြစ်နိုင်သည်) */
+/* Main Section ကို ဗဟိုပြုခြင်း */
 main {
-    max-width: 900px;
+    max-width: 1200px; /* နေရာပိုရအောင် ချဲ့လိုက်ပါပြီ */
     margin: 40px auto;
     padding: 20px;
 }
 
-/* Product တစ်ခုချင်းစီအတွက် ပုံစံ */
-.product-item {
-    display: flex; /* အိုင်ကွန်နှင့် စာသားကို ဘေးချင်းကပ်ထားရန် */
-    align-items: center; 
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* အနည်းငယ် အရိပ်ပေးခြင်း */
-    background-color: #f9f9f9;
-    transition: transform 0.2s;
-}
-
-.product-item:hover {
-    transform: translateY(-3px); /* နှိပ်ချင်စဖွယ် ဖြစ်အောင် ရွှေ့ပေးခြင်း */
-}
-
-/* Item Icon ပုံစံ */
-.item-icon {
-    font-size: 30px;
-    margin-right: 20px;
-    padding: 10px;
-    border-radius: 50%;
-    background-color: #ecf0f1;
-    line-height: 1; /* စာသား (Emoji) ကို အလယ်ရောက်စေရန် */
-}
-
-/* အသေးစိတ် အချက်အလက် */
-.item-details {
-    flex-grow: 1; /* ကျန်ရှိသော နေရာကို အားလုံးယူစေရန် */
-}
-
-/* ခေါင်းစဉ်နှင့် ဖော်ပြချက် */
-.item-title {
+/* ခေါင်းစဉ်ပုံစံများ */
+h1 {
+    text-align: center;
     color: #2c3e50;
-    margin-top: 0;
-    margin-bottom: 5px;
-}
-
-.item-desc {
-    color: #7f8c8d;
-    font-size: 0.9em;
     margin-bottom: 10px;
 }
 
-.item-price {
-    font-weight: bold;
-    color: #e74c3c; /* ဈေးနှုန်းကို မီးမောင်းထိုးပြခြင်း */
-    margin-bottom: 15px;
+p {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 30px;
 }
 
-/* ဝယ်ယူရန် ခလုတ် (အစိမ်းရောင် ခလုတ်ပုံစံ) */
+/* Card Container ကို Grid သို့မဟုတ် Flexbox ဖြင့် ၃ ခုတွဲထားရန် */
+.product-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* စခရင်အရွယ်အစားအလိုက် အနည်းဆုံး 300px ကျယ်သော ကတ်များ */
+    gap: 25px; /* ကတ်များကြား အကွာအဝေး */
+    padding: 0;
+}
+
+/* Product တစ်ခုချင်းစီ (Card) ပုံစံ */
+.product-item {
+    display: flex; /* အပေါ်အောက် ဖွဲ့စည်းပုံအတွက် ပြောင်းထားပါသည်။ */
+    flex-direction: column;
+    align-items: center; /* အရာဝတ္ထုများကို ဗဟိုပြုပါ */
+    
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 30px 20px; /* အပေါ်/အောက် padding ပိုပေးပါ */
+    
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* အရိပ်ကို ပိုထင်စေပါ */
+    background-color: #ffffff; /* နောက်ခံအရောင် အဖြူ */
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+}
+
+.product-item:hover {
+    transform: translateY(-5px); /* ပိုမိုသိသာအောင် ရွှေ့ပေးခြင်း */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+}
+
+/* Item Icon ပုံစံ - ပိုကြီးအောင်နှင့် ပိုထင်ပေါ်အောင် ပြင်ဆင်ခြင်း */
+.item-icon {
+    font-size: 50px; /* ပိုကြီးသော အိုင်ကွန် */
+    margin-bottom: 15px; /* ခေါင်းစဉ်နှင့် ခွာထားရန် */
+    padding: 10px;
+    /* အိုင်ကွန်အတွက် နောက်ခံအရောင်ကို ဖယ်လိုက်ပြီး Card ရဲ့ အစိတ်အပိုင်းအဖြစ် ထားရှိပါမယ်။ */
+    line-height: 1;
+}
+
+/* အသေးစိတ် အချက်အလက် - အခုတော့ ခေါင်းစဉ်နဲ့ ခလုတ်သာ ပါဝင် */
+.item-details {
+    width: 100%;
+}
+
+/* ခေါင်းစဉ် */
+.item-title {
+    color: #34495e;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+
+/* မလိုအပ်တော့သော CSS များကို ဖယ်ရှားပါသည် (ဖော်ပြချက်နှင့် ဈေးနှုန်း) */
+/* .item-desc, .item-price တို့ကို ဖယ်ရှားထားပါသည်။ */
+
+
+/* ဝယ်ယူရန် ခလုတ် (Link Button) */
 .buy-button {
-    display: inline-block;
-    background-color: #27ae60; /* အစိမ်းရောင် */
+    display: block; /* နေရာအပြည့်ယူစေရန် block အဖြစ် ပြောင်းပါ */
+    width: 90%;
+    max-width: 250px;
+    margin: 0 auto; /* ဗဟိုပြုပါ */
+    
+    background-color: #3498db; /* အပြာရောင် သို့မဟုတ် သင်ကြိုက်သည့်အရောင် ပြောင်းနိုင်သည် */
     color: white;
-    padding: 10px 20px;
-    text-decoration: none; /* Link အောက်က မျဉ်းကို ဖျောက်ခြင်း */
-    border-radius: 5px;
+    padding: 12px 20px;
+    text-decoration: none; 
+    border-radius: 8px; /* ခလုတ်ကို ပိုဝိုင်းပါ */
     font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s;
 }
 
 .buy-button:hover {
-    background-color: #2ecc71;
+    background-color: #2980b9; /* အနည်းငယ် နက်သော အပြာ */
+}
+
+/* ဖုန်းနှင့်ကြည့်သောအခါ အဆင်ပြေစေရန် (Responsive Design) */
+@media (max-width: 768px) {
+    .product-list-container {
+        grid-template-columns: 1fr; /* ဖုန်းမှာ တစ်တန်းတည်း ပြပါမည် */
+    }
+
+    .product-item {
+        padding: 25px 15px;
+    }
 }
