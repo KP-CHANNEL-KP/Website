@@ -3,17 +3,17 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f4f8; 
+    background-color: #f0f4f8; /* ပေါ့ပါးသော နောက်ခံအရောင် */
     color: #333;
     line-height: 1.6;
 }
 
-/* --- Header & Navigation (All.css မှ ကူးယူထားသော ပုံစံ) --- */
+/* --- Header & Navigation --- */
 header {
     background-color: #1a73e8; 
     color: white;
     padding: 10px 0;
-    position: fixed; 
+    position: fixed; /* Header ကို အပေါ်ဆုံးမှာ ကပ်ထားရန် */
     width: 100%;
     top: 0;
     z-index: 1000;
@@ -45,8 +45,11 @@ header {
     margin: 0;
     font-size: 1.5em;
     font-weight: 700;
-    color: white !important; /* အဖြူရောင် */
+    
+    /* ပြင်ဆင်ချက်: စာသားအရောင်ကို အဖြူရောင် (White) သို့ Force ပြောင်းခြင်း */
+    color: white !important; 
 }
+
 
 nav a {
     color: white;
@@ -60,6 +63,33 @@ nav a {
 
 nav a:hover {
     background-color: #3f51b5; 
+}
+
+/* --- Main Content Area & Alignment --- */
+main {
+    padding-top: 90px; /* Header မပိတ်အောင် နေရာခွာခြင်း */
+    padding-bottom: 50px;
+    
+    /* Main Content Area ကို အကျယ်ကန့်သတ်ပြီး အလယ်ဗဟို ချိန်ညှိခြင်း */
+    max-width: 1000px;
+    margin: 0 auto; 
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* --- Headings for All Page --- */
+h1 {
+    font-size: 1.8em;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+p {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 /* --- Main Content Area & Alignment --- */
