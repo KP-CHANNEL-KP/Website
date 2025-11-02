@@ -1,109 +1,115 @@
-/* all.css - ပြောင်းလဲထားသော Box/Card Layout */
+/* all.css - ဓာတ်ပုံနမူနာနှင့် အနီးစပ်ဆုံးတူအောင် ပြင်ဆင်ထားသော စတိုင် */
 
-/* Main Section ကို ဗဟိုပြုခြင်း */
+/* Main Section */
 main {
-    max-width: 1200px; /* နေရာပိုရအောင် ချဲ့လိုက်ပါပြီ */
+    max-width: 800px; /* နမူနာပုံအတိုင်း ပိုမိုကျဉ်းမြောင်းသော ဧရိယာ */
     margin: 40px auto;
     padding: 20px;
 }
 
-/* ခေါင်းစဉ်ပုံစံများ */
+/* ခေါင်းစဉ်များ */
 h1 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 10px;
+    font-size: 1.8em;
+    color: #34495e;
+    text-align: left;
+    margin-bottom: 5px;
 }
 
 p {
-    text-align: center;
+    font-size: 0.95em;
     color: #7f8c8d;
-    margin-bottom: 30px;
+    text-align: left;
+    margin-bottom: 30px; /* အောက်ဘက် အကွာအဝေး */
 }
 
-/* Card Container ကို Grid သို့မဟုတ် Flexbox ဖြင့် ၃ ခုတွဲထားရန် */
+/* Product Container - နမူနာအတိုင်း တစ်ခုချင်း အပေါ်အောက် ဆက်နေစေရန် */
 .product-list-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* စခရင်အရွယ်အစားအလိုက် အနည်းဆုံး 300px ကျယ်သော ကတ်များ */
-    gap: 25px; /* ကတ်များကြား အကွာအဝေး */
+    display: block; /* Flex/Grid ကို ဖယ်ရှားပြီး block ပုံစံ ပြန်ထားပါသည် */
     padding: 0;
 }
 
-/* Product တစ်ခုချင်းစီ (Card) ပုံစံ */
+/* Product တစ်ခုချင်းစီအတွက် ပုံစံ - ရှင်းလင်းသော Border/Box */
 .product-item {
-    display: flex; /* အပေါ်အောက် ဖွဲ့စည်းပုံအတွက် ပြောင်းထားပါသည်။ */
-    flex-direction: column;
-    align-items: center; /* အရာဝတ္ထုများကို ဗဟိုပြုပါ */
+    display: flex; /* အိုင်ကွန်နဲ့ အသေးစိတ် ဘေးချင်းကပ်ထားရန် */
+    align-items: flex-start; /* အပေါ်ဆုံးက စတင် alignment လုပ်ပါ */
     
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 30px 20px; /* အပေါ်/အောက် padding ပိုပေးပါ */
+    /* နမူနာပုံစံအတိုင်း အောက်ခြေမျဉ်းသာ ထားပါ */
+    border: none;
+    border-bottom: 1px solid #dcdcdc; /* အောက်ခြေမှာသာ ပါးလွှာသော မျဉ်းကြောင်း */
+    border-radius: 0; 
     
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* အရိပ်ကို ပိုထင်စေပါ */
-    background-color: #ffffff; /* နောက်ခံအရောင် အဖြူ */
-    transition: all 0.3s ease-in-out;
-    text-align: center;
+    padding: 20px 0; /* ဘေးဘက် padding ဖယ်ရှားပြီး အပေါ်/အောက်သာ ထားပါ */
+    margin-bottom: 0; /* ကပ်နေစေရန် */
+    box-shadow: none; /* အရိပ် ဖယ်ရှားပါ */
+    background-color: transparent; /* နောက်ခံအရောင် ဖယ်ရှားပါ */
+    transition: none;
 }
 
 .product-item:hover {
-    transform: translateY(-5px); /* ပိုမိုသိသာအောင် ရွှေ့ပေးခြင်း */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+    transform: none; /* hover effect ဖယ်ရှားပါ */
+    background-color: #f7f7f7; /* hover လုပ်ရင် အနည်းငယ် အရောင်ပြပါ */
 }
 
-/* Item Icon ပုံစံ - ပိုကြီးအောင်နှင့် ပိုထင်ပေါ်အောင် ပြင်ဆင်ခြင်း */
+/* Item Icon ပုံစံ - ဓာတ်ပုံနမူနာအတိုင်း */
 .item-icon {
-    font-size: 50px; /* ပိုကြီးသော အိုင်ကွန် */
-    margin-bottom: 15px; /* ခေါင်းစဉ်နှင့် ခွာထားရန် */
-    padding: 10px;
-    /* အိုင်ကွန်အတွက် နောက်ခံအရောင်ကို ဖယ်လိုက်ပြီး Card ရဲ့ အစိတ်အပိုင်းအဖြစ် ထားရှိပါမယ်။ */
-    line-height: 1;
+    font-size: 24px; /* Icon အရွယ်အစားကို သေးငယ်လိုက်ပါ */
+    margin-right: 15px;
+    padding: 10px; 
+    border-radius: 50%;
+    /* နမူနာပုံစံတွင် icon နောက်ခံသည် အဝါဖျော့/အပြာဖျော့ ဖြစ်နေသည် */
+    background-color: #f5f5f5; /* ဖျော့သော နောက်ခံ */
+    color: #34495e; /* Icon အရောင် */
+    line-height: 1; 
+    flex-shrink: 0; /* နေရာမကျုံ့စေရန် */
 }
 
-/* အသေးစိတ် အချက်အလက် - အခုတော့ ခေါင်းစဉ်နဲ့ ခလုတ်သာ ပါဝင် */
+/* အသေးစိတ် အချက်အလက် */
 .item-details {
-    width: 100%;
+    flex-grow: 1; 
+    padding-top: 5px; /* ခေါင်းစဉ်ကို icon နဲ့ ညီအောင် အနည်းငယ် မြှင့်ပါ */
 }
 
-/* ခေါင်းစဉ် */
+/* ခေါင်းစဉ်နှင့် ဖော်ပြချက် */
 .item-title {
-    color: #34495e;
+    color: #2c3e50;
     margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.3em;
-    font-weight: 700;
+    margin-bottom: 5px;
+    font-weight: 600;
 }
 
-/* မလိုအပ်တော့သော CSS များကို ဖယ်ရှားပါသည် (ဖော်ပြချက်နှင့် ဈေးနှုန်း) */
-/* .item-desc, .item-price တို့ကို ဖယ်ရှားထားပါသည်။ */
+.item-desc {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-bottom: 5px; /* နမူနာအတိုင်း အကွာအဝေး နည်းပါစေ */
+}
 
+.item-price {
+    font-weight: 500; /* အနည်းငယ် ပါးသော စာလုံးအထူ */
+    color: #e74c3c; /* ဈေးနှုန်းအရောင် */
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
 
-/* ဝယ်ယူရန် ခလုတ် (Link Button) */
+/* ဝယ်ယူရန် ခလုတ် - နမူနာအတိုင်း (ဘောင်ရှိပြီး အစိမ်းရောင်စာသား) */
 .buy-button {
-    display: block; /* နေရာအပြည့်ယူစေရန် block အဖြစ် ပြောင်းပါ */
-    width: 90%;
-    max-width: 250px;
-    margin: 0 auto; /* ဗဟိုပြုပါ */
-    
-    background-color: #3498db; /* အပြာရောင် သို့မဟုတ် သင်ကြိုက်သည့်အရောင် ပြောင်းနိုင်သည် */
-    color: white;
-    padding: 12px 20px;
+    display: inline-block;
+    background-color: transparent; /* နောက်ခံအရောင် ဖယ်ရှားပါ */
+    color: #27ae60; /* စာသားကို အစိမ်းရောင်ထားပါ */
+    padding: 5px 10px; /* ခလုတ် padding ကို လျှော့ချပါ */
     text-decoration: none; 
-    border-radius: 8px; /* ခလုတ်ကို ပိုဝိုင်းပါ */
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: background-color 0.2s;
+    border: 1px solid #27ae60; /* အစိမ်းရောင် ဘောင် (Border) ထားပါ */
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 0.9em;
 }
 
 .buy-button:hover {
-    background-color: #2980b9; /* အနည်းငယ် နက်သော အပြာ */
+    background-color: #e8f5e9; /* hover လျှင် အစိမ်းဖျော့ နောက်ခံ */
 }
 
-/* ဖုန်းနှင့်ကြည့်သောအခါ အဆင်ပြေစေရန် (Responsive Design) */
-@media (max-width: 768px) {
-    .product-list-container {
-        grid-template-columns: 1fr; /* ဖုန်းမှာ တစ်တန်းတည်း ပြပါမည် */
-    }
-
-    .product-item {
-        padding: 25px 15px;
+/* ဖုန်းနှင့်ကြည့်သောအခါ */
+@media (max-width: 600px) {
+    main {
+        padding: 10px;
     }
 }
