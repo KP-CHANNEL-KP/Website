@@ -144,22 +144,29 @@ main {
 
 /* --- Mobile View Adjustments --- */
 @media (max-width: 768px) {
-    /* Header ကို Buy Page ပုံစံအတိုင်း ဘေးတိုက် တန်းစီရန် */
     .header-content {
-        flex-direction: row; 
-        justify-content: space-between; 
+        flex-direction: column;
         align-items: center;
-        padding: 0 15px; 
+    }
+
+    nav {
+        margin-top: 10px;
     }
 
     nav a {
-        margin-left: 10px;
-        font-size: 0.8em; 
+        margin: 0 10px;
         padding: 5px;
     }
     
-    /* Policy Content ကို Mobile မှာ သပ်ရပ်စေရန် */
-    .policy-container {
-        padding: 15px;
+    .post-preview {
+        width: 100%; 
+    }
+    
+    .numbered-list-with-line {
+        margin-left: 5px; 
+    }
+    
+    .numbered-list-with-line li {
+        padding: 15px 15px 15px 45px;
     }
 }
