@@ -66,25 +66,15 @@ nav a:hover {
     background-color: #3f51b5; 
 }
 
-/* all.css တွင် ရှိသော .product-item ၏ code ကို ဤ code ဖြင့် အစားထိုးပါ */
-.product-item {
-    display: flex;
-    align-items: flex-start;
+main {
+    /* ယခင်က ရှိသော padding-top/bottom ကို ထားရှိပါ။ */
+    padding-top: 70px; 
+    padding-bottom: 50px;
     
-    /* Box ကို အလယ်ဗဟို တွင် တိုတိုလေး ဖြစ်စေရန် အကျယ် ကန့်သတ်ခြင်း */
-    width: 95%; /* နေရာအပြည့် မယူစေရန် */
-    max-width: 600px; /* အကျယ်ဆုံး 600px ဖြင့် ကန့်သတ်လိုက်ပါသည် (သင် နှစ်သက်သလို ပြောင်းနိုင်သည်) */
-    
-    /* Card Box ပုံစံ */
-    border: 1px solid #e0e0e0; 
-    border-radius: 8px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
-    background-color: white; 
-    
-    padding: 20px; 
-    margin-bottom: 20px; /* Card တစ်ခုနှင့်တစ်ခုကြား နေရာခွဲခြားရန် */
-    
-    transition: box-shadow 0.3s, transform 0.3s;
+    /* ဤနေရာတွင် အကျယ်နှင့် အလယ်ဗဟို ချိန်ညှိမှုကို သေချာထည့်ပါ */
+    max-width: 1000px; /* main content ဧရိယာ၏ အကျယ်ကို ကန့်သတ်ခြင်း */
+    margin: 40px auto; /* အပေါ်/အောက် နေရာလွတ်နှင့် ဘေးတိုက် အလယ်ဗဟို */
+    padding: 20px; /* ဘေးဘက် padding */
 }
 
 /* Hover Effect (optional) */
