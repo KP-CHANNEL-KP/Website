@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>မြန်နှုန်းမြှင့် DNS Server များ၏ အလုပ်လုပ်ပုံနှင့် ဘယ်ဟာကို ရွေးချယ်သင့်လဲ - KP Blog</title>
+    <link rel="stylesheet" href="../guides.css"> 
+</head>
+<body>
+    <header>
+        </header>
+
+    <main>
+        <div class="post-detail-container">
+            
+            <h1 class="post-detail-title">မြန်နှုန်းမြှင့် DNS Server များ၏ အလုပ်လုပ်ပုံနှင့် သင့်အတွက် အသင့်တော်ဆုံးကို ရွေးချယ်နည်း</h1>
+            <div class="post-meta">
+                <span>📅 November 5, 2025</span> | 
+                <span>📌 အင်တာနက် အခြေခံ နည်းပညာ</span>
+            </div>
+            
+            <p>
+                အင်တာနက် သုံးစွဲသူတိုင်းဟာ Website တွေကို အသုံးပြုဖို့အတွက် Domain Name System (DNS) ကို အသုံးပြုနေကြရပါတယ်။ DNS ဆိုတာက သင့်ဖုန်း (သို့မဟုတ်) ကွန်ပျူတာကနေ Website တစ်ခုရဲ့ နံပါတ် IP Address ကို ရှာဖွေပေးတဲ့ စနစ်ပဲ ဖြစ်ပါတယ်။ ဒါဟာ ဖုန်းစာအုပ်လိုပါပဲ။ ဒီ DNS Server တွေရဲ့ နှေးကွေးမှုဟာ သင့်ရဲ့ Website Load Time ကို သိသိသာသာ နှေးကွေးစေနိုင်ပါတယ်။ ဒါကြောင့် မြန်နှုန်းမြင့် DNS တွေကို ဘာကြောင့် သုံးသင့်လဲ၊ ဘယ်လို ရွေးချယ်သင့်လဲဆိုတာကို ဒီ Guide မှာ အသေးစိတ် ဖော်ပြပေးပါမယ်။
+            </p>
+            
+            <h2>၁။ DNS ဆိုသည်မှာ ဘာလဲ၊ ဘာကြောင့် အရေးကြီးတာလဲ?</h2>
+            <p>
+                လူတွေဟာ Web Address တွေ (ဥပမာ: google.com) ကို စမှတ်မိပေမဲ့ ကွန်ပျူတာတွေကတော့ နံပါတ် IP Address (ဥပမာ: 142.250.191.46) ကိုသာ နားလည်ပါတယ်။ DNS ဟာ ဒီ စာလုံးနဲ့ နံပါတ်ကို ဘာသာပြန်ပေးတဲ့ လုပ်ငန်းစဉ်ပါ။ အင်တာနက်ကို စချိတ်ကတည်းက သုံးနေတဲ့ DNS Server က နှေးနေရင်၊ သင့် Browser ဟာ Website ရဲ့ IP Address ကို ရှာဖွေနေရင်းနဲ့ အချိန်ကုန်နေမှာ ဖြစ်ပါတယ်။
+            </p>
+            
+            <h2>၂။ Public မြန်နှုန်းမြှင့် DNS Server များ၏ အားသာချက်များ</h2>
+            <div class="highlight-box">
+                <h4>✅ လူကြိုက်များသော DNS ရွေးချယ်စရာများ</h4>
+                <p>သင့်ရဲ့ မူလ ISP (Internet Service Provider) ရဲ့ DNS Server တွေထက် ပိုမိုမြန်ဆန်ပြီး၊ လုံခြုံရေး ပိုကောင်းတဲ့ Public DNS Server တွေကို သုံးစွဲနိုင်ပါတယ်။</p>
+                <ul>
+                    <li>**Google Public DNS:** 8.8.8.8 နှင့် 8.8.4.4</li>
+                    <li>**Cloudflare DNS:** 1.1.1.1 နှင့် 1.0.0.1 (အမြန်ဆုံးများထဲမှ တစ်ခု)</li>
+                    <li>**OpenDNS:** 208.67.222.222 နှင့် 208.67.220.220 (လုံခြုံရေး ပိုမိုကောင်းမွန်)</li>
+                </ul>
+            </div>
+            
+            <h2>၃။ DNS ကို ဘယ်လို ပြောင်းလဲအသုံးပြုမလဲ? (ဖုန်းနှင့် ကွန်ပျူတာ)</h2>
+            <p>
+                DNS Server ကို ပြောင်းလဲဖို့ဆိုတာ ဖုန်း (သို့မဟုတ်) ကွန်ပျူတာရဲ့ Network Settings ထဲမှာ IP Address ကို လက်ဖြင့် ရိုက်ထည့်ခြင်းဖြင့် အလွယ်တကူ ပြုလုပ်နိုင်ပါတယ်။ ၎င်းသည် သင့်ရဲ့ Website Speed ကို ချက်ချင်း တိုးတက်စေနိုင်ပါတယ်။
+                </p>
+            
+            <h2>၄။ နိဂုံးချုပ်: DNS မှတစ်ဆင့် အင်တာနက် အတွေ့အကြုံ မြှင့်တင်ခြင်း</h2>
+            <p>
+                DNS Server ကို မှန်ကန်စွာ ရွေးချယ်ခြင်းဟာ သင့်ရဲ့ အင်တာနက် လုံခြုံရေး (Security) ကို မြှင့်တင်ပေးနိုင်သလို၊ Website တွေ ပွင့်လာတဲ့ အမြန်နှုန်း (Speed) ကိုလည်း များစွာ ကောင်းမွန်စေပါတယ်။ စမ်းသပ်ပြီး သင့်အတွက် အသင့်တော်ဆုံး DNS ကို ရွေးချယ်အသုံးပြုဖို့ အကြံပြုလိုပါတယ်။
+            </p>
+            
+            <a href="../guides.html" class="buy-button" style="display:block; width:250px; margin-top:30px; text-align:center; background-color:#1a73e8; color:white; padding:10px; border-radius:5px; text-decoration:none;">အခြား နည်းပညာ လမ်းညွှန်များကို ကြည့်ရန်</a>
+
+        </div>
+    </main>
+
+    <footer>
+        </footer>
+
+</body>
+</html>
