@@ -189,3 +189,39 @@ footer {
         });
     });
 </script>
+
+/* ==================================== */
+/* 5. CometChat Specific Styling (New) */
+/* ==================================== */
+
+/* Chat Wrapper Container ကို နေရာချခြင်း */
+#cometchat-wrapper {
+    /* Main Content Area ရဲ့ အမြင့် 80% ကို ယူစေရန် */
+    height: 80vh; 
+    
+    /* မျက်နှာပြင် အကျယ်၏ 95% နေရာယူစေရန် */
+    width: 95%; 
+    
+    /* စာမျက်နှာ အလယ်ရောက်အောင် ချိန်ညှိခြင်း */
+    margin: 20px auto; 
+    
+    /* စည်းဘောင်လေး ထည့်ခြင်း */
+    border: 1px solid #ddd; 
+    
+    /* အနားစွန်းများကို ဝိုင်းခြင်း */
+    border-radius: 8px; 
+    
+    /* CometChat Widget ကို နေရာမှန်အောင် ပြသနိုင်ရန် */
+    overflow: hidden; 
+}
+
+/* CometChat Loading Message (optional styling) */
+#cometchat-wrapper h2 {
+    text-align: center;
+    padding-top: 50px;
+    color: #1a73e8;
+}
+
+/* ဤနေရာတွင် CometChat UI Kit (ထည့်သွင်းပြီးသား CSS) ပေါ်လာမည် */
+
+        
