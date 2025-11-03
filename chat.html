@@ -33,7 +33,7 @@
 
     <main>
         <div id="sendbird-chat-wrapper">
-            <h2>Loading Sendbird Chat UI...</h2> 
+            <h2>API Connection စစ်ဆေးနေပါသည်...</h2> 
         </div>
     </main>
 
@@ -44,22 +44,34 @@
     <script src="https://unpkg.com/sendbird-uikit@2.1.2/dist/sendbird-uikit.min.js"></script> 
 
     <script>
-        // 1. သင်ပေးလိုက်သော APP ID အသစ်ကို အသုံးပြုထားပါသည်
         const SENDBIRD_APP_ID = "FED597B9-2D52-4603-82BB-5DF920647AD0"; 
-        const USER_ID = "kp_sendbird_test_user_final"; // User ID အသစ် သတ်မှတ်
+        const USER_ID = "kp_final_connection_check_1"; 
+        const wrapper = document.getElementById('sendbird-chat-wrapper');
 
-        // 2. Sendbird UI Kit ကို စတင် Render လုပ်ခြင်း
-        const sb_ui = SendBird.uikit;
-        
-        sb_ui.render({
-            hostElement: document.getElementById('sendbird-chat-wrapper'),
-            appId: SENDBIRD_APP_ID,
-            userId: USER_ID,
-            // Channel URL ကို ပုံသေ သတ်မှတ်ခြင်း
-            channelUrl: 'sendbird_group_channel_for_kp_official_v2' 
+        // 1. Sendbird Core SDK ကို စတင်ခြင်း
+        const sb = new SendBird.default({ appId: SENDBIRD_APP_ID });
+
+        // 2. User Login ဝင်ရောက်ရန် ကြိုးစားခြင်း
+        sb.connect(USER_ID, function(user, error) {
+            if (error) {
+                // *** Connection မအောင်မြင်ပါက ဤနေရာမှ Error ကို ပြသပါမည် ***
+                wrapper.innerHTML = "<h2>❌ Connection Failed!</h2>" +
+                                    "<p>Code: " + error.code + "</p>" +
+                                    "<p>Message: " + error.message + "</p>";
+                console.error("Sendbird Connection Error:", error);
+                return;
+            }
+            
+            // *** Connection အောင်မြင်ပါက UI Kit ကို Render လုပ်ပါမည် ***
+            wrapper.innerHTML = "<h2>✅ API Connection Success!</h2><p>Attempting to load Chat UI...</p>";
+            
+            const sb_ui = SendBird.uikit;
+            sb_ui.render({
+                hostElement: wrapper,
+                appId: SENDBIRD_APP_ID,
+                userId: USER_ID,
+            });
         });
-
-        console.log("Sendbird UI Kit started rendering with FINAL APP ID:", SENDBIRD_APP_ID);
     </script>
 </body>
 </html>
