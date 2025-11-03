@@ -32,70 +32,7 @@
     </header>
 
     <main>
-        <div id="stream-chat-wrapper">
-            <h2>Stream Chat ကို ချိတ်ဆက်နေပါသည်...</h2> 
-        </div>
+        <iframe src="https://deadsimplechat.com/ZI6VU9Aag" width="100%" height="600px"></iframe>
     </main>
 
-    <footer>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/stream-chat@8.30.0/dist/stream-chat.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/stream-chat-ui-kit@4.10.1/dist/stream-chat-ui-kit.js"></script> 
-
-    <script>
-        // 2. သင့်ရဲ့ Key များကို တိကျစွာ သတ်မှတ်ခြင်း
-        const API_KEY = "Dvk7p4an7ufd"; // Stream Dashboard မှ ရရှိသော API Key
-        const USER_ID = "kp_stream_user_final"; // စမ်းသပ်ရန် User ID
-        const USER_TOKEN = "wdgtdjjvmxy3gyg86rqx6wn2w4kdk8vyaxks3y4f8rjfv4ps46brj5zxu6u5y8te"; // Stream Dashboard မှ ရရှိသော Token
-        
-        const CHANNEL_TYPE = 'messaging';
-        const CHANNEL_ID = 'kp-stream-official'; // စမ်းသပ် Channel ID
-
-        async function initStreamChat() {
-            const wrapper = document.getElementById('stream-chat-wrapper');
-            
-            // 3. Client ကို စတင်ခြင်း
-            const client = new StreamChat(API_KEY);
-            
-            // 4. User ကို Connect လုပ်ခြင်း
-            try {
-                wrapper.innerHTML = "<h2>Connecting User...</h2>";
-                
-                // Stream Chat Server သို့ User Token ဖြင့် ချိတ်ဆက်ခြင်း
-                await client.connectUser(
-                    { id: USER_ID, name: 'KP Blogger', image: 'https://i.imgur.com/fR9Jz14.png' },
-                    USER_TOKEN,
-                );
-                
-                // 5. Channel (Group Chat) ကို ရယူခြင်း/ဖန်တီးခြင်း
-                const channel = client.channel(CHANNEL_TYPE, CHANNEL_ID, {
-                    name: 'KP Official Stream Group Chat',
-                    members: [USER_ID], 
-                });
-                
-                // Channel ကို ကြည့်ရန်/ Join လုပ်ရန်
-                await channel.watch();
-
-                // 6. Chat UI ကို Render လုပ်ခြင်း
-                wrapper.innerHTML = "<h2>✅ Connection Success! Loading UI...</h2>";
-                
-                const chatUI = new StreamChatUIKit({
-                    target: wrapper,
-                    client: client,
-                    channel: channel
-                });
-                
-                chatUI.render(); // Chat Window အပြည့်အစုံ ပေါ်လာပါစေ
-
-            } catch (error) {
-                // Connection/Token Error များ ရှိပါက ပြသမည်
-                wrapper.innerHTML = `<h2>❌ Stream Connection Failed!</h2><p>Error: ${error.message}</p>`;
-                console.error("Stream Chat Initialization Error:", error);
-            }
-        }
-
-        initStreamChat();
-    </script>
-</body>
-</html>
+    
