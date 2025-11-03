@@ -132,12 +132,28 @@ footer {
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
+        align-items: center;
     }
+
     nav {
         margin-top: 10px;
     }
+
     nav a {
-        display: block;
-        margin: 5px 0;
+        margin: 0 10px;
+        padding: 5px;
+    }
+    
+    .post-preview {
+        width: 100%; 
+    }
+    
+    .numbered-list-with-line {
+        margin-left: 5px; 
+    }
+    
+    .numbered-list-with-line li {
+        padding: 15px 15px 15px 45px;
     }
 }
+
