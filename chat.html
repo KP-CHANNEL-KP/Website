@@ -44,34 +44,36 @@
     <script src="https://unpkg.com/sendbird-uikit@2.1.2/dist/sendbird-uikit.min.js"></script> 
 
     <script>
-        const SENDBIRD_APP_ID = "30E5612B-177A-4D4D-A98A-652D88649503"; 
-        const USER_ID = "kp_final_connection_check_1"; 
-        const wrapper = document.getElementById('sendbird-chat-wrapper');
+    const SENDBIRD_APP_ID = "FED597B9-2D52-4603-82BB-5DF920647AD0"; 
+    const USER_ID = "kp_final_connection_token_check"; 
+    const API_TOKEN = "1e995c0a5d108ecfb610c827fd1fbfde788e548d"; // သင့်ရဲ့ API Token ကို ထည့်သွင်းထားသည်
+    const wrapper = document.getElementById('sendbird-chat-wrapper');
 
-        // 1. Sendbird Core SDK ကို စတင်ခြင်း
-        const sb = new SendBird.default({ appId: SENDBIRD_APP_ID });
+    // 1. Sendbird Core SDK ကို စတင်ခြင်း
+    const sb = new SendBird.default({ appId: SENDBIRD_APP_ID });
 
-        // 2. User Login ဝင်ရောက်ရန် ကြိုးစားခြင်း
-        sb.connect(USER_ID, function(user, error) {
-            if (error) {
-                // *** Connection မအောင်မြင်ပါက ဤနေရာမှ Error ကို ပြသပါမည် ***
-                wrapper.innerHTML = "<h2>❌ Connection Failed!</h2>" +
-                                    "<p>Code: " + error.code + "</p>" +
-                                    "<p>Message: " + error.message + "</p>";
-                console.error("Sendbird Connection Error:", error);
-                return;
-            }
-            
-            // *** Connection အောင်မြင်ပါက UI Kit ကို Render လုပ်ပါမည် ***
-            wrapper.innerHTML = "<h2>✅ API Connection Success!</h2><p>Attempting to load Chat UI...</p>";
-            
-            const sb_ui = SendBird.uikit;
-            sb_ui.render({
-                hostElement: wrapper,
-                appId: SENDBIRD_APP_ID,
-                userId: USER_ID,
-            });
+    // 2. User Login ဝင်ရောက်ရန် ကြိုးစားခြင်း
+    // connect function တွင် API Token ကို ထည့်သွင်းခြင်း (Optional parameter)
+    sb.connect(USER_ID, API_TOKEN, function(user, error) {
+        if (error) {
+            // *** Connection မအောင်မြင်ပါက Error ကို ပြသပါမည် ***
+            wrapper.innerHTML = "<h2>❌ Connection Failed! (Code: " + error.code + ")</h2>" +
+                                "<p>Message: " + error.message + "</p>";
+            return;
+        }
+        
+        // *** Connection အောင်မြင်ပါက Chat UI ကို Render လုပ်ပါမည် ***
+        wrapper.innerHTML = "<h2>✅ API Connection Success! Loading Chat UI...</h2>";
+        
+        const sb_ui = SendBird.uikit;
+        sb_ui.render({
+            hostElement: wrapper,
+            appId: SENDBIRD_APP_ID,
+            userId: USER_ID,
+            // (Channel List ကို တိုက်ရိုက်ပြပါ)
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
