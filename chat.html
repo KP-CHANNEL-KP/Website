@@ -33,6 +33,9 @@
 
     <main>
         <iframe src="https://deadsimplechat.com/ZI6VU9Aag" width="100%" height="600px"></iframe>
+
+        <div id="sendbird-chat-wrapper"></div>
+
     </main>
 
     <footer>
@@ -42,3 +45,32 @@
     
 </body>
 </html>
+<script src="https://cdn.sendbird.com/sdk/3.0.46/sendbird.min.js"></script>
+
+<script>
+    // 2. သင့်ရဲ့ Application ID (APP_ID) ကို ထည့်သွင်းခြင်း
+    const SENDBIRD_APP_ID = "FED597B9-2D52-4603-82BB-5DF920647AD0"; 
+
+    // 3. စမ်းသပ်ရန် User ID တစ်ခု သတ်မှတ်ခြင်း (သင့်ရဲ့ စမ်းသပ်သူအမည်)
+    const USER_ID = "kp_test_user_01"; 
+
+    // 4. Sendbird SDK ကို စတင်ခြင်း
+    const sb = new SendBird.default({ appId: SENDBIRD_APP_ID });
+
+    // 5. User Login ဝင်ခြင်း
+    sb.connect(USER_ID, function(user, error) {
+        if (error) {
+            console.error("Login Failed:", error);
+            document.getElementById('sendbird-chat-wrapper').innerHTML = "<h2>❌ Login Failed. Check Console for Error.</h2>";
+            return;
+        }
+        
+        console.log("Login Success. User ID:", user.userId);
+        
+        // 6. ယာယီ Channel Message ကို ပြသခြင်း
+        document.getElementById('sendbird-chat-wrapper').innerHTML = "<h2>✅ Sendbird API Connected!</h2><p>Now waiting to load the actual chat UI...</p>";
+        
+        // *Note: ဒီ code က Chat UI အပြည့်အစုံကိုတော့ ချက်ချင်း မပြနိုင်သေးပါဘူး။
+        // စာပို့နိုင်တဲ့ UI ပေါ်ဖို့အတွက် Sendbird ရဲ့ UI Kit ကို ထပ်ထည့်ရပါမယ်။
+    });
+</script>
