@@ -32,12 +32,8 @@
     </header>
 
     <main>
-        
-
-        
-
-    <div id="sendbird-chat-wrapper">
-            <h2>Loading Sendbird Chat...</h2>
+        <div id="sendbird-chat-wrapper">
+            <h2>Loading Sendbird Chat UI...</h2> 
         </div>
     </main>
 
@@ -45,32 +41,25 @@
     </footer>
 
     <script src="https://cdn.sendbird.com/sdk/3.0.46/sendbird.min.js"></script>
+    <script src="https://unpkg.com/sendbird-uikit@2.1.2/dist/sendbird-uikit.min.js"></script> 
 
     <script>
-        // 2. သင့်ရဲ့ Application ID (APP_ID) ကို ပုံထဲကအတိုင်း ပြန်လည်ပြင်ဆင်ခြင်း
+        // 1. သင်ပေးလိုက်သော APP ID အသစ်ကို အသုံးပြုထားပါသည်
         const SENDBIRD_APP_ID = "FED597B9-2D52-4603-82BB-5DF920647AD0"; 
+        const USER_ID = "kp_sendbird_test_user_final"; // User ID အသစ် သတ်မှတ်
 
-        // 3. စမ်းသပ်ရန် User ID တစ်ခု သတ်မှတ်ခြင်း
-        const USER_ID = "kp_test_user_01"; 
-
-        // 4. Sendbird SDK ကို စတင်ခြင်း
-        const sb = new SendBird.default({ appId: SENDBIRD_APP_ID });
-
-        // 5. User Login ဝင်ခြင်း
-        sb.connect(USER_ID, function(user, error) {
-            const wrapper = document.getElementById('sendbird-chat-wrapper');
-            
-            if (error) {
-                console.error("Login Failed:", error);
-                wrapper.innerHTML = "<h2>❌ Sendbird Login Failed!</h2><p>Please check your APP ID or Console for errors.</p>";
-                return;
-            }
-            
-            console.log("Login Success. User ID:", user.userId);
-            
-            // 6. ချိတ်ဆက်မှု အောင်မြင်ကြောင်း စာကို ရှင်းလင်းစွာ ပြသခြင်း
-            wrapper.innerHTML = "<h2>✅ Sendbird API Connected!</h2><p>APP ID: " + SENDBIRD_APP_ID + "</p><p>Next step: Integrate Chat UI Kit.</p>";
+        // 2. Sendbird UI Kit ကို စတင် Render လုပ်ခြင်း
+        const sb_ui = SendBird.uikit;
+        
+        sb_ui.render({
+            hostElement: document.getElementById('sendbird-chat-wrapper'),
+            appId: SENDBIRD_APP_ID,
+            userId: USER_ID,
+            // Channel URL ကို ပုံသေ သတ်မှတ်ခြင်း
+            channelUrl: 'sendbird_group_channel_for_kp_official_v2' 
         });
+
+        console.log("Sendbird UI Kit started rendering with FINAL APP ID:", SENDBIRD_APP_ID);
     </script>
 </body>
 </html>
