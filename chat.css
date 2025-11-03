@@ -1,0 +1,143 @@
+/* ==================================== */
+/* 1. Header and Navigation (guides.css မှ အခြေခံယူထားသည်) */
+/* ==================================== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #1a73e8; /* Google Blue color for header */
+    color: white;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-and-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: 500;
+    padding: 5px 8px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+nav a:hover {
+    background-color: #3b82f6; /* Slightly lighter blue on hover */
+}
+
+/* ==================================== */
+/* 2. Main Content Container (guides.css မှ အခြေခံယူထားသည်) */
+/* ==================================== */
+main {
+    padding: 40px 20px;
+}
+
+.chat-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.page-title {
+    font-size: 2em;
+    color: #1a73e8;
+    border-bottom: 2px solid #e8f0fe;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ==================================== */
+/* 3. Chat Specific Styling */
+/* ==================================== */
+.chat-description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+/* Chat Widget နေရာကို အနည်းငယ် ပုံဖော်ထားခြင်း */
+#chat-widget-container {
+    min-height: 500px; /* Chat Window ကို နေရာပေးရန် */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden; /* Chat Service Widget ကို ကောင်းမွန်စွာ ပြသနိုင်ရန် */
+}
+
+/* စည်းကမ်းချက်များ */
+.rules-section h2 {
+    color: #333;
+    font-size: 1.4em;
+    margin-top: 40px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.rules-section ul {
+    list-style: disc inside;
+    padding-left: 20px;
+    color: #555;
+}
+
+/* ==================================== */
+/* 4. Footer (guides.css မှ အခြေခံယူထားသည်) */
+/* ==================================== */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+    font-size: 0.9em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+    }
+    nav {
+        margin-top: 10px;
+    }
+    nav a {
+        display: block;
+        margin: 5px 0;
+    }
+}
