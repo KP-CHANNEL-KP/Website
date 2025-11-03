@@ -4,9 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group Chat Room (စကားပြောခန်း) - KP Blog</title>
+    
     <link rel="stylesheet" href="chat.css"> 
     
-    </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@cometchat/chat-uikit-vue@4.0.1/dist/style.min.css" />
+    
+    <style>
+        /* CometChat Chat Window မြင်ရအောင် အမြင့် သတ်မှတ်ခြင်း */
+        #cometchat-wrapper {
+            height: 80vh; /* မျက်နှာပြင် အမြင့်၏ 80% */
+            width: 95%;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden; /* Chat Widget ကောင်းမွန်စွာ ပြသရန် */
+        }
+    </style>
+</head>
 <body>
 
     <header>
@@ -43,5 +57,3 @@
     <script src="chat_logic.js"></script> 
 </body>
 </html>
-
-    
