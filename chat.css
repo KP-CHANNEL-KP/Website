@@ -157,3 +157,35 @@ footer {
     }
 }
 
+<link rel="stylesheet" href="https://unpkg.com/sendbird-uikit@2.1.2/dist/index.css" />
+
+
+
+// 1. Sendbird UI Kit SDK ကို သွင်းပါ
+<script src="https://unpkg.com/sendbird-uikit@2.1.2/dist/sendbird-uikit.min.js"></script>
+
+<script>
+    // ... အရင်က code တွေ (APP_ID နဲ့ connect လုပ်တဲ့ code)
+    // ... ပြီးနောက် အောက်ပါ UI Kit Code ကို ထပ်ထည့်ပါ
+
+    const sb = new SendBird.default({ appId: SENDBIRD_APP_ID });
+    
+    // ... Login ပြီးသွားတဲ့ function ထဲမှာ (sb.connect ရဲ့ function ထဲမှာ)
+    sb.connect(USER_ID, function(user, error) {
+        if (error) {
+            // Error handling...
+            return;
+        }
+        
+        // 7. Login အောင်မြင်ပါက UI Kit ကို စတင် Render လုပ်ပါ
+        const sb_ui = SendBird.uikit;
+        
+        sb_ui.render({
+            hostElement: document.getElementById('sendbird-chat-wrapper'),
+            appId: SENDBIRD_APP_ID,
+            userId: USER_ID,
+            // (Optional) Channel URL
+            channelUrl: 'sendbird_group_channel_for_kp' // Channel URL တစ်ခု သတ်မှတ်ပါ
+        });
+    });
+</script>
