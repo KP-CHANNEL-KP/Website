@@ -106,60 +106,82 @@ p {
     flex-direction: column; /* အပေါ်-အောက် စီသည် */
 }
 
-/* စာပို့တဲ့ အကွက် (Input Area) ကို ဖုန်းရဲ့ အောက်ဆုံးမှာ ကပ်ထားရန် */
+/* စာပို့တဲ့ အကွက်ကို ပိုမိုလှပပြီး ခေတ်မီအောင် ပြင်ဆင်ခြင်း */
 .message-input-area {
-    position: fixed; /* မျက်နှာပြင်ပေါ်မှာ ကပ်ထားသည် */
-    bottom: 0; /* အောက်ဆုံးမှာ ကပ်သည် */
+    /* နေရာချထားမှု မပြောင်းပါ - ဖုန်းရဲ့ အောက်ဆုံးမှာ ကပ်ထားဆဲ ဖြစ်ရပါမည် */
+    position: fixed; 
+    bottom: 0; 
     left: 0;
     width: 100%;
     
-    /* စာပို့တဲ့ အကွက်ကို Header ရဲ့ max-width နဲ့ ကိုက်ညီအောင် ချိန်ညှိသည် */
-    max-width: 1000px; /* main content ရဲ့ width နဲ့ ကိုက်ညီသည် */
+    /* Desktop မှာ အလယ်ဗဟိုမှာ နေရာချထားရန် */
+    max-width: 1000px; 
     margin: 0 auto;
     
+    /* Background နဲ့ Shadow ကို နည်းနည်းပြောင်းလိုက်ပါမယ် */
     background-color: #ffffff;
-    border-top: 1px solid #ddd;
-    padding: 10px 20px;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    border-top: none; /* အပေါ်ဘောင်ကို ဖျက်လိုက်သည် */
+    padding: 10px 15px; /* ဘေးကင်းတဲ့ padding */
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.08); /* ပိုနက်တဲ့ အရိပ် */
+    
     display: flex;
     align-items: center;
-    z-index: 1001; /* Header ထက် ပိုမြင့်အောင် ထားသည် */
+    gap: 10px; /* input နဲ့ button ကြား နေရာခွာသည် */
+    z-index: 1001; 
 }
 
+/* စာရိုက်တဲ့ Input Field ကို ပိုမိုသေသပ်အောင် လုပ်ခြင်း */
 .message-input-area input {
-    flex-grow: 1; /* ရှိသမျှ နေရာအကုန်ယူသည် */
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 20px; /* အဝိုင်းပုံစံဖြစ်အောင် */
+    flex-grow: 1; 
+    padding: 12px 18px; /* Padding ကို ပိုတိုးလိုက်သည် */
+    border: 1px solid #e0e0e0; /* ပိုနူးညံ့သော ဘောင် */
+    border-radius: 25px; /* ပိုလုံးဝိုင်းအောင် */
     font-size: 1em;
     outline: none;
-    transition: border-color 0.3s;
+    background-color: #f7f9fb; /* အနည်းငယ်မီးခိုးရောင် နောက်ခံ */
+    color: #333;
+    transition: all 0.3s ease;
 }
 
 .message-input-area input:focus {
-    border-color: #1a73e8; /* Blue focus */
+    border-color: #1a73e8; /* focus ဝင်ရင် အပြာရောင် ပေါ်လာစေရန် */
+    background-color: #ffffff; /* focus ဝင်ရင် နောက်ခံကို ဖြူသွားစေရန် */
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); /* အပြာရောင် halo effect လေး ထည့်သည် */
 }
 
+/* Send Button ကို လှပအောင် ပြင်ဆင်ခြင်း */
 .message-input-area button {
+    /* ပို့မည် စာသားအစား Icon ပဲ သုံးရင် ပိုလှပါတယ် */
+    content: 'ပို့မည်'; /* ဒါကို Icon သုံးရင် ဖြုတ်လို့ရပါပြီ */
     background-color: #1a73e8;
     color: white;
     border: none;
-    padding: 12px 15px;
-    margin-left: 10px;
-    border-radius: 20px;
+    /* icon အတွက် square ပုံစံ ဖန်တီးပါမယ် */
+    width: 45px; 
+    height: 45px;
+    border-radius: 50%; /* အလုံးပုံစံ */
+    padding: 0; /* padding ဖယ်လိုက်ပါမယ် */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease, transform 0.1s;
+    flex-shrink: 0; /* နေရာမကျုံ့စေရန် */
 }
 
 .message-input-area button:hover {
     background-color: #3f51b5;
 }
 
-/* ဖုန်းနဲ့ ကြည့်တဲ့အခါ Input area ကို အလယ်ဗဟိုမှာ ထားရန် */
+.message-input-area button:active {
+    transform: scale(0.95); /* နှိပ်လိုက်တဲ့အခါ အနည်းငယ် ကျုံ့သွားစေရန် */
+}
+
+/* Desktop မှာ အလယ်ဗဟိုမှာ ထားရန် (ယခင်ကအတိုင်း) */
 @media (min-width: 1000px) {
     .message-input-area {
-        left: 50%; /* 50% ရွှေ့သည် */
-        transform: translateX(-50%); /* ပြီးရင် သူ့ရဲ့ အကျယ်ရဲ့ တစ်ဝက် ပြန်ရွှေ့သည် */
+        left: 50%; 
+        transform: translateX(-50%); 
     }
 }
