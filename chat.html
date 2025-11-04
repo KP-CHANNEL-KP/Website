@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="chat.css"> 
     
     <style>
-        /* Chat Wrapper Container ကို နေရာချခြင်း (Chat Window ကြီး မြင်ရစေရန်) */
+        /* Chat Wrapper Container ကို နေရာချခြင်း */
         #pubnub-chat-wrapper {
             height: 80vh; 
             width: 95%;
@@ -22,11 +22,27 @@
             flex-direction: column;
         }
 
+        /* User Name ထည့်သွင်းရန် ဧရိယာ */
+        #user-info-area {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        #username-input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-left: 10px;
+            width: 200px; /* နာမည် Input ကို ပုံသေ သတ်မှတ်ထားသည် */
+        }
+
         #message-area {
             flex-grow: 1; 
-            overflow-y: auto; /* Message များ များလာပါက အလိုအလျောက် scroll လုပ်နိုင်ရန် */
+            overflow-y: auto;
             padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
         }
 
         #input-area {
@@ -59,7 +75,15 @@
         }
 
         .chat-message strong {
-            color: #1a73e8; /* User Name ကို အပြာရောင်ပြခြင်း */
+            color: #1a73e8;
+            margin-right: 5px;
+        }
+        
+        /* Time Stamp အတွက် Styling */
+        .timestamp {
+            font-size: 0.75em;
+            color: #888;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -90,6 +114,12 @@
     <main>
         <div id="pubnub-chat-wrapper">
             <h2>PubNub Group Chat</h2>
+            
+            <div id="user-info-area">
+                <label for="username-input">သင့်နာမည်:</label>
+                <input type="text" id="username-input" placeholder="Guest" maxlength="20">
+            </div>
+
             <div id="message-area">
                 <p>Chat စနစ်ကို စတင်ချိတ်ဆက်နေပါသည်...</p>
             </div>
