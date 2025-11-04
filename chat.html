@@ -8,22 +8,23 @@
     <link rel="stylesheet" href="chat.css"> 
     
     <style>
-        /* [ယခင်ကဲ့သို့သော CSS များ... အပြောင်းအလဲမရှိပါ] */
+        /* Chat Window (Container) */
         #pubnub-chat-wrapper {
             height: 80vh; 
             width: 95%;
-            max-width: 800px; 
+            max-width: 800px;
             margin: 20px auto;
             border: 1px solid #ddd;
             border-radius: 12px;
-            padding: 0;
-            background-color: #f7f9fc; 
+            padding: 0; 
+            background-color: #f7f9fc;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             display: flex; 
             flex-direction: column;
             overflow: hidden; 
         }
 
+        /* Chat Header */
         #pubnub-chat-wrapper h2 {
             padding: 15px 20px;
             margin: 0;
@@ -34,6 +35,7 @@
             border-top-right-radius: 10px;
         }
 
+        /* User Name ထည့်သွင်းရန် ဧရိယာ */
         #user-info-area {
             display: flex;
             align-items: center;
@@ -50,13 +52,15 @@
             width: 180px;
         }
 
+        /* Message ပြသရန် ဧရိယာ - **အဓိက ပြင်ဆင်ချက်** */
         #message-area {
-            flex-grow: 1; 
+            flex-grow: 1; /* Message ဧရိယာက ကျန်တဲ့ နေရာကို ယူရန် */
             overflow-y: auto;
             padding: 20px; 
             background-color: #f7f9fc;
         }
 
+        /* Message တစ်ကြောင်းချင်းစီ၏ ပုံစံ */
         .chat-message {
             margin-bottom: 15px;
             display: flex;
@@ -79,20 +83,21 @@
             font-size: 0.9em;
         }
         
+        /* Time Stamp အတွက် Styling */
         .timestamp {
             font-size: 0.7em;
             color: #999;
             align-self: flex-end;
             margin-top: 2px;
         }
-        
-        /* Message Input Area အသစ်အတွက် Styling */
+
+        /* Input ဧရိယာ */
         #input-area {
             display: flex;
             padding: 15px 20px;
             border-top: 1px solid #ddd;
             background-color: #fff;
-            align-items: center; /* အားလုံးကို အလယ်တည့်တည့် ထားရန် */
+            align-items: center;
         }
         
         #message-input {
@@ -112,3 +117,95 @@
             cursor: pointer;
             transition: background-color 0.2s;
         }
+
+        #send-button:hover {
+            background-color: #145cb3;
+        }
+        
+        /* File Upload Button အတွက် Styling */
+        #file-upload-label {
+            padding: 12px;
+            background-color: #f0f0f0;
+            color: #444;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 1.2em;
+            line-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #file-input {
+            display: none;
+        }
+        
+        /* ပုံပြသမှုအတွက် Styling */
+        .uploaded-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+
+        .file-link {
+            display: block;
+            word-break: break-all;
+            color: #1a73e8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-and-title">
+                <img src="logo.png" alt="KP Logo" class="logo">
+                <h1 class="site-title">KP Blog</h1>
+            </div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="posts.html">Posts</a>
+                <a href="free.html">Free</a>
+                <a href="buy.html">Buy</a>
+                <a href="all.html">All</a>
+                <a href="review.html">Review</a> 
+                <a href="chat.html">Chat</a> <a href="privacy.html">Privacy Policy</a>
+                <a href="contact.html">Contact</a>
+                <a href="about.html">About</a>
+                <a href="guides.html">Guides</a>
+                <a href="chat.html">Chat Group</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div id="pubnub-chat-wrapper">
+            <h2>Group Chat (PubNub Powered)</h2>
+            
+            <div id="user-info-area">
+                <label for="username-input">သင့်နာမည်:</label>
+                <input type="text" id="username-input" placeholder="Guest" maxlength="20">
+            </div>
+
+            <div id="message-area">
+                <p style="text-align: center;">Chat စနစ်ကို စတင်ချိတ်ဆက်နေပါသည်...</p>
+            </div>
+            
+            <div id="input-area">
+                <input type="file" id="file-input" accept="image/*, application/pdf, .zip">
+                <label for="file-input" id="file-upload-label" title="Upload Image/File">📎</label> 
+
+                <input type="text" id="message-input" placeholder="Message ရေးပါ..." disabled>
+                <button id="send-button" disabled>Send</button>
+            </div>
+        </div>
+    </main>
+    
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.7.0.0.min.js"></script>
+    <script src="chat_logic.js"></script> 
+</body>
+</html>
