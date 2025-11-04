@@ -6,14 +6,15 @@ const SUBSCRIBE_KEY = "sub-c-adef92a7-e638-4643-8bb5-03d9223a6fd2";
 
 // 2. Chat အတွက် Channel နာမည်နှင့် User ID သတ်မှတ်ခြင်း
 const CHAT_CHANNEL = "kp_blog_public_group"; 
-const USER_ID = "kp_blogger_" + Math.random().toString(36).substring(7); // ယာယီ User ID
+// User ID ကို ယာယီ နာမည်ပေးထားသည် (Website ဝင်တိုင်း ပြောင်းလဲသွားမည်)
+const USER_ID = "kp_blogger_" + Math.random().toString(36).substring(7); 
 
 // 3. PubNub ကို Initialize လုပ်ခြင်း
 const pubnub = new PubNub({
     publishKey: PUBLISH_KEY,
     subscribeKey: SUBSCRIBE_KEY,
-    uuid: USER_ID, // User ID ကို သတ်မှတ်ခြင်း
-    heartbeatInterval: 10 // Presence ကို ပိုမိုမြန်ဆန်စေရန်
+    uuid: USER_ID, 
+    heartbeatInterval: 10 
 });
 
 const messageArea = document.getElementById('message-area');
@@ -34,7 +35,6 @@ function displayMessage(user, text) {
 pubnub.addListener({
     // Messages လက်ခံရရှိပါက
     message: function(message) {
-        // Message Payload ကို ပြသခြင်း
         const sender = message.message.user || 'Anonymous';
         const text = message.message.text;
         displayMessage(sender, text);
@@ -54,7 +54,7 @@ pubnub.addListener({
 // 6. PubNub Channel ကို Subscribe လုပ်ခြင်း
 pubnub.subscribe({
     channels: [CHAT_CHANNEL],
-    withPresence: true // Presence ကို ဖွင့်ထားခြင်း
+    withPresence: true 
 });
 
 
@@ -65,11 +65,11 @@ function sendMessage() {
         pubnub.publish({
             channel: CHAT_CHANNEL,
             message: {
-                user: "KP_Blogger", // ဤနေရာတွင် User ကိုယ်တိုင် နာမည်ပေးနိုင်သော Input ထပ်ထည့်နိုင်သည်
+                user: "KP_Blogger", 
                 text: text
             }
         });
-        messageInput.value = ''; // Input ရှင်းထုတ်ခြင်း
+        messageInput.value = ''; 
     }
 }
 
@@ -85,7 +85,7 @@ messageInput.addEventListener('keypress', function(e) {
 // 9. Message Persistence မှ ယခင် Message များကို Load လုပ်ခြင်း
 pubnub.history({
     channel: CHAT_CHANNEL,
-    count: 50 // နောက်ဆုံး 50 ခု ကို ပြန်ယူခြင်း
+    count: 50 
 }, (status, response) => {
     if (response && response.messages) {
         response.messages.forEach(item => {
