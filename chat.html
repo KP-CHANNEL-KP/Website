@@ -7,17 +7,59 @@
     
     <link rel="stylesheet" href="chat.css"> 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@cometchat/chat-uikit-vue@4.0.1/dist/style.min.css" />
-    
     <style>
-        /* CometChat Chat Window မြင်ရအောင် အမြင့် သတ်မှတ်ခြင်း */
-        #cometchat-wrapper {
-            height: 80vh; /* မျက်နှာပြင် အမြင့်၏ 80% */
+        /* Chat Wrapper Container ကို နေရာချခြင်း (chat.css ထဲမှ ယူသည်) */
+        #pubnub-chat-wrapper {
+            height: 80vh; 
             width: 95%;
             margin: 20px auto;
             border: 1px solid #ddd;
             border-radius: 8px;
-            overflow: hidden; /* Chat Widget ကောင်းမွန်စွာ ပြသရန် */
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; /* Flexbox ဖြင့် Chat UI ကို စီစဉ်ရန် */
+            flex-direction: column;
+        }
+
+        #message-area {
+            flex-grow: 1; /* Messages ဧရိယာက ကျန်တဲ့ နေရာကို ယူပါစေ */
+            overflow-y: auto; /* Scrollable ဖြစ်စေရန် */
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        #input-area {
+            display: flex;
+            padding-top: 10px;
+        }
+        
+        #message-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        
+        #send-button {
+            padding: 10px 15px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .chat-message {
+            margin-bottom: 8px;
+            padding: 5px;
+            border-radius: 4px;
+            background-color: #f5f5f5;
+        }
+
+        .chat-message strong {
+            color: #1a73e8;
         }
     </style>
 </head>
@@ -46,14 +88,20 @@
     </header>
 
     <main>
-        <div id="cometchat-wrapper">
-            <h2>CometChat ကို စတင်ချိတ်ဆက်နေပါသည်...</h2>
+        <div id="pubnub-chat-wrapper">
+            <h2>PubNub Group Chat</h2>
+            <div id="message-area">
+                <p>Chat စနစ်ကို စတင်ချိတ်ဆက်နေပါသည်...</p>
+            </div>
+            <div id="input-area">
+                <input type="text" id="message-input" placeholder="Message ရေးပါ..." disabled>
+                <button id="send-button" disabled>Send</button>
+            </div>
         </div>
     </main>
     
-    <script src="https://unpkg.com/@cometchat/chat-sdk-javascript@4.0.10/cometchat-chat-sdk-javascript.js"></script>
-    <script src="https://unpkg.com/@cometchat/chat-uikit-vue@4.0.1/dist/cometchat-uikit.min.js"></script>
-
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.7.0.0.min.js"></script>
+    
     <script src="chat_logic.js"></script> 
 </body>
 </html>
