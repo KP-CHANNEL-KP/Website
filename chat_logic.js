@@ -1,53 +1,97 @@
-// chat_logic.js
-// CometChat အတွက် လိုအပ်သော Key များကို သတ်မှတ်ခြင်း
-const appID = "1671132e0b9b1b5cb"; 
-const region = "us"; 
-const AUTH_KEY = "e427de3eeeaa3783abdbdfa7d4fd779113123423"; 
+// chat_logic.js (PubNub Version)
 
-// စမ်းသပ်ရန် User ID
-const USER_ID = "kp_blogger_public_user"; 
+// 1. သင့်ရဲ့ Key များကို သတ်မှတ်ခြင်း
+const PUBLISH_KEY = "pub-c-bdaf8ee9-735f-45b4-b10f-3f0ddce7a6d6";
+const SUBSCRIBE_KEY = "sub-c-adef92a7-e638-4643-8bb5-03d9223a6fd2";
 
-async function initCometChat() {
-    const wrapper = document.getElementById('cometchat-wrapper');
-    
-    // SDK Initialization အတွက် Settings များ
-    const appSetting = new CometChat.AppSettingsBuilder()
-        .subscribePresenceForAllUsers()
-        .setRegion(region)
-        .build();
-    
-    try {
-        wrapper.innerHTML = "<h2>SDK Initialization...</h2>";
-        
-        // 1. SDK ကို စတင်ခြင်း
-        await CometChat.init(appID, appSetting);
-        
-        wrapper.innerHTML = "<h2>Logging in User...</h2>";
-        
-        // 2. User Login (CometChat သည် User ကို အလိုအလျောက် ဖန်တီးပေးပါသည်)
-        await CometChat.login(USER_ID, AUTH_KEY);
-        
-        // 3. UI Kit (Chat Window) ကို Render လုပ်ခြင်း
-        wrapper.innerHTML = "<h2>✅ Connection Success! Loading Group Chat...</h2>";
+// 2. Chat အတွက် Channel နာမည်နှင့် User ID သတ်မှတ်ခြင်း
+const CHAT_CHANNEL = "kp_blog_public_group"; 
+const USER_ID = "kp_blogger_" + Math.random().toString(36).substring(7); // ယာယီ User ID
 
-        const uiKitSettings = new CometChat.UIKitSettingsBuilder()
-            .setLanguage("en")
-            .setChatList([CometChat.GroupType.Public]) // Public Group Chat များကိုသာ ပြသမည်
-            .build();
+// 3. PubNub ကို Initialize လုပ်ခြင်း
+const pubnub = new PubNub({
+    publishKey: PUBLISH_KEY,
+    subscribeKey: SUBSCRIBE_KEY,
+    uuid: USER_ID, // User ID ကို သတ်မှတ်ခြင်း
+    heartbeatInterval: 10 // Presence ကို ပိုမိုမြန်ဆန်စေရန်
+});
 
-        CometChatUIKit.init(uiKitSettings);
-        
-        CometChatUIKit.render({
-            widgetId: 'cometchat-wrapper',
-            widgetType: CometChatUIKit.WidgetTypes.COMMUNICATION,
-            widgetSettings: uiKitSettings
+const messageArea = document.getElementById('message-area');
+const messageInput = document.getElementById('message-input');
+const sendButton = document.getElementById('send-button');
+
+// 4. Message လက်ခံရရှိပါက UI ကို Update လုပ်မည့် Function
+function displayMessage(user, text) {
+    const p = document.createElement('p');
+    p.classList.add('chat-message');
+    p.innerHTML = `<strong>${user}</strong>: ${text}`;
+    messageArea.appendChild(p);
+    // နောက်ဆုံး message ကို မြင်ရအောင် scroll ဆွဲခြင်း
+    messageArea.scrollTop = messageArea.scrollHeight;
+}
+
+// 5. PubNub Listener ကို ထည့်သွင်းခြင်း
+pubnub.addListener({
+    // Messages လက်ခံရရှိပါက
+    message: function(message) {
+        // Message Payload ကို ပြသခြင်း
+        const sender = message.message.user || 'Anonymous';
+        const text = message.message.text;
+        displayMessage(sender, text);
+    },
+    // Connection Status ပြောင်းလဲပါက
+    status: function(status) {
+        if (status.category === "PNConnectedCategory") {
+            messageArea.innerHTML = "<p style='color: green; text-align: center;'>✅ Chat စနစ် အောင်မြင်စွာ ချိတ်ဆက်ပြီးပါပြီ။ စတင် စကားပြောနိုင်ပါပြီ။</p>";
+            messageInput.disabled = false;
+            sendButton.disabled = false;
+        } else if (status.category === "PNDisconnectedCategory") {
+             messageArea.innerHTML = "<p style='color: red; text-align: center;'>❌ ချိတ်ဆက်မှု ပြတ်တောက်သွားပါသည်။</p>";
+        }
+    }
+});
+
+// 6. PubNub Channel ကို Subscribe လုပ်ခြင်း
+pubnub.subscribe({
+    channels: [CHAT_CHANNEL],
+    withPresence: true // Presence ကို ဖွင့်ထားခြင်း
+});
+
+
+// 7. Message ပို့ရန် Function
+function sendMessage() {
+    const text = messageInput.value.trim();
+    if (text.length > 0) {
+        pubnub.publish({
+            channel: CHAT_CHANNEL,
+            message: {
+                user: "KP_Blogger", // ဤနေရာတွင် User ကိုယ်တိုင် နာမည်ပေးနိုင်သော Input ထပ်ထည့်နိုင်သည်
+                text: text
+            }
         });
-        
-    } catch (error) {
-        // Error များ ရှိပါက ရှင်းလင်းစွာ ပြသမည်
-        wrapper.innerHTML = `<h2>❌ CometChat Connection Failed!</h2><p>Error Code: ${error.code}</p><p>Message: ${error.message}</p>`;
-        console.error("CometChat Initialization Error:", error);
+        messageInput.value = ''; // Input ရှင်းထုတ်ခြင်း
     }
 }
 
-initCometChat();
+// 8. Event Listeners (Button click and Enter key)
+sendButton.addEventListener('click', sendMessage);
+
+messageInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+// 9. Message Persistence မှ ယခင် Message များကို Load လုပ်ခြင်း
+pubnub.history({
+    channel: CHAT_CHANNEL,
+    count: 50 // နောက်ဆုံး 50 ခု ကို ပြန်ယူခြင်း
+}, (status, response) => {
+    if (response && response.messages) {
+        response.messages.forEach(item => {
+            const sender = item.entry.user || 'Anonymous';
+            const text = item.entry.text;
+            displayMessage(sender, text);
+        });
+    }
+});
