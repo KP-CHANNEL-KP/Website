@@ -8,82 +8,128 @@
     <link rel="stylesheet" href="chat.css"> 
     
     <style>
-        /* Chat Wrapper Container ကို နေရာချခြင်း */
+        /* Chat Window (Container) */
         #pubnub-chat-wrapper {
             height: 80vh; 
             width: 95%;
+            max-width: 800px; /* စာမျက်နှာ ကျဉ်းသွားပါက အရမ်းမကြီးစေရန် */
             margin: 20px auto;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 12px; /* ဘေးအနားဝိုင်းခြင်း */
+            padding: 0; /* Padding ကို Message Area အတွက် ထားမည် */
+            background-color: #f7f9fc; /* Chat Background ကို အဖြူနုရောင် ပြောင်းခြင်း */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             display: flex; 
             flex-direction: column;
+            overflow: hidden; /* Header/Footer များကို ထိန်းချုပ်ရန် */
+        }
+
+        /* Chat Header */
+        #pubnub-chat-wrapper h2 {
+            padding: 15px 20px;
+            margin: 0;
+            background-color: #1a73e8; /* Header အရောင်ကို အပြာပြောင်းခြင်း */
+            color: white;
+            font-size: 1.2em;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
 
         /* User Name ထည့်သွင်းရန် ဧရိယာ */
         #user-info-area {
             display: flex;
-            margin-bottom: 15px;
             align-items: center;
-            padding: 5px 0;
-            border-bottom: 1px solid #eee;
+            padding: 10px 20px;
+            background-color: #eef1f5; /* နာမည် ဧရိယာ နောက်ခံ အရောင် */
+            border-bottom: 1px solid #ddd;
         }
 
         #username-input {
             padding: 8px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 6px;
             margin-left: 10px;
-            width: 200px; /* နာမည် Input ကို ပုံသေ သတ်မှတ်ထားသည် */
+            width: 180px;
         }
 
+        /* Message ပြသရန် ဧရိယာ */
         #message-area {
             flex-grow: 1; 
             overflow-y: auto;
-            padding-bottom: 10px;
+            padding: 20px; /* Chat Content တွေ အသက်ဝင်စေရန် Padding ထည့်ခြင်း */
+            background-color: #f7f9fc;
         }
 
-        #input-area {
-            display: flex;
-            padding-top: 10px;
-        }
-        
-        #message-input {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-right: 10px;
-        }
-        
-        #send-button {
-            padding: 10px 15px;
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
+        /* Message တစ်ကြောင်းချင်းစီ၏ ပုံစံ */
         .chat-message {
-            margin-bottom: 8px;
-            padding: 5px;
-            border-radius: 4px;
-            background-color: #f5f5f5;
+            margin-bottom: 15px;
+            display: flex; /* Message ရဲ့ အစိတ်အပိုင်းတွေကို စီစဉ်ရန် */
+            flex-direction: column;
+            align-items: flex-start; /* ဘယ်ဘက်က စစေရန် */
+            padding: 8px 12px;
+            border-radius: 15px;
+            max-width: 80%; /* စာအရှည်ကြီး မဖြစ်စေရန် */
+            line-height: 1.4;
+            word-wrap: break-word; /* စာလုံးကြီးများ မဖောက်ထွက်စေရန် */
+        }
+
+        /* Default Message (အခြား User များ) */
+        .chat-message {
+            background-color: #ffffff; /* Message bubble နောက်ခံ */
+            border: 1px solid #ddd;
+            align-self: flex-start; 
+        }
+
+        /* System Message (ချိတ်ဆက်ပြီး စာသား) ကိုသာ ပိုမို သေသပ်အောင် ပြင်ဆင်ခြင်း */
+        #message-area p {
+            text-align: center;
+            width: 100%;
+            margin: 10px 0;
         }
 
         .chat-message strong {
-            color: #1a73e8;
+            color: #1a73e8; /* User Name ကို အပြာရင့်ရောင် ပြောင်းခြင်း */
+            font-weight: 600;
             margin-right: 5px;
+            font-size: 0.9em;
         }
         
         /* Time Stamp အတွက် Styling */
         .timestamp {
-            font-size: 0.75em;
-            color: #888;
-            margin-left: 10px;
+            font-size: 0.7em;
+            color: #999;
+            align-self: flex-end; /* ညာဘက်အောက်ခြေမှာ နေရာချခြင်း */
+            margin-top: 2px;
+        }
+
+        /* Input ဧရိယာ */
+        #input-area {
+            display: flex;
+            padding: 15px 20px;
+            border-top: 1px solid #ddd;
+            background-color: #fff;
+        }
+        
+        #message-input {
+            flex-grow: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 20px; /* Input Field ကို ဝိုင်းစေရန် */
+            margin-right: 10px;
+        }
+        
+        #send-button {
+            padding: 12px 20px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 20px; /* Button ကို ဝိုင်းစေရန် */
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #send-button:hover {
+            background-color: #145cb3;
         }
     </style>
 </head>
@@ -113,7 +159,7 @@
 
     <main>
         <div id="pubnub-chat-wrapper">
-            <h2>PubNub Group Chat</h2>
+            <h2>Group Chat (PubNub Powered)</h2>
             
             <div id="user-info-area">
                 <label for="username-input">သင့်နာမည်:</label>
@@ -121,7 +167,7 @@
             </div>
 
             <div id="message-area">
-                <p>Chat စနစ်ကို စတင်ချိတ်ဆက်နေပါသည်...</p>
+                <p style="text-align: center;">Chat စနစ်ကို စတင်ချိတ်ဆက်နေပါသည်...</p>
             </div>
             <div id="input-area">
                 <input type="text" id="message-input" placeholder="Message ရေးပါ..." disabled>
