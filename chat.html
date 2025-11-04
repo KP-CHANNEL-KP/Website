@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="chat.css"> 
     
     <style>
-        /* Chat Wrapper Container ကို နေရာချခြင်း (chat.css ထဲမှ ယူသည်) */
+        /* Chat Wrapper Container ကို နေရာချခြင်း (Chat Window ကြီး မြင်ရစေရန်) */
         #pubnub-chat-wrapper {
             height: 80vh; 
             width: 95%;
@@ -18,13 +18,13 @@
             padding: 20px;
             background-color: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: flex; /* Flexbox ဖြင့် Chat UI ကို စီစဉ်ရန် */
+            display: flex; 
             flex-direction: column;
         }
 
         #message-area {
-            flex-grow: 1; /* Messages ဧရိယာက ကျန်တဲ့ နေရာကို ယူပါစေ */
-            overflow-y: auto; /* Scrollable ဖြစ်စေရန် */
+            flex-grow: 1; 
+            overflow-y: auto; /* Message များ များလာပါက အလိုအလျောက် scroll လုပ်နိုင်ရန် */
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
         }
@@ -59,7 +59,7 @@
         }
 
         .chat-message strong {
-            color: #1a73e8;
+            color: #1a73e8; /* User Name ကို အပြာရောင်ပြခြင်း */
         }
     </style>
 </head>
