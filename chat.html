@@ -8,28 +8,21 @@
     <link rel="stylesheet" href="chat.css"> 
     
     <style>
-        /* Base Styling: Full height body (Mobile Fix အတွက် အခြေခံ) */
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex; /* header နှင့် main ကို နေရာချရန် */
-            flex-direction: column;
-        }
-
-        /* Chat Wrapper ကို main ထဲမှာ ထည့်ထားသဖြင့် main ကို နေရာယူစေရန် */
+        /* Base Styling: ယခင်က body, html ကို ဖြုတ်လိုက်ပြီ။ Main ကိုလည်း ပြန်ပြင်လိုက်ပြီ။ */
+        
         main {
-            flex-grow: 1; 
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 20px; /* အောက်ခြေ နည်းနည်း ခြားထားရန် */
+            /* flex-grow: 1; display: flex; flex-direction: column; ကို ဖြုတ်လိုက်ပါပြီ။ */
+            padding-bottom: 20px; 
+            /* main tag ကို သင့်ရဲ့ မူရင်း chat.css ကပဲ ထိန်းချုပ်ပါစေ။ */
         }
         
         /* Chat Window (Container) */
         #pubnub-chat-wrapper {
-            flex-grow: 1; /* main ဧရိယာထဲက နေရာအားလုံးကို ယူရန် */
+            /* flex-grow: 1 ကို ဖြုတ်လိုက်ပြီ။ အမြင့်ကို ပြန်သတ်မှတ်ပါမည်။ */
+            height: 80vh; /* Desktop အတွက် ပုံမှန် အမြင့်ကို ပြန်ပေးသည် */
             width: 95%;
             max-width: 800px;
-            margin: 20px auto 0 auto; /* အပေါ်မှာ 20px, အောက်ခြေ 0 */
+            margin: 20px auto; /* ညာဘက်၊ ဘယ်ဘက်၊ အပေါ်အောက် အားလုံးကို ပြန်ပေးလိုက်ပြီ */
             border: 1px solid #ddd;
             border-radius: 12px;
             padding: 0; 
@@ -39,7 +32,7 @@
             flex-direction: column;
             overflow: hidden; 
         }
-
+        
         /* Chat Header */
         #pubnub-chat-wrapper h2 {
             padding: 15px 20px;
@@ -109,7 +102,7 @@
         .chat-message.self {
             background-color: #dcf8c6; 
             border: 1px solid #c7e8b6;
-            align-self: flex-end; /* ညာဘက်သို့ ကပ်သည် (FIXED) */
+            align-self: flex-end; 
         }
         
         .chat-message.self strong {
@@ -200,6 +193,7 @@
         /* === MOBILE RESPONSIVENESS FIX === */
         @media (max-width: 600px) {
             #pubnub-chat-wrapper {
+                height: 90vh; /* Mobile မှာ အမြင့်ပြန်ပေးသည် */
                 margin: 0;
                 width: 100%;
                 border-radius: 0;
@@ -258,7 +252,7 @@
 
     <main>
         <div id="pubnub-chat-wrapper">
-            <h2>Group Chat</h2>
+            <h2>Group Chat (PubNub Powered)</h2>
             
             <div id="user-info-area">
                 <label for="username-input">သင့်နာမည်:</label>
