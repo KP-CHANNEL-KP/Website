@@ -51,10 +51,20 @@
             margin-left: 10px;
             width: 180px;
         }
+        
+        /* Typing Indicator နေရာ */
+        #typing-indicator {
+            padding: 5px 20px;
+            color: #777;
+            font-size: 0.85em;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #eee;
+            min-height: 25px;
+        }
 
-        /* Message ပြသရန် ဧရိယာ - **အဓိက ပြင်ဆင်ချက်** */
+        /* Message ပြသရန် ဧရိယာ */
         #message-area {
-            flex-grow: 1; /* Message ဧရိယာက ကျန်တဲ့ နေရာကို ယူရန် */
+            flex-grow: 1; 
             overflow-y: auto;
             padding: 20px; 
             background-color: #f7f9fc;
@@ -65,15 +75,29 @@
             margin-bottom: 15px;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
             padding: 8px 12px;
             border-radius: 15px;
             max-width: 80%;
             line-height: 1.4;
             word-wrap: break-word;
+        }
+
+        /* သူများပို့သော Message များ (ဘယ်ဘက်၊ အဖြူ) */
+        .chat-message.other {
             background-color: #ffffff;
             border: 1px solid #ddd;
-            align-self: flex-start; 
+            align-self: flex-start; /* <--- ခြားနားချက်မရှိ၊ ဘယ်ဘက်ကပ်သည် */
+        }
+        
+        /* ကိုယ်ပို့သော Message များ (ညာဘက်၊ အစိမ်းနု/အပြာနု) */
+        .chat-message.self {
+            background-color: #dcf8c6; 
+            border: 1px solid #c7e8b6;
+            **align-self: flex-end;** /* <--- FIX: ညာဘက်သို့ ကပ်ရန် ထည့်သွင်း/အတည်ပြုပါ */
+        }
+        
+        .chat-message.self strong {
+            color: #075e54; 
         }
 
         .chat-message strong {
@@ -156,40 +180,58 @@
             color: #1a73e8;
             text-decoration: none;
         }
+        
+        /* === MOBILE RESPONSIVENESS FIX === */
+        @media (max-width: 600px) {
+            #pubnub-chat-wrapper {
+                height: 90vh; 
+                margin: 0;
+                width: 100%;
+                border-radius: 0;
+            }
+
+            #user-info-area {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            #username-input {
+                margin-left: 0;
+                margin-top: 5px;
+                width: 100%;
+            }
+
+            #input-area {
+                padding: 10px;
+            }
+            
+            #message-input {
+                padding: 10px;
+                margin-right: 5px;
+            }
+            
+            #send-button, #file-upload-label {
+                padding: 10px 15px;
+                border-radius: 50%; 
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-content">
-            <div class="logo-and-title">
-                <img src="logo.png" alt="KP Logo" class="logo">
-                <h1 class="site-title">KP Blog</h1>
-            </div>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="posts.html">Posts</a>
-                <a href="free.html">Free</a>
-                <a href="buy.html">Buy</a>
-                <a href="all.html">All</a>
-                <a href="review.html">Review</a> 
-                <a href="chat.html">Chat</a> <a href="privacy.html">Privacy Policy</a>
-                <a href="contact.html">Contact</a>
-                <a href="about.html">About</a>
-                <a href="guides.html">Guides</a>
-                <a href="chat.html">Chat Group</a>
-            </nav>
-        </div>
-    </header>
+        </header>
 
     <main>
         <div id="pubnub-chat-wrapper">
-            <h2>KP GROUP CHAT</h2>
+            <h2>Group Chat </h2>
             
             <div id="user-info-area">
                 <label for="username-input">သင့်နာမည်:</label>
                 <input type="text" id="username-input" placeholder="Guest" maxlength="20">
             </div>
+            
+            <div id="typing-indicator"></div>
 
             <div id="message-area">
                 <p style="text-align: center;">Chat စနစ်ကို စတင်ချိတ်ဆက်နေပါသည်...</p>
