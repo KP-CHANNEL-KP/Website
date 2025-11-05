@@ -1,5 +1,5 @@
 /*
- * Home_style.css (Pro Design Version)
+ * Home_style.css (Professional Polished Design Version)
  * KP Blog - Global Homepage Styles
  */
 
@@ -9,11 +9,12 @@
 :root {
     --primary-color: #1a73e8; /* Blue */
     --secondary-color: #3f51b5; /* Darker Blue for hover */
-    --text-color: #2c3e50; /* Dark Text */
-    --light-bg: #f0f4f8; 
+    --text-color: #202124; /* Google Dark Text */
+    --light-text: #5f6368; /* Google Light Text */
+    --light-bg: #f8f9fa; /* Lighter Background */
     --white-bg: #ffffff;
-    --border-color: #e0e0e0;
-    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --border-color: #dadce0;
+    --shadow-pro: 0 1px 3px 0 rgba(60, 64, 67, 0.1), 0 1px 2px 0 rgba(60, 64, 67, 0.1); /* Subtle Shadow */
     --font-family: 'Inter', sans-serif;
 }
 
@@ -27,11 +28,16 @@ body {
     font-family: var(--font-family);
     background-color: var(--light-bg);
     color: var(--text-color);
-    line-height: 1.6;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
 }
 
 /* ======================================= */
-/* 2. Header and Navigation (Unchanged from your specification) */
+/* 2. Header and Navigation (Menu Bar) */
 /* ======================================= */
 header {
     background-color: var(--primary-color); 
@@ -41,11 +47,11 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
 .header-content {
-    max-width: 1000px;
+    max-width: 1200px; /* Max width ကို ပိုချဲ့ပါ */
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
@@ -63,11 +69,12 @@ header {
     height: 40px;
     border-radius: 50%; 
     margin-right: 10px;
+    object-fit: cover;
 }
 
 .site-title {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.6em;
     font-weight: 700;
     color: white !important; 
 }
@@ -75,55 +82,32 @@ header {
 nav a {
     color: white;
     text-decoration: none;
-    margin-left: 20px;
+    margin-left: 25px;
     font-weight: 500;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    padding: 8px 0;
+    transition: color 0.3s;
+    position: relative;
 }
 
 nav a:hover {
-    background-color: var(--secondary-color); 
+    color: #f1f1f1; 
 }
 
 /* ======================================= */
 /* 3. Main Content Area & Layout */
 /* ======================================= */
 main {
-    padding-top: 90px; /* Header မပိတ်အောင် နေရာခွာခြင်း */
+    padding-top: 70px; /* Fixed Header အတွက် နေရာခွာခြင်း */
     padding-bottom: 50px;
-    max-width: 1000px;
+    max-width: 1200px; /* Header width နဲ့ ကိုက်ညီအောင် ပြောင်းသည် */
     margin: 0 auto; 
     padding-left: 20px;
     padding-right: 20px;
 }
 
-h1, h2, h3, p {
-    color: var(--text-color);
-}
-
-/* Base Headings (for Hero Section titles, removed text-align: center) */
-main h1 {
-    font-size: 2.5em; /* ပိုကြီးစေရန် */
-    color: var(--text-color);
-    margin-bottom: 15px;
-    font-weight: 700;
-    text-align: center;
-}
-
-main h2 {
-    font-size: 1.5em;
-    color: #555;
-    text-align: center;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-main p {
-    font-size: 1.1em;
-    color: #7f8c8d;
-    text-align: center;
-    margin-bottom: 30px;
+/* Section Separator */
+section {
+    margin-bottom: 40px;
 }
 
 /* --- Section Titles --- */
@@ -131,110 +115,140 @@ main p {
     text-align: center;
     font-size: 1.8em;
     color: var(--primary-color);
-    margin: 40px 0 25px 0;
-    font-weight: 600;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
-    display: inline-block;
+    margin: 40px 0 20px 0;
+    font-weight: 700;
+    position: relative;
 }
 
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+
 /* ======================================= */
-/* 4. HERO SECTION (Modern/Minimal) */
+/* 4. HERO SECTION (High-Impact Banner) */
 /* ======================================= */
 .hero-section {
     background-color: var(--white-bg);
-    padding: 60px 20px;
+    padding: 80px 40px;
     text-align: center;
     border-radius: 12px;
-    box-shadow: var(--shadow-light);
-    margin-bottom: 30px;
+    box-shadow: var(--shadow-pro);
+    background-image: linear-gradient(135deg, rgba(26, 115, 232, 0.05), rgba(240, 244, 248, 0)); /* Subtle gradient */
 }
 
 .hero-icon {
     font-size: 3em;
     color: var(--primary-color);
     margin-bottom: 15px;
+    opacity: 0.8;
 }
 
 .hero-section h1 {
-    font-size: 3em;
+    font-size: 3.5em; /* ပိုကြီးပြီး ဆွဲဆောင်မှုရှိစေရန် */
     font-weight: 800;
-    color: var(--primary-color);
-    margin-bottom: 20px;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    line-height: 1.1;
 }
 
 .hero-section h2 {
-    font-size: 1.3em;
+    font-size: 1.5em;
     font-weight: 600;
-    color: #555;
-    margin-bottom: 5px;
+    color: var(--light-text);
+    margin-bottom: 25px;
+}
+
+.hero-section p {
+    font-size: 1.1em;
+    color: var(--light-text);
+    max-width: 700px;
+    margin: 0 auto 30px;
 }
 
 .cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     background-color: var(--primary-color);
     color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
+    padding: 14px 30px;
+    border-radius: 25px; /* Pill Shape */
     text-decoration: none;
     font-weight: 600;
-    margin-top: 20px;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.cta-button i {
+    margin-left: 10px;
 }
 
 .cta-button:hover {
     background-color: var(--secondary-color);
     transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.4);
 }
 
 /* ======================================= */
-/* 5. FEATURED POSTS (Grid Layout) */
+/* 5. FEATURED POSTS (Improved Card Style) */
 /* ======================================= */
 .featured-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* ပိုကြီးသော ကတ်များ */
+    gap: 30px;
     margin-top: 20px;
 }
 
 .post-card {
     background-color: var(--white-bg);
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: var(--shadow-light);
-    border-left: 5px solid var(--primary-color);
-    transition: transform 0.3s;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-pro);
+    border-left: 4px solid var(--primary-color);
+    transition: transform 0.3s, border-color 0.3s;
 }
 
 .post-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border-left-color: var(--secondary-color);
 }
 
 .card-tag {
     display: inline-block;
-    background-color: #e0f2f1;
-    color: #00897b;
-    font-size: 0.75em;
+    background-color: #e6f3ff; /* Light Primary BG */
+    color: var(--primary-color);
+    font-size: 0.8em;
     font-weight: 700;
     padding: 4px 10px;
-    border-radius: 4px;
-    margin-bottom: 10px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
 }
 
 .post-card h3 a {
     text-decoration: none;
-    color: var(--primary-color);
-    font-size: 1.2em;
+    color: var(--text-color);
+    font-size: 1.3em;
     margin-bottom: 10px;
     display: block;
+    font-weight: 700;
+}
+
+.post-card h3 a:hover {
+    color: var(--primary-color);
 }
 
 .post-card p {
     text-align: left;
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 15px;
+    font-size: 0.95em;
+    color: var(--light-text);
+    margin-bottom: 20px;
 }
 
 .post-meta {
@@ -243,18 +257,18 @@ main p {
 }
 
 /* ======================================= */
-/* 6. LATEST POSTS (List Style) */
+/* 6. LATEST POSTS (Clean List Style) */
 /* ======================================= */
 .latest-grid {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     margin-top: 20px;
 }
 
 .post-summary-pro {
     background-color: var(--white-bg);
-    padding: 18px 25px;
+    padding: 15px 25px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
     display: flex;
@@ -265,19 +279,20 @@ main p {
 
 .post-summary-pro:hover {
     border-color: var(--primary-color);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-pro);
 }
 
 .post-summary-pro h3 {
     margin: 0;
-    font-size: 1.1em;
+    font-size: 1em;
+    font-weight: 600;
     color: var(--text-color);
 }
 
 .post-summary-pro p {
     margin: 0;
-    font-size: 0.9em;
-    color: #777;
+    font-size: 0.85em;
+    color: var(--light-text);
     flex-grow: 1;
     padding: 0 15px;
     text-align: left;
@@ -288,56 +303,66 @@ main p {
     text-decoration: none;
     font-weight: 600;
     white-space: nowrap;
+    padding: 5px 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+.read-more:hover {
+    background-color: var(--primary-color);
+    color: white;
 }
 
 /* ======================================= */
-/* 7. CTA Section */
+/* 7. CTA Section (Clean & Focused) */
 /* ======================================= */
 .cta-section {
     background-color: var(--primary-color);
     color: white;
-    padding: 40px 20px;
+    padding: 50px 20px;
     text-align: center;
     border-radius: 12px;
     margin-top: 40px;
+    box-shadow: 0 8px 20px rgba(26, 115, 232, 0.2);
 }
 
 .cta-section h3 {
     color: white;
-    font-size: 1.8em;
+    font-size: 2em;
     margin-bottom: 10px;
 }
 
 .cta-section p {
-    color: #f0f0f0;
-    font-size: 1em;
-    margin-bottom: 25px;
+    color: #f1f1f1;
+    font-size: 1.1em;
+    margin-bottom: 30px;
 }
 
 .cta-chat-button {
-    display: inline-block;
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 14px 30px;
+    border-radius: 25px;
     text-decoration: none;
     font-weight: 700;
     transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .cta-chat-button:hover {
-    background-color: #2c3e50;
-    transform: scale(1.05);
+    background-color: #f0f0f0;
+    transform: scale(1.03);
 }
-
 
 /* ======================================= */
 /* 8. Footer */
 /* ======================================= */
 footer {
-    padding: 15px;
+    padding: 20px;
     text-align: center;
-    font-size: 0.9em;
+    font-size: 0.85em;
     color: #666;
     background-color: var(--white-bg);
     border-top: 1px solid var(--border-color);
@@ -348,35 +373,52 @@ footer {
 /* 9. Mobile Responsiveness */
 /* ======================================= */
 @media (max-width: 768px) {
-    /* Header/Nav Styles are handled by your original CSS */
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        margin-top: 10px;
+        flex-direction: row; /* Mobile မှာ အလယ်မှာ စုထားရန် */
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
     
+    nav a {
+        margin: 5px 10px;
+        padding: 5px 10px;
+    }
+
     .hero-section {
-        padding: 40px 15px;
+        padding: 60px 15px;
     }
 
     .hero-section h1 {
-        font-size: 2em;
+        font-size: 2.5em;
+    }
+    
+    .featured-grid {
+        grid-template-columns: 1fr;
     }
     
     .post-summary-pro {
         flex-direction: column;
         align-items: flex-start;
+        padding: 15px;
     }
 
     .post-summary-pro p {
         padding: 5px 0;
-        margin-bottom: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .cta-button, .cta-chat-button {
-        display: block;
-        width: 100%;
-        margin-top: 15px;
+        margin-bottom: 5px;
     }
     
-    .featured-grid {
-        grid-template-columns: 1fr;
+    .read-more {
+        align-self: flex-end;
+    }
+
+    .cta-section {
+        padding: 30px 15px;
     }
 }
