@@ -8,21 +8,18 @@
     <link rel="stylesheet" href="chat.css"> 
     
     <style>
-        /* Base Styling: ယခင်က body, html ကို ဖြုတ်လိုက်ပြီ။ Main ကိုလည်း ပြန်ပြင်လိုက်ပြီ။ */
-        
-        main {
-            /* flex-grow: 1; display: flex; flex-direction: column; ကို ဖြုတ်လိုက်ပါပြီ။ */
-            padding-bottom: 20px; 
-            /* main tag ကို သင့်ရဲ့ မူရင်း chat.css ကပဲ ထိန်းချုပ်ပါစေ။ */
-        }
+        /*
+        * HOME PAGE CONFLICT FIX:
+        * Global selectors (body, html, main) များကို ဖယ်ရှားလိုက်ပါပြီ။
+        * CSS သည် #pubnub-chat-wrapper ဧရိယာကိုသာ ထိခိုက်စေပါမည်။
+        */
         
         /* Chat Window (Container) */
         #pubnub-chat-wrapper {
-            /* flex-grow: 1 ကို ဖြုတ်လိုက်ပြီ။ အမြင့်ကို ပြန်သတ်မှတ်ပါမည်။ */
-            height: 80vh; /* Desktop အတွက် ပုံမှန် အမြင့်ကို ပြန်ပေးသည် */
+            height: 80vh; 
             width: 95%;
             max-width: 800px;
-            margin: 20px auto; /* ညာဘက်၊ ဘယ်ဘက်၊ အပေါ်အောက် အားလုံးကို ပြန်ပေးလိုက်ပြီ */
+            margin: 20px auto; /* မျက်နှာပြင် အလယ်မှာ နေရာယူရန် */
             border: 1px solid #ddd;
             border-radius: 12px;
             padding: 0; 
@@ -71,9 +68,9 @@
             min-height: 25px;
         }
 
-        /* Message ပြသရန် ဧရိယာ - Flexible ဧရိယာ */
+        /* Message ပြသရန် ဧရိယာ */
         #message-area {
-            flex-grow: 1; /* အမြင့်ကို အလိုအလျောက် ဖြည့်ရန် */
+            flex-grow: 1; 
             overflow-y: auto;
             padding: 20px; 
             background-color: #f7f9fc;
@@ -193,10 +190,10 @@
         /* === MOBILE RESPONSIVENESS FIX === */
         @media (max-width: 600px) {
             #pubnub-chat-wrapper {
-                height: 90vh; /* Mobile မှာ အမြင့်ပြန်ပေးသည် */
-                margin: 0;
-                width: 100%;
-                border-radius: 0;
+                height: calc(100vh - 100px); /* Mobile မှာ Home Bar နဲ့ Header ကို နေရာချန်ပြီး တွက်ချက်သည် */
+                margin: 10px auto;
+                width: 95%;
+                border-radius: 12px;
             }
 
             #user-info-area {
@@ -252,7 +249,7 @@
 
     <main>
         <div id="pubnub-chat-wrapper">
-            <h2>Group Chat (PubNub Powered)</h2>
+            <h2>Group Chat</h2>
             
             <div id="user-info-area">
                 <label for="username-input">သင့်နာမည်:</label>
