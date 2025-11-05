@@ -1,173 +1,93 @@
-/* * Home_style.css
- * KP Blog - Global Homepage Styles 
- * Primary Color: #1a73e8 (Blue)
- */
-
-/* ======================================= */
-/* 1. Global Reset and Variables */
-/* ======================================= */
-:root {
-    --primary-color: #1a73e8;
-    --text-color: #333;
-    --light-bg: #f4f4f4;
-    --white-bg: #ffffff;
-    --border-color: #ddd;
-    --font-family: Arial, sans-serif;
-}
-
-* {
-    box-sizing: border-box;
+/* --- Global Styles --- */
+body {
+    font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-}
-
-body {
-    font-family: var(--font-family);
-    background-color: var(--light-bg);
-    color: var(--text-color);
+    background-color: #f0f4f8; /* ပေါ့ပါးသော နောက်ခံအရောင် */
+    color: #333;
     line-height: 1.6;
 }
 
-/* ======================================= */
-/* 2. Header and Navigation */
-/* ======================================= */
+/* --- Header & Navigation --- */
 header {
-    background-color: var(--white-bg);
+    background-color: #1a73e8; 
+    color: white;
     padding: 10px 0;
-    border-bottom: 3px solid var(--primary-color); /* Primary Color border */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: sticky; /* Header ကို အမြဲတမ်း အပေါ်မှာ ကပ်ထားရန် */
+    position: fixed; /* Header ကို အပေါ်ဆုံးမှာ ကပ်ထားရန် */
+    width: 100%;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
 }
 
 .header-content {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    flex-wrap: wrap;
 }
 
 .logo-and-title {
     display: flex;
     align-items: center;
-    margin: 5px 0;
 }
 
 .logo {
-    height: 40px; 
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%; 
     margin-right: 10px;
 }
 
 .site-title {
-    font-size: 1.8em;
     margin: 0;
-    color: var(--primary-color);
+    font-size: 1.5em;
+    font-weight: 700;
+    
+    /* ပြင်ဆင်ချက်: စာသားအရောင်ကို အဖြူရောင် (White) သို့ Force ပြောင်းခြင်း */
+    color: white !important; 
 }
 
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 5px 0;
-}
 
 nav a {
+    color: white;
     text-decoration: none;
-    color: var(--text-color);
-    margin-left: 15px;
-    font-weight: 600;
-    padding: 5px 0;
-    transition: color 0.3s;
+    margin-left: 20px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
-nav a:hover,
-nav a.current-page {
-    color: var(--primary-color);
+nav a:hover {
+    background-color: #3f51b5; 
 }
 
-/* ======================================= */
-/* 3. Main Content Area (Homepage Specific) */
-/* ======================================= */
+/* --- Main Content Area & Alignment --- */
 main {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: var(--white-bg);
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    padding-top: 90px; /* Header မပိတ်အောင် နေရာခွာခြင်း */
+    padding-bottom: 50px;
+    
+    /* Main Content Area ကို အကျယ်ကန့်သတ်ပြီး အလယ်ဗဟို ချိန်ညှိခြင်း */
+    max-width: 1000px;
+    margin: 0 auto; 
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
+/* --- Headings for All Page --- */
 h1 {
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-h2 {
-    color: var(--text-color);
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-/* Post Summary Styles (Sample for Homepage) */
-.post-summary {
-    border: 1px solid #eee;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    background-color: #fcfcfc;
-    transition: box-shadow 0.3s;
-}
-
-.post-summary:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.post-summary h3 {
-    color: var(--primary-color);
-    margin-top: 0;
-}
-
-/* ======================================= */
-/* 4. Footer */
-/* ======================================= */
-footer {
-    padding: 15px;
+    font-size: 1.8em;
+    color: #2c3e50;
     text-align: center;
-    font-size: 0.9em;
-    color: #666;
-    background-color: var(--white-bg);
-    border-top: 1px solid var(--border-color);
-    margin-top: 20px;
+    margin-bottom: 5px;
 }
 
-/* ======================================= */
-/* 5. Mobile Responsiveness */
-/* ======================================= */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    nav {
-        margin-top: 10px;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    nav a {
-        margin: 5px 0;
-        border-bottom: 1px dashed #eee;
-        padding-bottom: 5px;
-    }
-
-    main {
-        padding: 15px;
-        margin: 10px auto;
-    }
+p {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 30px;
 }
