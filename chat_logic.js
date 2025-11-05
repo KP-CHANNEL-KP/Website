@@ -1,4 +1,4 @@
-// chat_logic.js (File Sharing Version)
+// chat_logic.js (Advanced UI & Typing Indicator Version)
 
 // 1. Key များကို သတ်မှတ်ခြင်း 
 const PUBLISH_KEY = "pub-c-bdaf8ee9-735f-45b4-b10f-3f0ddce7a6d6";
@@ -20,45 +20,54 @@ const messageArea = document.getElementById('message-area');
 const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-button');
 const usernameInput = document.getElementById('username-input');
-const fileInput = document.getElementById('file-input'); // File Input အသစ်
+const fileInput = document.getElementById('file-input');
+const typingIndicator = document.getElementById('typing-indicator'); // Typing Indicator Element
+
+// Typing Indicator အတွက် State
+let isTyping = false;
+let typingTimer;
 
 // Time Stamp ကို Readable Format သို့ ပြောင်းလဲခြင်း
 function formatTimestamp(timetoken) {
     const date = new Date(timetoken / 10000); 
+    // မြန်မာစံတော်ချိန် (GMT+06:30) ကို တိုက်ရိုက် သတ်မှတ်ရန် ခက်ခဲသောကြောင့် Local Time ကိုသာ အသုံးပြုပါမည်
     return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 }
 
 // 4. Message/File လက်ခံရရှိပါက UI ကို Update လုပ်မည့် Function
-function displayMessage(user, content, timetoken) {
+function displayMessage(user, content, timetoken, senderUuid) {
     const p = document.createElement('p');
+    
+    // Message ပို့သူသည် လက်ရှိ User ID ဖြစ်မဖြစ် စစ်ဆေးခြင်း
+    const isSelf = senderUuid === pubnub.getUUID(); // ဤနေရာတွင် UUID ကို စစ်ဆေးရပါမည်
     p.classList.add('chat-message');
+    p.classList.add(isSelf ? 'self' : 'other'); // Class ခွဲခြား သတ်မှတ်ခြင်း
+    
     const timeString = formatTimestamp(timetoken);
     
-    // Message Content ကို ထည့်သွင်းခြင်း
     let contentHTML = content.text || ''; 
     
-    // File/Image ပါလာပါက 
     if (content.file) {
         const file = content.file;
         const fileUrl = file.url;
         const fileName = file.name;
         
         if (file.mimeType && file.mimeType.startsWith('image/')) {
-            // ပုံ ဖြစ်ပါက ပုံကို တိုက်ရိုက် ပြသမည်
             contentHTML += `<a href="${fileUrl}" target="_blank"><img src="${fileUrl}" alt="${fileName}" class="uploaded-image"></a>`;
         } else {
-            // အခြား ဖိုင်အမျိုးအစား ဖြစ်ပါက Link အဖြစ် ပြသမည်
             contentHTML += `<a href="${fileUrl}" target="_blank" class="file-link">📁 ${fileName} (Download)</a>`;
         }
         
-        // စာသားပါလာလျှင် စာသားနဲ့ ဖိုင်ကို တွဲပြသည်
         if (content.text) {
              contentHTML = `${content.text}<br>${contentHTML}`;
         }
     }
     
+    // Self Message ဆိုရင် နာမည်ကို message bubble အောက်ခြေနားမှာ ဖျောက်ထားလေ့ရှိသည်
+    const userNameDisplay = isSelf ? '' : `<strong>${user || 'Guest'}</strong>: `; 
+
     p.innerHTML = `
-        <strong>${user || 'Guest'}</strong>: 
+        ${userNameDisplay}
         <div style="margin-top: 5px;">${contentHTML}</div>
         <span class="timestamp">${timeString}</span>
     `;
@@ -69,13 +78,32 @@ function displayMessage(user, content, timetoken) {
 
 // 5. PubNub Listener ကို ထည့်သွင်းခြင်း
 pubnub.addListener({
+    // Messages လက်ခံရရှိပါက
     message: function(message) {
-        // PubNub file message များကို message.message ထဲတွင် file attribute ဖြင့် တွေ့ရသည်
         const sender = message.message.user || 'Anonymous';
         const timetoken = message.timetoken; 
         
-        displayMessage(sender, message.message, timetoken);
+        // Typing Indicator ကို ပျောက်သွားအောင် လုပ်သည်
+        if (message.message.typing === false) return; 
+
+        displayMessage(sender, message.message, timetoken, message.publisher); // Publisher (UUID) ကို ပို့သည်
     },
+    // Signal (Typing Indicator အတွက်) လက်ခံရရှိပါက
+    signal: function(signal) {
+        const senderUuid = signal.publisher;
+        // ကိုယ့်ဆီကလာတဲ့ signal ဆိုရင် စာမပြရ
+        if (senderUuid === pubnub.getUUID()) return; 
+
+        const typingStatus = signal.message.typing;
+        const senderName = signal.message.user || 'တစ်ဦးတစ်ယောက်';
+        
+        if (typingStatus === true) {
+            typingIndicator.textContent = `${senderName} စာရိုက်နေသည်...`;
+        } else {
+            typingIndicator.textContent = '';
+        }
+    },
+    // Connection Status ပြောင်းလဲပါက
     status: function(status) {
         if (status.category === "PNConnectedCategory") {
             messageArea.innerHTML = "<p style='color: green; text-align: center;'>✅ Chat စနစ် အောင်မြင်စွာ ချိတ်ဆက်ပြီးပါပြီ။ စတင် စကားပြောနိုင်ပါပြီ။</p>";
@@ -93,41 +121,52 @@ pubnub.subscribe({
     withPresence: true 
 });
 
+// 7. Typing Signal ပို့ရန် Function
+function sendTypingSignal(typingStatus) {
+    let userName = usernameInput.value.trim() || 'Guest';
+    pubnub.signal({
+        channel: CHAT_CHANNEL,
+        message: {
+            user: userName,
+            typing: typingStatus
+        }
+    });
+}
 
-// 7. Message ပို့ရန် Function (File Logic ထပ်တိုး)
+// 8. Message ပို့ရန် Function (File Logic ထပ်တိုး)
 function sendMessage(fileToSend = null) {
-    let userName = usernameInput.value.trim();
-    if (userName.length === 0) {
-        userName = "Guest"; 
+    // ပြီးသွားတဲ့အခါ Typing Signal ကို ပိတ်ပါ
+    if (isTyping) {
+        isTyping = false;
+        clearTimeout(typingTimer);
+        sendTypingSignal(false);
     }
     
+    let userName = usernameInput.value.trim() || 'Guest';
     const text = messageInput.value.trim();
     
-    // စာသားရော၊ ဖိုင်ပါ မပါဝင်ရင် ဘာမှမပို့ပါ
     if (text.length === 0 && !fileToSend) {
         return; 
     }
 
     if (fileToSend) {
-        // 7.1. File ကို PubNub Storage သို့ Upload လုပ်ခြင်း
+        // 8.1. File Upload လုပ်ခြင်း
         pubnub.sendFile({
             channel: CHAT_CHANNEL,
             file: fileToSend,
             message: {
                 user: userName,
-                text: text // စာသားကို ဖိုင်နဲ့တွဲပြီး ပို့နိုင်သည်
+                text: text 
             }
         }, (status, response) => {
             if (status.error) {
                 alert("File ပို့ရာတွင် အခက်အခဲရှိပါသည်။: " + status.error.message);
-            } else {
-                console.log("File Uploaded Successfully: ", response);
             }
         });
         
-        fileInput.value = ''; // File input ကို ရှင်းထုတ်ခြင်း
+        fileInput.value = ''; 
     } else {
-        // 7.2. စာသားသက်သက်သာ ပို့ခြင်း
+        // 8.2. စာသားသက်သက်သာ ပို့ခြင်း
         pubnub.publish({
             channel: CHAT_CHANNEL,
             message: {
@@ -137,12 +176,27 @@ function sendMessage(fileToSend = null) {
         });
     }
 
-    messageInput.value = ''; // Input ရှင်းထုတ်ခြင်း
+    messageInput.value = ''; 
 }
 
-// 8. Event Listeners 
+// 9. Input တွင် စာရိုက်နေကြောင်း စစ်ဆေးရန် Event Listener
+messageInput.addEventListener('input', function() {
+    // စာလုံး စရိုက်တာနဲ့ Typing Signal ပို့သည်
+    if (!isTyping) {
+        isTyping = true;
+        sendTypingSignal(true);
+    }
+    
+    // 2 စက္ကန့် စာမရိုက်ရင် Typing Signal ပိတ်သည်
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+        isTyping = false;
+        sendTypingSignal(false);
+    }, 2000); 
+});
+
+// 10. Send Button နှင့် Enter Key Event Listeners
 sendButton.addEventListener('click', () => {
-    // File input မှာ ဖိုင်ပါလာရင် ဖိုင်ပို့ဖို့ ခေါ်မည်၊ မပါရင် စာသားပို့မည်
     const file = fileInput.files[0];
     if (file) {
         sendMessage(file);
@@ -163,22 +217,20 @@ messageInput.addEventListener('keypress', function(e) {
     }
 });
 
-// 9. File Input မှာ ဖိုင်ရွေးချယ်ပြီးပါက အလိုအလျောက် ပို့ခိုင်းရန် (optional)
 fileInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
         const confirmSend = confirm(`"${file.name}" ဖိုင်ကို ပို့မှာလား? (Message Input မှာ စာသား ထပ်ထည့်နိုင်ပါသည်။)`);
         if (confirmSend) {
-            // စာသားနဲ့တွဲပြီး ပို့ရန် Button ကို နှိပ်သလို လုပ်ဆောင်သည်
             document.getElementById('send-button').click(); 
         } else {
-             fileInput.value = ''; // မပို့ရင် ဖိုင်ကို ရှင်းထုတ်သည်
+             fileInput.value = ''; 
         }
     }
 });
 
 
-// 10. Message Persistence မှ ယခင် Message များကို Load လုပ်ခြင်း
+// 11. Message Persistence မှ ယခင် Message များကို Load လုပ်ခြင်း
 pubnub.history({
     channel: CHAT_CHANNEL,
     count: 50 
@@ -187,9 +239,10 @@ pubnub.history({
         response.messages.forEach(item => {
             const sender = item.entry.user || 'Anonymous';
             const timetoken = item.timetoken; 
-            
+            const senderUuid = item.actions ? item.actions.uuid : 'unknown'; // History က sender UUID ကို ယူရန်
+
             // History က messages တွေကို ပြသရန်
-            displayMessage(sender, item.entry, timetoken); 
+            displayMessage(sender, item.entry, timetoken, senderUuid); 
         });
     }
 });
