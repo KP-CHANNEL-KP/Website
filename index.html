@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KP Blog</title>
-    <link rel="stylesheet" href="style.css">
+    <title>KP Blog - Home</title>
+    <style>
+        /* ဤနေရာတွင် သင့်ရဲ့ Header နှင့် Navigation အတွက် CSS များ ထည့်သွင်းပါ */
+        /* ဥပမာ: */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        header { background-color: #ffffff; padding: 10px 0; border-bottom: 1px solid #ddd; }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo-and-title { display: flex; align-items: center; }
+        .logo { height: 40px; margin-right: 10px; }
+        .site-title { font-size: 1.5em; margin: 0; color: #333; }
+        nav a { text-decoration: none; color: #1a73e8; margin-left: 15px; font-weight: bold; }
+        main { max-width: 1200px; margin: 20px auto; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; }
+        /* Homepage မှာ ပေါ်ချင်တဲ့ Style တွေ ဒီနေရာမှာ ထားခဲ့ပါ */
+    </style>
 </head>
 <body>
 
@@ -12,53 +25,48 @@
         <div class="header-content">
             <div class="logo-and-title">
                 <img src="logo.png" alt="KP Logo" class="logo">
-                <h1 class="site-title">KP</h1>
+                <h1 class="site-title">KP Blog</h1>
             </div>
-            
             <nav>
-                <a href="index.html">ပင်မ</a>
-                <a href="#posts">စာမူများ</a>
-                <a href="#about">ကျွန်ုပ်အကြောင်း</a>
+                <a href="index.html">Home</a>
+                <a href="posts.html">Posts</a>
+                <a href="free.html">Free</a>
+                <a href="buy.html">Buy</a>
+                <a href="all.html">All</a>
+                <a href="review.html">Review</a> 
+                <a href="chat.html">Chat</a> <a href="privacy.html">Privacy Policy</a>
+                <a href="contact.html">Contact</a>
+                <a href="about.html">About</a>
+                <a href="guides.html">Guides</a>
+                <a href="chat.html">Chat Group</a>
             </nav>
         </div>
     </header>
-    
+
     <main>
+        <h1>👋 KP Blog မှ ကြိုဆိုပါသည်</h1>
+        <p>
+            ဤသည်မှာ သင့် Website ၏ ပင်မစာမျက်နှာ (Homepage) ဖြစ်ပါသည်။ 
+            နောက်ဆုံးပေါ် Blog Post များ၊ အထူးအသားပေး အကြောင်းအရာများ သို့မဟုတ် 
+            Website မိတ်ဆက် စာသားများကို ဤနေရာတွင် ထည့်သွင်းနိုင်ပါသည်။
+        </p>
         
-        <section class="hero">
-            <h2>ကျွန်ုပ်၏ Blog မှ ကြိုဆိုပါ၏</h2>
-            <p>နေ့စဉ်ဘဝ အတွေ့အကြုံများ၊ စိတ်ဝင်စားစရာ အကြောင်းအရာများ နှင့် အခြား အရာများကို ဤနေရာတွင် မျှဝေပေးသွားပါမည်။</p>
-        </section>
-
-        <section id="posts">
-            <h2>နောက်ဆုံးပေါ် စာမူများ</h2>
-            
-            <article class="post-preview">
-                <h3><a href="#">ပထမဆုံး Blog စတင်ခြင်း</a></h3>
-                <p class="date">October 25, 2025</p>
-                <p>ဒီနေရာကနေ သင့် Blog Post အတိုချုပ် အကြောင်းအရာကို ဖော်ပြနိုင်ပါတယ်။ ဖတ်ချင်ရင် ခေါင်းစဉ်ကို နှိပ်ပြီး ဝင်ရောက်နိုင်ပါတယ်။</p>
-                <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် &raquo;</a>
-            </article>
-
-            <article class="post-preview">
-                <h3><a href="#">မြန်မာပြည်ရဲ့ ခရီးသွားလာရေး အတွေ့အကြုံများ</a></h3>
-                <p class="date">October 15, 2025</p>
-                <p>ကျွန်တော်/ကျွန်မရဲ့ နောက်ဆုံး ခရီးစဉ် အတွေ့အကြုံများအကြောင်း မျှဝေလိုက်ပါတယ်။ ပုံတွေ၊ ဗီဒီယိုတွေလည်း ထည့်ထားပါတယ်။</p>
-                <a href="#" class="read-more">ဆက်လက်ဖတ်ရှုရန် &raquo;</a>
-            </article>
-            
-        </section>
-
-        <section id="about">
-            <h2>ကျွန်ုပ်အကြောင်း</h2>
-            <p>ကျွန်ုပ်သည် [သင့်အလုပ်/ဝါသနာ] ကို စိတ်ဝင်စားသောသူ ဖြစ်ပါသည်။ ဒီ Blog ကို စာဖတ်သူများနှင့် ဗဟုသုတများ မျှဝေဖို့ ရည်ရွယ်ပြီး စတင်ခဲ့ခြင်း ဖြစ်ပါသည်။ ကျွန်ုပ်နှင့် ဆက်သွယ်ရန် [Email လိပ်စာ] သို့ ပို့ပေးနိုင်ပါသည်။</p>
-        </section>
-
-    </main>
+        <h2>နောက်ဆုံးပေါ် ပို့စ်များ</h2>
+        <div class="post-summary">
+            <h3>Post ခေါင်းစဉ် (၁)</h3>
+            <p>အကျဉ်းချုပ် စာသား...</p>
+        </div>
+        
+        <div class="post-summary">
+            <h3>Post ခေါင်းစဉ် (၂)</h3>
+            <p>အကျဉ်းချုပ် စာသား...</p>
+        </div>
+        
+        </main>
 
     <footer>
-        <p>&copy; 2025 KP. All rights reserved.</p>
+        <p style="text-align: center; padding: 10px; border-top: 1px solid #ccc;">&copy; 2024 KP Blog. All rights reserved.</p>
     </footer>
-
+    
 </body>
 </html>
