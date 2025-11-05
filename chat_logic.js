@@ -193,5 +193,3 @@ pubnub.history({
         });
     }
 });
-
-ဒါငါပြန်ပြင် ထားတဲ့ chat_logic.js code မှတ်ထား
