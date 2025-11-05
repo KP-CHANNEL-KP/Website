@@ -1,19 +1,43 @@
-/* --- Global Styles --- */
-body {
-    font-family: 'Inter', sans-serif;
+/*
+ * Home_style.css (Pro Design Version)
+ * KP Blog - Global Homepage Styles
+ */
+
+/* ======================================= */
+/* 1. Global Reset, Variables, and Base Styles */
+/* ======================================= */
+:root {
+    --primary-color: #1a73e8; /* Blue */
+    --secondary-color: #3f51b5; /* Darker Blue for hover */
+    --text-color: #2c3e50; /* Dark Text */
+    --light-bg: #f0f4f8; 
+    --white-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --font-family: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #f0f4f8; /* ပေါ့ပါးသော နောက်ခံအရောင် */
-    color: #333;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--light-bg);
+    color: var(--text-color);
     line-height: 1.6;
 }
 
-/* --- Header & Navigation --- */
+/* ======================================= */
+/* 2. Header and Navigation (Unchanged from your specification) */
+/* ======================================= */
 header {
-    background-color: #1a73e8; 
+    background-color: var(--primary-color); 
     color: white;
     padding: 10px 0;
-    position: fixed; /* Header ကို အပေါ်ဆုံးမှာ ကပ်ထားရန် */
+    position: fixed; 
     width: 100%;
     top: 0;
     z-index: 1000;
@@ -45,11 +69,8 @@ header {
     margin: 0;
     font-size: 1.5em;
     font-weight: 700;
-    
-    /* ပြင်ဆင်ချက်: စာသားအရောင်ကို အဖြူရောင် (White) သို့ Force ပြောင်းခြင်း */
     color: white !important; 
 }
-
 
 nav a {
     color: white;
@@ -62,32 +83,300 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #3f51b5; 
+    background-color: var(--secondary-color); 
 }
 
-/* --- Main Content Area & Alignment --- */
+/* ======================================= */
+/* 3. Main Content Area & Layout */
+/* ======================================= */
 main {
     padding-top: 90px; /* Header မပိတ်အောင် နေရာခွာခြင်း */
     padding-bottom: 50px;
-    
-    /* Main Content Area ကို အကျယ်ကန့်သတ်ပြီး အလယ်ဗဟို ချိန်ညှိခြင်း */
     max-width: 1000px;
     margin: 0 auto; 
     padding-left: 20px;
     padding-right: 20px;
 }
 
-/* --- Headings for All Page --- */
-h1 {
-    font-size: 1.8em;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 5px;
+h1, h2, h3, p {
+    color: var(--text-color);
 }
 
-p {
-    font-size: 0.9em;
+/* Base Headings (for Hero Section titles, removed text-align: center) */
+main h1 {
+    font-size: 2.5em; /* ပိုကြီးစေရန် */
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-align: center;
+}
+
+main h2 {
+    font-size: 1.5em;
+    color: #555;
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+main p {
+    font-size: 1.1em;
     color: #7f8c8d;
     text-align: center;
     margin-bottom: 30px;
+}
+
+/* --- Section Titles --- */
+.section-title {
+    text-align: center;
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin: 40px 0 25px 0;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* ======================================= */
+/* 4. HERO SECTION (Modern/Minimal) */
+/* ======================================= */
+.hero-section {
+    background-color: var(--white-bg);
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    margin-bottom: 30px;
+}
+
+.hero-icon {
+    font-size: 3em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.hero-section h1 {
+    font-size: 3em;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.hero-section h2 {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cta-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* ======================================= */
+/* 5. FEATURED POSTS (Grid Layout) */
+/* ======================================= */
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.post-card {
+    background-color: var(--white-bg);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+    border-left: 5px solid var(--primary-color);
+    transition: transform 0.3s;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-tag {
+    display: inline-block;
+    background-color: #e0f2f1;
+    color: #00897b;
+    font-size: 0.75em;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.post-card h3 a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.post-card p {
+    text-align: left;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.post-meta {
+    font-size: 0.8em;
+    color: #999;
+}
+
+/* ======================================= */
+/* 6. LATEST POSTS (List Style) */
+/* ======================================= */
+.latest-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.post-summary-pro {
+    background-color: var(--white-bg);
+    padding: 18px 25px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.post-summary-pro:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.post-summary-pro h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.post-summary-pro p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #777;
+    flex-grow: 1;
+    padding: 0 15px;
+    text-align: left;
+}
+
+.read-more {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ======================================= */
+/* 7. CTA Section */
+/* ======================================= */
+.cta-section {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 12px;
+    margin-top: 40px;
+}
+
+.cta-section h3 {
+    color: white;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.cta-section p {
+    color: #f0f0f0;
+    font-size: 1em;
+    margin-bottom: 25px;
+}
+
+.cta-chat-button {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cta-chat-button:hover {
+    background-color: #2c3e50;
+    transform: scale(1.05);
+}
+
+
+/* ======================================= */
+/* 8. Footer */
+/* ======================================= */
+footer {
+    padding: 15px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+    background-color: var(--white-bg);
+    border-top: 1px solid var(--border-color);
+    margin-top: 0; 
+}
+
+/* ======================================= */
+/* 9. Mobile Responsiveness */
+/* ======================================= */
+@media (max-width: 768px) {
+    /* Header/Nav Styles are handled by your original CSS */
+    
+    .hero-section {
+        padding: 40px 15px;
+    }
+
+    .hero-section h1 {
+        font-size: 2em;
+    }
+    
+    .post-summary-pro {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .post-summary-pro p {
+        padding: 5px 0;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-button, .cta-chat-button {
+        display: block;
+        width: 100%;
+        margin-top: 15px;
+    }
+    
+    .featured-grid {
+        grid-template-columns: 1fr;
+    }
 }
