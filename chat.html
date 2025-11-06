@@ -31,9 +31,36 @@
             background-color: #1a73e8;
             color: white;
             font-size: 1.2em;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            /* border-top-left-radius: 10px; -- ဒီနှစ်ကြောင်းကို ဖြုတ်ပြီး header နဲ့ control ကို ပေါင်းပါမယ် */
+            /* border-top-right-radius: 10px; */
         }
+        
+        /* ***အသစ်ထည့်သွင်းသော Control Area Style*** */
+        #chat-controls-area {
+            padding: 10px 20px;
+            background-color: #eef1f5;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        #chat-controls-area h3 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-size: 1em;
+            color: #555;
+        }
+        
+        .chat-control-buttons button {
+            padding: 5px 10px;
+            margin-right: 8px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        /* **************************************** */
+
 
         /* User Name ထည့်သွင်းရန် ဧရိယာ */
         #user-info-area {
@@ -52,9 +79,9 @@
             width: 180px;
         }
 
-        /* Message ပြသရန် ဧရိယာ - **အဓိက ပြင်ဆင်ချက်** */
+        /* Message ပြသရန် ဧရိယာ */
         #message-area {
-            flex-grow: 1; /* Message ဧရိယာက ကျန်တဲ့ နေရာကို ယူရန် */
+            flex-grow: 1; 
             overflow-y: auto;
             padding: 20px; 
             background-color: #f7f9fc;
@@ -161,34 +188,27 @@
 <body>
 
     <header>
-        <div class="header-content">
-            <div class="logo-and-title">
-                <img src="logo.png" alt="KP Logo" class="logo">
-                <h1 class="site-title">KP Blog</h1>
-            </div>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="posts.html">Posts</a>
-                <a href="free.html">Free</a>
-                <a href="buy.html">Buy</a>
-                <a href="all.html">All</a>
-                <a href="review.html">Review</a> 
-                <a href="chat.html">Chat</a> <a href="privacy.html">Privacy Policy</a>
-                <a href="contact.html">Contact</a>
-                <a href="about.html">About</a>
-                <a href="guides.html">Guides</a>
-                <a href="chat.html">Chat Group</a>
-            </nav>
-        </div>
-    </header>
+        </header>
 
     <main>
         <div id="pubnub-chat-wrapper">
-            <h2>Group Chat (PubNub Powered)</h2>
+            <h2>Chat Room (Group & Private)</h2>
             
             <div id="user-info-area">
                 <label for="username-input">သင့်နာမည်:</label>
                 <input type="text" id="username-input" placeholder="Guest" maxlength="20">
+                
+                <button onclick="initializePubNub(null)" style="padding: 8px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer; border-radius: 5px; margin-left: 15px;">
+                    Group Chat စတင်မည်
+                </button>
+            </div>
+            
+            <div id="chat-controls-area">
+                <h3>🔒 Private Chat စမ်းသပ်ရန်</h3>
+                <div class="chat-control-buttons">
+                    <button onclick="startPrivateChat('bob')">Bob နဲ့ ပြောမည်</button> 
+                    <button onclick="startPrivateChat('charles')">Charles နဲ့ ပြောမည်</button>
+                </div>
             </div>
 
             <div id="message-area">
@@ -196,7 +216,7 @@
             </div>
             
             <div id="input-area">
-                <input type="file" id="file-input" accept="image/*, application/pdf, .zip">
+                <input type="file" id="file-input" accept="image/*, application/pdf, .zip" style="display: none;">
                 <label for="file-input" id="file-upload-label" title="Upload Image/File">📎</label> 
 
                 <input type="text" id="message-input" placeholder="Message ရေးပါ..." disabled>
@@ -209,14 +229,4 @@
     <script src="chat_logic.js"></script> 
 </body>
 </html>
-
-<h2>Chat စတင်ပါ</h2>
-<input type="text" id="username-input" placeholder="သင့်နာမည် (e.g., Alice)">
-<button onclick="initializePubNub(null)">Group Chat (အများသုံး)</button>
-
-<hr>
-
-<h3>Private Chat စမ်းသပ်ရန်</h3>
-<button onclick="startPrivateChat('bob')">Bob နဲ့ ပြောမည်</button> 
-<button onclick="startPrivateChat('charles')">Charles နဲ့ ပြောမည်</button>
 
