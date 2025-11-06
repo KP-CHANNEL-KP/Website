@@ -1,13 +1,13 @@
-// chat_logic.js (Private Chat/Token-Based Version - အသစ်)
+// chat_logic.js (Private Chat/Token-Based Version - အပြီးသတ်)
 
-// 1. Key များကို သတ်မှတ်ခြင်း (SECRET KEY ကို Client Code ထဲမှာ လုံးဝ ဖယ်ရှားပြီးသား ဖြစ်ရပါမည်)
+// 1. Key များကို သတ်မှတ်ခြင်း 
 const PUBLISH_KEY = "pub-c-bdaf8ee9-735f-45b4-b10f-3f0ddce7a6d6";
 const SUBSCRIBE_KEY = "sub-c-adef92a7-e638-4643-8bb5-03d9223a6fd2";
 const CHAT_CHANNEL = "kp_blog_public_group"; 
-// ***သင့်ရဲ့ Deploy လုပ်ပြီးသား Cloudflare Worker URL ကို ဒီနေရာမှာ အစားထိုးပါ***
-const TOKEN_SERVER_URL = "YOUR_DEPLOYED_WORKER_URL_HERE"; 
+// ***သင့်ရဲ့ Deploy လုပ်ပြီးသား Cloudflare Worker URL ကို ထည့်သွင်းထားပါပြီ***
+const TOKEN_SERVER_URL = "https://pubnub-auth-token-generator.kopaing232003.workers.dev"; 
 
-// 2. Chat အတွက် User ID ကို Random မဟုတ်တော့ဘဲ Dynamic သတ်မှတ်မည်
+// 2. Chat အတွက် User ID ကို Dynamic သတ်မှတ်မည်
 let CURRENT_USER_ID = ''; 
 let pubnub; 
 let currentChannel = CHAT_CHANNEL; // လက်ရှိ စကားပြောနေတဲ့ Channel ကို သိမ်းထားရန်
@@ -32,18 +32,15 @@ function formatTimestamp(timetoken) {
 
 // 3. Message/File လက်ခံရရှိပါက UI ကို Update လုပ်မည့် Function
 function displayMessage(user, content, timetoken) {
-    // ... (ဒီ function က မူလအတိုင်းပါပဲ၊ ပြောင်းစရာမလိုပါ) ...
     const p = document.createElement('p');
     p.classList.add('chat-message');
     const timeString = formatTimestamp(timetoken);
-    // ... (File/Image Logic များ) ...
     
     // Message Content ကို ထည့်သွင်းခြင်း
     let contentHTML = content.text || ''; 
     
     // File/Image ပါလာပါက 
     if (content.file) {
-        // ... (မူလ code အတိုင်း)
         const file = content.file;
         const fileUrl = file.url;
         const fileName = file.name;
@@ -70,11 +67,7 @@ function displayMessage(user, content, timetoken) {
 }
 
 
-// ************************************************************
-// **************** Private Chat Logic အသစ် စတင်ခြင်း ********************
-// ************************************************************
-
-// 4. PubNub ကို Token ဖြင့် Initialize လုပ်သော Main Function (မူလ 3, 5, 6 ကိုအစားထိုး)
+// 4. PubNub ကို Token ဖြင့် Initialize လုပ်သော Main Function
 async function initializePubNub(targetId = null) {
     const userName = usernameInput.value.trim();
     if (userName.length === 0) {
@@ -82,10 +75,8 @@ async function initializePubNub(targetId = null) {
         return;
     }
     
-    // User Name ကို ID အဖြစ် သုံးခြင်း (Space တွေကို '_' နဲ့ အစားထိုး)
     CURRENT_USER_ID = userName.replace(/\s/g, '_').toLowerCase(); 
     
-    // Token တောင်းတဲ့ URL နဲ့ လက်ရှိ Channel ကို သတ်မှတ်ခြင်း
     let apiUrl = `${TOKEN_SERVER_URL}?user_id=${CURRENT_USER_ID}`;
     
     if (targetId) {
@@ -105,9 +96,9 @@ async function initializePubNub(targetId = null) {
         const data = await response.json();
         const authToken = data.token;
         
-        // Token ဖြင့် PubNub ကို Initialize လုပ်ခြင်း (မူလ pubnub = new PubNub... ကို အစားထိုး)
+        // Token ဖြင့် PubNub ကို Initialize လုပ်ခြင်း
         if (pubnub) {
-            pubnub.unsubscribeAll(); // အရင် connection ဖြတ်ပါ
+            pubnub.unsubscribeAll(); 
         }
         
         pubnub = new PubNub({
@@ -118,7 +109,7 @@ async function initializePubNub(targetId = null) {
             heartbeatInterval: 10 
         });
 
-        // PubNub Listener ကို ထည့်သွင်းခြင်း (မူလ 5 ကို အနည်းငယ် ပြောင်းလဲ)
+        // PubNub Listener ကို ထည့်သွင်းခြင်း
         pubnub.addListener({
             message: function(message) {
                 const sender = message.message.user || 'Anonymous';
@@ -137,7 +128,7 @@ async function initializePubNub(targetId = null) {
             }
         });
         
-        // Channel ကို Subscribe လုပ်ခြင်း (မူလ 6 ကို အစားထိုး)
+        // Channel ကို Subscribe လုပ်ခြင်း 
         pubnub.subscribe({
             channels: [currentChannel],
             withPresence: true 
@@ -153,14 +144,17 @@ async function initializePubNub(targetId = null) {
 // 5. Private Chat စတင်ရန် Function (သင့် HTML မှာ ခေါ်ရန်)
 // ဥပမာ- <button onclick="startPrivateChat('partner_user_id')">Private Chat</button>
 function startPrivateChat(partnerId) {
+    if (pubnub) {
+        pubnub.unsubscribeAll(); 
+    }
     // Token အသစ်တောင်းပြီး Private Channel အတွက် ပြန် initialize လုပ်ပါ
     initializePubNub(partnerId);
 }
 
 
-// 6. Message ပို့ရန် Function (File Logic ပါဝင်) - (မူလ 7 ကို ပြင်ဆင်)
+// 6. Message ပို့ရန် Function (File Logic ပါဝင်)
 function sendMessage(fileToSend = null) {
-    if (!pubnub) return; // PubNub မချိတ်ရသေးရင် ဘာမှမလုပ်ပါ
+    if (!pubnub) return; 
     
     let userName = usernameInput.value.trim();
     if (userName.length === 0) {
@@ -173,13 +167,12 @@ function sendMessage(fileToSend = null) {
         return; 
     }
 
-    // လက်ရှိ Channel ကို ပို့ရန် channel အဖြစ် သုံးခြင်း
-    const channelToSend = currentChannel; 
+    const channelToSend = currentChannel; // လက်ရှိ channel ကို သုံးခြင်း
 
     if (fileToSend) {
-        // 7.1. File ကို PubNub Storage သို့ Upload လုပ်ခြင်း
+        // 6.1. File ကို PubNub Storage သို့ Upload လုပ်ခြင်း
         pubnub.sendFile({
-            channel: channelToSend, // Private/Group Channel ကို သုံးပါ
+            channel: channelToSend, 
             file: fileToSend,
             message: {
                 user: userName,
@@ -195,9 +188,9 @@ function sendMessage(fileToSend = null) {
         
         fileInput.value = ''; 
     } else {
-        // 7.2. စာသားသက်သက်သာ ပို့ခြင်း
+        // 6.2. စာသားသက်သက်သာ ပို့ခြင်း
         pubnub.publish({
-            channel: channelToSend, // Private/Group Channel ကို သုံးပါ
+            channel: channelToSend, 
             message: {
                 user: userName, 
                 text: text
@@ -208,9 +201,8 @@ function sendMessage(fileToSend = null) {
     messageInput.value = ''; 
 }
 
-// 7. Event Listeners များကို User Name ထည့်မှ Chat စတင်စေရန် ပြင်ဆင် (မူလ 8, 9 တွင် ပြင်ဆင်)
+// 7. Event Listeners များကို User Name ထည့်မှ Chat စတင်စေရန်
 sendButton.addEventListener('click', () => {
-    // ... (မူလ code အတိုင်း) ...
     const file = fileInput.files[0];
     if (file) {
         sendMessage(file);
@@ -222,7 +214,6 @@ sendButton.addEventListener('click', () => {
 messageInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         e.preventDefault(); 
-        // ... (မူလ code အတိုင်း) ...
         const file = fileInput.files[0];
         if (file) {
              sendMessage(file);
@@ -233,7 +224,6 @@ messageInput.addEventListener('keypress', function(e) {
 });
 
 fileInput.addEventListener('change', (e) => {
-    // ... (မူလ code အတိုင်း) ...
     const file = e.target.files[0];
     if (file) {
         const confirmSend = confirm(`"${file.name}" ဖိုင်ကို ပို့မှာလား? (Message Input မှာ စာသား ထပ်ထည့်နိုင်ပါသည်။)`);
@@ -245,14 +235,14 @@ fileInput.addEventListener('change', (e) => {
     }
 });
 
-// 8. Message Persistence မှ ယခင် Message များကို Load လုပ်ခြင်း (မူလ 10 ကို Function အဖြစ် ပြောင်း)
+// 8. Message Persistence မှ ယခင် Message များကို Load လုပ်ခြင်း
 function loadHistory(channel) {
     pubnub.history({
-        channel: channel, // လက်ရှိ channel ရဲ့ history ကို load ပါ
+        channel: channel, 
         count: 50 
     }, (status, response) => {
         if (response && response.messages) {
-             messageArea.innerHTML = ''; // Load မလုပ်ခင် message area ကို ရှင်းပါ
+             messageArea.innerHTML = ''; 
             response.messages.forEach(item => {
                 const sender = item.entry.user || 'Anonymous';
                 const timetoken = item.timetoken; 
@@ -269,4 +259,3 @@ usernameInput.addEventListener('keypress', (e) => {
         initializePubNub();
     }
 });
-
