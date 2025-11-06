@@ -5,7 +5,7 @@ const PUBLISH_KEY = "pub-c-bdaf8ee9-735f-45b4-b10f-3f0ddce7a6d6";
 const SUBSCRIBE_KEY = "sub-c-adef92a7-e638-4643-8bb5-03d9223a6fd2";
 const CHAT_CHANNEL = "kp_blog_public_group"; 
 // ***သင့်ရဲ့ Deploy လုပ်ပြီးသား Cloudflare Worker URL ကို ထည့်သွင်းထားပါပြီ***
-const TOKEN_SERVER_URL = "https://pubnub-auth-token-generator.kopaing232003.workers.dev"; 
+const TOKEN_SERVER_URL = "https://private.kponly.ggff.net"; 
 
 // 2. Chat အတွက် User ID ကို Dynamic သတ်မှတ်မည်
 let CURRENT_USER_ID = ''; 
