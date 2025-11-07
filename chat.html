@@ -210,42 +210,7 @@
     </header>
 
     <main>
-        <div id="pubnub-chat-wrapper">
-            <h2>Chat Room (Group & Private)</h2>
-            
-            <div id="user-info-area">
-                <label for="username-input">သင့်နာမည်:</label>
-                <input type="text" id="username-input" placeholder="Guest" maxlength="20">
-                
-                <button onclick="initializePubNub(null)" style="padding: 8px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer; border-radius: 5px; margin-left: 15px;">
-                    Group Chat စတင်မည်
-                </button>
-            </div>
-            
-            <div id="chat-controls-area">
-                <h3>🔒 Private Chat စမ်းသပ်ရန်</h3>
-                <div class="chat-control-buttons">
-                    <button onclick="startPrivateChat('bob')">Bob နဲ့ ပြောမည်</button> 
-                    <button onclick="startPrivateChat('charles')">Charles နဲ့ ပြောမည်</button>
-                </div>
-            </div>
-
-            <div id="message-area">
-                <p style="text-align: center;">Chat စနစ်ကို စတင်ချိတ်ဆက်နေပါသည်...</p>
-            </div>
-            
-            <div id="input-area">
-                <input type="file" id="file-input" accept="image/*, application/pdf, .zip" style="display: none;">
-                <label for="file-input" id="file-upload-label" title="Upload Image/File">📎</label> 
-
-                <input type="text" id="message-input" placeholder="Message ရေးပါ..." disabled>
-                <button id="send-button" disabled>Send</button>
-            </div>
-        </div>
-    </main>
-    
-    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.7.0.0.min.js"></script>
-    <script src="chat_logic.js"></script> 
+        <iframe src="https://deadsimplechat.com/HL-F2Z498" width="100%" height="600px"></iframe>
 </body>
 </html>
 
