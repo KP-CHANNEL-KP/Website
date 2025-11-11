@@ -29,7 +29,7 @@
                 <a href="About.html">About</a>
                 <a href="guides.html">Guides</a>
                 <a href="chat.html">Chat Group</a>
-                </nav>
+            </nav>
         </div>
     </header>
 
@@ -88,7 +88,7 @@
                 </div>
             </div>
 
-            <section class="upload-section">
+            <section class="upload-section" style="margin-top: 40px;">
                 <h2>ဖိုင်တင်ရန် နေရာ</h2>
                 <p>သင်မှာ ရှိသော free File/Key တို့ကို ဤနေရာတွင် ပြန်လည်မျှဝေနိုင်သည်။</p>
                 
@@ -104,7 +104,46 @@
                     <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
                 </div>
             </section>
-        </main>
+            
+            <section class="download-list-section" style="
+                margin-top: 50px; 
+                padding: 25px; 
+                background-color: #ffffff; 
+                border-radius: 12px; 
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+                max-width: 95%; 
+                margin: 50px auto 20px auto; 
+            ">
+                
+                <h2 style="
+                    color: #00796b; 
+                    border-bottom: 2px solid #eee; 
+                    padding-bottom: 10px; 
+                    margin-top: 0; 
+                    font-size: 1.5em; 
+                ">
+                    ⬇️ တင်ထားသော ဖိုင်များ စာရင်း (DOWNLOAD)
+                </h2>
+                
+                <p style="margin-bottom: 20px; color: #555;">
+                    ဖိုင်များအားလုံးကို ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။ (အသစ်ဆုံးဖိုင်ကို အပေါ်ဆုံးတွင် ပြသမည်)
+                </p>
+                
+                <iframe 
+                    id="r2-file-list-iframe" 
+                    src="/api/r2-list" 
+                    style="
+                        width: 100%; 
+                        min-height: 500px; 
+                        border: 1px solid #ccc; 
+                        border-radius: 8px; 
+                        margin-top: 15px; 
+                        margin-bottom: 15px; 
+                    " 
+                    frameborder="0">
+                </iframe>
+            </section>
+            </main>
     </div>
     
     <footer>
@@ -115,7 +154,6 @@
         // 🚨🚨 ပြောင်းလဲမှု အမှတ် ၁: Admin Password ကို ဤနေရာတွင် သတ်မှတ်ပါ 🚨🚨
         const ADMIN_TEXT_PASSWORD = "YourSecretAdminTextPassword"; // ဤနေရာတွင် သင်၏ PW ကို ထည့်ပါ!
         
-        // ===========================================
         // 1. Password စစ်ဆေးခြင်း Function
         function checkAdminPassword() {
             const inputPw = document.getElementById('adminTextPwInput').value;
@@ -124,15 +162,14 @@
             const pwMessage = document.getElementById('pwMessage');
             
             if (inputPw === ADMIN_TEXT_PASSWORD) {
-                pwGate.style.display = 'none'; // Password Gate ကို ဝှက်
-                adminPanel.style.display = 'block'; // Admin Panel ကို ပြ
+                pwGate.style.display = 'none';
+                adminPanel.style.display = 'block';
                 pwMessage.style.display = 'none';
             } else {
-                pwMessage.style.display = 'block'; // Error Message ပြ
+                pwMessage.style.display = 'block';
             }
         }
-        // ===========================================
-
+        
         // HTML element များကို ရယူခြင်း
         const mainTextarea = document.getElementById('mainTextArea'); 
         const inputLine = document.getElementById('inputLine');
@@ -140,7 +177,19 @@
         
         // 2. Copy Function (Textarea ထဲက စာအားလုံးကို ကူးရန်)
         function copyMainTextToClipboard() {
-            // ... (မူလ Copy Function) ...
+            const textToCopy = mainTextarea.value;
+            if (textToCopy && textToCopy !== 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။') {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        alert("စာသား ကူးယူပြီးပါပြီ!"); 
+                    })
+                    .catch(err => {
+                        console.error('Copy Error:', err);
+                        alert("ကူးယူရန် မအောင်မြင်ပါ!");
+                    });
+            } else {
+                alert("ကူးယူရန် စာသား မရှိပါ!");
+            }
         }
 
         // 3. File Name Display Function (မူရင်းအတိုင်း)
@@ -148,8 +197,6 @@
             var fileName = input.files[0] ? input.files[0].name : "Choose File";
             document.getElementById('fileNameDisplay').innerText = fileName;
         }
-        
-        // 🚨🚨 ပြောင်းလဲမှု အမှတ် ၂: သင်၏ မူရင်း JavaScript Functions များကို ပြန်ထည့်ပါ 🚨🚨
         
         // 4. R2 Upload Functions (File Upload အတွက် မူရင်း Code)
         async function startR2Upload() {
@@ -181,7 +228,7 @@
                     uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name}). Message: ${result.message}`;
                     const iframe = document.getElementById('r2-file-list-iframe');
                     if (iframe) {
-                        iframe.src = iframe.src; 
+                        iframe.src = iframe.src; // iframe ကို refresh လုပ်ရန်
                     }
                 } else {
                     const errorText = result.message || uploadResponse.statusText;
