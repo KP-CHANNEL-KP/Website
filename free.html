@@ -5,17 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Blog Free Page</title>
 
+    <!-- 🔔 OneSignal SDK Loader ကို <head> ထဲမှာ တစ်ကြိမ်သာ ထည့်ပါ -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "3c47c69a-ea04-40e8-807a-e779477f067f",
-    });
-  });
-</script>
-
-    <!-- 🚨 Head Section ကို ရှင်းလင်းပြီး ပြန်လည် စီစဉ်ထားပါသည် 🚨 -->
     
     <!-- Google AdSense Code -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022"
@@ -40,34 +31,9 @@
     <!-- 2. Social Bar (Floating Ad) Code -->
     <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
 
-    <!-- 🔔 OneSignal SDK (Notification Library) -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css"> 
     
-    <!-- 🔔 Inline Script (Functionality) - Head အပိတ်မတိုင်မီ ထည့်သွင်းခြင်း -->
-    <script>
-        // 🔔 showNotificationPrompt Function (OneSignal Ready ဖြစ်မှ ခေါ်ရန်)
-        function showNotificationPrompt() {
-            const promptBox = document.getElementById('notificationPrompt');
-            if (promptBox) {
-                promptBox.style.display = 'none';
-            }
-
-            if (typeof window.OneSignalDeferred !== 'undefined') {
-                window.OneSignalDeferred.push(function(OneSignal) {
-                    OneSignal.showNativePrompt();
-                });
-            } else {
-                console.error("OneSignal SDK is not yet defined.");
-                if (promptBox) {
-                    promptBox.style.display = 'block';
-                    alert('OneSignal SDK ကို load မလုပ်နိုင်သေးပါ။ ခဏနေမှ ထပ်စမ်းပေးပါ။'); 
-                }
-            }
-        }
-    </script>
 </head>
 
 <body>
@@ -99,9 +65,10 @@
             <section class="posts-section"> </section>
             <h1>KP WEBSITE FREE PAGE</h1>
 
-            <!-- 🔔 PUSH NOTIFICATION PRE-PROMPT BOX (အသစ်ထပ်ထည့်ထားသည်) -->
+            <!-- 🔔 PUSH NOTIFICATION PRE-PROMPT BOX -->
             <div id="notificationPrompt" style="
-                display: none; /* 💡 JS ကနေ စာရင်းမသွင်းရသေးမှ ပြန်ဖွင့်ပါမည် */
+                /* မှတ်ချက်: Initialization ပြီးမှ စာရင်းမသွင်းရသေးရင် JS က ပြပါမည် */
+                display: none; 
                 max-width: 95%; 
                 width: 350px;
                 margin: 20px auto; 
@@ -317,6 +284,8 @@
     <script>
         // 🔔 ONE SIGNAL INITIALIZATION (App ID)
         window.OneSignalDeferred = window.OneSignalDeferred || [];
+        
+        // OneSignal Initialization နှင့် Custom Prompt စစ်ဆေးခြင်း Logic 
         OneSignalDeferred.push(async function(OneSignal) {
             await OneSignal.init({
                 appId: "3c47c69a-ea04-40e8-807a-e779477f067f",
@@ -337,9 +306,13 @@
                 }
             });
             
+            // OneSignal ရဲ့ Popup/Widget ကို ဖြတ်ပြီး Custom Prompt ကို ပြမည် (အရေးကြီးသည်)
+            OneSignal.setSubscriptionWorkaround(false);
+            
             // 🔔 စာရင်းသွင်းပြီးပြီလား စစ်ဆေးခြင်း
             OneSignal.isPushNotificationsEnabled(function(isEnabled) {
                 const promptBox = document.getElementById('notificationPrompt');
+                
                 if (!isEnabled && promptBox) {
                     promptBox.style.display = 'block'; // မသွင်းရသေးရင် Custom Prompt ကို ပြပါ
                 } else if (isEnabled && promptBox) {
@@ -352,11 +325,18 @@
         
         const ADMIN_TEXT_PASSWORD = "232003"; 
         
-        // 🔔 PUSH NOTIFICATION PROMPT FUNCTION 
+        // 🔔 PUSH NOTIFICATION PROMPT FUNCTION (Button နှိပ်ရင် အလုပ်လုပ်သည်)
         function showNotificationPrompt() {
+            // OneSignal Ready ဖြစ်ပါက Deferred Array ထဲကို Native Prompt ခေါ်ဖို့ ထည့်သွင်းထားသည်
             window.OneSignalDeferred.push(function(OneSignal) {
+                // Native Browser Prompt ကို တိုက်ရိုက် ခေါ်ပါ
                 OneSignal.showNativePrompt();
-                document.getElementById('notificationPrompt').style.display = 'none';
+                
+                // Prompt ခေါ်ပြီးတာနဲ့ Custom Prompt Box ကို ဖျောက်ပါ
+                const promptBox = document.getElementById('notificationPrompt');
+                if (promptBox) {
+                    promptBox.style.display = 'none';
+                }
             });
         }
 
@@ -536,3 +516,4 @@
     </script>
 </body>
 </html>
+
