@@ -26,6 +26,36 @@
     <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
     
 </head>
+
+<!-- free.html ၏ <head> သို့မဟုတ် <body> အပေါ်ပိုင်းတွင် ထည့်ပါ -->
+
+<script>
+    // 🔔 showNotificationPrompt Function ကို free.html ထဲမှာ တိုက်ရိုက် ထားလိုက်ခြင်း
+    // အကယ်၍ app-logic.js load မလုပ်နိုင်ရင်တောင် အလုပ်လုပ်စေဖို့ပါ။
+    function showNotificationPrompt() {
+        if (typeof window.OneSignalDeferred !== 'undefined') {
+            window.OneSignalDeferred.push(function(OneSignal) {
+                // Browser ရဲ့ မူရင်း Prompt ကို ပေါ်စေပြီး စာရင်းသွင်းခိုင်းခြင်း
+                OneSignal.showNativePrompt();
+                // Native Prompt ပေါ်လာတာနဲ့ Custom Prompt ကို ဖျောက်ထားခြင်း
+                const promptBox = document.getElementById('notificationPrompt');
+                if (promptBox) {
+                    promptBox.style.display = 'none';
+                }
+            });
+        } else {
+            // OneSignal SDK မပါရင် Console မှာ Error ပြပါ
+            console.error("OneSignal SDK is not yet defined.");
+        }
+    }
+    
+    // 🚨 Custom Prompt Box ကို ချက်ချင်း ပေါ်စေဖို့ အတင်းအကျပ် ပြသခြင်း (CSS Fix ဖြင့် ဖြေရှင်းပြီး)
+</script>
+
+<!-- ကျန်တဲ့ HTML code တွေ ဆက်ရေးပါ -->
+
+
+    
 <body>
 
     <header>
