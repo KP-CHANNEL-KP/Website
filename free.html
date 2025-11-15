@@ -24,6 +24,17 @@
     <link rel="stylesheet" href="style.css"> 
     
     <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
+    
+    <script type="text/javascript">
+        var atOptions = {
+            'key' : '98f73f8a4e8d38090956926955a15993', /* Replace with your Pop-up/In-page Push Key */
+            'format' : 'in_page',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+        };
+        document.write('<scr' + 'ipt type="text/javascript" src="//www.highperformanceformat.com/98f73f8a4e8d38090956926955a15993/invoke.js"></scr' + 'ipt>');
+    </script>
 </head>
 <body>
 
@@ -54,10 +65,6 @@
             <section class="posts-section"> </section>
             <h1>KP WEBSITE FREE PAGE</h1>
 
-            <div style="text-align: center; max-width: 300px; margin: 15px auto; padding: 10px;">
-                <script type="text/javascript"> 	atOptions = { 		'key' : '3a2d3d7a62c3a7403883dad5f48ee2b1', 		'format' : 'iframe', 		'height' : 250, 		'width' : 300, 		'params' : {} 	}; </script> <script type="text/javascript" src="//www.highperformanceformat.com/3a2d3d7a62c3a7403883dad5f48ee2b1/invoke.js"></script>
-            </div>
-        
             <div class="copy-box" style="max-width: 95%; margin: 0 auto; padding: 10px;">
                 <textarea id="mainTextArea" rows="25" readonly style="
                     height: 400px; 
@@ -207,6 +214,20 @@
                     
                 </div>
                 
+                <div style="text-align: center; margin-top: 30px; padding: 10px; border-top: 1px dashed #ccc;">
+                    <p style="font-size: 0.8em; color: #555; margin-bottom: 10px;">— ANOTHER ADVERTISEMENT —</p>
+                    <script type="text/javascript">
+                        var atOptions = {
+                            'key' : 'f313a7710c735399583b6329048c8230', /* Replace with your 728x90 Banner Key */
+                            'format' : 'iframe',
+                            'height' : 90,
+                            'width' : 728,
+                            'params' : {}
+                        };
+                        document.write('<scr' + 'ipt type="text/javascript" src="//www.highperformanceformat.com/f313a7710c735399583b6329048c8230/invoke.js"></scr' + 'ipt>');
+                    </script>
+                </div>
+                
             </section>
             </main>
     </div>
@@ -226,176 +247,4 @@
             
             // 2. 100ms ကြာပြီးနောက် မူရင်း Tab မှာ Download Link ကို ဖွင့်ပါ
             setTimeout(function() {
-                window.location.href = r2_url; 
-            }, 100); 
-        }
-
-        // 1. Password စစ်ဆေးခြင်း Function
-        function checkAdminPassword() {
-            const inputPw = document.getElementById('adminTextPwInput').value;
-            const adminPanel = document.getElementById('textAdminPanel');
-            const pwGate = document.getElementById('adminPasswordGate');
-            const pwMessage = document.getElementById('pwMessage');
-            
-            if (inputPw === ADMIN_TEXT_PASSWORD) {
-                pwGate.style.display = 'none';
-                adminPanel.style.display = 'block';
-                pwMessage.style.display = 'none';
-            } else {
-                pwMessage.style.display = 'block';
-            }
-        }
-        
-        // 🚨🚨 GATE 1 FUNCTION: Ads ခလုတ် နှိပ်တာနဲ့ ဖိုင်စာရင်းကို ပြပါ 🚨🚨
-        function showFiles() {
-            // File List နဲ့ Message ကို ချက်ချင်း ပြပါမယ်
-            document.getElementById('r2-file-list-iframe').style.display = 'block';
-            document.getElementById('file-list-message').style.display = 'block';
-        }
-        
-        // HTML element များကို ရယူခြင်း
-        const mainTextarea = document.getElementById('mainTextArea'); 
-        const inputLine = document.getElementById('inputLine');
-        const saveButton = document.getElementById('saveButton');
-        
-        // 2. Copy Function (Textarea ထဲက စာအားလုံးကို ကူးရန်)
-        function copyMainTextToClipboard() {
-            const textToCopy = mainTextarea.value;
-            if (textToCopy && textToCopy !== 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။') {
-                navigator.clipboard.writeText(textToCopy)
-                    .then(() => {
-                        alert("စာသား ကူးယူပြီးပါပြီ!"); 
-                    })
-                    .catch(err => {
-                        console.error('Copy Error:', err);
-                        alert("ကူးယူရန် မအောင်မြင်ပါ!");
-                    });
-            } else {
-                alert("ကူးယူရန် စာသား မရှိပါ!");
-            }
-        }
-
-        // 3. File Name Display Function (မူရင်းအတိုင်း)
-        function updateFileName(input) {
-            var fileName = input.files[0] ? input.files[0].name : "Choose File";
-            document.getElementById('fileNameDisplay').innerText = fileName;
-        }
-        
-        // 4. R2 Upload Functions (File Upload အတွက် မူရင်း Code)
-        async function startR2Upload() {
-            const fileInput = document.getElementById('fileInput');
-            const uploadMessage = document.getElementById('uploadMessage');
-            
-            if (fileInput.files.length === 0) {
-                uploadMessage.innerHTML = '❌ ဖိုင်ရွေးချယ်ရန် လိုအပ်ပါသည်။';
-                return;
-            }
-
-            const file = fileInput.files[0];
-            uploadMessage.innerHTML = `⌛ ${file.name} ကို Upload ပြုလုပ်နေပါသည်။...`;
-            
-            const apiEndpoint = "/api/upload"; 
-
-            const formData = new FormData();
-            formData.append('file', file); 
-
-            try {
-                const uploadResponse = await fetch(apiEndpoint, {
-                    method: 'POST', 
-                    body: formData 
-                });
-
-                const result = await uploadResponse.json(); 
-
-                if (uploadResponse.ok && result.status === 'SUCCESS') {
-                    uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name}). Message: ${result.message}`;
-                    const iframe = document.getElementById('r2-file-list-iframe');
-                    if (iframe) {
-                        iframe.src = iframe.src; // iframe ကို refresh လုပ်ရန်
-                    }
-                } else {
-                    const errorText = result.message || uploadResponse.statusText;
-                    uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${errorText}`;
-                    throw new Error(`Upload Failed: ${errorText}`);
-                }
-            } catch (error) {
-                console.error('Final Upload Error:', error);
-                uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
-            }
-        }
-
-        // 5. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း (မူရင်း Code)
-        async function fetchInitialText() {
-            try {
-                const response = await fetch('/api/text'); 
-                const text = await response.text();
-                mainTextarea.value = text;
-            } catch (error) {
-                console.error('Failed to fetch initial text:', error);
-                mainTextarea.value = 'Data load မလုပ်နိုင်ပါ။ Backend/KV ချိတ်ဆက်မှု စစ်ဆေးပါ။';
-            }
-        }
-
-        // 6. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း Function (မူရင်း Code)
-        async function saveToMainTextarea() {
-            const newText = inputLine.value.trim(); 
-            
-            if (newText === '') {
-                alert('ထည့်သွင်းရန် စာသား မရှိပါ။');
-                return;
-            }
-            
-            let oldContent = mainTextarea.value.trim();
-            
-            if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent.includes('Data load မလုပ်နိုင်ပါ') || oldContent === 'Hello' || oldContent === '') {
-                oldContent = '';
-            }
-            
-            const now = new Date();
-            const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-
-            const divider = '\n\n============================\n\n';
-            const newEntry = `[${timestamp}]\n\n${newText}`;
-
-            let updatedText;
-            
-            if (oldContent === '') {
-                updatedText = newEntry; 
-            } else {
-                updatedText = newEntry + divider + oldContent; 
-            }
-            
-            saveButton.disabled = true;
-            saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
-
-            try {
-                const response = await fetch('/api/text', {
-                    method: 'POST',
-                    body: updatedText,
-                    headers: { 'Content-Type': 'text/plain' }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Server error: ' + response.statusText);
-                }
-
-                mainTextarea.value = updatedText; 
-                inputLine.value = ''; 
-                alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အသစ်ဆုံးစာ အပေါ်ဆုံးတွင် ရောက်နေပါမည်)');
-                
-                mainTextarea.scrollTop = 0; 
-
-            } catch (error) {
-                alert('❌ သိမ်းဆည်းမှု မအောင်မြင်ပါ။ Error: ' + error.message);
-                console.error('Save error:', error);
-            } finally {
-                saveButton.disabled = false;
-                saveButton.innerText = 'စာသားထည့်သွင်း/သိမ်းဆည်း (Save)';
-            }
-        }
-
-        // Website စဖွင့်တာနဲ့ စာသားကို တစ်ခါတည်း ဆွဲယူပြီး ပြသရန်
-        document.addEventListener('DOMContentLoaded', fetchInitialText);
-    </script>
-</body>
-</html>
+                window.location.href
