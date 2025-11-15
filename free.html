@@ -207,7 +207,8 @@
     <script>
         const ADMIN_TEXT_PASSWORD = "232003"; 
         
-        // 🚨🚨 GATE 2: File တစ်ခုချင်းစီကို Download လုပ်ဖို့ Ads ထပ်ဖွင့်ပါ 🚨🚨
+        // 🚨🚨 GATE 2 FUNCTION: File တစ်ခုချင်းစီကို Download လုပ်ဖို့ Ads ထပ်ဖွင့်ပါ 🚨🚨
+        // ဒီ function ကို iframe ထဲက Download ခလုတ်တွေက ခေါ်ပါလိမ့်မယ် (parent.startFileDownload)
         function startFileDownload(r2_url) {
             // 1. Ads Link (Adsterra Direct Link) ကို Tab အသစ်မှာ ဖွင့်ပါ
             window.open("https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d", "_blank");
@@ -234,7 +235,7 @@
             }
         }
         
-        // 🚨🚨 GATE 1: Ads ခလုတ် နှိပ်တာနဲ့ ဖိုင်စာရင်းကို ပြပါ 🚨🚨
+        // 🚨🚨 GATE 1 FUNCTION: Ads ခလုတ် နှိပ်တာနဲ့ ဖိုင်စာရင်းကို ပြပါ 🚨🚨
         function showFiles() {
             // File List နဲ့ Message ကို ချက်ချင်း ပြပါမယ်
             document.getElementById('r2-file-list-iframe').style.display = 'block';
