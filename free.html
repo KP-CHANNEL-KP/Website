@@ -144,6 +144,7 @@
                 
                 <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d&url=https://kponly.ggff.net/free.html" 
                    target="_blank" 
+                   onclick="showFiles()"
                    style="
                        display: block; 
                        text-align: center; 
@@ -160,15 +161,17 @@
                     ⬇️ Config File များ စာရင်းကို ကြည့်ရှု/ဒေါင်းလုတ်ရယူရန် (Click နှိပ်ပါ)
                 </a>
                 
-                <p style="
+                <p id="file-list-message" style="
                      margin-top: 25px; 
                      color: #333; 
                      font-weight: bold; 
                      border-top: 1px dashed #ccc; 
                      padding-top: 15px;
+                     display: none; /* စတင် ဝှက်ထားသည် */
                  ">
                     ✅ ကြော်ငြာ ဖြတ်ကျော်ပြီးပါက အောက်ပါ ဖိုင်များစာရင်း ပေါ်လာပါမည်။
                 </p>
+                
                 <iframe 
                     id="r2-file-list-iframe" 
                     src="/api/r2-list" 
@@ -179,6 +182,7 @@
                         border-radius: 8px; 
                         margin-top: 15px; 
                         margin-bottom: 15px; 
+                        display: none; /* စတင် ဝှက်ထားသည် */
                     " 
                     frameborder="0">
                 </iframe>
@@ -192,7 +196,7 @@
     </footer>
 
     <script>
-        // ... (Javascript Functions are the same as before) ...
+        // ... (မူရင်း Functions) ...
         const ADMIN_TEXT_PASSWORD = "232003"; 
         
         // 1. Password စစ်ဆေးခြင်း Function
@@ -209,6 +213,13 @@
             } else {
                 pwMessage.style.display = 'block';
             }
+        }
+        
+        // 🚨🚨 အသစ်ထပ်ထည့်ထားသော Function: Ads ခလုတ် နှိပ်တာနဲ့ ဖိုင်စာရင်းကို ပြပါ 🚨🚨
+        function showFiles() {
+            // File List နဲ့ Message ကို ချက်ချင်း ပြပါမယ်
+            document.getElementById('r2-file-list-iframe').style.display = 'block';
+            document.getElementById('file-list-message').style.display = 'block';
         }
         
         // HTML element များကို ရယူခြင်း
@@ -235,7 +246,7 @@
 
         // 3. File Name Display Function (မူရင်းအတိုင်း)
         function updateFileName(input) {
-            var fileName = input.files[0] ? input.files[0] ? input.files[0].name : "Choose File";
+            var fileName = input.files[0] ? input.files[0].name : "Choose File";
             document.getElementById('fileNameDisplay').innerText = fileName;
         }
         
