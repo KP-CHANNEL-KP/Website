@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Blog Free Page</title>
 
+    <!-- 🚨 Head Section ကို ရှင်းလင်းပြီး ပြန်လည် စီစဉ်ထားပါသည် 🚨 -->
+    
+    <!-- Google AdSense Code -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022"
      crossorigin="anonymous"></script>
     
+    <!-- 1. Adsterra Pop-under Code -->
     <script type='text/javascript' src='//pl28057847.effectivegatecpm.com/34/23/c5/3423c58ebdd6e84dccf686ec977a84fa.js'></script>
     
+    <!-- Google Analytics G-Tag -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7F5VL62DT2"></script> 
     <script> 
         window.dataLayer = window.dataLayer || []; 
@@ -18,54 +23,43 @@
         gtag('config', 'G-7F5VL62DT2'); 
     </script>
     
+    <!-- RTMARK (Your original script) -->
     <script src="https://my.rtmark.net/p.js?f=sync&lr=1&partner=2134cbd94e69258d0987ea05830383043f21608a1d7bf16e1948d0ec11354793" defer></script>
     <noscript><img src="https://my.rtmark.net/img.gif?f=sync&lr=1&partner=2134cbd94e69258d0987ea05830383043f21608a1d7bf16e1948d0ec11354793" width="1" height="1" /></noscript>
 
+    <!-- 2. Social Bar (Floating Ad) Code -->
+    <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
+
+    <!-- 🔔 OneSignal SDK (Notification Library) -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css"> 
     
-    <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
-    
-</head>
-
-<!-- free.html ၏ <head> သို့မဟုတ် <body> အပေါ်ပိုင်းတွင် ထည့်ရန် (ယခင်ထည့်ထားသော Script ကို အစားထိုးပါ) -->
-
-<script>
-    // 🔔 showNotificationPrompt Function ကို free.html ထဲမှာ တိုက်ရိုက် ထားလိုက်ခြင်း
-    function showNotificationPrompt() {
-        // Custom Prompt Box ကို ချက်ချင်း ဖျောက်ထားခြင်း
-        const promptBox = document.getElementById('notificationPrompt');
-        if (promptBox) {
-            promptBox.style.display = 'none';
-        }
-
-        // OneSignal Deferred Array ထဲကို Function ကို ထည့်သွင်းခြင်း
-        // OneSignal SDK Ready ဖြစ်သည်အထိ စောင့်ဆိုင်းစေမည်။
-        if (typeof window.OneSignalDeferred !== 'undefined') {
-            window.OneSignalDeferred.push(function(OneSignal) {
-                // Browser ရဲ့ မူရင်း Prompt ကို ပေါ်စေပြီး စာရင်းသွင်းခိုင်းခြင်း
-                OneSignal.showNativePrompt();
-                
-                // OneSignal.showNativePrompt() ကို ခေါ်ပြီးပါက၊ အကယ်၍ ခွင့်ပြုချက် မရသေးရင်
-                // (ဒါမှမဟုတ် တခြား Error တစ်ခုခုရှိနေရင်) Custom Prompt Box ကို ပြန်ပေါ်စေဖို့ Logic ထပ်ထည့်နိုင်ပါသည်။
-                // ဒါပေမယ့် အခုလောလောဆယ်မှာတော့ Allow ကို နှိပ်ပြီးရင် မူရင်း Prompt ပေါ်လာတာကိုပဲ စောင့်ကြည့်ပါမည်။
-            });
-        } else {
-            console.error("OneSignal SDK is not yet defined.");
-            // OneSignal Ready မဖြစ်ရင် Custom Box ကို ပြန်ပေါ်စေခြင်း (Error Handling)
+    <!-- 🔔 Inline Script (Functionality) - Head အပိတ်မတိုင်မီ ထည့်သွင်းခြင်း -->
+    <script>
+        // 🔔 showNotificationPrompt Function (OneSignal Ready ဖြစ်မှ ခေါ်ရန်)
+        function showNotificationPrompt() {
+            const promptBox = document.getElementById('notificationPrompt');
             if (promptBox) {
-                promptBox.style.display = 'block';
-                alert('OneSignal SDK ကို load မလုပ်နိုင်သေးပါ။ ခဏနေမှ ထပ်စမ်းပေးပါ။'); 
+                promptBox.style.display = 'none';
+            }
+
+            if (typeof window.OneSignalDeferred !== 'undefined') {
+                window.OneSignalDeferred.push(function(OneSignal) {
+                    OneSignal.showNativePrompt();
+                });
+            } else {
+                console.error("OneSignal SDK is not yet defined.");
+                if (promptBox) {
+                    promptBox.style.display = 'block';
+                    alert('OneSignal SDK ကို load မလုပ်နိုင်သေးပါ။ ခဏနေမှ ထပ်စမ်းပေးပါ။'); 
+                }
             }
         }
-    }
-</script>
+    </script>
+</head>
 
-<!-- ကျန်တဲ့ HTML code တွေ ဆက်ရေးပါ -->
-
-
-
-
-    
 <body>
 
     <header>
@@ -95,6 +89,50 @@
             <section class="posts-section"> </section>
             <h1>KP WEBSITE FREE PAGE</h1>
 
+            <!-- 🔔 PUSH NOTIFICATION PRE-PROMPT BOX (အသစ်ထပ်ထည့်ထားသည်) -->
+            <div id="notificationPrompt" style="
+                display: none; /* 💡 JS ကနေ စာရင်းမသွင်းရသေးမှ ပြန်ဖွင့်ပါမည် */
+                max-width: 95%; 
+                width: 350px;
+                margin: 20px auto; 
+                padding: 20px; 
+                background: linear-gradient(135deg, #fef2f2 0%, #fffafa 100%); 
+                border: 3px solid #ff4d4d; 
+                border-radius: 15px;
+                text-align: center;
+                box-shadow: 0 8px 16px rgba(255, 77, 77, 0.4);
+                font-family: 'Inter', sans-serif;
+            ">
+                <p style="
+                    font-size: 1.2em; 
+                    font-weight: 800; 
+                    color: #e53e3e; 
+                    margin-bottom: 12px;
+                    text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+                ">
+                    ✨ **အရေးပေါ် အပ်ဒိတ် သတိပေးချက်!** ✨
+                </p>
+                <p style="margin-bottom: 20px; color: #4a5568; font-size: 0.95em;">
+                    ဖိုင်အသစ်များ၊ Admin ၏ စာများနဲ့ အရေးကြီးတဲ့ Update တွေကို လက်မလွတ်ရအောင် **မဖြစ်မနေ Allow ပေးဖို့** နှိပ်ပေးပါ။
+                </p>
+                
+                <button id="allowButton" onclick="showNotificationPrompt()" style="
+                    background-color: #ff7043;
+                    color: white;
+                    padding: 12px 25px;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 1.05em;
+                    font-weight: bold;
+                    transition: background-color 0.3s, transform 0.1s;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                " onmouseover="this.style.backgroundColor='#ff5722'" onmouseout="this.style.backgroundColor='#ff7043'">
+                    🔔 Allow (သတိပေးချက် လက်ခံမည်)
+                </button>
+            </div>
+
+            <!-- 🚨 AD LOCATION 1 (TOP): 300x250 Banner (သင်ပေးပို့ထားသော Code) -->
             <div style="text-align: center; max-width: 300px; margin: 20px auto; border: 1px dashed #007bff; padding: 10px; box-sizing: border-box;">
                 <p style="font-size: 0.8em; color: #555; margin-bottom: 5px;">— TOP AD SLOT —</p>
                 <script type="text/javascript"> 	
@@ -175,6 +213,7 @@
                 </div>
             </section>
             
+            <!-- 🚨 AD LOCATION 2 (MID-CONTENT): Native Banner (သင်ပေးပို့ထားသော Code) -->
             <div style="text-align: center; max-width: 95%; margin: 40px auto; border: 1px dashed #00796b; padding: 15px; box-sizing: border-box;">
                 <p style="font-size: 0.8em; color: #555; margin-bottom: 10px;">— MID-CONTENT AD SLOT —</p>
                 <script async="async" data-cfasync="false" src="//pl28060167.effectivegatecpm.com/9cd2f829c61a7d25b2fc81879dc94f99/invoke.js"></script> 
@@ -256,7 +295,7 @@
                     frameborder="0">
                 </iframe>
                 
-                </section>
+            </section>
             </main>
     </div>
     
@@ -264,9 +303,53 @@
         <p>&copy; 2025 KP WEBSITE</p>
     </footer>
 
+    <!-- 💡💡💡 JAVASCRIPT CODE အားလုံးကို ဤနေရာတွင် စုစည်းထားပါသည် 💡💡💡 -->
     <script>
+        // 🔔 ONE SIGNAL INITIALIZATION (App ID)
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({
+                appId: "3c47c69a-ea04-40e8-807a-e779477f067f",
+                promptOptions: {
+                    customlink: {
+                        enabled: true,
+                        style: "button",
+                        size: "large",
+                        text: {
+                            subscribe: "Notify Me",
+                            unsubscribe: "Unsubscribe",
+                        },
+                        color: {
+                            button: '#ff7043',
+                            text: '#ffffff'
+                        }
+                    }
+                }
+            });
+            
+            // 🔔 စာရင်းသွင်းပြီးပြီလား စစ်ဆေးခြင်း
+            OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+                const promptBox = document.getElementById('notificationPrompt');
+                if (!isEnabled && promptBox) {
+                    promptBox.style.display = 'block'; // မသွင်းရသေးရင် Custom Prompt ကို ပြပါ
+                } else if (isEnabled && promptBox) {
+                    promptBox.style.display = 'none'; // သွင်းပြီးရင် ဖျောက်ထားပါ
+                }
+            });
+        });
+
+        // ----------------------------------------------------
+        
         const ADMIN_TEXT_PASSWORD = "232003"; 
         
+        // 🔔 PUSH NOTIFICATION PROMPT FUNCTION 
+        function showNotificationPrompt() {
+            window.OneSignalDeferred.push(function(OneSignal) {
+                OneSignal.showNativePrompt();
+                document.getElementById('notificationPrompt').style.display = 'none';
+            });
+        }
+
         // 🚨🚨 GATE 2 FUNCTION
         function startFileDownload(r2_url) {
             window.open("https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d", "_blank");
@@ -443,51 +526,3 @@
     </script>
 </body>
 </html>
-
-<!-- 🔔 PUSH NOTIFICATION PRE-PROMPT BOX (HTML အပိုင်း) -->
-<!-- အရေးကြီး: display: block !important; ကို အမြဲတမ်း ပေါ်နေစေရန် ထည့်သွင်းထားသည် -->
-<div id="notificationPrompt" style="
-    display: block !important; /* အမြဲတမ်း ပေါ်နေစေရန် */
-    max-width: 95%; 
-    width: 350px;
-    margin: 20px auto; 
-    padding: 20px; 
-    /* Gradient Background (လှပစေရန်) */
-    background: linear-gradient(135deg, #fef2f2 0%, #fffafa 100%); 
-    border: 3px solid #ff4d4d; 
-    border-radius: 15px; /* ပိုမိုဝိုင်းစက်စေရန် */
-    text-align: center;
-    box-shadow: 0 8px 16px rgba(255, 77, 77, 0.4); /* Shadow ကို ပိုမို ထင်ရှားစေရန် */
-    font-family: 'Inter', sans-serif;
-">
-    <p style="
-        font-size: 1.2em; 
-        font-weight: 800; /* ပိုထူစေရန် */
-        color: #e53e3e; 
-        margin-bottom: 12px;
-        text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-    ">
-        ✨ **အရေးပေါ် အပ်ဒိတ် သတိပေးချက်!** ✨
-    </p>
-    <p style="margin-bottom: 20px; color: #4a5568; font-size: 0.95em;">
-        ဖိုင်အသစ်များ၊ Admin ၏ စာများနဲ့ အရေးကြီးတဲ့ Update တွေကို လက်မလွတ်ရအောင် **မဖြစ်မနေ Allow ပေးဖို့** နှိပ်ပေးပါ။
-    </p>
-    
-    <!-- 🔔 Allow ခလုတ် - Design ကို ပိုမိုလှပစေရန် ပြင်ဆင်ထားသည် -->
-    <button id="allowButton" onclick="showNotificationPrompt()" style="
-        /* Button Style */
-        background-color: #ff7043; /* အဓိကအရောင် */
-        color: white;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1.05em;
-        font-weight: bold;
-        transition: background-color 0.3s, transform 0.1s;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    " onmouseover="this.style.backgroundColor='#ff5722'" onmouseout="this.style.backgroundColor='#ff7043'">
-        🔔 Allow (သတိပေးချက် လက်ခံမည်)
-    </button>
-</div>
-
