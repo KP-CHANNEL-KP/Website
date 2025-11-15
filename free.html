@@ -148,17 +148,24 @@
                    style="
                        display: block; 
                        text-align: center; 
-                       padding: 15px; 
-                       background-color: #00796b; 
+                       padding: 18px 25px; 
+                       /* ပိုမိုလှပသော Gradient အရောင် */
+                       background: #1abc9c; 
+                       background: -webkit-linear-gradient(135deg, #1abc9c, #16a085);
+                       background: linear-gradient(135deg, #1abc9c, #16a085);
+                       
                        color: white; 
                        text-decoration: none; 
-                       border-radius: 8px; 
-                       font-size: 1.2em; 
+                       border-radius: 50px; 
+                       font-size: 1.3em; 
                        font-weight: bold; 
-                       margin-top: 20px;
+                       margin-top: 25px;
+                       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); 
+                       border: none;
                        cursor: pointer;
+                       /* Transition ကိုတော့ CSS file မှသာ ထည့်သွင်းနိုင်ပါသည် */
                    ">
-                    ⬇️ Config File များ စာရင်းကို ကြည့်ရှု/ဒေါင်းလုတ်ရယူရန် (Click နှိပ်ပါ)
+                    ⬇️ Config Files စာရင်းကို ယူရန် (Click နှိပ်ပါ)
                 </a>
                 
                 <p id="file-list-message" style="
@@ -196,7 +203,6 @@
     </footer>
 
     <script>
-        // ... (မူရင်း Functions) ...
         const ADMIN_TEXT_PASSWORD = "232003"; 
         
         // 1. Password စစ်ဆေးခြင်း Function
