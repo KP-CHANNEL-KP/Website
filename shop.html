@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop | Point Exchange Store</title>
+    <style>
+        /* CSS ကို သင့် website UI နဲ့ လိုက်ဖက်အောင် ပြင်ဆင်ပါ။ */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; }
+        
+        /* Codashop ပုံစံ Game Grid */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsive Grid */
+            gap: 20px;
+        }
+        .game-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .game-icon {
+            width: 100px; /* Icon အရွယ်အစား */
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .game-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ Point လဲလှယ်နိုင်သော ကုန်ပစ္စည်းများ</h1>
+        
+        <div class="game-grid" id="gameGrid">
+            <p id="loading-message">ကုန်ပစ္စည်းများကို ဆွဲယူနေပါသည်...</p>
+        </div>
+    </div>
+    
+    <script>
+        // ⚠️ Worker URL ကို သင့် Worker ရဲ့ လိပ်စာနဲ့ အစားထိုးပါ
+        const WORKER_URL_BASE = 'https://shop-backend-api.yourname.workers.dev'; 
+
+        // -------------------------------------------------------------
+        // ဒီ Function မှာ Data တွေကို KV ကနေ ဆွဲထုတ်ပြီး Grid ထဲမှာ ထည့်သွင်းပြသပါမယ်
+        async function fetchGames() {
+            const gameGrid = document.getElementById('gameGrid');
+            const loadingMessage = document.getElementById('loading-message');
+            
+            // ⚠️ Demo အတွက် Game Data ကို Hardcode လုပ်ထားသည်
+            // Production အတွက် Worker ကနေ တကယ်ဆွဲထုတ်ရမည်
+            const demoGames = [
+                { id: 'ml', title: 'Mobile Legends', icon: 'images/ml_icon.png' },
+                { id: 'pubg', title: 'PUBG UC', icon: 'images/pubg_icon.png' },
+                // ⚠️ သင့်ရဲ့ ပုံမှန် Website အတိုင်း Icon ပုံလေးတွေကို ထည့်ပေးရပါမယ်။
+                { id: 'account', title: 'Premium Account', icon: 'images/premium_icon.png' },
+            ];
+
+            loadingMessage.style.display = 'none'; // Loading message ဖျောက်ပါ
+            gameGrid.innerHTML = ''; // ရှိပြီးသား content ရှင်းထုတ်ပါ
+            
+            demoGames.forEach(game => {
+                const card = document.createElement('div');
+                card.classList.add('game-card');
+                
+                // နှိပ်လိုက်ရင် Product Detail Page ကို သွားမယ်
+                card.onclick = () => {
+                    window.location.href = `product_detail.html?game=${game.id}`;
+                };
+                
+                // Card အတွင်း Content
+                card.innerHTML = `
+                    <img src="${game.icon}" alt="${game.title} Icon" class="game-icon">
+                    <div class="game-title">${game.title}</div>
+                `;
+                
+                gameGrid.appendChild(card);
+            });
+        }
+        
+        // Website စဖွင့်တာနဲ့ Game တွေကို ဆွဲထုတ်ပြသပါ
+        fetchGames();
+
+        // -------------------------------------------------------------
+        // Login စစ်ဆေးခြင်း (Optional)
+        // ဒီ page ကို ဝင်ဖို့ login ဝင်ထားဖို့ လိုအပ်ရင် ဒီ code ကို ဖွင့်ပါ
+        /*
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            alert('Shop ကို ဝင်ရောက်ကြည့်ရှုရန် အကောင့်ဝင်ရန် လိုအပ်ပါသည်။');
+            window.location.href = 'login.html'; 
+        }
+        */
+    </script>
+</body>
+</html>
