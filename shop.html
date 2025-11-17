@@ -8,123 +8,134 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-  <!-- Header -->
-  <header class="bg-white shadow p-4 flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-blue-600">KP Shop</h1>
-    <div>
-      <button id="cart-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        Cart (<span id="cart-count">0</span>)
-      </button>
-    </div>
-  </header>
+<header class="bg-white shadow p-4 flex justify-between items-center">
+  <h1 class="text-2xl font-bold text-blue-600">KP Shop</h1>
+  <button id="cart-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Cart (<span id="cart-count">0</span>)
+  </button>
+</header>
 
-  <!-- Product Grid -->
-  <main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <!-- Product Card Template -->
-    <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col">
-      <img src="https://via.placeholder.com/200x150" alt="Product Image" class="rounded mb-4">
-      <h2 class="text-lg font-semibold mb-2">Product Name</h2>
-      <p class="text-gray-600 mb-2">Category: Example</p>
-      <p class="font-bold text-blue-600 mb-4">100 Ks</p>
-      <button class="add-to-cart bg-green-500 text-white py-2 rounded hover:bg-green-600">Add to Cart</button>
-    </div>
-    <!-- Repeat product cards dynamically via JS -->
-  </main>
+<main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="product-grid">
+  <!-- Product cards dynamically injected by JS -->
+</main>
 
-  <!-- Cart Modal -->
-  <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
-    <div class="bg-white rounded-lg w-11/12 max-w-md p-6 relative">
-      <button id="close-cart" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">&times;</button>
-      <h2 class="text-xl font-bold mb-4">Your Cart</h2>
-      <div id="cart-items" class="space-y-2"></div>
-      <div class="mt-4 flex justify-between font-bold">
-        <span>Total:</span>
-        <span id="cart-total">0 Ks</span>
-      </div>
-      <button id="checkout-btn" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-        Checkout
-      </button>
+<!-- Cart Modal -->
+<div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
+  <div class="bg-white rounded-lg w-11/12 max-w-md p-6 relative">
+    <button id="close-cart" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">&times;</button>
+    <h2 class="text-xl font-bold mb-4">Your Cart</h2>
+    <div id="cart-items" class="space-y-2"></div>
+    <div class="mt-4 flex justify-between font-bold">
+      <span>Total:</span>
+      <span id="cart-total">0 Ks</span>
     </div>
+    <button id="checkout-btn" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+      Checkout
+    </button>
   </div>
+</div>
 
-  <script>
-    const products = [
-      { id: 1, name: "Product 1", category: "Cat A", price: 100, img: "https://via.placeholder.com/200x150" },
-      { id: 2, name: "Product 2", category: "Cat B", price: 200, img: "https://via.placeholder.com/200x150" },
-      { id: 3, name: "Product 3", category: "Cat C", price: 150, img: "https://via.placeholder.com/200x150" },
-      { id: 4, name: "Product 4", category: "Cat A", price: 250, img: "https://via.placeholder.com/200x150" }
-    ];
+<script>
+const products = [
+  { id: 1, name: "Product 1", category: "Cat A", price: 100, img: "https://via.placeholder.com/200x150" },
+  { id: 2, name: "Product 2", category: "Cat B", price: 200, img: "https://via.placeholder.com/200x150" },
+  { id: 3, name: "Product 3", category: "Cat C", price: 150, img: "https://via.placeholder.com/200x150" },
+  { id: 4, name: "Product 4", category: "Cat A", price: 250, img: "https://via.placeholder.com/200x150" }
+];
 
-    const main = document.querySelector("main");
-    const cartBtn = document.getElementById("cart-btn");
-    const cartModal = document.getElementById("cart-modal");
-    const closeCart = document.getElementById("close-cart");
-    const cartItemsEl = document.getElementById("cart-items");
-    const cartTotalEl = document.getElementById("cart-total");
-    const cartCountEl = document.getElementById("cart-count");
-    const checkoutBtn = document.getElementById("checkout-btn");
+const productGrid = document.getElementById("product-grid");
+const cartBtn = document.getElementById("cart-btn");
+const cartModal = document.getElementById("cart-modal");
+const closeCart = document.getElementById("close-cart");
+const cartItemsEl = document.getElementById("cart-items");
+const cartTotalEl = document.getElementById("cart-total");
+const cartCountEl = document.getElementById("cart-count");
+const checkoutBtn = document.getElementById("checkout-btn");
 
-    let cart = [];
+let cart = [];
 
-    function renderProducts() {
-      main.innerHTML = '';
-      products.forEach(p => {
-        const div = document.createElement('div');
-        div.className = "bg-white rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col";
-        div.innerHTML = `
-          <img src="${p.img}" alt="${p.name}" class="rounded mb-4">
-          <h2 class="text-lg font-semibold mb-2">${p.name}</h2>
-          <p class="text-gray-600 mb-2">Category: ${p.category}</p>
-          <p class="font-bold text-blue-600 mb-4">${p.price} Ks</p>
-          <button class="add-to-cart bg-green-500 text-white py-2 rounded hover:bg-green-600">Add to Cart</button>
-        `;
-        div.querySelector(".add-to-cart").addEventListener('click', () => addToCart(p));
-        main.appendChild(div);
-      });
-    }
+function renderProducts() {
+  productGrid.innerHTML = '';
+  products.forEach(p => {
+    const div = document.createElement('div');
+    div.className = "bg-white rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col";
+    div.innerHTML = `
+      <img src="${p.img}" alt="${p.name}" class="rounded mb-4">
+      <h2 class="text-lg font-semibold mb-2">${p.name}</h2>
+      <p class="text-gray-600 mb-2">Category: ${p.category}</p>
+      <p class="font-bold text-blue-600 mb-4">${p.price} Ks</p>
+      <button class="add-to-cart bg-green-500 text-white py-2 rounded hover:bg-green-600">Add to Cart</button>
+    `;
+    div.querySelector(".add-to-cart").addEventListener('click', () => addToCart(p));
+    productGrid.appendChild(div);
+  });
+}
 
-    function addToCart(product) {
-      cart.push(product);
+function addToCart(product) {
+  cart.push(product);
+  renderCart();
+}
+
+function renderCart() {
+  cartItemsEl.innerHTML = '';
+  let total = 0;
+  cart.forEach((item, idx) => {
+    total += item.price;
+    const div = document.createElement('div');
+    div.className = "flex justify-between items-center";
+    div.innerHTML = `<span>${item.name} - ${item.price} Ks</span>
+      <button onclick="removeFromCart(${idx})" class="text-red-500 hover:text-red-700">x</button>`;
+    cartItemsEl.appendChild(div);
+  });
+  cartTotalEl.textContent = total + " Ks";
+  cartCountEl.textContent = cart.length;
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  renderCart();
+}
+
+cartBtn.addEventListener('click', () => {
+  cartModal.classList.remove('hidden');
+  cartModal.classList.add('flex');
+});
+
+closeCart.addEventListener('click', () => {
+  cartModal.classList.add('hidden');
+  cartModal.classList.remove('flex');
+});
+
+checkoutBtn.addEventListener('click', async () => {
+  if(cart.length === 0){
+    alert("Cart is empty!");
+    return;
+  }
+  const formData = new FormData();
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.onchange = async () => {
+    const file = fileInput.files[0];
+    formData.append('screenshot', file);
+    formData.append('cart', JSON.stringify(cart));
+    formData.append('total', cart.reduce((sum,p)=>sum+p.price,0));
+
+    const res = await fetch('https://YOUR_WORKER_URL/api/order/create', { method:'POST', body: formData });
+    const data = await res.json();
+    if(data.success){
+      alert("Order submitted! Admin will review.");
+      cart = [];
       renderCart();
-    }
-
-    function renderCart() {
-      cartItemsEl.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, idx) => {
-        total += item.price;
-        const div = document.createElement('div');
-        div.className = "flex justify-between items-center";
-        div.innerHTML = `
-          <span>${item.name} - ${item.price} Ks</span>
-          <button onclick="removeFromCart(${idx})" class="text-red-500 hover:text-red-700">x</button>
-        `;
-        cartItemsEl.appendChild(div);
-      });
-      cartTotalEl.textContent = total + " Ks";
-      cartCountEl.textContent = cart.length;
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      renderCart();
-    }
-
-    cartBtn.addEventListener('click', () => {
-      cartModal.classList.remove('hidden');
-      cartModal.classList.add('flex');
-    });
-
-    closeCart.addEventListener('click', () => {
       cartModal.classList.add('hidden');
-      cartModal.classList.remove('flex');
-    });
+    } else {
+      alert("Order failed!");
+    }
+  };
+  fileInput.click();
+});
 
-    checkoutBtn.addEventListener('click', () => {
-      alert("Checkout functionality pending backend integration!");
-    });
-
-    renderProducts();
-  </script>
+renderProducts();
+</script>
 </body>
 </html>
