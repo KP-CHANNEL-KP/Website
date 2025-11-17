@@ -1,141 +1,76 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KP Shop</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title>Login | Your Shop</title>
+    <style>
+        /* ⚠️ သင့် website UI/UX အတိုင်း CSS ကို စိတ်ကြိုက် ပြင်ဆင်ပါ */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-container { background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 300px; }
+        h2 { text-align: center; color: #333; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 10px; margin: 8px 0 16px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 14px 20px; margin: 8px 0; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
+        .message { text-align: center; margin-top: 10px; color: red; }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body>
+    <div class="login-container">
+        <h2>အကောင့်ဝင်ရန်</h2>
+        <form id="loginForm">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Username ထည့်ပါ" id="username" required>
 
-<header class="bg-white shadow p-4 flex justify-between items-center">
-  <h1 class="text-2xl font-bold text-blue-600">KP Shop</h1>
-  <button id="cart-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-    Cart (<span id="cart-count">0</span>)
-  </button>
-</header>
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Password ထည့်ပါ" id="password" required>
+            
+            <p class="message" id="message"></p>
 
-<main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="product-grid">
-  <!-- Product cards dynamically injected by JS -->
-</main>
-
-<!-- Cart Modal -->
-<div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
-  <div class="bg-white rounded-lg w-11/12 max-w-md p-6 relative">
-    <button id="close-cart" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">&times;</button>
-    <h2 class="text-xl font-bold mb-4">Your Cart</h2>
-    <div id="cart-items" class="space-y-2"></div>
-    <div class="mt-4 flex justify-between font-bold">
-      <span>Total:</span>
-      <span id="cart-total">0 Ks</span>
+            <button type="submit">အကောင့်ဝင်ပါ (Login)</button>
+            <p style="text-align:center;"><a href="signup.html">အကောင့်အသစ်ဖွင့်မည် (Sign Up)</a></p>
+            <p style="text-align:center;"><a href="#">စကားဝှက်မေ့ပါက (Admin ကိုဆက်သွယ်ပါ)</a></p>
+        </form>
     </div>
-    <button id="checkout-btn" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-      Checkout
-    </button>
-  </div>
-</div>
 
-<script>
-const products = [
-  { id: 1, name: "Product 1", category: "Cat A", price: 100, img: "https://via.placeholder.com/200x150" },
-  { id: 2, name: "Product 2", category: "Cat B", price: 200, img: "https://via.placeholder.com/200x150" },
-  { id: 3, name: "Product 3", category: "Cat C", price: 150, img: "https://via.placeholder.com/200x150" },
-  { id: 4, name: "Product 4", category: "Cat A", price: 250, img: "https://via.placeholder.com/200x150" }
-];
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('message');
+            
+            // ⚠️ Worker URL ကို သင့် Worker ရဲ့ လိပ်စာနဲ့ အစားထိုးပါ
+            const WORKER_URL = 'https://shop-backend-api.yourname.workers.dev/api/login'; 
 
-const productGrid = document.getElementById("product-grid");
-const cartBtn = document.getElementById("cart-btn");
-const cartModal = document.getElementById("cart-modal");
-const closeCart = document.getElementById("close-cart");
-const cartItemsEl = document.getElementById("cart-items");
-const cartTotalEl = document.getElementById("cart-total");
-const cartCountEl = document.getElementById("cart-count");
-const checkoutBtn = document.getElementById("checkout-btn");
+            try {
+                const response = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
 
-let cart = [];
+                const data = await response.json();
 
-function renderProducts() {
-  productGrid.innerHTML = '';
-  products.forEach(p => {
-    const div = document.createElement('div');
-    div.className = "bg-white rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col";
-    div.innerHTML = `
-      <img src="${p.img}" alt="${p.name}" class="rounded mb-4">
-      <h2 class="text-lg font-semibold mb-2">${p.name}</h2>
-      <p class="text-gray-600 mb-2">Category: ${p.category}</p>
-      <p class="font-bold text-blue-600 mb-4">${p.price} Ks</p>
-      <button class="add-to-cart bg-green-500 text-white py-2 rounded hover:bg-green-600">Add to Cart</button>
-    `;
-    div.querySelector(".add-to-cart").addEventListener('click', () => addToCart(p));
-    productGrid.appendChild(div);
-  });
-}
+                if (response.ok) {
+                    messageElement.textContent = data.message;
+                    messageElement.style.color = 'green';
+                    
+                    // Session သိမ်းဆည်းခြင်း (Login အောင်မြင်ပါက)
+                    localStorage.setItem('userLoggedIn', 'true');
+                    localStorage.setItem('userId', data.user.id);
+                    localStorage.setItem('username', data.user.username);
+                    
+                    // Shop Page ကို ပြောင်းပါ
+                    window.location.href = 'shop.html'; 
 
-function addToCart(product) {
-  cart.push(product);
-  renderCart();
-}
-
-function renderCart() {
-  cartItemsEl.innerHTML = '';
-  let total = 0;
-  cart.forEach((item, idx) => {
-    total += item.price;
-    const div = document.createElement('div');
-    div.className = "flex justify-between items-center";
-    div.innerHTML = `<span>${item.name} - ${item.price} Ks</span>
-      <button onclick="removeFromCart(${idx})" class="text-red-500 hover:text-red-700">x</button>`;
-    cartItemsEl.appendChild(div);
-  });
-  cartTotalEl.textContent = total + " Ks";
-  cartCountEl.textContent = cart.length;
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  renderCart();
-}
-
-cartBtn.addEventListener('click', () => {
-  cartModal.classList.remove('hidden');
-  cartModal.classList.add('flex');
-});
-
-closeCart.addEventListener('click', () => {
-  cartModal.classList.add('hidden');
-  cartModal.classList.remove('flex');
-});
-
-checkoutBtn.addEventListener('click', async () => {
-  if(cart.length === 0){
-    alert("Cart is empty!");
-    return;
-  }
-  const formData = new FormData();
-  const fileInput = document.createElement('input');
-  fileInput.type = 'file';
-  fileInput.accept = 'image/*';
-  fileInput.onchange = async () => {
-    const file = fileInput.files[0];
-    formData.append('screenshot', file);
-    formData.append('cart', JSON.stringify(cart));
-    formData.append('total', cart.reduce((sum,p)=>sum+p.price,0));
-
-    const res = await fetch('https://YOUR_WORKER_URL/api/order/create', { method:'POST', body: formData });
-    const data = await res.json();
-    if(data.success){
-      alert("Order submitted! Admin will review.");
-      cart = [];
-      renderCart();
-      cartModal.classList.add('hidden');
-    } else {
-      alert("Order failed!");
-    }
-  };
-  fileInput.click();
-});
-
-renderProducts();
-</script>
+                } else {
+                    messageElement.textContent = data.error || 'Login မအောင်မြင်ပါ';
+                    messageElement.style.color = 'red';
+                }
+            } catch (error) {
+                messageElement.textContent = 'Network Error: ဆက်သွယ်၍ မရပါ';
+                messageElement.style.color = 'red';
+            }
+        });
+    </script>
 </body>
 </html>
