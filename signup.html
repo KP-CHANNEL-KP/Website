@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up | Your Shop</title>
+    <style>
+        /* ⚠️ သင့် website UI/UX အတိုင်း CSS ကို စိတ်ကြိုက် ပြင်ဆင်ပါ */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .signup-container { background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 300px; }
+        h2 { text-align: center; color: #333; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 10px; margin: 8px 0 16px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #28a745; color: white; padding: 14px 20px; margin: 8px 0; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
+        button:hover { opacity: 0.8; }
+        .message { text-align: center; margin-top: 10px; color: red; }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>အကောင့်အသစ်ဖွင့်မည်</h2>
+        <form id="signupForm">
+            <label for="new-username"><b>Username</b></label>
+            <input type="text" placeholder="Username ထည့်ပါ" id="new-username" required>
+
+            <label for="new-password"><b>Password</b></label>
+            <input type="password" placeholder="Password ထည့်ပါ" id="new-password" required>
+            
+            <p class="message" id="message"></p>
+
+            <button type="submit">အကောင့်ဖွင့်မည် (Sign Up)</button>
+            <p style="text-align:center;"><a href="login.html">အကောင့်ရှိပြီးသားလား? (Login)</a></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('new-username').value;
+            const password = document.getElementById('new-password').value;
+            const messageElement = document.getElementById('message');
+            
+            // ⚠️ Worker URL ကို သင့် Worker ရဲ့ လိပ်စာနဲ့ အစားထိုးပါ
+            const WORKER_URL = 'https://kponly.ggff.net/api/signup'; 
+
+            try {
+                const response = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    messageElement.textContent = data.message;
+                    messageElement.style.color = 'green';
+                    // Signup အောင်မြင်ရင် Homepage သို့ Redirect
+                    window.location.href = 'index.html'; // Homepage ကို Redirect လုပ်ပါ
+                    // သို့မဟုတ် Login page ကို redirect လုပ်ပြီး login ဝင်ခိုင်းပါ
+                    // window.location.href = 'login.html'; 
+
+                } else {
+                    messageElement.textContent = data.error || 'Signup မအောင်မြင်ပါ';
+                    messageElement.style.color = 'red';
+                }
+            } catch (error) {
+                messageElement.textContent = 'Network Error: ဆက်သွယ်၍ မရပါ';
+                messageElement.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
