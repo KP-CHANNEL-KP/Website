@@ -1,17 +1,20 @@
+// Global variables
 let products = [];
 let cart = [];
 
-// Fetch products from API
+// Load products from backend
 async function loadProducts() {
     try {
         const res = await fetch('/api/products');
         products = await res.json();
         displayProducts(products);
-    } catch(err) {
-        console.error("Failed to load products", err);
+    } catch (err) {
+        console.error("Error loading products:", err);
+        alert("Failed to load products.");
     }
 }
 
+// Display products on the page
 function displayProducts(items) {
     const grid = document.getElementById('product-grid');
     grid.innerHTML = '';
@@ -28,23 +31,23 @@ function displayProducts(items) {
     });
 }
 
-// Add to Cart
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    if(!product) return;
-    cart.push(product);
+// Add product to cart
+function addToCart(id) {
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    cart.push(p);
     updateCart();
 }
 
-// Update Cart Display
+// Update cart display
 function updateCart() {
     const cartItems = document.getElementById('cart-items');
     const totalEl = document.getElementById('cart-total');
     const pointsEl = document.getElementById('points-to-earn');
-
     cartItems.innerHTML = '';
     let total = 0;
-    cart.forEach((p, index) => {
+
+    cart.forEach(p => {
         const li = document.createElement('li');
         li.textContent = `${p.name} - ${p.price} Ks`;
         cartItems.appendChild(li);
@@ -57,20 +60,15 @@ function updateCart() {
 
 // Checkout modal
 const modal = document.getElementById('checkout-modal');
-const checkoutBtn = document.getElementById('checkout-btn');
-const closeBtn = modal.querySelector('.close');
+document.getElementById('checkout-btn').addEventListener('click', () => modal.style.display = 'block');
+modal.querySelector('.close').addEventListener('click', () => modal.style.display = 'none');
+window.addEventListener('click', e => { if (e.target == modal) modal.style.display = 'none'; });
 
-checkoutBtn.addEventListener('click', () => modal.style.display = 'block');
-closeBtn.addEventListener('click', () => modal.style.display = 'none');
-window.addEventListener('click', e => {
-    if(e.target == modal) modal.style.display = 'none';
-});
-
-// Checkout Form Submit
-document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+// Handle checkout form submission
+document.getElementById('checkout-form').addEventListener('submit', async e => {
     e.preventDefault();
     const fileInput = document.getElementById('screenshot');
-    if(fileInput.files.length === 0) return alert("Upload screenshot first");
+    if (fileInput.files.length === 0) return alert("Upload screenshot");
 
     const formData = new FormData();
     formData.append('screenshot', fileInput.files[0]);
@@ -80,19 +78,19 @@ document.getElementById('checkout-form').addEventListener('submit', async (e) =>
     try {
         const res = await fetch('/api/order/create', { method: 'POST', body: formData });
         const data = await res.json();
-        if(data.success){
-            alert("Order submitted successfully!");
+        if (data.success) {
+            alert("Order submitted!");
             cart = [];
             updateCart();
             modal.style.display = 'none';
         } else {
-            alert("Order failed. Try again.");
+            alert("Order failed: " + (data.msg || 'Unknown error'));
         }
-    } catch(err) {
+    } catch (err) {
         console.error(err);
         alert("Error submitting order");
     }
 });
 
-// Initial load
+// Initialize
 loadProducts();
