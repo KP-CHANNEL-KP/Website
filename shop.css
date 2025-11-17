@@ -1,12 +1,13 @@
-/* Reset and basic layout */
+/* Reset & Base */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
+/* Header */
 .header {
-    background: #007bff;
+    background-color: #007bff;
     color: white;
     padding: 1rem;
     display: flex;
@@ -25,6 +26,7 @@ body {
     text-decoration: underline;
 }
 
+/* Categories */
 .categories {
     margin: 1rem;
     text-align: center;
@@ -34,16 +36,17 @@ body {
     margin: 0.5rem;
     padding: 0.5rem 1rem;
     border: none;
-    background: #007bff;
+    background-color: #007bff;
     color: white;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .category-btn:hover {
-    background: #0056b3;
+    background-color: #0056b3;
 }
 
+/* Product Grid */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -63,12 +66,13 @@ body {
     border-radius: 5px;
 }
 
+/* Cart Sidebar */
 .cart {
     position: fixed;
     right: 0;
     top: 80px;
     width: 250px;
-    background: #f8f9fa;
+    background-color: #f8f9fa;
     border-left: 1px solid #ccc;
     padding: 1rem;
     height: calc(100% - 80px);
