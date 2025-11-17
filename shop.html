@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/shop.css">
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <h1>KP Shop</h1>
         <nav>
@@ -16,18 +17,21 @@
         </nav>
     </header>
 
+    <!-- Categories -->
+    <section class="categories">
+        <button class="category-btn" data-category="all">All</button>
+        <button class="category-btn" data-category="food">Food</button>
+        <button class="category-btn" data-category="clothes">Clothes</button>
+        <button class="category-btn" data-category="gadgets">Gadgets</button>
+    </section>
+
+    <!-- Product Grid -->
     <main>
-        <section class="categories">
-            <button class="category-btn" data-category="all">All</button>
-            <button class="category-btn" data-category="food">Food</button>
-            <button class="category-btn" data-category="clothes">Clothes</button>
-            <button class="category-btn" data-category="gadgets">Gadgets</button>
-        </section>
-
         <section class="product-grid" id="product-grid">
-            <!-- Products dynamically added here -->
+            <!-- Product cards will be added dynamically -->
         </section>
 
+        <!-- Cart Sidebar -->
         <aside class="cart" id="cart">
             <h2>Cart</h2>
             <ul id="cart-items"></ul>
@@ -43,7 +47,7 @@
             <span class="close">&times;</span>
             <h2>Checkout</h2>
             <form id="checkout-form">
-                <p>Bank Account Info: <strong>KBZPay 1234567890</strong></p>
+                <p>Bank Info: <strong>KBZPay 1234567890</strong></p>
                 <label for="screenshot">Upload Screenshot:</label>
                 <input type="file" id="screenshot" name="screenshot" accept="image/*" required>
                 <button type="submit">Submit Order</button>
