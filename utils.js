@@ -16,12 +16,14 @@ export async function verifyOTP(otp, hash) {
     return otpHash === hash;
 }
 
-export async function sendTelegramMessage(botToken, chatId, text) {
-    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-    await fetch(url, {
+export async function sendTelegramMessage(botToken, chatId, text, replyMarkup = null) {
+    const body = { chat_id: chatId, text };
+    if (replyMarkup) body.reply_markup = replyMarkup;
+
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text })
+        body: JSON.stringify(body)
     });
 }
 
