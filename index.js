@@ -70,33 +70,54 @@ export default {
             ).bind(cart[0]?.phone || 'unknown', JSON.stringify(cart), total, points, screenshotKey, 'pending', Date.now()).run();
 
             const signedURL = await createSignedR2URL(env.R2_BUCKET, screenshotKey);
-            const adminMessage = `New Order!\nPhone: ${cart[0]?.phone || 'unknown'}\nTotal: ${total} Ks\nPoints: ${points}\nScreenshot: ${signedURL}\n[Approve ✅] [Reject ❌]`;
+            const adminMessage = `New Order!
+Phone: ${cart[0]?.phone || 'unknown'}
+Total: ${total} Ks
+Points: ${points}
+Screenshot: ${signedURL}`;
 
-            await sendTelegramMessage(env.TELEGRAM_BOT_TOKEN, env.TELEGRAM_ADMIN_CHAT_ID, adminMessage);
+            const replyMarkup = {
+                inline_keyboard: [
+                    [
+                        { text: "Approve ✅", callback_data: `approve_${orderResult.lastInsertRowid}` },
+                        { text: "Reject ❌", callback_data: `reject_${orderResult.lastInsertRowid}` }
+                    ]
+                ]
+            };
+
+            await sendTelegramMessage(env.TELEGRAM_BOT_TOKEN, env.TELEGRAM_ADMIN_CHAT_ID, adminMessage, replyMarkup);
 
             return new Response(JSON.stringify({ success: true, orderId: orderResult.lastInsertRowid }), { status: 200 });
         }
 
         // -------------------------
-        // Admin approve/reject
-        if (pathname === '/api/order/admin' && req.method === 'POST') {
-            const { orderId, action } = await req.json(); // action = 'approve' | 'reject'
-            if (!['approve', 'reject'].includes(action)) return new Response("Invalid action", { status: 400 });
+        // Admin approve/reject via Telegram callback
+        if (pathname === '/api/telegram/callback' && req.method === 'POST') {
+            const body = await req.json();
+            const callbackData = body.callback_query.data;
+            const [action, orderId] = callbackData.split('_');
+
+            if (!['approve','reject'].includes(action)) return new Response("Invalid action", {status:400});
 
             const order = await env.D1_DATABASE.prepare("SELECT * FROM orders WHERE id=?").bind(orderId).first();
-            if (!order) return new Response("Order not found", { status: 404 });
+            if (!order) return new Response("Order not found", {status:404});
 
             const newStatus = action === 'approve' ? 'approved' : 'rejected';
             await env.D1_DATABASE.prepare("UPDATE orders SET status=? WHERE id=?").bind(newStatus, orderId).run();
 
             if (action === 'approve') {
                 const points = order.points_awarded;
-                await env.D1_DATABASE.prepare("UPDATE users SET points = points + ? WHERE phone = ?").bind(points, order.user_phone).run();
+                await env.D1_DATABASE.prepare("UPDATE users SET points = points + ? WHERE phone=?").bind(points, order.user_phone).run();
+
+                // Notify user
+                await sendTelegramMessage(env.TELEGRAM_BOT_TOKEN, order.user_phone, `Your order #${orderId} has been approved ✅. Points added: ${points}`);
+            } else {
+                await sendTelegramMessage(env.TELEGRAM_BOT_TOKEN, order.user_phone, `Your order #${orderId} has been rejected ❌.`);
             }
 
-            return new Response(JSON.stringify({ success: true, newStatus }), { status: 200 });
+            return new Response(JSON.stringify({success:true,newStatus}), {status:200});
         }
 
         return new Response("Not found", { status: 404 });
     }
-}
+};
