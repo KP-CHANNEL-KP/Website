@@ -1,5 +1,7 @@
 // functions/api/admin/topup.js
-import { jsonResponse, sendTelegramNotification } from '../../telegram.js'; 
+
+// ⚠️ အရေးကြီးဆုံး- import path ကို .js ဖြင့် ပြင်ဆင်ပြီး၊ Telegram notification function ကို ခဏဖြုတ်ထားပါမည်။
+import { jsonResponse /*, sendTelegramNotification */ } from '../../telegram.js'; 
 
 export async function onRequest({ request, env }) {
   if (request.method !== 'POST') {
@@ -41,7 +43,8 @@ export async function onRequest({ request, env }) {
     // 4. User Data ကို Update လုပ်ခြင်း
     await env.USER_DB.put(userKey, JSON.stringify(user));
 
-    // 5. Telegram Notification
+    // 5. Telegram Notification (❌ ဤအပိုင်းသည် Network Error မဖြစ်စေရန် ဖြုတ်ထားခြင်းဖြစ်ပါသည်။)
+    /*
     const notificationText = `
       ✅ <b>Point ဖြည့်သွင်းမှု အောင်မြင်!</b> ✅
       - <b>User Name:</b> ${user.username}
@@ -49,6 +52,7 @@ export async function onRequest({ request, env }) {
       - <b>စုစုပေါင်း Point:</b> ${newPoints} Points
       `;
     sendTelegramNotification(notificationText, env); 
+    */
 
     return jsonResponse({
       message: `Point ${pointsToAdd} အောင်မြင်စွာ ဖြည့်သွင်းပြီးပါပြီ။`,
