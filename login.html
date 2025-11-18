@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <title>Login | Your Shop</title>
     <style>
-        /* ⚠️ သင့် website UI/UX အတိုင်း CSS ကို စိတ်ကြိုက် ပြင်ဆင်ပါ */
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .login-container { background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 300px; }
         h2 { text-align: center; color: #333; }
         input[type="text"], input[type="password"] { width: 100%; padding: 10px; margin: 8px 0 16px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         button { background-color: #007bff; color: white; padding: 14px 20px; margin: 8px 0; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
+        button:hover { opacity: 0.8; }
         .message { text-align: center; margin-top: 10px; color: red; }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>အကောင့်ဝင်ရန်</h2>
+        <h2>အကောင့်ဝင်မည်</h2>
         <form id="loginForm">
             <label for="username"><b>Username</b></label>
             <input type="text" placeholder="Username ထည့်ပါ" id="username" required>
@@ -25,9 +25,8 @@
             
             <p class="message" id="message"></p>
 
-            <button type="submit">အကောင့်ဝင်ပါ (Login)</button>
-            <p style="text-align:center;"><a href="signup.html">အကောင့်အသစ်ဖွင့်မည် (Sign Up)</a></p>
-            <p style="text-align:center;"><a href="https://t.me/kpbykp">စကားဝှက်မေ့ပါက (Admin ကိုဆက်သွယ်ပါ)</a></p>
+            <button type="submit">အကောင့်ဝင်မည် (Login)</button>
+            <p style="text-align:center;"><a href="signup.html">အကောင့်မရှိသေးဘူးလား? (Sign Up)</a></p>
         </form>
     </div>
 
@@ -38,8 +37,8 @@
             const password = document.getElementById('password').value;
             const messageElement = document.getElementById('message');
             
-            // ⚠️ Worker URL ကို သင့် Worker ရဲ့ လိပ်စာနဲ့ အစားထိုးပါ
-            const WORKER_URL = 'https://kponly.ggff.net/api/login'; 
+            // Pages Function Path ကို အသုံးပြုပါ
+            const WORKER_URL = '/api/login'; 
 
             try {
                 const response = await fetch(WORKER_URL, {
@@ -54,12 +53,12 @@
                     messageElement.textContent = data.message;
                     messageElement.style.color = 'green';
                     
-                    // Session သိမ်းဆည်းခြင်း (Login အောင်မြင်ပါက)
-                    localStorage.setItem('userLoggedIn', 'true');
+                    // ✅ User Data ကို သိမ်းဆည်းခြင်း (Profile Display အတွက်)
                     localStorage.setItem('userId', data.user.id);
                     localStorage.setItem('username', data.user.username);
-                    
-                    // Shop Page ကို ပြောင်းပါ
+                    localStorage.setItem('userPoints', data.user.points);
+
+                    // Shop Page ကို တိုက်ရိုက် Redirect လုပ်ပါ
                     window.location.href = 'shop.html'; 
 
                 } else {
@@ -67,7 +66,7 @@
                     messageElement.style.color = 'red';
                 }
             } catch (error) {
-                messageElement.textContent = 'Network Error: ဆက်သွယ်၍ မရပါ';
+                messageElement.textContent = 'Network Error: Cloudflare Functions ချိတ်ဆက်မှုကို စစ်ဆေးပါ';
                 messageElement.style.color = 'red';
             }
         });
