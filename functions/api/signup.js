@@ -1,5 +1,5 @@
 // functions/api/signup.js
-import { jsonResponse } from '../telegram'; // Helper ကို ခေါ်သုံးခြင်း
+import { jsonResponse } from '../telegram.js'; // Helper ကို ခေါ်သုံးခြင်း
 
 export async function onRequest({ request, env }) {
     if (request.method !== 'POST') {
