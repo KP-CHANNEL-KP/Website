@@ -209,3 +209,56 @@ async function handlePurchase(body) {
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
 });
+
+
+// ------------------- Admin Topup Logic -------------------
+
+async function handleAdminTopup(body) {
+  const { admin_secret, username, points } = body;
+
+  // 1. Admin Secret စစ်ဆေးခြင်း (လုံခြုံရေး)
+  if (admin_secret !== ADMIN_SECRET || !admin_secret) {
+    return jsonResponse({ error: 'ခွင့်ပြုချက်မရှိပါ (Invalid Admin Secret)' }, 403);
+  }
+
+  // 2. Input စစ်ဆေးခြင်း
+  if (!username || typeof points !== 'number' || points <= 0) {
+    return jsonResponse({ error: 'Username နှင့် Point ပမာဏ မှန်ကန်စွာ ထည့်သွင်းပါ' }, 400);
+  }
+
+  const pointsToAdd = Math.floor(points); // ကိန်းပြည့်သာ လက်ခံမည်
+
+  // 3. User ရဲ့ Data ကို ရှာဖွေခြင်း (Username ဖြင့်)
+  const userKey = `user:${username.toLowerCase()}`;
+  const userJson = await USER_KV.get(userKey);
+
+  if (!userJson) {
+    return jsonResponse({ error: `Username "${username}" ကို ရှာမတွေ့ပါ` }, 404);
+  }
+
+  const user = JSON.parse(userJson);
+
+  // 4. Point ထပ်ပေါင်းခြင်း
+  const newPoints = user.points + pointsToAdd;
+  user.points = newPoints;
+
+  // 5. User Data ကို Update လုပ်ခြင်း
+  await USER_KV.put(userKey, JSON.stringify(user));
+
+  // 6. Telegram Notification (Admin ကို အတည်ပြုပေးခြင်း)
+  const notificationText = `
+    ✅ <b>Point ဖြည့်သွင်းမှု အောင်မြင်!</b> ✅
+    
+    - <b>Admin:</b> Topup ပြုလုပ်သည်
+    - <b>User Name:</b> ${user.username}
+    - <b>ဖြည့်သွင်း Point:</b> +${pointsToAdd} Points
+    - <b>စုစုပေါင်း Point:</b> ${newPoints} Points
+    `;
+  sendTelegramNotification(notificationText); // Admin ကိုပဲ ပြန်ပို့သည်
+
+  return jsonResponse({
+    message: `Point ${pointsToAdd} အောင်မြင်စွာ ဖြည့်သွင်းပြီးပါပြီ။`,
+    new_points: newPoints,
+    username: user.username,
+  }, 200);
+}
