@@ -1,5 +1,5 @@
 // functions/api/admin/topup.js
-import { jsonResponse, sendTelegramNotification } from '../../telegram'; 
+import { jsonResponse, sendTelegramNotification } from '../../telegram.js'; 
 
 export async function onRequest({ request, env }) {
   if (request.method !== 'POST') {
