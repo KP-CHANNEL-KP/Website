@@ -4,15 +4,36 @@
     <meta charset="UTF-8">
     <title>Shop | Point Exchange Store</title>
     <style>
-        /* CSS ကို သင့် website UI နဲ့ လိုက်ဖက်အောင် ပြင်ဆင်ပါ။ */
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        /* Profile Header Bar */
+        .profile-header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .profile-info { font-weight: bold; }
+        .logout-btn {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
         h1 { text-align: center; color: #333; margin-bottom: 30px; }
         
-        /* Codashop ပုံစံ Game Grid */
+        /* Game Grid Styles */
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsive Grid */
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
             gap: 20px;
         }
         .game-card {
@@ -29,7 +50,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         .game-icon {
-            width: 100px; /* Icon အရွယ်အစား */
+            width: 100px; 
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
@@ -44,6 +65,11 @@
 </head>
 <body>
     <div class="container">
+        <div class="profile-header">
+            <div id="profileDisplay" class="profile-info">Loading Profile...</div>
+            <button class="logout-btn" onclick="logoutUser()">ထွက်ရန် (Logout)</button>
+        </div>
+        
         <h1>🛍️ Point လဲလှယ်နိုင်သော ကုန်ပစ္စည်းများ</h1>
         
         <div class="game-grid" id="gameGrid">
@@ -52,37 +78,59 @@
     </div>
     
     <script>
-        // ⚠️ Worker URL ကို သင့် Worker ရဲ့ လိပ်စာနဲ့ အစားထိုးပါ
-        const WORKER_URL_BASE = 'https://shop-backend-api.yourname.workers.dev'; 
-
         // -------------------------------------------------------------
-        // ဒီ Function မှာ Data တွေကို KV ကနေ ဆွဲထုတ်ပြီး Grid ထဲမှာ ထည့်သွင်းပြသပါမယ်
+        // Profile စစ်ဆေးခြင်းနှင့် ပြသခြင်း
+        function checkAndLoadProfile() {
+            const userId = localStorage.getItem('userId');
+            const username = localStorage.getItem('username');
+            const points = localStorage.getItem('userPoints');
+            const profileDisplay = document.getElementById('profileDisplay');
+
+            if (!userId) {
+                // Login မဝင်ရသေးရင် Login Page ကို Redirect
+                alert('Shop ကို ဝင်ရောက်ကြည့်ရှုရန် အကောင့်ဝင်ရန် လိုအပ်ပါသည်။');
+                window.location.href = 'login.html'; 
+                return;
+            }
+            
+            // Profile Info ကို ပြသခြင်း
+            profileDisplay.innerHTML = `
+                👤 ${username} | 💎 ${points} Points
+            `;
+            
+            window.userPoints = parseInt(points); 
+        }
+
+        // Logout Function
+        function logoutUser() {
+            localStorage.clear();
+            alert('အကောင့်မှ ထွက်ခွာခဲ့ပြီးပါပြီ။');
+            window.location.href = 'login.html';
+        }
+
+        // Game List တွေကို ပြသတဲ့ Function
         async function fetchGames() {
             const gameGrid = document.getElementById('gameGrid');
             const loadingMessage = document.getElementById('loading-message');
             
-            // ⚠️ Demo အတွက် Game Data ကို Hardcode လုပ်ထားသည်
-            // Production အတွက် Worker ကနေ တကယ်ဆွဲထုတ်ရမည်
+            // ⚠️ Placeholder Images များကို သင့် Website အတိုင်း အစားထိုးပါ။
             const demoGames = [
                 { id: 'ml', title: 'Mobile Legends', icon: 'images/ml_icon.png' },
                 { id: 'pubg', title: 'PUBG UC', icon: 'images/pubg_icon.png' },
-                // ⚠️ သင့်ရဲ့ ပုံမှန် Website အတိုင်း Icon ပုံလေးတွေကို ထည့်ပေးရပါမယ်။
                 { id: 'account', title: 'Premium Account', icon: 'images/premium_icon.png' },
             ];
 
-            loadingMessage.style.display = 'none'; // Loading message ဖျောက်ပါ
-            gameGrid.innerHTML = ''; // ရှိပြီးသား content ရှင်းထုတ်ပါ
+            loadingMessage.style.display = 'none'; 
+            gameGrid.innerHTML = ''; 
             
             demoGames.forEach(game => {
                 const card = document.createElement('div');
                 card.classList.add('game-card');
                 
-                // နှိပ်လိုက်ရင် Product Detail Page ကို သွားမယ်
                 card.onclick = () => {
                     window.location.href = `product_detail.html?game=${game.id}`;
                 };
                 
-                // Card အတွင်း Content
                 card.innerHTML = `
                     <img src="${game.icon}" alt="${game.title} Icon" class="game-icon">
                     <div class="game-title">${game.title}</div>
@@ -92,19 +140,9 @@
             });
         }
         
-        // Website စဖွင့်တာနဲ့ Game တွေကို ဆွဲထုတ်ပြသပါ
+        // Page စတင်ပါက
+        checkAndLoadProfile();
         fetchGames();
-
-        // -------------------------------------------------------------
-        // Login စစ်ဆေးခြင်း (Optional)
-        // ဒီ page ကို ဝင်ဖို့ login ဝင်ထားဖို့ လိုအပ်ရင် ဒီ code ကို ဖွင့်ပါ
-        /*
-        const userId = localStorage.getItem('userId');
-        if (!userId) {
-            alert('Shop ကို ဝင်ရောက်ကြည့်ရှုရန် အကောင့်ဝင်ရန် လိုအပ်ပါသည်။');
-            window.location.href = 'login.html'; 
-        }
-        */
     </script>
 </body>
 </html>
