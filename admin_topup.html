@@ -39,14 +39,13 @@
     </div>
 
     <script>
-        // ⚠️ ဒီနေရာမှာ Admin Password ကို ထားရှိခြင်းက လုံခြုံမှုမရှိပါ (Client-side Security)
-        // ပိုမိုလုံခြုံဖို့ Backend မှာ JWT စစ်ဆေးမှု ထည့်သွင်းသင့်ပါသည်။
-        const ADMIN_SECRET = "myatzarkyikhaing"; // ⚠️ လုံခြုံသော Password တစ်ခုကို ထားရှိပါ
+        // ⚠️ ဤနေရာတွင် Cloudflare Pages Settings ထဲက ADMIN_SECRET နှင့် တူညီသော Password ကို ထည့်သွင်းရပါမည်။
+        const ADMIN_SECRET = "your_strong_admin_password"; 
         
-        // ⚠️ Worker URL ကို သင့် Worker ရဲ့ လိပ်စာနဲ့ အစားထိုးပါ
-        const WORKER_URL_TOPUP = 'https://shop-backend-api.yourname.workers.dev/api/admin/topup'; 
+        // ✅ API Path အသစ်ကို အသုံးပြုပါ
+        const WORKER_URL_TOPUP = '/api/topup_admin'; 
 
-        // Authentication Logic
+        // Authentication Logic (Client-side)
         document.getElementById('authButton').addEventListener('click', function() {
             const inputPass = document.getElementById('adminPassword').value;
             const authMessage = document.getElementById('authMessage');
@@ -64,13 +63,15 @@
             }
         });
 
-        // Top-up Logic
+        // Top-up Logic (API Call)
         document.getElementById('topupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const targetUsername = document.getElementById('targetUsername').value;
             const pointsAmount = parseInt(document.getElementById('pointsAmount').value);
             const topupMessage = document.getElementById('topupMessage');
-            const adminPass = document.getElementById('adminPassword').value; // Admin Password ကိုပါ Backend ကို ပို့မည်
+            
+            // Server-side စစ်ဆေးရန်အတွက် Admin Password ကို ထည့်သွင်းခြင်း
+            const adminPass = document.getElementById('adminPassword').value; 
 
             if (pointsAmount <= 0) {
                 topupMessage.textContent = 'Point ပမာဏသည် ၁ ထက် များရပါမည်';
@@ -86,7 +87,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        admin_secret: adminPass, // Worker ကနေ စစ်ဆေးမည်
+                        admin_secret: adminPass, // ⚠️ Server က စစ်ဆေးရန် ပို့ပေးခြင်း
                         username: targetUsername, 
                         points: pointsAmount 
                     })
@@ -96,13 +97,16 @@
 
                 if (response.ok) {
                     topupMessage.textContent = `✅ ${targetUsername} အား ${pointsAmount} Points ဖြည့်သွင်းပြီးပါပြီ။ (စုစုပေါင်း: ${data.new_points} Points)`;
+                    topupMessage.classList.remove('error');
                     topupMessage.classList.add('success');
                 } else {
                     topupMessage.textContent = `❌ ဖြည့်သွင်းမှု မအောင်မြင်ပါ။ ${data.error || 'အမှားအယွင်း ရှိနေပါသည်'}`;
+                    topupMessage.classList.remove('success');
                     topupMessage.classList.add('error');
                 }
             } catch (error) {
-                topupMessage.textContent = 'Network Error: ဆက်သွယ်၍ မရပါ';
+                topupMessage.textContent = 'Network Error: ဆက်သွယ်၍ မရပါ (Routing/Pages Function စစ်ဆေးပါ)';
+                topupMessage.classList.remove('success');
                 topupMessage.classList.add('error');
             }
         });
