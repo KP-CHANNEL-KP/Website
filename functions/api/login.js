@@ -1,5 +1,5 @@
 // functions/api/login.js
-import { jsonResponse } from '../telegram'; 
+import { jsonResponse } from '../telegram.js'; 
 
 export async function onRequest({ request, env }) {
     if (request.method !== 'POST') {
