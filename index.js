@@ -1,7 +1,6 @@
-// index.js (Cloudflare Worker Code)
+// index.js (Cloudflare Worker Code - ပေါင်းစပ်ပြီး)
 
-// ⚠️ KV Namespace ကို သင့်နာမည်အတိုင်း ပြောင်းပေးရန်။ 
-// Worker Setting မှာ 'USER_DB' ကို ဒီ KV Namespace နဲ့ ချိတ်ဆက်ပေးရပါမယ်။
+// ⚠️ KV Namespace ကို သင့် Cloudflare Worker Setting မှာ 'USER_DB' နာမည်နဲ့ ချိတ်ဆက်ပေးရပါမယ်။
 const USER_KV = USER_DB; 
 
 // Helper function for JSON response
@@ -19,7 +18,7 @@ async function handleRequest(request) {
   // CORS Headers (Frontend ကနေ ခေါ်သုံးနိုင်ဖို့)
   const headers = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*', // သင့် website URL ကိုသာ ထားသင့်သည်
+    'Access-Control-Allow-Origin': '*', // ⚠️ ပုံမှန်အားဖြင့် သင့် website URL ကိုသာ ထားသင့်သည်။
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   };
@@ -35,27 +34,25 @@ async function handleRequest(request) {
 
   const body = await request.json();
 
+  // ------------------- Path Routing -------------------
   switch (path) {
     case '/api/signup':
       return handleSignup(body);
     case '/api/login':
       return handleLogin(body);
-    case '/api/profile':
-      return handleProfile(body);
-    // case '/api/admin/topup': // Admin Point ဖြည့်သွင်းမှုအတွက် (နောက်မှရေးပါမယ်)
-    //   return handleAdminTopup(body);
+    case '/api/purchase': // ဝယ်ယူမှု (Point နှုတ်ယူခြင်း)
+      return handlePurchase(body); 
     default:
       return jsonResponse({ error: 'Not Found' }, 404);
   }
 }
 
-// ------------------- Worker Logic Functions -------------------
-
+// ------------------- 1. Signup Logic -------------------
 async function handleSignup(body) {
   const { username, password } = body;
   
   if (!username || !password) {
-    return jsonResponse({ error: 'Username and password are required' }, 400);
+    return jsonResponse({ error: 'Username နှင့် password လိုအပ်သည်' }, 400);
   }
 
   // 1. Username ထပ်နေခြင်း ရှိမရှိ စစ်ဆေးခြင်း
@@ -63,7 +60,7 @@ async function handleSignup(body) {
   const existingUser = await USER_KV.get(userKey);
 
   if (existingUser) {
-    return jsonResponse({ error: 'Username already taken' }, 409);
+    return jsonResponse({ error: 'Username ရှိနှင့်ပြီးဖြစ်သည်' }, 409);
   }
 
   // 2. User Data ဖန်တီးခြင်း
@@ -71,7 +68,7 @@ async function handleSignup(body) {
   const userData = {
     id: accountId,
     username: username,
-    // ⚠️ Security Risk: Production မှာ password ကို HASH လုပ်ရပါမယ်
+    // ⚠️ လုံခြုံရေးအတွက် Hash မလုပ်ထားပါ။ Production တွင် Hashing ပြုလုပ်သင့်ပါသည်။
     hashedPassword: password, 
     points: 0, // စဝင်ဝင်ချင်း 0 point
     created_at: new Date().toISOString(),
@@ -81,57 +78,97 @@ async function handleSignup(body) {
   await USER_KV.put(userKey, JSON.stringify(userData));
 
   return jsonResponse({ 
-    message: 'Signup successful!', 
+    message: 'အကောင့်ဖွင့်ခြင်း အောင်မြင်ပါသည်။', 
     user: { id: accountId, username: username, points: 0 } 
   }, 201);
 }
 
+// ------------------- 2. Login Logic -------------------
 async function handleLogin(body) {
   const { username, password } = body;
   
   if (!username || !password) {
-    return jsonResponse({ error: 'Username and password are required' }, 400);
+    return jsonResponse({ error: 'Username နှင့် password လိုအပ်သည်' }, 400);
   }
 
   const userKey = `user:${username.toLowerCase()}`;
   const userJson = await USER_KV.get(userKey);
 
   if (!userJson) {
-    return jsonResponse({ error: 'Invalid username or password' }, 401);
+    return jsonResponse({ error: 'Username သို့မဟုတ် password မမှန်ပါ' }, 401);
   }
 
   const user = JSON.parse(userJson);
 
-  // ⚠️ Security Risk: Production မှာ Hash ကို နှိုင်းယှဉ်ရပါမယ်
+  // ⚠️ Password စစ်ဆေးခြင်း (Hash မပါ)
   if (user.hashedPassword !== password) {
-    return jsonResponse({ error: 'Invalid username or password' }, 401);
+    return jsonResponse({ error: 'Username သို့မဟုတ် password မမှန်ပါ' }, 401);
   }
-
-  // 3. Login အောင်မြင်ပါက Session Token (JWT) ထုတ်ပေးနိုင်သည်
-  // အခု Demo အတွက်တော့ User Data ကို ပြန်ပို့ပေးပါမယ်
   
-  // ⚠️ Session Token လိုအပ်ပါမယ်။ အခုတော့ User data ကို ပို့ပြီး Front-end က Session ထိန်းပါမယ်။
+  // Login အောင်မြင်ပါက User data ကို ပို့ပါ
   return jsonResponse({ 
-    message: 'Login successful!', 
+    message: 'အကောင့်ဝင်ခြင်း အောင်မြင်ပါသည်။', 
     user: { id: user.id, username: user.username, points: user.points } 
   });
 }
 
-async function handleProfile(body) {
-    // Front-end ကနေ ပို့တဲ့ User ID ဒါမှမဟုတ် Session Token ကို စစ်ဆေးရပါမယ်။
-    const { userId } = body; 
-    
-    // (အခု Demo အတွက် KV မှာ ID နဲ့ လိုက်ရှာဖို့ ယာယီ လုပ်ထားပါတယ်။)
-    // ပိုမိုလုံခြုံဖို့ User Session ထဲက ID ကို သုံးသင့်ပါတယ်။
-    
-    // KV မှာ ID ကို တိုက်ရိုက် ရှာဖို့ ကီးပုံစံ ပြင်ရပါမယ်။ (အခုတော့ Username ကိုပဲ Key အဖြစ် သုံးထားလို့ ရှုပ်ထွေးနိုင်ပါတယ်)
-    
-    // Login လုပ်ပြီး Session ထိန်းထားရင် ဒီ function မလိုတော့ပါဘူး။ 
-    return jsonResponse({ message: "Profile data retrieval not implemented yet." }, 501);
+// ------------------- 3. Purchase Logic (Point နှုတ်ယူခြင်း) -------------------
+async function handlePurchase(body) {
+  const { userId, playerId, product } = body;
+  
+  if (!userId || !playerId || !product || !product.points || !product.amount) {
+    return jsonResponse({ error: 'ဝယ်ယူမှုအတွက် လိုအပ်သောအချက်အလက်များ မပြည့်စုံပါ' }, 400);
+  }
+
+  const pointsRequired = product.points;
+  
+  // 1. User ရဲ့ Data ကို ရှာဖွေခြင်း (userId ဖြင့်)
+  const userList = await USER_KV.list({ prefix: 'user:' });
+  let userKey = null;
+  let user = null;
+
+  // ID နဲ့ ကိုက်ညီတဲ့ user ကို ရှာဖွေခြင်း (Temporary Scan method)
+  for (const keyInfo of userList.keys) {
+      const userJson = await USER_KV.get(keyInfo.name);
+      const tempUser = JSON.parse(userJson);
+      if (tempUser.id === userId) {
+          userKey = keyInfo.name;
+          user = tempUser;
+          break;
+      }
+  }
+
+  if (!user) {
+    return jsonResponse({ error: 'အသုံးပြုသူ အကောင့်ကို ရှာမတွေ့ပါ' }, 404);
+  }
+
+  // 2. Point လုံလောက်မှု ရှိမရှိ စစ်ဆေးခြင်း
+  if (user.points < pointsRequired) {
+    return jsonResponse({ 
+      error: `Point မလုံလောက်ပါ! (လိုအပ် Point: ${pointsRequired} / လက်ရှိ Point: ${user.points})`, 
+      current_points: user.points 
+    }, 402); 
+  }
+
+  // 3. Point နှုတ်ယူခြင်း
+  const newPoints = user.points - pointsRequired;
+  user.points = newPoints;
+  
+  // 4. User Data ကို Update လုပ်ခြင်း
+  await USER_KV.put(userKey, JSON.stringify(user));
+
+  // 5. ဝယ်ယူမှု အတည်ပြုခြင်း (Admin ကို အသိပေးခြင်း)
+  // ⚠️ ဒီနေရာမှာ Admin ကို Telegram/Email ကနေ Notification ပို့တဲ့ Logic ထပ်ထည့်သင့်ပါသည်။
+
+  return jsonResponse({
+    message: 'ဝယ်ယူမှု အောင်မြင်ပါသည်။',
+    new_points: newPoints,
+    product_purchased: product,
+    player_id: playerId,
+  }, 200);
 }
 
+// ------------------- Worker Listener -------------------
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
 });
-
-// -------------------------------------------------------------
