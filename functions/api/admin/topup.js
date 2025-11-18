@@ -1,19 +1,19 @@
 // functions/api/admin/topup.js
 import { jsonResponse, sendTelegramNotification } from '../../telegram'; 
-// telegram.js သည် functions/api/ အောက်မှ နှစ်ဆင့်ပြန်တက်ရပါမည်။
 
 export async function onRequest({ request, env }) {
   if (request.method !== 'POST') {
     return jsonResponse({ error: 'Method not allowed' }, 405);
   }
 
-  const ADMIN_SECRET = env.ADMIN_SECRET;
+  // Cloudflare Pages Settings မှ ADMIN_SECRET ကို ခေါ်ယူခြင်း
+  const ADMIN_SECRET = env.ADMIN_SECRET; 
 
   try {
     const body = await request.json();
     const { admin_secret, username, points } = body;
 
-    // 1. Admin Secret စစ်ဆေးခြင်း
+    // 1. Admin Secret စစ်ဆေးခြင်း (Server-side)
     if (admin_secret !== ADMIN_SECRET || !admin_secret) {
       return jsonResponse({ error: 'ခွင့်ပြုချက်မရှိပါ (Invalid Admin Secret)' }, 403);
     }
@@ -24,7 +24,7 @@ export async function onRequest({ request, env }) {
 
     const pointsToAdd = Math.floor(points);
 
-    // 2. User ရဲ့ Data ကို ရှာဖွေခြင်း
+    // 2. User Data ကို ရှာဖွေခြင်း
     const userKey = `user:${username.toLowerCase()}`;
     const userJson = await env.USER_DB.get(userKey);
 
@@ -41,10 +41,9 @@ export async function onRequest({ request, env }) {
     // 4. User Data ကို Update လုပ်ခြင်း
     await env.USER_DB.put(userKey, JSON.stringify(user));
 
-    // 5. Telegram Notification (Admin ကို အတည်ပြုပေးခြင်း)
+    // 5. Telegram Notification
     const notificationText = `
       ✅ <b>Point ဖြည့်သွင်းမှု အောင်မြင်!</b> ✅
-      
       - <b>User Name:</b> ${user.username}
       - <b>ဖြည့်သွင်း Point:</b> +${pointsToAdd} Points
       - <b>စုစုပေါင်း Point:</b> ${newPoints} Points
