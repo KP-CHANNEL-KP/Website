@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy Diamonds | Your Shop</title>
+    <style>
+        /* CSS ကို Codashop ပုံစံ၊ သင့် website UI နဲ့ လိုက်ဖက်အောင် ပြင်ဆင်ပါ */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        
+        .product-header { text-align: center; margin-bottom: 20px; }
+        .product-header img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; }
+        h1 { margin: 0; color: #333; }
+        
+        /* Step 1: User ID Input */
+        .step { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; border-radius: 6px; }
+        .step h2 { font-size: 1.3em; margin-top: 0; color: #007bff; }
+        .step input[type="text"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .step small { display: block; margin-top: 5px; color: #666; }
+        
+        /* Step 2: Diamond Options (Codashop Style) */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .option-card {
+            background-color: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-card:hover {
+            border-color: #007bff;
+        }
+        .option-card.selected {
+            border-color: #007bff;
+            background-color: #e6f0ff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .diamond-amount { font-size: 1.5em; font-weight: bold; color: #333; }
+        .point-cost { font-size: 1.1em; color: #28a745; font-weight: bold; margin-top: 5px; }
+        
+        /* Step 3: Purchase Button */
+        #buyButton {
+            background-color: #28aa45; /* Buy Button Color */
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        #buyButton:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .message { text-align: center; margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product-header">
+            <img id="game-icon" src="images/ml_icon.png" alt="Game Icon">
+            <h1 id="game-title">Mobile Legends Diamond များ</h1>
+        </div>
+
+        <div class="step">
+            <h2>၁။ Player ID ထည့်သွင်းပါ</h2>
+            <input type="text" id="player-id" placeholder="Player ID နှင့် Zone ID (ဥပမာ: 12345678 (2001))" required>
+            <small>Player ID ကို ဂိမ်းဆက်တင်များတွင် ရှာဖွေပါ။</small>
+        </div>
+
+        <div class="step">
+            <h2>၂။ Diamond ပမာဏ ရွေးချယ်ပါ</h2>
+            <div class="options-grid" id="diamondOptions">
+                </div>
+            <p class="message" id="selection-message" style="color: #007bff;">ကျေးဇူးပြု၍ ပမာဏတစ်ခု ရွေးချယ်ပါ</p>
+        </div>
+
+        <div class="step">
+            <h2>၃။ ဝယ်ယူမှုကို အတည်ပြုပါ</h2>
+            <button id="buyButton" disabled>ဝယ်ယူရန် (၀ Points)</button>
+            <p class="message" id="purchase-message"></p>
+        </div>
+    </div>
+
+    <script>
+        // ⚠️ Worker URL ကို သင့် Worker ရဲ့ လိပ်စာနဲ့ အစားထိုးပါ
+        const WORKER_URL_BASE = 'https://shop-backend-api.yourname.workers.dev';
+        
+        let selectedProduct = null;
+        let selectedGameId = 'ml'; // ဥပမာအားဖြင့် Mobile Legends အတွက်
+
+        // -------------------------------------------------------------
+        // Diamond Options (Point တွေနဲ့ တန်ဖိုး သတ်မှတ်ချက်)
+        // ⚠️ ဒီ Data တွေကို Production မှာ Worker API ကနေ ဆွဲထုတ်ရပါမယ်။
+        const PRODUCT_OPTIONS = {
+            'ml': [
+                { amount: 110, points: 70 },
+                { amount: 220, points: 140 },
+                { amount: 500, points: 340 },
+                { amount: 1000, points: 680 },
+                { amount: 2000, points: 1350 }
+            ],
+            // 'pubg': [...] // အခြား Game များအတွက်လည်း ထည့်သွင်းနိုင်သည်
+        };
+
+        // UI တွင် Product Options များကို ပြသခြင်း
+        function renderOptions() {
+            const optionsContainer = document.getElementById('diamondOptions');
+            const gameOptions = PRODUCT_OPTIONS[selectedGameId];
+            optionsContainer.innerHTML = '';
+            
+            gameOptions.forEach((option, index) => {
+                const card = document.createElement('div');
+                card.classList.add('option-card');
+                card.dataset.index = index; // Index ကို မှတ်ထားပါ
+                
+                card.innerHTML = `
+                    <div class="diamond-amount">${option.amount} Diamonds</div>
+                    <div class="point-cost">${option.points} Points</div>
+                `;
+                
+                card.onclick = () => selectOption(index);
+                optionsContainer.appendChild(card);
+            });
+        }
+
+        // Option တစ်ခု ရွေးချယ်ခြင်း
+        function selectOption(index) {
+            const allCards = document.querySelectorAll('.option-card');
+            allCards.forEach(card => card.classList.remove('selected'));
+            
+            const selectedCard = document.querySelector(`.option-card[data-index="${index}"]`);
+            selectedCard.classList.add('selected');
+            
+            selectedProduct = PRODUCT_OPTIONS[selectedGameId][index];
+            
+            document.getElementById('selection-message').textContent = 
+                `${selectedProduct.amount} Diamonds ကို ${selectedProduct.points} Points ဖြင့် ဝယ်ယူမည်။`;
+            
+            document.getElementById('buyButton').textContent = `ဝယ်ယူရန် (${selectedProduct.points} Points)`;
+            document.getElementById('buyButton').disabled = false;
+        }
+
+        // ဝယ်ယူမှု လုပ်ဆောင်ခြင်း
+        document.getElementById('buyButton').addEventListener('click', async function() {
+            if (!selectedProduct) {
+                alert("ကျေးဇူးပြု၍ ဝယ်ယူမည့် ပမာဏကို ရွေးချယ်ပါ");
+                return;
+            }
+            
+            const playerId = document.getElementById('player-id').value.trim();
+            if (!playerId) {
+                alert("Player ID ကို ထည့်သွင်းပေးပါ");
+                return;
+            }
+            
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                alert("ဝယ်ယူမှု မပြုမီ အကောင့်ဝင်ရန် လိုအပ်ပါသည်");
+                window.location.href = 'login.html'; 
+                return;
+            }
+
+            const messageElement = document.getElementById('purchase-message');
+            messageElement.textContent = 'ဝယ်ယူမှု စစ်ဆေးနေပါသည်...';
+            
+            // ⚠️ Worker API ကို ခေါ်ဆိုပြီး ဝယ်ယူမှု လုပ်ဆောင်ခြင်း (Logic ကို Worker မှာ ရေးရပါမယ်)
+            const PURCHASE_URL = WORKER_URL_BASE + '/api/purchase';
+            
+            try {
+                const response = await fetch(PURCHASE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: userId,
+                        playerId: playerId,
+                        product: { 
+                            amount: selectedProduct.amount, 
+                            points: selectedProduct.points, 
+                            game: selectedGameId 
+                        }
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    messageElement.textContent = `✅ ဝယ်ယူမှု အောင်မြင်ပါသည်။ ကျန်ရှိ Point: ${data.new_points}`;
+                    messageElement.style.color = 'green';
+                    // ⚠️ ဒီနေရာမှာ User Profile Point ကို update လုပ်ပေးပါ
+                } else {
+                    messageElement.textContent = `❌ ဝယ်ယူမှု မအောင်မြင်ပါ။ ${data.error || 'အမှားအယွင်း တစ်ခုခု ရှိနေပါသည်'}`;
+                    messageElement.style.color = 'red';
+                }
+            } catch (error) {
+                messageElement.textContent = 'Network Error: ဝယ်ယူမှု မလုပ်ဆောင်နိုင်ပါ';
+                messageElement.style.color = 'red';
+            }
+        });
+
+        // Initialize Page
+        renderOptions();
+    </script>
+</body>
+</html>
