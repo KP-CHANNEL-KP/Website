@@ -1,7 +1,38 @@
-// functions/api/admin/topup.js
+// functions/api/admin/topup.js (Self-Contained Function)
 
-// ⚠️ အရေးကြီးဆုံး- import path ကို .js ဖြင့် ပြင်ဆင်ပြီး၊ Telegram notification function ကို ခဏဖြုတ်ထားပါမည်။
-import { jsonResponse /*, sendTelegramNotification */ } from '../../telegram.js'; 
+// Helper function for JSON response (တိုက်ရိုက်ထည့်သွင်းခြင်း)
+const jsonResponse = (data, status = 200) => 
+  new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+/*
+// ⚠️ Telegram Notification Functions ကို ဖျက်ထား/မှတ်ချက်ချထားဆဲဖြစ်သည်။
+
+// Telegram Notification Function
+// export async function sendTelegramNotification(text, env) {
+//     const BOT_TOKEN = env.BOT_TOKEN;
+//     const CHAT_ID = env.CHAT_ID;
+// 
+//     if (!BOT_TOKEN || !CHAT_ID) {
+//         console.error("Telegram Token or Chat ID is missing from Pages Environment.");
+//         return; 
+//     }
+//     
+//     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+//     await fetch(url, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({
+//             chat_id: CHAT_ID,
+//             text: text,
+//             parse_mode: 'HTML'
+//         })
+//     }).catch(e => console.error("Telegram Send Error:", e));
+// }
+*/
+
 
 export async function onRequest({ request, env }) {
   if (request.method !== 'POST') {
@@ -43,16 +74,7 @@ export async function onRequest({ request, env }) {
     // 4. User Data ကို Update လုပ်ခြင်း
     await env.USER_DB.put(userKey, JSON.stringify(user));
 
-    // 5. Telegram Notification (❌ ဤအပိုင်းသည် Network Error မဖြစ်စေရန် ဖြုတ်ထားခြင်းဖြစ်ပါသည်။)
-    /*
-    const notificationText = `
-      ✅ <b>Point ဖြည့်သွင်းမှု အောင်မြင်!</b> ✅
-      - <b>User Name:</b> ${user.username}
-      - <b>ဖြည့်သွင်း Point:</b> +${pointsToAdd} Points
-      - <b>စုစုပေါင်း Point:</b> ${newPoints} Points
-      `;
-    sendTelegramNotification(notificationText, env); 
-    */
+    // 5. Telegram Notification (ဖျက်ထားခြင်း)
 
     return jsonResponse({
       message: `Point ${pointsToAdd} အောင်မြင်စွာ ဖြည့်သွင်းပြီးပါပြီ။`,
@@ -61,6 +83,7 @@ export async function onRequest({ request, env }) {
     }, 200);
 
   } catch (error) {
-    return jsonResponse({ error: `Server Error: ${error.message}` }, 500);
+    console.error("Topup execution failed:", error);
+    return jsonResponse({ error: `Server Error: ${error.message}. (Function code တွင် ပြဿနာရှိပါသည်။)` }, 500);
   }
 }
