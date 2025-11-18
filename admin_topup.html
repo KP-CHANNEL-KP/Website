@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel | Point Top-up</title>
+    <style>
+        /* သင့် website UI နဲ့ လိုက်ဖက်အောင် CSS ကို ပြင်ဆင်ပါ */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .admin-container { background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 350px; }
+        h2 { text-align: center; color: #333; margin-bottom: 30px; }
+        input[type="text"], input[type="number"], input[type="password"] { width: 100%; padding: 10px; margin: 8px 0 16px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 14px 20px; margin: 8px 0; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
+        .message { text-align: center; margin-top: 10px; font-weight: bold; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h2>🔑 Admin Point ဖြည့်သွင်းမှု</h2>
+        
+        <div id="authSection">
+            <label for="adminPassword"><b>Admin Password</b></label>
+            <input type="password" placeholder="Admin စကားဝှက်ထည့်ပါ" id="adminPassword" required>
+            <button id="authButton">ဝင်ရောက်မည်</button>
+            <p id="authMessage" class="message"></p>
+        </div>
+
+        <form id="topupForm" style="display:none;">
+            <label for="targetUsername"><b>Username</b></label>
+            <input type="text" placeholder="Point ဖြည့်ပေးမည့် Username" id="targetUsername" required>
+
+            <label for="pointsAmount"><b>Point ပမာဏ</b></label>
+            <input type="number" placeholder="ဖြည့်သွင်းမည့် Point အရေအတွက်" id="pointsAmount" required min="1">
+            
+            <button type="submit">Point ဖြည့်သွင်းမည်</button>
+            <p id="topupMessage" class="message"></p>
+        </form>
+    </div>
+
+    <script>
+        // ⚠️ ဒီနေရာမှာ Admin Password ကို ထားရှိခြင်းက လုံခြုံမှုမရှိပါ (Client-side Security)
+        // ပိုမိုလုံခြုံဖို့ Backend မှာ JWT စစ်ဆေးမှု ထည့်သွင်းသင့်ပါသည်။
+        const ADMIN_SECRET = "your_strong_admin_password"; // ⚠️ လုံခြုံသော Password တစ်ခုကို ထားရှိပါ
+        
+        // ⚠️ Worker URL ကို သင့် Worker ရဲ့ လိပ်စာနဲ့ အစားထိုးပါ
+        const WORKER_URL_TOPUP = 'https://shop-backend-api.yourname.workers.dev/api/admin/topup'; 
+
+        // Authentication Logic
+        document.getElementById('authButton').addEventListener('click', function() {
+            const inputPass = document.getElementById('adminPassword').value;
+            const authMessage = document.getElementById('authMessage');
+            
+            if (inputPass === ADMIN_SECRET) {
+                document.getElementById('authSection').style.display = 'none';
+                document.getElementById('topupForm').style.display = 'block';
+                authMessage.textContent = 'ဝင်ရောက်မှု အောင်မြင်ပါသည်!';
+                authMessage.classList.remove('error');
+                authMessage.classList.add('success');
+            } else {
+                authMessage.textContent = 'Password မှားယွင်းပါသည်';
+                authMessage.classList.remove('success');
+                authMessage.classList.add('error');
+            }
+        });
+
+        // Top-up Logic
+        document.getElementById('topupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const targetUsername = document.getElementById('targetUsername').value;
+            const pointsAmount = parseInt(document.getElementById('pointsAmount').value);
+            const topupMessage = document.getElementById('topupMessage');
+            const adminPass = document.getElementById('adminPassword').value; // Admin Password ကိုပါ Backend ကို ပို့မည်
+
+            if (pointsAmount <= 0) {
+                topupMessage.textContent = 'Point ပမာဏသည် ၁ ထက် များရပါမည်';
+                topupMessage.classList.add('error');
+                return;
+            }
+
+            topupMessage.textContent = 'Point ဖြည့်သွင်းနေပါသည်...';
+            topupMessage.classList.remove('error', 'success');
+
+            try {
+                const response = await fetch(WORKER_URL_TOPUP, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        admin_secret: adminPass, // Worker ကနေ စစ်ဆေးမည်
+                        username: targetUsername, 
+                        points: pointsAmount 
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    topupMessage.textContent = `✅ ${targetUsername} အား ${pointsAmount} Points ဖြည့်သွင်းပြီးပါပြီ။ (စုစုပေါင်း: ${data.new_points} Points)`;
+                    topupMessage.classList.add('success');
+                } else {
+                    topupMessage.textContent = `❌ ဖြည့်သွင်းမှု မအောင်မြင်ပါ။ ${data.error || 'အမှားအယွင်း ရှိနေပါသည်'}`;
+                    topupMessage.classList.add('error');
+                }
+            } catch (error) {
+                topupMessage.textContent = 'Network Error: ဆက်သွယ်၍ မရပါ';
+                topupMessage.classList.add('error');
+            }
+        });
+    </script>
+</body>
+</html>
