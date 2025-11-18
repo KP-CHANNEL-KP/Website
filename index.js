@@ -1,4 +1,9 @@
-// index.js (Cloudflare Worker Code - ပေါင်းစပ်ပြီး)
+// index.js (Cloudflare Worker Code - အပြီးသတ် ပေါင်းစပ်ပြီး)
+
+// ⚠️ သင့်ရဲ့ လျှို့ဝှက်အချက်အလက်များကို ဤနေရာတွင် ထည့်သွင်းပါ။
+// လုံခြုံရေးအရ၊ ၎င်းတို့ကို Cloudflare Worker Settings တွင် Environment Variable အဖြစ် ထားရှိသင့်သည်။
+const BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"; // ဥပမာ: 123456:ABC-DEF...
+const CHAT_ID = "YOUR_TELEGRAM_CHAT_ID";   // ဥပမာ: 123456789
 
 // ⚠️ KV Namespace ကို သင့် Cloudflare Worker Setting မှာ 'USER_DB' နာမည်နဲ့ ချိတ်ဆက်ပေးရပါမယ်။
 const USER_KV = USER_DB; 
@@ -10,7 +15,32 @@ const jsonResponse = (data, status = 200) =>
     headers: { 'Content-Type': 'application/json' },
   });
 
-// Worker Request Handler
+// ------------------- Telegram Notification Function -------------------
+async function sendTelegramNotification(text) {
+    if (!BOT_TOKEN || !CHAT_ID || BOT_TOKEN === "YOUR_TELEGRAM_BOT_TOKEN") {
+        console.error("Telegram Token or Chat ID is missing or not configured.");
+        return; 
+    }
+    
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: text,
+            parse_mode: 'HTML' // Bold စာသားများ အသုံးပြုနိုင်ရန်
+        })
+    });
+    
+    if (!response.ok) {
+        console.error("Failed to send Telegram message:", await response.text());
+    }
+}
+
+// ------------------- Worker Request Handler -------------------
 async function handleRequest(request) {
   const url = new URL(request.url);
   const path = url.pathname;
@@ -18,7 +48,7 @@ async function handleRequest(request) {
   // CORS Headers (Frontend ကနေ ခေါ်သုံးနိုင်ဖို့)
   const headers = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*', // ⚠️ ပုံမှန်အားဖြင့် သင့် website URL ကိုသာ ထားသင့်သည်။
+    'Access-Control-Allow-Origin': '*', 
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   };
@@ -27,7 +57,6 @@ async function handleRequest(request) {
       return new Response(null, { status: 204, headers });
   }
 
-  // POST Request များကိုသာ ကိုင်တွယ်မည်
   if (request.method !== 'POST') {
     return jsonResponse({ error: 'Method not allowed' }, 405);
   }
@@ -40,7 +69,7 @@ async function handleRequest(request) {
       return handleSignup(body);
     case '/api/login':
       return handleLogin(body);
-    case '/api/purchase': // ဝယ်ယူမှု (Point နှုတ်ယူခြင်း)
+    case '/api/purchase': 
       return handlePurchase(body); 
     default:
       return jsonResponse({ error: 'Not Found' }, 404);
@@ -55,7 +84,6 @@ async function handleSignup(body) {
     return jsonResponse({ error: 'Username နှင့် password လိုအပ်သည်' }, 400);
   }
 
-  // 1. Username ထပ်နေခြင်း ရှိမရှိ စစ်ဆေးခြင်း
   const userKey = `user:${username.toLowerCase()}`;
   const existingUser = await USER_KV.get(userKey);
 
@@ -63,18 +91,15 @@ async function handleSignup(body) {
     return jsonResponse({ error: 'Username ရှိနှင့်ပြီးဖြစ်သည်' }, 409);
   }
 
-  // 2. User Data ဖန်တီးခြင်း
-  const accountId = crypto.randomUUID(); // Unique Account ID
+  const accountId = crypto.randomUUID(); 
   const userData = {
     id: accountId,
     username: username,
-    // ⚠️ လုံခြုံရေးအတွက် Hash မလုပ်ထားပါ။ Production တွင် Hashing ပြုလုပ်သင့်ပါသည်။
     hashedPassword: password, 
-    points: 0, // စဝင်ဝင်ချင်း 0 point
+    points: 0, 
     created_at: new Date().toISOString(),
   };
 
-  // 3. KV မှာ သိမ်းဆည်းခြင်း
   await USER_KV.put(userKey, JSON.stringify(userData));
 
   return jsonResponse({ 
@@ -100,19 +125,17 @@ async function handleLogin(body) {
 
   const user = JSON.parse(userJson);
 
-  // ⚠️ Password စစ်ဆေးခြင်း (Hash မပါ)
   if (user.hashedPassword !== password) {
     return jsonResponse({ error: 'Username သို့မဟုတ် password မမှန်ပါ' }, 401);
   }
   
-  // Login အောင်မြင်ပါက User data ကို ပို့ပါ
   return jsonResponse({ 
     message: 'အကောင့်ဝင်ခြင်း အောင်မြင်ပါသည်။', 
     user: { id: user.id, username: user.username, points: user.points } 
   });
 }
 
-// ------------------- 3. Purchase Logic (Point နှုတ်ယူခြင်း) -------------------
+// ------------------- 3. Purchase Logic (Point နှုတ်ယူခြင်း + Telegram) -------------------
 async function handlePurchase(body) {
   const { userId, playerId, product } = body;
   
@@ -127,7 +150,6 @@ async function handlePurchase(body) {
   let userKey = null;
   let user = null;
 
-  // ID နဲ့ ကိုက်ညီတဲ့ user ကို ရှာဖွေခြင်း (Temporary Scan method)
   for (const keyInfo of userList.keys) {
       const userJson = await USER_KV.get(keyInfo.name);
       const tempUser = JSON.parse(userJson);
@@ -157,9 +179,24 @@ async function handlePurchase(body) {
   // 4. User Data ကို Update လုပ်ခြင်း
   await USER_KV.put(userKey, JSON.stringify(user));
 
-  // 5. ဝယ်ယူမှု အတည်ပြုခြင်း (Admin ကို အသိပေးခြင်း)
-  // ⚠️ ဒီနေရာမှာ Admin ကို Telegram/Email ကနေ Notification ပို့တဲ့ Logic ထပ်ထည့်သင့်ပါသည်။
+  // 5. Telegram Notification ပေးပို့ခြင်း
+  const notificationText = `
+    🚨 <b>🛒 ဝယ်ယူမှု အသစ်!</b> 🚨
+    
+    - <b>User Name:</b> ${user.username} (ID: ${userId.substring(0, 8)}...)
+    - <b>Player ID:</b> ${playerId}
+    - <b>Product:</b> ${product.amount} ${product.game}
+    - <b>Point နှုတ်ယူမှု:</b> ${pointsRequired} Points
+    - <b>ကျန်ရှိ Point:</b> ${newPoints} Points
+    
+    ---
+    <b>ချက်ချင်းလုပ်ဆောင်ရန်။</b>
+    `;
+    
+  // Notification ပို့ခြင်းကို စောင့်စရာမလိုဘဲ အတူတကွ လုပ်ဆောင်သည်
+  sendTelegramNotification(notificationText); 
 
+  // 6. ဝယ်ယူမှု အောင်မြင်ကြောင်း Frontend ကို ပြန်ပို့ခြင်း
   return jsonResponse({
     message: 'ဝယ်ယူမှု အောင်မြင်ပါသည်။',
     new_points: newPoints,
