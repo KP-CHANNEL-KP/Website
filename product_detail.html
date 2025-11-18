@@ -25,7 +25,7 @@
             <div class="balance">
                 လက်ရှိ User: <span id="currentUsername"></span>
                 <br>
-                လက်ရှိ Point Balance: <span id="currentBalance" style="color:#007bff;">[Fetching...]</span>
+                လက်ရှိ Point Balance: <span id="currentBalance" style="color:#007bff;">[Loading Balance...]</span>
             </div>
 
             <div class="product-card">
@@ -53,15 +53,44 @@
     </div>
 
     <script>
-        const WORKER_URL_PURCHASE = '/api/purchase'; 
-        
-        // Product Detail Placeholders (Test အတွက်)
+        // API URLs
+        const WORKER_URL_PURCHASE = '/api/purchase';
+        const WORKER_URL_BALANCE = '/api/get_balance'; // 💎 Point Balance ကို ခေါ်ရန် API အသစ်
+
+        // Product Detail Placeholders
         const PRODUCT_ID = document.getElementById('productId').value;
         const PRODUCT_PRICE = parseInt(document.getElementById('priceValue').value);
         const PRODUCT_TITLE = "Game Item (100 Diamond Pack)";
         
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('username');
+        const currentBalanceSpan = document.getElementById('currentBalance');
+        
+        /**
+         * User ၏ လက်ရှိ Point Balance ကို Backend မှ ခေါ်ယူပြသသည်
+         */
+        async function fetchBalance() {
+            currentBalanceSpan.textContent = '[Loading...]';
+            try {
+                const response = await fetch(`${WORKER_URL_BALANCE}?username=${username}`, {
+                    method: 'GET',
+                    headers: { 
+                        'Authorization': `Bearer ${token}` // Auth token လိုအပ်နိုင်သည်
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    currentBalanceSpan.textContent = `${data.points} Points`;
+                } else {
+                    currentBalanceSpan.textContent = `[Error Fetching Balance]`;
+                    console.error('Failed to fetch balance:', response.status);
+                }
+            } catch (error) {
+                currentBalanceSpan.textContent = `[Network Error]`;
+                console.error('Network error fetching balance:', error);
+            }
+        }
 
         // 1. Authentication စစ်ဆေးခြင်း
         if (token && username) {
@@ -69,9 +98,9 @@
             document.getElementById('mainContent').style.display = 'block';
             document.getElementById('currentUsername').textContent = username;
             
-            // ⚠️ NOTE: Point Balance ကို ပြသရန်အတွက် 
-            // နောက်ထပ် Function တစ်ခု (ဥပမာ: /api/get_balance) ဖန်တီးဖို့ လိုအပ်ပါတယ်။
-            // အခု Test အတွက် ဝယ်ယူမှု Logic ကို အဓိကထားပါမည်။
+            // ✅ Login ဝင်ပြီးပါက Point Balance ကို ချက်ချင်းခေါ်ယူပြသပါ
+            fetchBalance();
+            
         } else {
             // Login မဝင်ထားပါက Main Content ကို ဖျောက်ထားပါမည်။
             document.getElementById('mainContent').style.display = 'none';
@@ -99,7 +128,10 @@
             try {
                 const response = await fetch(WORKER_URL_PURCHASE, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Auth token လိုအပ်နိုင်သည်
+                    },
                     body: JSON.stringify({ 
                         userId: username, // localStorage မှ Username ကို userId အနေဖြင့် ပို့ပါ
                         pointsToDeduct: PRODUCT_PRICE, 
@@ -117,11 +149,20 @@
                     purchaseMessage.textContent = `✅ ${PRODUCT_TITLE} ကို ဝယ်ယူမှု အောင်မြင်ပါသည်။ လက်ကျန် Point: ${data.new_points}`;
                     purchaseMessage.classList.remove('error');
                     purchaseMessage.classList.add('success');
-                    // ⚠️ အောင်မြင်ပြီးနောက် Point Balance ကို ပြန်ပြဖို့အတွက် get_balance API ကို ခေါ်သင့်ပါသည်။
+                    
+                    // ✅ ဝယ်ယူမှု အောင်မြင်ပြီးနောက် Point Balance ကို ပြန်ပြဖို့အတွက် ပြန်ခေါ်ပါ
+                    currentBalanceSpan.textContent = `${data.new_points} Points`;
+                    
                 } else if (response.status === 402) {
-                    purchaseMessage.textContent = `❌ Point မလုံလောက်ပါ။ လက်ကျန်: ${data.available_points} Points သာ ရှိပါသည်။`;
+                    // response.json() တွင် available_points ကို Worker မှ ပြန်ပေးရပါမည်
+                    const availablePoints = data.available_points || '???';
+                    purchaseMessage.textContent = `❌ Point မလုံလောက်ပါ။ လက်ကျန်: ${availablePoints} Points သာ ရှိပါသည်။`;
                     purchaseMessage.classList.remove('success');
                     purchaseMessage.classList.add('error');
+                    
+                    // Point မလုံလောက်လျှင် Balance ကို Update လုပ်ရန် ပြန်ခေါ်ခြင်း
+                    fetchBalance(); 
+                    
                 } else {
                     purchaseMessage.textContent = `❌ ဝယ်ယူမှု မအောင်မြင်ပါ။ ${data.error || 'အမှားအယွင်း ရှိနေပါသည်'}`;
                     purchaseMessage.classList.remove('success');
