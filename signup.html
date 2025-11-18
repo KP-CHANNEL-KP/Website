@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Sign Up | Your Shop</title>
     <style>
-        /* ⚠️ သင့် website UI/UX အတိုင်း CSS ကို စိတ်ကြိုက် ပြင်ဆင်ပါ */
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .signup-container { background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 300px; }
         h2 { text-align: center; color: #333; }
@@ -38,7 +37,7 @@
             const password = document.getElementById('new-password').value;
             const messageElement = document.getElementById('message');
             
-            // ⚠️ Worker URL ကို သင့် Worker ရဲ့ လိပ်စာနဲ့ အစားထိုးပါ
+            // Pages Function Path ကို အသုံးပြုပါ
             const WORKER_URL = '/api/signup'; 
 
             try {
@@ -53,17 +52,18 @@
                 if (response.ok) {
                     messageElement.textContent = data.message;
                     messageElement.style.color = 'green';
-                    // Signup အောင်မြင်ရင် Homepage သို့ Redirect
-                    window.location.href = 'index.html'; // Homepage ကို Redirect လုပ်ပါ
-                    // သို့မဟုတ် Login page ကို redirect လုပ်ပြီး login ဝင်ခိုင်းပါ
-                    // window.location.href = 'login.html'; 
+                    
+                    // ✅ Login Page ကို Redirect လုပ်ပါ
+                    alert("အကောင့်ဖွင့်ခြင်း အောင်မြင်ပါသည်။ ကျေးဇူးပြု၍ Login ဝင်ပါ");
+                    window.location.href = 'login.html'; 
 
                 } else {
                     messageElement.textContent = data.error || 'Signup မအောင်မြင်ပါ';
                     messageElement.style.color = 'red';
                 }
             } catch (error) {
-                messageElement.textContent = 'Network Error: ဆက်သွယ်၍ မရပါ';
+                // Network Error အတွက်
+                messageElement.textContent = 'Network Error: Cloudflare Functions ချိတ်ဆက်မှုကို စစ်ဆေးပါ';
                 messageElement.style.color = 'red';
             }
         });
