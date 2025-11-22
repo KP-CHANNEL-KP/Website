@@ -526,32 +526,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQCVPCDZ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    ----------------
-    <div style="text-align:center;padding:50px;background:#000;color:#0f0;font-family:monospace;">
-  <h1>KPFREE</h1>
-  <h3>တစ်နေ့ 1GB အခမဲ့ Shadowsocks</h3>
-  <input type="email" id="email" placeholder="email (မရိုက်လည်း ရတယ်)" style="width:85%;padding:15px;margin:20px;border:none;border-radius:10px;background:#222;color:#0f0;font-size:18px;">
-  <button onclick="gen()" style="padding:15px 60px;background:#00ff00;color:#000;border:none;border-radius:10px;font-size:20px;font-weight:bold;">ထုတ်ယူမယ်</button>
-  <pre id="out" style="margin:30px auto;width:90%;background:#111;padding:20px;display:none;word-break:break-all;color:#0f0;"></pre>
-</div>
-
-<script>
-async function gen(){
-  let email = document.getElementById("email").value.trim() || "guest@kpfree.xyz";
-  let r = await fetch("https://kppage.kponly.ggff.net/generate",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({email})
-  });
-  let d = await r.json();
-  if(d.success){
-    document.getElementById("out").textContent = d.link;
-    document.getElementById("out").style.display = "block";
-  }else{
-    alert("နောက်မှ ထပ်စမ်းပါ");
-  }
-}
-</script>
+    
     
 </body>
 </html>
