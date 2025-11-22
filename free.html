@@ -561,7 +561,7 @@ async function generateSS() {
   document.getElementById("result").style.display = "none";
 
   try {
-    let res = await fetch("https://kponly.ggff.net/api/generate", {
+    let res = await fetch("https://kppage.kponly.ggff.net/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: email })
