@@ -527,66 +527,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     ----------------
-    export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
+    <div style="text-align:center;padding:50px;background:#000;color:#0f0;font-family:monospace;">
+  <h1>KPFREE</h1>
+  <h3>တစ်နေ့ 1GB အခမဲ့ Shadowsocks</h3>
+  <input type="email" id="email" placeholder="email (မရိုက်လည်း ရတယ်)" style="width:85%;padding:15px;margin:20px;border:none;border-radius:10px;background:#222;color:#0f0;font-size:18px;">
+  <button onclick="gen()" style="padding:15px 60px;background:#00ff00;color:#000;border:none;border-radius:10px;font-size:20px;font-weight:bold;">ထုတ်ယူမယ်</button>
+  <pre id="out" style="margin:30px auto;width:90%;background:#111;padding:20px;display:none;word-break:break-all;color:#0f0;"></pre>
+</div>
 
-    // ဒီ CORS က အရေးအကြီးဆုံး – အခု အပြည့်အဝ ခွင့်ပြုပေးပြီ
-    const corsHeaders = {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      "Access-Control-Max-Age": "86400",
-    };
-
-    // OPTIONS request ကို ချက်ချင်း ပြန်ပေး
-    if (request.method === "OPTIONS") {
-      return new Response(null, { headers: corsHeaders });
-    }
-
-    if (url.pathname !== "/generate") {
-      return new Response(JSON.stringify({error: "Use /generate"}), { headers: corsHeaders });
-    }
-
-    let email = "guest@kpfree.xyz";
-    try {
-      const body = await request.json();
-      if (body && body.email && body.email.includes("@")) email = body.email;
-    } catch (e) {}
-
-    // Login
-    const login = await fetch(env.PANEL_URL + "/panel/api/login", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({username: env.USERNAME, password: env.PASSWORD})
-    });
-    const cookie = login.headers.getSetCookie ? login.headers.getSetCookie().join("; ") : "";
-
-    // Random password
-    const pass = Math.random().toString(36).slice(2, 15) + Math.random().toString(36).slice(2, 10);
-
-    // Add client
-    await fetch(env.PANEL_URL + `/panel/api/inbounds/${env.INBOUND_ID}/addClient`, {
-      method: "POST",
-      headers: {"Content-Type": "application/json", "Cookie": cookie},
-      body: JSON.stringify({settings: JSON.stringify({clients:[{
-        id: crypto.randomUUID(),
-        email: email,
-        enable: true,
-        totalGB: 1,
-        expiryTime: 0,
-        password: pass
-      }]})})
-    });
-
-    // တကယ့် မှန်ကန်တဲ့ link
-    const link = `ss://\( {btoa(env.METHOD + ":" + pass)}@159.65.135.226: \){env.PORT}?type=tcp#KPFREE-${Math.random().toString(36).slice(2,8)}`;
-
-    return new Response(JSON.stringify({success: true, link}), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" }
-    });
+<script>
+async function gen(){
+  let email = document.getElementById("email").value.trim() || "guest@kpfree.xyz";
+  let r = await fetch("https://kppage.kponly.ggff.net/generate",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email})
+  });
+  let d = await r.json();
+  if(d.success){
+    document.getElementById("out").textContent = d.link;
+    document.getElementById("out").style.display = "block";
+  }else{
+    alert("နောက်မှ ထပ်စမ်းပါ");
   }
-};
+}
+</script>
     
 </body>
 </html>
