@@ -526,60 +526,67 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQCVPCDZ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    -----------
-    <div style="text-align:center; padding:50px 20px; background:#000; color:#0f0; font-family:monospace; min-height:100vh;">
-  <h1 style="font-size:28px; margin-bottom:10px;">KPFREE</h1>
-  <h3 style="margin-bottom:30px;">တစ်နေ့ 1GB အခမဲ့ Shadowsocks</h3>
-  
-  <input type="email" id="email" placeholder="email ရိုက်ပါ" autocomplete="off"
-         style="width:88%; max-width:400px; padding:16px; margin:15px auto; display:block; 
-                border:none; border-radius:12px; font-size:18px; background:#222; color:#0f0;">
-  
-  <button onclick="generateSS()" 
-          style="padding:16px 70px; background:#0f0; color:#000; border:none; border-radius:12px; 
-                 font-size:20px; font-weight:bold; cursor:pointer; margin:20px auto; display:block;">
-    ထုတ်ယူမယ်
-  </button>
+    ----------------
+    export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
 
-  <pre id="result" style="margin:40px auto; width:90%; max-width:500px; background:#111; 
-       padding:20px; border-radius:10px; display:none; word-break:break-all; 
-       white-space:pre-wrap; color:#0f0; font-size:15px; line-height:1.5;"></pre>
+    // ဒီ CORS က အရေးအကြီးဆုံး – အခု အပြည့်အဝ ခွင့်ပြုပေးပြီ
+    const corsHeaders = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Max-Age": "86400",
+    };
 
-  <small style="color:#0a0; display:block; margin-top:50px;">
-    တစ်နေ့ 1GB ပဲ သုံးလို့ရပါတယ်။ နောက်နေ့ ပြန်လာထုတ်ပါ။
-  </small>
-</div>
+    // OPTIONS request ကို ချက်ချင်း ပြန်ပေး
+    if (request.method === "OPTIONS") {
+      return new Response(null, { headers: corsHeaders });
+    }
 
-<script>
-async function generateSS() {
-  let email = document.getElementById("email").value.trim();
-  if (!email || !email.includes("@")) {
-    alert("email မှန်ကန်စွာ ရိုက်ထည့်ပါ");
-    return;
-  }
+    if (url.pathname !== "/generate") {
+      return new Response(JSON.stringify({error: "Use /generate"}), { headers: corsHeaders });
+    }
 
-  document.getElementById("result").style.display = "none";
+    let email = "guest@kpfree.xyz";
+    try {
+      const body = await request.json();
+      if (body && body.email && body.email.includes("@")) email = body.email;
+    } catch (e) {}
 
-  try {
-    let res = await fetch("https://kppage.kponly.ggff.net/api/generate", {
+    // Login
+    const login = await fetch(env.PANEL_URL + "/panel/api/login", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email })
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({username: env.USERNAME, password: env.PASSWORD})
+    });
+    const cookie = login.headers.getSetCookie ? login.headers.getSetCookie().join("; ") : "";
+
+    // Random password
+    const pass = Math.random().toString(36).slice(2, 15) + Math.random().toString(36).slice(2, 10);
+
+    // Add client
+    await fetch(env.PANEL_URL + `/panel/api/inbounds/${env.INBOUND_ID}/addClient`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Cookie": cookie},
+      body: JSON.stringify({settings: JSON.stringify({clients:[{
+        id: crypto.randomUUID(),
+        email: email,
+        enable: true,
+        totalGB: 1,
+        expiryTime: 0,
+        password: pass
+      }]})})
     });
 
-    let data = await res.json();
+    // တကယ့် မှန်ကန်တဲ့ link
+    const link = `ss://\( {btoa(env.METHOD + ":" + pass)}@159.65.135.226: \){env.PORT}?type=tcp#KPFREE-${Math.random().toString(36).slice(2,8)}`;
 
-    if (data.success) {
-      document.getElementById("result").textContent = data.link;
-      document.getElementById("result").style.display = "block";
-    } else {
-      alert("တစ်ခုခု မှားနေတယ်။ နောက်မှ ထပ်စမ်းပါ။");
-    }
-  } catch (e) {
-    alert("အင်တာနက် ချိတ်ဆက်မှု ပြဿနာရှိနေတယ်");
+    return new Response(JSON.stringify({success: true, link}), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" }
+    });
   }
-}
-</script>
+};
     
 </body>
 </html>
