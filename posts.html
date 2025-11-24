@@ -3,122 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KP Blog | Posts</title>
+    <title>KP Blog • Posts</title>
+    <meta name="description" content="KP Blog ရဲ့ နောက်ဆုံး ပို့စ်များ - VPN Bypass, Premium Configs, Starlink နှင့် နည်းပညာ အချက်အလက်များ">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022"
-     crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <head>
+    <!-- Ads & Analytics -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022" crossorigin="anonymous"></script>
     <script type='text/javascript' src='//pl28057847.effectivegatecpm.com/34/23/c5/3423c58ebdd6e84dccf686ec977a84fa.js'></script>
+    <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
+    <script src="https://my.rtmark.net/p.js?f=sync&lr=1&partner=2134cbd94e69258d0987ea05830383043f21608a1d7bf16e1948d0ec11354793" defer></script>
 
-    </head>
+    <style>
+        :root {
+            --primary: #00ff9d;
+            --primary-dark: #00cc7a;
+            --bg: #0d0d1f;
+            --card: rgba(20, 25, 50, 0.75);
+            --text: #e0e0ff;
+            --border: rgba(0, 255, 157, 0.3);
+            --hover: rgba(0, 255, 157, 0.15);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Pyidaungsu', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d0d1f 0%, #1a1a2e 100%);
+            color: var(--text);
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
 
-    
-    <link rel="stylesheet" href="style.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        /* Header */
+        header {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(10, 10, 30, 0.92);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .header-content {
+            max-width: 1400px; margin: 0 auto; padding: 15px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo-and-title img { height: 55px; border-radius: 15px; border: 2px solid var(--primary); }
+        .site-title {
+            font-size: 2.2em; color: var(--primary); margin-left: 15px;
+            background: linear-gradient(90deg, #00ff9d, #00cc7a);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        nav a {
+            color: #ddd; margin: 0 14px; text-decoration: none; font-weight: 600;
+            position: relative; transition: 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        nav a::after {
+            content: ''; position: absolute; width: 0; height: 3px; bottom: -8px; left: 0;
+            background: var(--primary); transition: 0.4s; border-radius: 2px;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* Main Content */
+        main { margin-top: 100px; padding: 30px 20px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+        h1 {
+            text-align: center; font-size: 3em; margin: 40px 0;
+            background: linear-gradient(90deg, #00ff9d, #00ccff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0,255,157,0.3);
+        }
+
+        /* Post List */
+        .posts-list {
+            display: grid; gap: 25px;
+        }
+        .post-item {
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .post-item::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+            background: linear-gradient(90deg, var(--primary), #00ccff);
+            border-radius: 20px 20px 0 0;
+        }
+        .post-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,255,157,0.25);
+            border-color: var(--primary);
+        }
+        .post-number {
+            position: absolute; top: 15px; right: 20px;
+            font-size: 2.5em; font-weight: bold; color: rgba(0,255,157,0.2);
+            pointer-events: none;
+        }
+        .post-item h3 {
+            font-size: 1.5em; margin: 10px 0; color: var(--primary);
+        }
+        .post-item h3 a {
+            color: inherit; text-decoration: none; transition: 0.3s;
+        }
+        .post-item h3 a:hover { color: #fff; text-shadow: 0 0 10px var(--primary); }
+        .post-item p {
+            line-height: 1.7; color: #ccc; margin: 15px 0;
+        }
+        .post-date {
+            color: var(--primary); font-weight: bold; font-size: 0.95em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 15px; }
+            nav a { margin: 8px 10px; font-size: 0.95em; }
+            h1 { font-size: 2.4em; }
+            .post-number { font-size: 2em; }
+        }
+    </style>
 </head>
 <body>
 
-        <header>
+<header>
     <div class="header-content">
         <div class="logo-and-title">
-            <img src="images/logo.png" alt="KP Logo" class="logo"> 
+            <img src="images/logo.png" alt="KP Logo">
             <h1 class="site-title">KP Blog</h1>
         </div>
         <nav>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='index.html';">Home</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='posts.html';">Posts</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='free.html';">Free</a> 
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='buy.html';">Buy</a> 
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='All.html';">All</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='Privacy Policy.html';">Privacy Policy</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='contact.html';">contact</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='About.html';">About</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='guides.html';">Guides</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='chat.html';">Chat Group</a>
+            <a href="index.html">Home</a>
+            <a href="posts.html">Posts</a>
+            <a href="free.html">Free</a>
+            <a href="buy.html">Buy</a>
+            <a href="All.html">All</a>
+            <a href="Privacy Policy.html">Privacy</a>
+            <a href="contact.html">Contact</a>
+            <a href="About.html">About</a>
+            <a href="guides.html">Guides</a>
+            <a href="chat.html">Chat Group</a>
         </nav>
     </div>
 </header>
 
-
-    
 <main>
-    <section class="posts-section"> </section>
-    <h1>Posts</h1>
+    <h1>နောက်ဆုံး ပို့စ်များ</h1>
 
-        <ul class="numbered-list-with-line">
-            
-            <li>
-                <span class="list-number">၀၁။</span>
-                <div class="list-content">
-                    <h3><a href="#">Mytel လိုင်းဖြတ်အကြောင်း (Mytel Bypass CF)</a></h3>
-                    <p>Mytel လိုင်းဖြတ် Cloudflare (CF) ဟာ လောလောဆယ် ကချင်ပြည်နယ် မှာပဲ သုံးလို့အဆင်ပြေနေပါသေးတယ်။</p>
-                    <span class="date">October 26, 2025</span>
-                </div>
-            </li>
-            
-            <li>
-                <span class="list-number">၀၂။</span>
-                <div class="list-content">
-                    <h3><a href="#">Mytel လိုင်းဖြတ်အကြောင်း (Mytel Bpyass GCP)</a></h3>
-                    <p>Mytel လိုင်းဖြတ် Gcp ကတော့ မြန်မာနိုင်ငံရဲ့ လိုင်းဖြတ်ဒေသတိုင်းနီပါး အဆင်ပြေပါတယ်။</p>
-                    <span class="date">October 25, 2025</span>
-                </div>
-            </li>
-            
-            <li>
-                <span class="list-number">၀၃။</span>
-                <div class="list-content">
-                    <h3><a href="#">All Sim All Wifi (Premium Vpn High Speed)</a></h3>
-                    <p>မိမိသုံးနေတဲ့ Internet လိုင်းနှေးနေတာမျိုးတွေ/Free Vpn တွေသုံးပီး ကြော်ငြှာတွေ ခနခန တက်နေလို့ စိတ်ညစ်နေရင် All Sim All Wifi ကအကောင်းဆုံးပါ။</p>
-                    <span class="date">October 20, 2025</span>
-                </div>
-            </li>
+    <div class="posts-list">
 
-            <li>
-                <span class="list-number">၀၄။</span>
-                <div class="list-content">
-                    <h3><a href="#">Starlink Ruijie အကြောင်း (Old)</a></h3>
-                    <p>Starlink Ruijie Update မတင်ရသေးတဲ့ စက်တွေကို ဆိုလိုပါတယ် သူက ဆိုင်မှာ သွားဝယ်စရာမလိုပဲ ကျော်သုံးလို့ရပါတယ် ကျော်သုံးလဲ လိုင်းကောင်းပါတယ်။</p>
-                    <span class="date">October 15, 2025</span>
-                </div>
-            </li>
-            <li>
-                <span class="list-number">၀၅။</span>
-                <div class="list-content">
-                    <h3><a href="#">Starlink Ruijie အကြောင်း (New)</a></h3>
-                    <p>Starlink Ruijie Update တင်ပီးသား စက်တွေ ကိုဆိုလိုပါတယ်။သူကတော့ ကျော်သုံးလို့ရတယ်ဆိုပေမဲ့(Old)လောက် လိုင်းမကောင်းနိုင်ပါဘူး။</p>
-                    <span class="date">October 15, 2025</span>
-                </div>
-            </li>
-            <li>
-                <span class="list-number">၀၆။</span>
-                <div class="list-content">
-                    <h3><a href="#">Digital Ocean ကို All Sim All Wifi ထုပ်သုံးနေတုံးပဲလား?</a></h3>
-                    <p>နောက်ထက် Digital Ocean ကို လိုင်းဖြတ် Starlink (Old/New)အတွက်လဲ သုံးလို့ရပါသေးတယ်နော်။</p>
-                    <span class="date">Nov 14, 2025</span>
-                </div>
-            </li>
-            <li>
-                <span class="list-number">၀၇။</span>
-                <div class="list-content">
-                    <h3><a href="#">====</a></h3>
-                    <p>=====</p>
-                    <span class="date">October 15, 2025</span>
-                </div>
-            </li>
-      
-        </ul>
+        <div class="post-item">
+            <span class="post-number">၀၁</span>
+            <h3><a href="#">Mytel လိုင်းဖြတ်အကြောင်း (Mytel Bypass CF)</a></h3>
+            <p>Mytel လိုင်းဖြတ် Cloudflare (CF) ဟာ လောလောဆယ် ကချင်ပြည်နယ် မှာပဲ သုံးလို့အဆင်ပြေနေပါသေးတယ်။ အခြား ဒေသတွေမှာလည်း စမ်းသပ်နေဆဲ ဖြစ်ပါတယ်။</p>
+            <span class="post-date">October 26, 2025</span>
+        </div>
+
+        <div class="post-item">
+            <span class="post-number">၀၂</span>
+            <h3><a href="#">Mytel လိုင်းဖြတ်အကြောင်း (Mytel Bypass GCP)</a></h3>
+            <p>Mytel လိုင်းဖြတ် GCP ကတော့ မြန်မာနိုင်ငံရဲ့ လိုင်းဖြတ်ဒေသတိုင်းနီးပါး အဆင်ပြေပါတယ်။ အမြန်ဆုံး နဲ့ တည်ငြိမ်ဆုံး ရွေးချယ်မှုတစ်ခု ဖြစ်ပါတယ်။</p>
+            <span class="post-date">October 25, 2025</span>
+        </div>
+
+        <div class="post-item">
+            <span class="post-number">၀၃</span>
+            <h3><a href="#">All Sim All Wifi (Premium Vpn High Speed)</a></h3>
+            <p>မိမိသုံးနေတဲ့ Internet လိုင်းနှေးနေတာမျိုးတွေ/Free Vpn တွေသုံးပြီး ကြော်ငြာတွေ ခနခန တက်နေလို့ စိတ်ညစ်နေရင် All Sim All Wifi က အကောင်းဆုံးပါ။</p>
+            <span class="post-date">October 20, 2025</span>
+        </div>
+
+        <div class="post-item">
+            <span class="post-number">၀၄</span>
+            <h3><a href="#">Starlink Ruijie အကြောင်း (Old Version)</a></h3>
+            <p>Starlink Ruijie Update မတင်ရသေးတဲ့ စက်တွေကို ဆိုလိုပါတယ်။ ဆိုင်မှာ သွားဝယ်စရာမလို၊ ကျော်သုံးလို့ရ၊ လိုင်းကောင်းပါတယ်။</p>
+            <span class="post-date">October 15, 2025</span>
+        </div>
+
+        <div class="post-item">
+            <span class="post-number">၀၅</span>
+            <h3><a href="#">Starlink Ruijie အကြောင်း (New Version)</a></h3>
+            <p>Update တင်ပြီးသား စက်တွေအတွက် ကျော်သုံးလို့ရပေမဲ့ Old လောက် လိုင်းမကောင်းနိုင်ပါ။ ဒါပေမဲ့ အခြား နည်းလမ်းတွေ ရှိနေပါသေးတယ်။</p>
+            <span class="post-date">October 15, 2025</span>
+        </div>
+
+        <div class="post-item">
+            <span class="post-number">၀၆</span>
+            <h3><a href="#">Digital Ocean ကို All Sim All Wifi ထုပ်သုံးနေတုံးပဲလား?</a></h3>
+            <p>နောက်ထက် Digital Ocean ကို Starlink (Old/New) အတွက်ပါ သုံးလို့ရပါပြီ။ အမြန်ဆုံး နဲ့ အတည်တကျ အသုံးပြုနိုင်ပါတယ်။</p>
+            <span class="post-date">November 14, 2025</span>
+        </div>
+
+        <!-- နောက်ထပ် ပို့စ်တွေ ထည့်ချင်ရင် ဒီထဲ ထည့်ရုံပဲ -->
         
-        </section>
-    </main>
+    </div>
+</main>
 
+<footer style="text-align:center; padding:60px 20px; color:#777; margin-top:80px;">
+    <p>© 2025 KP Blog • အားလုံးကို ချစ်ခင်စွာဖြင့်</p>
+</footer>
+
+</body>
+</html>
