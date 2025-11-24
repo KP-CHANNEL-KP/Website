@@ -112,10 +112,10 @@
 
         <div class="pay-methods">
             <div class="pay active" data-pay="wave">
-                <img src="images/wave.png" alt="Wave Pay"><br>Wave Pay
+                <img src="https://i.imgur.com/2fX5G8j.png" alt="Wave Pay"><br>Wave Pay
             </div>
             <div class="pay" data-pay="kpay">
-                <img src="images/kpay.png" alt="KPay"><br>KPay
+                <img src="https://i.imgur.com/2kR5vOa.png" alt="KPay"><br>KPay
             </div>
         </div>
 
@@ -162,7 +162,7 @@
         packages[game].forEach((p, i) => {
             const div = document.createElement("div");
             div.className = "pkg" + (i === 0 ? " active" : "");
-            div.innerHTML = `<h3>$( {p.name}</h3><p> \){p.price}</p>`;
+            div.innerHTML = `<h3>$( {p.name}</h3><p> $){p.price}</p>`;
             div.onclick = () => {
                 document.querySelectorAll(".pkg").forEach(el => el.classList.remove("active"));
                 div.classList.add("active");
@@ -195,19 +195,19 @@
         document.getElementById("loadingBtn").style.display = "block";
 
         const message = `
-*money* KP Top Up မှာယူမှု အသစ် *money*
+🛒 *KP Top Up မှာယူမှု အသစ်*
 
-*game* ဂိမ်း: ${game}
-*id-card* User ID: ${userId}
-*diamond* ပမာဏ: ${selectedPkg.name}
-*coin* ဈေးနှုန်း: ${selectedPkg.price}
-*money-with-wings* ငွေပေးချေနည်း: ${selectedPay === "wave" ? "Wave Pay" : "KPay"}
-*receipt* ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး: ${refNumber}
-*phone* ဖုန်းနံပါတ်: 09966955081
+🎮 ဂိမ်း: ${game}
+🆔 User ID: ${userId}
+💎 ပမာဏ: ${selectedPkg.name}
+💰 ဈေးနှုန်း: ${selectedPkg.price}
+💳 ငွေပေးချေနည်း: ${selectedPay === "wave" ? "Wave Pay" : "KPay"}
+💸 ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး: ${refNumber}
+📱 ဖုန်းနံပါတ်: 09966955081
 
-*clock* အချိန်: ${new Date().toLocaleString("my-MM")}
+⏰ အချိန်: ${new Date().toLocaleString("my-MM")}
         `;
-
+        
         try {
             await fetch(`https://api.telegram.org/bot8565432520:AAFbW60KA7GUXuTx_MQJNT_iFEWr73lHvm8/sendMessage`, {
                 method: "POST",
