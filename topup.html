@@ -98,13 +98,13 @@
             <option value="ml">Mobile Legends</option>
         </select>
 
-        <label>User ID (နံပါတ်ပဲ ရိုက်ပါ)</label>
-        <input type="text" id="userId" placeholder="ဥပမာ: 5123456789" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-        <div class="warning" id="idWarning">နံပါတ်ပဲ ရိုက်ပါ။ စာလုံး၊ သင်္ကေတများ မရိုက်နဲ့!</div>
+        <label>User ID (နံပါတ်နဲ့ () ပဲ ရိုက်ပါ)</label>
+        <input type="text" id="userId" placeholder="ဥပမာ: 5123456789 သို့မဟုတ် (5123456789)" oninput="this.value=this.value.replace(/[^\d()]/g,'')">
+        <div class="warning" id="idWarning">နံပါတ်နဲ့ ခြင်ထောင့်ကွင်း () ပဲ ရိုက်ပါ!</div>
 
         <label>ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး <span style="color:#ff6b6b;">(မဖြစ်မနေ)</span></label>
-        <input type="text" id="refNumber" maxlength="5" placeholder="ဥပမာ: 54321" oninput="this.value=this.value.replace(/[^0-9]/g,'')" style="letter-spacing:5px; font-weight:bold;">
-        <div class="warning" id="refWarning">နံပါတ် ၅ လုံးပဲ ရိုက်ပါ။ စာလုံး၊ သင်္ကေတ မရိုက်နဲ့!</div>
+        <input type="text" id="refNumber" maxlength="7" placeholder="ဥပမာ: 54321 သို့မဟုတ် (54321)" oninput="this.value=this.value.replace(/[^\d()]/g,'')" style="letter-spacing:5px; font-weight:bold;">
+        <div class="warning" id="refWarning">နံပါတ် ၅ လုံး သို့မဟုတ် (၅လုံး) ရိုက်ပါ!</div>
 
         <div style="font-size:1.3em; margin:25px 0; color:var(--primary); text-align:center;">
             <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
@@ -156,13 +156,17 @@
     let selectedPkg = null;
     let selectedPay = "wave";
 
-    // ညစ်ညမ်းစကားလုံးများ တားဆီးရန်
-    const badWords = ["လီး","စောက်","ဖုတ်","ခွေး","အတွဲ","ဗိုင်း","လိင်","fuck","shit","bitch","ဆဲ","ရိုင်း","အစစ်","အစိုင်း","မြင်း","သား","ခွဲ","ညစ်","ညစ်ညမ်း"];
+    // ညစ်ညမ်းစကားလုံးများ
+    const badWords = ["လီး","စောက်","ဖုတ်","ခွေး","အတွဲ","ဗိုင်း","လိင်","fuck","shit","bitch","ဆဲ","ရိုင်း","မြင်း","သား","ခွဲ","ညစ်"];
 
     function hasBadWord(text) {
         if (!text) return false;
         const lower = text.toLowerCase();
         return badWords.some(word => lower.includes(word));
+    }
+
+    function cleanInput(text) {
+        return text.replace(/[^\d()]/g, '');
     }
 
     function loadPackages() {
@@ -175,7 +179,7 @@
             const div = document.createElement("div");
             div.className = "pkg" + (i === 0 ? " active" : "");
             
-            // ပြင်ဆင်ထားသော နေရာ
+            // JavaScript Syntax Error ကို ပြင်ဆင်ထားသော နေရာ
             div.innerHTML = `<h3>${p.name}</h3><p>${p.price}</p>`;
             
             div.onclick = () => {
@@ -197,17 +201,20 @@
     });
 
     async function submitOrder() {
-        const userId = document.getElementById("userId").value.trim();
-        const refNumber = document.getElementById("refNumber").value.trim();
+        let userId = document.getElementById("userId").value.trim();
+        let refNumber = document.getElementById("refNumber").value.trim();
         const game = document.getElementById("game").options[document.getElementById("game").selectedIndex].text;
 
-        // ညစ်ညမ်းစကား စစ်ဆေးခြင်း
+        // ခြင်ထောင့်ကွင်းကို ဖယ်ပြီး သန့်စင်ပေးတယ် (Validation အတွက်)
+        const cleanId = userId.replace(/[()]/g, '');
+        const cleanRef = refNumber.replace(/[()]/g, '');
+
         if (hasBadWord(userId) || hasBadWord(refNumber)) {
             alert("ယဉ်ကျေးစွာ ရိုက်ထည့်ပါ။ ဆဲဆို၊ ညစ်ညမ်းစကား လုံးဝ ခွင့်မပြုပါ!");
             return;
         }
 
-        if (!userId || !selectedPkg || !refNumber || refNumber.length !== 5) {
+        if (!cleanId || !selectedPkg || cleanRef.length !== 5) {
             alert("User ID၊ ပမာဏ နဲ့ ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး မဖြစ်မနေ ထည့်ရပါမည်။");
             return;
         }
@@ -242,7 +249,7 @@ User ID: ${userId}
 
             alert("မှာယူမှု အောင်မြင်ပါသည်!\nKP မှ မကြာခင် အတည်ပြုပြီး ထည့်ပေးပါမည်။\nမိနစ်အနည်းငယ် သာဆောင့်ပေးပါ။");
         } catch (e) {
-            alert("အင်တာနက်ချိတ်ဆက်မှု ပြဿနာရှိနေပါသည်။ ထပ်စမ်းကြည့်ပါ။");
+            alert("အင်တာနက်ပြဿနာ ရှိနေပါသည်။ ထပ်စမ်းကြည့်ပါ။");
         }
 
         document.getElementById("submitBtn").style.display = "block";
