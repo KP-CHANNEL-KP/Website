@@ -6,11 +6,9 @@
     <title>KP Top Up • PUBG & ML</title>
     <meta name="description" content="KP Blog - PUBG Mobile နှင့် Mobile Legends အတွက် အမြန်ဆုံး Top Up ဝန်ဆောင်မှု">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Ads & Analytics -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7F5VL62DT2"></script>
     <script>
@@ -18,8 +16,6 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date()); gtag('config', 'G-7F5VL62DT2');
     </script>
-    <script type='text/javascript' src='//pl28057847.effectivegatecpm.com/34/23/c5/3423c58ebdd6e84dccf686ec977a84fa.js'></script>
-    <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
 
     <style>
         :root {
@@ -49,7 +45,6 @@
         nav a:hover::after { width:100%; }
 
         main { margin-top:90px; padding:20px; max-width:1000px; margin-left:auto; margin-right:auto; }
-
         .page-title { text-align:center; font-size:3em; margin:30px 0; background:linear-gradient(90deg,#00ff9d,#00ccff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
 
         .topup-card { background:var(--card); backdrop-filter:blur(12px); border-radius:20px; padding:30px; border:1px solid var(--border); box-shadow:0 15px 40px rgba(0,0,0,0.4); margin-bottom:40px; }
@@ -64,14 +59,12 @@
         .pay.active img { border-color:var(--primary); box-shadow:0 0 20px rgba(0,255,157,0.6); }
         .btn { display:block; width:100%; padding:20px; background:linear-gradient(45deg,var(--primary),var(--primary-dark)); color:#000; font-weight:bold; font-size:1.5em; text-align:center; border-radius:50px; cursor:pointer; transition:0.4s; box-shadow:0 10px 30px rgba(0,255,157,0.5); margin-top:30px; }
         .btn:hover { transform:translateY(-5px); box-shadow:0 15px 40px rgba(0,255,157,0.7); }
-        .btn:disabled { background:#555; cursor:not-allowed; transform:none; }
+        .btn:disabled { background:#555; cursor:not-allowed; opacity:0.7; }
 
         footer { text-align:center; padding:60px 20px; color:#777; }
 
         @media (max-width:768px) {
-            .header-content { flex-direction:column; gap:20px; }
             .page-title { font-size:2.4em; }
-            .pay-methods { gap:20px; }
             .pay img { width:70px; height:70px; }
         }
     </style>
@@ -107,25 +100,27 @@
         <label>User ID (သို့) Player ID</label>
         <input type="text" id="userId" placeholder="ဥပမာ: 5123456789">
 
+        <!-- အသစ်ထည့်ထားတဲ့ ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး -->
+        <label>ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး <span style="color:#ff6b6b;">(မဖြစ်မနေ)</span></label>
+        <input type="text" id="refNumber" maxlength="5" placeholder="ဥပမာ: 54321" style="letter-spacing:5px; font-weight:bold;">
+
         <div style="font-size:1.3em; margin:25px 0; color:var(--primary); text-align:center;">
             <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
         </div>
 
-        <div class="packages" id="packages">
-            <!-- JS က ဒီနေရာ အလိုအလျောက် ထည့်ပေးမယ် -->
-        </div>
+        <div class="packages" id="packages"></div>
 
         <div class="pay-methods">
             <div class="pay active" data-pay="wave">
-                <img src="images/wave.png" alt="Wave Pay"><br>Wave Pay
+                <img src="https://i.imgur.com/2fX5G8j.png" alt="Wave Pay"><br>Wave Pay
             </div>
             <div class="pay" data-pay="kpay">
-                <img src="images/kpay.png" alt="KPay"><br>KPay
+                <img src="https://i.imgur.com/2kR5vOa.png" alt="KPay"><br>KPay
             </div>
         </div>
 
         <div style="text-align:center; margin:20px 0; color:#ff6b6b; font-size:1.2em;">
-            ငွေပေးချေပြီး အောက်က ခလုပ်ကို နှိပ်ပါ<br>
+            ငွေလွှဲပြီးမှ အောက်က ခလုပ်ကို နှိပ်ပါ<br>
             <strong>Wave/KPay: 09966955081</strong>
         </div>
 
@@ -166,14 +161,14 @@
         container.innerHTML = "";
         packages[game].forEach((p, i) => {
             const div = document.createElement("div");
-            div.className = "pkg" + (i===0 ? " active" : "");
+            div.className = "pkg" + (i === 0 ? " active" : "");
             div.innerHTML = `<h3>\( {p.name}</h3><p> \){p.price}</p>`;
             div.onclick = () => {
                 document.querySelectorAll(".pkg").forEach(el => el.classList.remove("active"));
                 div.classList.add("active");
                 selectedPkg = p;
             };
-            if (i===0) selectedPkg = p;
+            if (i === 0) selectedPkg = p;
             container.appendChild(div);
         });
     }
@@ -188,10 +183,11 @@
 
     async function submitOrder() {
         const userId = document.getElementById("userId").value.trim();
+        const refNumber = document.getElementById("refNumber").value.trim();
         const game = document.getElementById("game").options[document.getElementById("game").selectedIndex].text;
 
-        if (!userId || !selectedPkg) {
-            alert("User ID နဲ့ ပမာဏ ရွေးပါ။");
+        if (!userId || !selectedPkg || !refNumber || refNumber.length !== 5) {
+            alert("User ID၊ ပမာဏ နဲ့ ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး မဖြစ်မနေ ထည့်ရပါမည်။");
             return;
         }
 
@@ -199,29 +195,35 @@
         document.getElementById("loadingBtn").style.display = "block";
 
         const message = `
-🛒 *KP Top Up မှာယူမှု အသစ်*
+*money* KP Top Up မှာယူမှု အသစ် *money*
 
-🎮 ဂိမ်း: ${game}
-🆔 User ID: ${userId}
-💎 ပမာဏ: ${selectedPkg.name}
-💰 ဈေးနှုန်း: ${selectedPkg.price}
-💳 ငွေပေးချေနည်း: ${selectedPay === "wave" ? "Wave Pay" : "KPay"}
-📱 ဖုန်းနံပါတ်: 09966955081
+*game* ဂိမ်း: ${game}
+*id-card* User ID: ${userId}
+*diamond* ပမာဏ: ${selectedPkg.name}
+*coin* ဈေးနှုန်း: ${selectedPkg.price}
+*money-with-wings* ငွေပေးချေနည်း: ${selectedPay === "wave" ? "Wave Pay" : "KPay"}
+*receipt* ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး: ${refNumber}
+*phone* ဖုန်းနံပါတ်: 09966955081
 
-⏰ အချိန်: ${new Date().toLocaleString("my-MM")}
+*clock* အချိန်: ${new Date().toLocaleString("my-MM")}
         `;
 
-        await fetch(`https://api.telegram.org/bot8565432520:AAFbW60KA7GUXuTx_MQJNT_iFEWr73lHvm8/sendMessage`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                chat_id: 7070690379,
-                text: message,
-                parse_mode: "Markdown"
-            })
-        });
+        try {
+            await fetch(`https://api.telegram.org/bot8565432520:AAFbW60KA7GUXuTx_MQJNT_iFEWr73lHvm8/sendMessage`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    chat_id: 7070690379,
+                    text: message,
+                    parse_mode: "Markdown"
+                })
+            });
 
-        alert("မှာယူမှု အောင်မြင်ပါပြီ!\nAdmin က မကြာခင် အတည်ပြုပေးပါမည်။\nသူတို့ကို Telegram မှာ ဆက်သွယ်နိုင်ပါသည်။");
+            alert("မှာယူမှု အောင်မြင်ပါပြီ!\nAdmin က မကြာခင် အတည်ပြုပြီး ထည့်ပေးပါမည်။\nသူတို့ကို Telegram မှာ ဆက်သွယ်နိုင်ပါသည်။");
+        } catch (e) {
+            alert("ပို့၍မရပါ။ အင်တာနက်စစ်ပါ။");
+        }
+
         document.getElementById("submitBtn").style.display = "block";
         document.getElementById("loadingBtn").style.display = "none";
     }
