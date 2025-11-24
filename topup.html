@@ -36,12 +36,21 @@
 const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com";
 let currentUser = null;
 
-// === BAN SYSTEM ===
+// === BAN SYSTEM (UPDATED WITH WORKER KV CHECK) ===
+
+// 🔑 သတ်မှတ်ထားသော Worker URL
+const BAN_CHECK_WORKER_URL = "https://salebotban.kponly.ggff.net";
+
 async function checkBanned(){
+    if (!currentUser || !currentUser.id) return false;
+
     try{
-        const r = await fetch("https://kponly.ggff.net/banned.json?t="+Date.now());
-        const list = await r.json();
-        if(list.includes(currentUser.id)){
+        // Worker မှ /check-ban/ ကို ခေါ်ယူပြီး လက်ရှိ User ID ကို စစ်ဆေးသည်။
+        const r = await fetch(`${BAN_CHECK_WORKER_URL}/check-ban/${currentUser.id}`);
+        const result = await r.json();
+
+        if(result.banned){
+            // Ban ခံထားရပါက HTML ကို အောက်ပါအတိုင်း အစားထိုးသည်။
             document.body.innerHTML = `
             <div style="text-align:center;margin-top:150px;padding:40px;">
                 <h1 style="font-size:3em;color:#ff6b6b;">အကောင့် Ban လိုက်ပါပီ ဂေါင်းရီး😂</h1>
@@ -50,10 +59,14 @@ async function checkBanned(){
             </div>`;
             return true;
         }
-    }catch(e){console.log("Ban list မတွေ့ပါ");}
+    }catch(e){
+        // Worker URL မှားယွင်းခြင်း သို့မဟုတ် connection error ရှိရင် console ထဲမှာ Error ပြမည်
+        console.log("Ban list စစ်ရာတွင် Error ရှိပါသည် (Worker URL သို့မဟုတ် KV ချိတ်ဆက်မှုစစ်ပါ):", e);
+    }
     return false;
 }
 // === END BAN SYSTEM ===
+
 
 function decodeJwt(t){
     try{
