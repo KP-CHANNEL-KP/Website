@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Top Up • Login လိုအပ်ပါသည်</title>
     <meta name="description" content="KP Top Up - Google ဖြင့် ဝင်ရောက်ပြီး လုံခြုံစိတ်ချစွာ ဝယ်ယူပါ">
-    
-    <!-- Google Sign-In -->
-    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+
+    <!-- မင်းရဲ့ တကယ့် Client ID ထည့်ပြီးသား -->
+    <meta name="google-signin-client_id" content="745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <style>
@@ -20,7 +20,7 @@
         p{font-size:1.1em;margin:20px 0;color:#bbb;}
         .google-btn{margin:30px auto;width:80%;}
         .hidden{display:none;}
-        footer{position:fixed;bottom:20px;color:#666;font-size:0.9em;}
+        footer{position:fixed;bottom:20px;color:#666;font-size:0.9em;left:0;right:0;text-align:center;}
     </style>
 </head>
 <body>
@@ -30,21 +30,15 @@
     <h1>KP Top Up</h1>
     <p>လုံခြုံစိတ်ချစွာ ဝယ်ယူရန်<br><strong>Google ဖြင့် ဝင်ရောက်ပါ</strong></p>
     <div id="googleSignIn" class="google-btn"></div>
-    <p style="margin-top:30px;color:#ff6b6b;">လိမ်ညာသူများကို ချက်ချင်း Ban လုပ်ပါမည်!</p>
+    <p style="margin-top:30px;color:#ff6b6b;font-size:0.95em;">လိမ်ညာသူများကို ချက်ချင်း Ban လုပ်ပါမည်!</p>
 </div>
 
-<!-- တကယ့် Top Up Page ကို ဒီမှာ ဖွက်ထားတယ် -->
-<div id="topupPage" class="hidden">
-    <!-- မင်းရဲ့ အဟောင်း topup အကုန်လုံး ဒီထဲ ထည့်ထားတယ် -->
-    <!-- အောက်မှာ အပြည့်အစုံ ပါတယ် -->
-</div>
+<div id="topupPage" class="hidden"></div>
 
 <footer>© 2025 KP Blog • လုံခြုံရေး အမြင့်ဆုံး</footer>
 
 <script>
-// ဒီနေရာ မင်းရဲ့ Google Client ID ထည့်ပါ (လိုအပ်ရင် ငါ လုပ်ပေးမယ်)
-const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"; // <<< ဒါ ပြောင်းပါ
-
+const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com";
 let currentUser = null;
 
 function onSignIn(googleUser) {
@@ -55,32 +49,31 @@ function onSignIn(googleUser) {
         id: profile.getId(),
         photo: profile.getImageUrl()
     };
-    
+
     document.getElementById("loginBox").classList.add("hidden");
     document.getElementById("topupPage").classList.remove("hidden");
-    document.body.style.background = "linear-gradient(135deg,#0d0d1f,#1a1a2e)";
-    
-    // အခု တကယ့် Top Up Page ကို ထည့်လိုက်တယ်
     loadTopUpPage();
 }
 
 function loadTopUpPage() {
-    const page = document.getElementById("topupPage");
-    page.innerHTML = `
-    <header style="position:fixed;top:0;left:0;right:0;background:rgba(10,10,30,0.95);backdrop-filter:blur(15px);z-index:1000;padding:15px;text-align:center;border-bottom:1px solid rgba(0,255,157,0.3);">
-        <div style="display:flex;align-items:center;justify-content:center;gap:15px;">
-            <img src="${currentUser.photo}" width="50" style="border-radius:50%;border:3px solid var(--primary);">
-            <div style="color:white;">
-                <div style="font-size:1.4em;font-weight:bold;color:var(--primary);">${currentUser.name}</div>
-                <div style="font-size:0.9em;color:#aaa;">${currentUser.email}</div>
+    document.getElementById("topupPage").innerHTML = `
+    <header style="position:fixed;top:0;left:0;right:0;background:rgba(10,10,30,0.95);backdrop-filter:blur(15px);z-index:1000;padding:15px 20px;border-bottom:1px solid var(--border);">
+        <div style="max-width:1400px;margin:auto;display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:15px;">
+                <img src="${currentUser.photo}" width="50" height="50" style="border-radius:50%;border:3px solid var(--primary);">
+                <div style="color:white;">
+                    <div style="font-weight:bold;color:var(--primary);">${currentUser.name}</div>
+                    <div style="font-size:0.9em;color:#aaa;">${currentUser.email}</div>
+                </div>
             </div>
+            <div style="color:#ff6b6b;font-size:0.9em;">လိမ်ညာပါက ချက်ချင်း Ban လုပ်ပါမည်</div>
         </div>
     </header>
 
     <main style="margin-top:100px;padding:20px;max-width:1000px;margin:auto;">
         <h1 style="text-align:center;font-size:3em;margin:30px 0;background:linear-gradient(90deg,#00ff9d,#00ccff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">KP Top Up Center</h1>
 
-        <div style="background:rgba(20,25,50,0.8);backdrop-filter:blur(12px);border-radius:20px;padding:30px;border:1px solid rgba(0,255,157,0.3);box-shadow:0 15px 40px rgba(0,0,0,0.4);">
+        <div style="background:var(--card);backdrop-filter:blur(12px);border-radius:20px;padding:30px;border:1px solid var(--border);box-shadow:0 15px 40px rgba(0,0,0,0.4);">
             <label>ဂိမ်းရွေးပါ</label>
             <select id="game"><option value="pubg">PUBG Mobile</option><option value="ml">Mobile Legends</option></select>
 
@@ -98,10 +91,10 @@ function loadTopUpPage() {
 
             <div style="display:flex;justify-content:center;gap:30px;margin:30px 0;flex-wrap:wrap;">
                 <div class="pay active" data-pay="wave" style="text-align:center;cursor:pointer;">
-                    <img src="https://i.imgur.com/2fX5G8j.png" width="80"><br>Wave Pay
+                    <img src="images/wave.png" width="80" height="80" style="border-radius:15px;border:3px solid transparent;"><br>Wave Pay
                 </div>
                 <div class="pay" data-pay="kpay" style="text-align:center;cursor:pointer;">
-                    <img src="https://i.imgur.com/2kR5vOa.png" width="80"><br>KPay
+                    <img src="images/kpay.png" width="80" height="80" style="border-radius:15px;border:3px solid transparent;"><br>KPay
                 </div>
             </div>
 
@@ -110,14 +103,14 @@ function loadTopUpPage() {
                 <strong>Wave/KPay: 09966955081</strong>
             </div>
 
-            <button onclick="submitOrder()" style="width:100%;padding:20px;background:linear-gradient(45deg,var(--primary),var(--primary-dark));color:black;font-weight:bold;font-size:1.5em;border-radius:50px;border:none;cursor:pointer;">
+            <button onclick="submitOrder()" style="width:100%;padding:20px;background:linear-gradient(45deg,var(--primary),var(--primary-dark));color:black;font-weight:bold;font-size:1.5em;border-radius:50px;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(0,255,157,0.5);">
                 အတည်ပြုပြီး မှာယူမည်
             </button>
+            <button id="loadingBtn" style="display:none;width:100%;padding:20px;background:#555;color:white;font-size:1.5em;border-radius:50px;border:none;" disabled>ပို့နေပါသည်...</button>
         </div>
-    </main>
-    `;
+    </main>`;
 
-    // ကျန်တဲ့ JS အားလုံး ဒီထဲမှာ ဆက်လုပ်တယ်
+    // Packages & Submit Logic
     const packages = {pubg:[{name:"60 UC",price:"1000 ကျပ်"},{name:"325 UC",price:"5000 ကျပ်"},{name:"600 UC",price:"9000 ကျပ်"},{name:"1800 UC",price:"25000 ကျပ်"},{name:"3850 UC",price:"50000 ကျပ်"}],
         ml:[{name:"86 Diamonds",price:"3000 ကျပ်"},{name:"172 Diamonds",price:"5500 ကျပ်"},{name:"257 Diamonds",price:"8000 ကျပ်"},{name:"344 Diamonds",price:"10500 ကျပ်"},{name:"706 Diamonds",price:"21000 ကျပ်"}]};
     let selectedPkg = null;
@@ -139,10 +132,15 @@ function loadTopUpPage() {
         });
     }
     loadPackages();
-    document.getElementById("game").onchange=loadPackages;
+    document.getElementById("game").onchange = loadPackages;
 
-    document.querySelectorAll(".pay").forEach(p=>{
-        p.onclick=()=>{ document.querySelectorAll(".pay").forEach(e=>e.classList.remove("active")); p.classList.add("active"); selectedPay=p.dataset.pay; };
+    document.querySelectorAll(".pay").forEach(p => {
+        p.onclick = () => {
+            document.querySelectorAll(".pay").forEach(e => { e.querySelector("img").style.border="3px solid transparent"; e.classList.remove("active"); });
+            p.querySelector("img").style.border="3px solid var(--primary)";
+            p.classList.add("active");
+            selectedPay = p.dataset.pay;
+        };
     });
 
     window.submitOrder = async function() {
@@ -152,9 +150,12 @@ function loadTopUpPage() {
         const cleanRef = refNumber.replace(/[()]/g,'');
 
         if(!cleanId || !selectedPkg || cleanRef.length!==5){
-            alert("အားလုံး ဖြည့်ပြီး မှန်ကန်စွာ ရိုက်ထည့်ပါ။");
+            alert("အားလုံးကို မှန်ကန်စွာ ဖြည့်ပေးပါ။");
             return;
         }
+
+        document.querySelector("button[onclick='submitOrder()']").style.display="none";
+        document.getElementById("loadingBtn").style.display="block";
 
         const message = `
 *KP Top Up မှာယူမှု အသစ်* (လုံခြုံစနစ်)
@@ -168,22 +169,29 @@ Google ID (Ban လုပ်ရန်): ${currentUser.id}
 User ID: ${userId}
 ပမာဏ: ${selectedPkg.name}
 ဈေးနှုန်း: ${selectedPkg.price}
-ငွေပေးချေနည်း: ${selectedPay==="wave"?"Wave Pay":"KPay"}
+ငွေပေးချေနည်း: ${selectedPay === "wave" ? "Wave Pay" : "KPay"}
 ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး: ${refNumber}
 
 အချိန်: ${new Date().toLocaleString("my-MM")}
         `;
 
-        await fetch("https://api.telegram.org/bot8565432520:AAFbW60KA7GUXuTx_MQJNT_iFEWr73lHvm8/sendMessage", {
-            method:"POST", headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({chat_id:7070690379, text:message, parse_mode:"Markdown"})
-        });
+        try {
+            await fetch("https://api.telegram.org/bot8565432520:AAFbW60KA7GUXuTx_MQJNT_iFEWr73lHvm8/sendMessage", {
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({chat_id:7070690379, text:message, parse_mode:"Markdown"})
+            });
+            alert("အောင်မြင်စွာ ပို့ပြီးပါပြီ!\nAdmin က မကြာခင် ထည့်ပေးပါမည်။");
+        } catch(e) {
+            alert("အင်တာနက်ပြဿနာ ရှိနေပါသည်။");
+        }
 
-        alert("အောင်မြင်ပါပြီ!\nAdmin က မကြာခင် ထည့်ပေးပါမည်။");
+        document.querySelector("button[onclick='submitOrder()']").style.display="block";
+        document.getElementById("loadingBtn").style.display="none";
     };
 }
 
-// Google Sign In Button
+// Google Sign-In Button ထည့်ပေးတယ်
 window.onload = () => {
     google.accounts.id.initialize({
         client_id: GOOGLE_CLIENT_ID,
@@ -191,8 +199,9 @@ window.onload = () => {
     });
     google.accounts.id.renderButton(
         document.getElementById("googleSignIn"),
-        { theme: "outline", size: "large", text: "signin_with", width: "300" }
+        { theme: "outline", size: "large", text: "signin_with", width: "300", logo_alignment: "left" }
     );
+    google.accounts.id.prompt(); // တခါတည်း popup ထွက်အောင်
 };
 </script>
 
