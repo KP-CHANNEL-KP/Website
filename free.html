@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Blog • Free VPN & Tools</title>
-    <meta name="description" content="KP Blog - နေ့စဉ် အခမဲ့ VPN Configs၊ Tools၊ Premium Accounts နှင့် အခြား အသုံးဝင်သော အရာများ">
+    <meta name="description" content="KP Blog - နေ့စဉ် အခမဲ့ VPN Configs၊ Tools နှင့် အခြား အသုံးဝင်သော အရာများ">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -53,94 +53,71 @@
             background-attachment: fixed;
         }
 
-        /* Header */
         header {
-            position: fixed; top: 0; left: 0; right: 0;
-            background: rgba(10, 10, 30, 0.9);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
+            position: fixed; top:0; left:0; right:0;
+            background: rgba(10,10,30,0.9); backdrop-filter: blur(15px);
+            z-index: 1000; border-bottom: 1px solid var(--border);
         }
         .header-content {
-            max-width: 1400px; margin: 0 auto; padding: 15px 20px;
-            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1400px; margin:0 auto; padding:15px 20px;
+            display:flex; justify-content:space-between; align-items:center;
         }
-        .logo-and-title {
-            display: flex; align-items: center; gap: 15px;
-        }
-        .logo-and-title img { height: 55px; border-radius: 15px; border: 2px solid var(--primary); }
+        .logo-and-title { display:flex; align-items:center; gap:15px; }
+        .logo-and-title img { height:55px; border-radius:15px; border:2px solid var(--primary); }
         .site-title {
-            font-size: 2.2em; color: var(--primary); text-shadow: 0 0 20px rgba(0,255,157,0.6);
-            background: linear-gradient(90deg, #00ff9d, #00cc7a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size:2.2em; background:linear-gradient(90deg,#00ff9d,#00cc7a);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+            text-shadow:0 0 20px rgba(0,255,157,0.6);
         }
-        nav a {
-            color: #ddd; margin: 0 14px; text-decoration: none; font-weight: 600;
-            position: relative; transition: 0.3s;
-        }
-        nav a:hover { color: var(--primary); }
-        nav a::after {
-            content: ''; position: absolute; width: 0; height: 3px; bottom: -8px; left: 0;
-            background: var(--primary); transition: 0.4s; border-radius: 2px;
-        }
-        nav a:hover::after { width: 100%; }
+        nav a { color:#ddd; margin:0 14px; text-decoration:none; font-weight:600; position:relative; transition:0.3s; }
+        nav a:hover { color:var(--primary); }
+        nav a::after { content:''; position:absolute; width:0; height:3px; bottom:-8px; left:0; background:var(--primary); transition:0.4s; border-radius:2px; }
+        nav a:hover::after { width:100%; }
 
-        main { margin-top: 90px; padding: 20px; max-width: 1300px; margin-left: auto; margin-right: auto; }
+        main { margin-top:90px; padding:20px; max-width:1300px; margin-left:auto; margin-right:auto; }
 
         .page-title {
-            text-align: center; font-size: 3em; margin: 30px 0;
-            background: linear-gradient(90deg, #00ff9d, #00ccff);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-align:center; font-size:3em; margin:30px 0;
+            background:linear-gradient(90deg,#00ff9d,#00ccff);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
         }
 
-        /* Free Content Box */
-        .free-content {
-            background: var(--card);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid var(--border);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            margin-bottom: 40px;
-        }
-        .free-content textarea {
-            width: 100%; height: 500px; padding: 20px; background: rgba(10,15,35,0.8);
-            border: 1px solid var(--border); border-radius: 15px; color: #fff;
-            font-family: 'Pyidaungsu', monospace; font-size: 1em; resize: none;
-        }
-        .copy-btn {
-            display: block; width: 100%; margin-top: 15px; padding: 18px;
-            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
-            color: #000; font-weight: bold; font-size: 1.3em; text-align: center;
-            border-radius: 50px; cursor: pointer; transition: 0.4s;
-            box-shadow: 0 10px 30px rgba(0,255,157,0.5);
-        }
-        .copy-btn:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,255,157,0.7); }
-
-        /* Download Section */
-        .download-section {
-            background: var(--card); backdrop-filter: blur(12px);
-            border-radius: 20px; padding: 30px; border: 1px solid var(--border);
-            text-align: center; margin-bottom: 40px;
-        }
-        .download-btn {
-            display: inline-block; padding: 20px 60px; background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-            color: white; font-size: 1.6em; font-weight: bold; border-radius: 50px;
-            text-decoration: none; box-shadow: 0 12px 35px rgba(255,107,107,0.5);
-            transition: 0.4s;
-        }
-        .download-btn:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(255,107,107,0.7); }
-
-        footer {
-            text-align: center; padding: 60px 20px; color: #777; font-size: 1.1em;
+        .card {
+            background:var(--card); backdrop-filter:blur(12px);
+            border-radius:20px; padding:30px; border:1px solid var(--border);
+            box-shadow:0 15px 40px rgba(0,0,0,0.4); margin-bottom:40px;
         }
 
-        @media (max-width: 768px) {
-            .header-content { flex-direction: column; gap: 20px; }
-            nav a { margin: 8px 10px; font-size: 0.95em; }
-            .page-title { font-size: 2.4em; }
-            .free-content textarea { height: 400px; }
+        textarea#mainTextArea {
+            width:100%; height:500px; padding:20px; background:rgba(10,15,35,0.9);
+            border:1px solid var(--border); border-radius:15px; color:#fff;
+            font-family:'Pyidaungsu', monospace; font-size:1em; resize:none;
+        }
+
+        .btn {
+            display:inline-block; padding:16px 40px; background:linear-gradient(45deg,var(--primary),var(--primary-dark));
+            color:#000; font-weight:bold; font-size:1.2em; border-radius:50px; text-align:center;
+            text-decoration:none; cursor:pointer; transition:0.4s; box-shadow:0 10px 30px rgba(0,255,157,0.5);
+            margin:10px 5px;
+        }
+        .btn:hover { transform:translateY(-5px); box-shadow:0 15px 40px rgba(0,255,157,0.7); }
+
+        .red-btn { background:linear-gradient(45deg,#ff6b6b,#ee5a52); box-shadow:0 10px 30px rgba(255,107,107,0.5); }
+        .red-btn:hover { box-shadow:0 15px 40px rgba(255,107,107,0.7); }
+
+        #notificationPrompt {
+            background:rgba(255,77,77,0.15); border:2px solid #ff4d4d; border-radius:20px;
+            padding:25px; text-align:center; margin:30px auto; max-width:500px;
+            box-shadow:0 10px 30px rgba(255,77,77,0.3);
+        }
+
+        footer { text-align:center; padding:60px 20px; color:#777; font-size:1.1em; }
+
+        @media (max-width:768px) {
+            .header-content { flex-direction:column; gap:20px; }
+            nav a { margin:8px 10px; font-size:0.95em; }
+            .page-title { font-size:2.4em; }
+            textarea#mainTextArea { height:400px; }
         }
     </style>
 </head>
@@ -158,7 +135,10 @@
             <a href="free.html">Free</a>
             <a href="buy.html">Buy</a>
             <a href="All.html">All</a>
-            
+            <a href="Privacy Policy.html">Privacy</a>
+            <a href="contact.html">Contact</a>
+            <a href="About.html">About</a>
+            <a href="guides.html">Guides</a>
             <a href="chat.html">Chat Group</a>
         </nav>
     </div>
@@ -167,25 +147,53 @@
 <main>
     <h1 class="page-title">Free VPN & Tools</h1>
 
-    <div class="free-content">
-        <textarea id="mainTextArea" readonly>
-ဒေတာများကို စတင်ဆွဲယူနေပါသည်...
-        </textarea>
-        <div class="copy-btn" onclick="copyMainTextToClipboard()">📋 အားလုံးကို ကူးယူမည်</div>
+    <!-- Push Notification Prompt -->
+    <div id="notificationPrompt" style="display:none;">
+        <p style="font-size:1.4em; color:#ff4d4d; margin-bottom:10px;">အရေးကြီး Update များ လက်လွတ်မခံပါနဲ့!</p>
+        <p>နေ့စဉ် အသစ်တင်ပေးတဲ့ Config နဲ့ ဖိုင်တွေကို ချက်ချင်း ရယူနိုင်ဖို့ Allow ပေးပါ။</p>
+        <button class="btn red-btn" onclick="showNotificationPrompt()">Allow ပေးမည်</button>
     </div>
 
-    <div class="download-section">
-        <h2 style="color:var(--primary); margin-bottom:20px; font-size:2em;">
-            ဖိုင်များ ဒေါင်းလုဒ်လုပ်ရန်
-        </h2>
-        <a href="javascript:void(0)" onclick="showFiles()" class="download-btn">
-            ⬇️ ဖိုင်များ ကြည့်ရန် / ဒေါင်းလုဒ်လုပ်ရန်
-        </a>
+    <!-- Free Text Area + Admin Panel -->
+    <div class="card">
+        <textarea id="mainTextArea" readonly>ဒေတာများကို စတင်ဆွဲယူနေပါသည်...</textarea>
 
-        <iframe id="r2-file-list-iframe" 
-                src="/api/r2-list" 
-                style="width:100%; min-height:500px; border:1px solid var(--border); 
-                       border-radius:15px; margin-top:25px; display:none; background:rgba(10,15,35,0.8);"
+        <div class="btn" onclick="copyMainTextToClipboard()">အားလုံးကို ကူးယူမည်</div>
+
+        <!-- Admin Gate -->
+        <div id="adminPasswordGate" style="margin-top:30px; padding:20px; background:rgba(255,107,107,0.1); border-radius:15px;">
+            <p style="margin-bottom:10px;">Admin စာတင်ခွင့်ရရန် Password ဖြည့်ပါ</p>
+            <input type="password" id="adminTextPwInput" placeholder="Password ရိုက်ထည့်ပါ..." style="width:100%; padding:12px; border-radius:50px; border:1px solid #ff6b6b; background:rgba(0,0,0,0.3); color:white; margin-bottom:10px;">
+            <button class="btn red-btn" onclick="checkAdminPassword()">စာတင်ခွင့် ရယူမည်</button>
+            <p id="pwMessage" style="color:#ff4d4d; margin-top:10px; display:none;">Password မှားနေပါသည်။</p>
+        </div>
+
+        <div id="textAdminPanel" style="display:none; margin-top:20px;">
+            <input type="text" id="inputLine" placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ..." style="width:100%; padding:15px; border-radius:50px; border:1px solid var(--border); background:rgba(0,0,0,0.4); color:white; margin-bottom:15px;">
+            <button class="btn" onclick="saveToMainTextarea()">စာသားထည့် / သိမ်းမည်</button>
+        </div>
+    </div>
+
+    <!-- File Upload -->
+    <div class="card">
+        <h2 style="color:var(--primary); margin-bottom:20px; font-size:1.8em;">ဖိုင်တင်ရန် နေရာ</h2>
+        <div style="display:flex; gap:15px; flex-wrap:wrap; align-items:center;">
+            <label class="btn" style="cursor:pointer;">
+                ဖိုင်ရွေးပါ <input type="file" id="fileInput" onchange="updateFileName(this)" style="display:none;">
+            </label>
+            <span id="fileNameDisplay" style="color:#aaa;">ဖိုင်မရွေးရသေးပါ</span>
+        </div>
+        <button class="btn" onclick="startR2Upload()" style="margin-top:15px;">ဖိုင်တင်မည်</button>
+        <div id="uploadMessage" style="margin-top:15px; font-weight:bold;"></div>
+    </div>
+
+    <!-- Download Files -->
+    <div class="card">
+        <h2 style="color:var(--primary); margin-bottom:20px; font-size:1.8em;">ဖိုင်များ ဒေါင်းလုဒ်လုပ်ရန်</h2>
+        <button class="btn red-btn" onclick="showFiles()">ဖိုင်များ ကြည့်ရန် / ဒေါင်းလုဒ်လုပ်ရန်</button>
+
+        <iframe id="r2-file-list-iframe" src="/api/r2-list" 
+                style="width:100%; min-height:600px; border:1px solid var(--border); border-radius:15px; margin-top:25px; display:none; background:rgba(10,15,35,0.9);"
                 frameborder="0"></iframe>
     </div>
 </main>
@@ -197,27 +205,96 @@
 <script>
     const ADMIN_TEXT_PASSWORD = "232003";
 
-    async function fetchInitialText() {
-        try {
-            const response = await fetch('/api/text');
-            const text = await response.text();
-            document.getElementById('mainTextArea').value = text || 'ယခု အချိန်တွင် အခမဲ့ အရာများ မတင်ရသေးပါ။ မကြာခင် တင်ပေးပါမည်။';
-        } catch (e) {
-            document.getElementById('mainTextArea').value = 'ဒေတာဆွဲယူရာတွင် ချို့ယွင်းနေပါသည်။ အင်တာနက်ချိတ်ဆက်မှု စစ်ဆေးပါ။';
+    // OneSignal Prompt
+    OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.isPushNotificationsEnabled(isEnabled => {
+            if (!isEnabled) document.getElementById('notificationPrompt').style.display = 'block';
+        });
+    });
+    function showNotificationPrompt() {
+        OneSignalDeferred.push(os => os.showNativePrompt());
+        document.getElementById('notificationPrompt').style.display = 'none';
+    }
+
+    // Admin Password Check
+    function checkAdminPassword() {
+        if (document.getElementById('adminTextPwInput').value === ADMIN_TEXT_PASSWORD) {
+            document.getElementById('adminPasswordGate').style.display = 'none';
+            document.getElementById('textAdminPanel').style.display = 'block';
+        } else {
+            document.getElementById('pwMessage').style.display = 'block';
         }
     }
 
+    // Copy Text
     function copyMainTextToClipboard() {
-        const textarea = document.getElementById('mainTextArea');
-        textarea.select();
+        const ta = document.getElementById('mainTextArea');
+        ta.select();
         document.execCommand('copy');
-        alert('✅ စာသားအားလုံးကို ကူးယူပြီးပါပြီ!');
+        alert('ကူးယူပြီးပါပြီ!');
     }
 
+    // File Name Display
+    function updateFileName(input) {
+        document.getElementById('fileNameDisplay').textContent = input.files[0] ? input.files[0].name : 'ဖိုင်မရွေးရသေးပါ';
+    }
+
+    // Upload to R2
+    async function startR2Upload() {
+        const fileInput = document.getElementById('fileInput');
+        const msg = document.getElementById('uploadMessage');
+        if (!fileInput.files[0]) return msg.innerHTML = 'ဖိုင်ရွေးပါ။';
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        msg.innerHTML = 'တင်နေပါသည်...';
+        try {
+            const res = await fetch('/api/upload', { method:'POST', body:formData });
+            const json = await res.json();
+            if (res.ok) {
+                msg.innerHTML = 'အောင်မြင်စွာ တင်ပြီးပါပြီ!';
+                document.getElementById('r2-file-list-iframe').src += '';
+            } else throw json;
+        } catch (e) {
+            msg.innerHTML = 'တင်၍မရပါ။ ' + (e.message || '');
+        }
+    }
+
+    // Show File List
     function showFiles() {
         const iframe = document.getElementById('r2-file-list-iframe');
         iframe.style.display = 'block';
-        iframe.scrollIntoView({ behavior: 'smooth' });
+        iframe.scrollIntoView({ behavior:'smooth' });
+    }
+
+    // Fetch Text from KV
+    async function fetchInitialText() {
+        try {
+            const res = await fetch('/api/text');
+            const txt = await res.text();
+            document.getElementById('mainTextArea').value = txt || 'ယခုအချိန်တွင် အခမဲ့အရာများ မတင်ရသေးပါ။';
+        } catch { document.getElementById('mainTextArea').value = 'ဒေတာဆွဲယူ၍မရပါ။'; }
+    }
+
+    // Save Text to KV
+    async function saveToMainTextarea() {
+        const newText = document.getElementById('inputLine').value.trim();
+        if (!newText) return alert('စာသား ထည့်ပါ။');
+
+        let old = document.getElementById('mainTextArea').value.trim();
+        if (old.includes('ဒေတာများကို') || old === '') old = '';
+
+        const timestamp = new Date().toLocaleString('my-MM');
+        const entry = `[\( {timestamp}]\n\n \){newText}\n\n============================\n\n`;
+        const finalText = old ? entry + old : entry;
+
+        try {
+            await fetch('/api/text', { method:'POST', body:finalText, headers:{'Content-Type':'text/plain'} });
+            document.getElementById('mainTextArea').value = finalText;
+            document.getElementById('inputLine').value = '';
+            alert('သိမ်းပြီးပါပြီ!');
+        } catch { alert('သိမ်း၍မရပါ။'); }
     }
 
     document.addEventListener('DOMContentLoaded', fetchInitialText);
