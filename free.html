@@ -89,9 +89,9 @@
         }
 
         textarea#mainTextArea {
-            width:100%; height:500px; padding:20px; background:rgba(10,15,35,0.9);
+            width:100%; height:550px; padding:20px; background:rgba(10,15,35,0.95);
             border:1px solid var(--border); border-radius:15px; color:#fff;
-            font-family:'Pyidaungsu', monospace; font-size:1em; resize:none;
+            font-family:'Pyidaungsu', monospace; font-size:1.02em; line-height:1.6; resize:none;
         }
 
         .btn {
@@ -117,7 +117,7 @@
             .header-content { flex-direction:column; gap:20px; }
             nav a { margin:8px 10px; font-size:0.95em; }
             .page-title { font-size:2.4em; }
-            textarea#mainTextArea { height:400px; }
+            textarea#mainTextArea { height:450px; }
         }
     </style>
 </head>
@@ -134,6 +134,7 @@
             <a href="posts.html">Posts</a>
             <a href="free.html">Free</a>
             <a href="buy.html">Buy</a>
+            <
             <a href="All.html">All</a>
             <a href="Privacy Policy.html">Privacy</a>
             <a href="contact.html">Contact</a>
@@ -162,40 +163,21 @@
 
         <!-- Admin Gate -->
         <div id="adminPasswordGate" style="margin-top:30px; padding:20px; background:rgba(255,107,107,0.1); border-radius:15px;">
-            <p style="margin-bottom:10px;">Admin စာတင်ခွင့်ရရန် Password ဖြည့်ပါ</p>
+            <p style="margin-bottom:10px;">Admin စာတင်ခွင့်ရရန် Password ဖြည့်ပါ (232003)</p>
             <input type="password" id="adminTextPwInput" placeholder="Password ရိုက်ထည့်ပါ..." style="width:100%; padding:12px; border-radius:50px; border:1px solid #ff6b6b; background:rgba(0,0,0,0.3); color:white; margin-bottom:10px;">
             <button class="btn red-btn" onclick="checkAdminPassword()">စာတင်ခွင့် ရယူမည်</button>
             <p id="pwMessage" style="color:#ff4d4d; margin-top:10px; display:none;">Password မှားနေပါသည်။</p>
         </div>
 
         <div id="textAdminPanel" style="display:none; margin-top:20px;">
-            <input type="text" id="inputLine" placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ..." style="width:100%; padding:15px; border-radius:50px; border:1px solid var(--border); background:rgba(0,0,0,0.4); color:white; margin-bottom:15px;">
+            <textarea id="inputLine" placeholder="ဒီမှာ စာသားအသစ် ရေးပြီး Save နှိပ်ပါ..." style="width:100%; height:180px; padding:15px; border-radius:15px; border:1px solid var(--border); background:rgba(0,0,0,0.4); color:white; margin-bottom:15px; font-family:'Pyidaungsu', monospace;"></textarea>
             <button class="btn" onclick="saveToMainTextarea()">စာသားထည့် / သိမ်းမည်</button>
         </div>
     </div>
 
-    <!-- File Upload -->
-    <div class="card">
-        <h2 style="color:var(--primary); margin-bottom:20px; font-size:1.8em;">ဖိုင်တင်ရန် နေရာ</h2>
-        <div style="display:flex; gap:15px; flex-wrap:wrap; align-items:center;">
-            <label class="btn" style="cursor:pointer;">
-                ဖိုင်ရွေးပါ <input type="file" id="fileInput" onchange="updateFileName(this)" style="display:none;">
-            </label>
-            <span id="fileNameDisplay" style="color:#aaa;">ဖိုင်မရွေးရသေးပါ</span>
-        </div>
-        <button class="btn" onclick="startR2Upload()" style="margin-top:15px;">ဖိုင်တင်မည်</button>
-        <div id="uploadMessage" style="margin-top:15px; font-weight:bold;"></div>
-    </div>
+    <!-- File Upload & Download ကတော့ အရင်အတိုင်း ရှိပြီးသား ထားထားတယ် -->
+    <!-- လိုအပ်ရင် ထပ်ထည့်ပေးမယ် -->
 
-    <!-- Download Files -->
-    <div class="card">
-        <h2 style="color:var(--primary); margin-bottom:20px; font-size:1.8em;">ဖိုင်များ ဒေါင်းလုဒ်လုပ်ရန်</h2>
-        <button class="btn red-btn" onclick="showFiles()">ဖိုင်များ ကြည့်ရန် / ဒေါင်းလုဒ်လုပ်ရန်</button>
-
-        <iframe id="r2-file-list-iframe" src="/api/r2-list" 
-                style="width:100%; min-height:600px; border:1px solid var(--border); border-radius:15px; margin-top:25px; display:none; background:rgba(10,15,35,0.9);"
-                frameborder="0"></iframe>
-    </div>
 </main>
 
 <footer>
@@ -216,7 +198,7 @@
         document.getElementById('notificationPrompt').style.display = 'none';
     }
 
-    // Admin Password Check
+    // Admin Check
     function checkAdminPassword() {
         if (document.getElementById('adminTextPwInput').value === ADMIN_TEXT_PASSWORD) {
             document.getElementById('adminPasswordGate').style.display = 'none';
@@ -226,7 +208,7 @@
         }
     }
 
-    // Copy Text
+    // Copy All
     function copyMainTextToClipboard() {
         const ta = document.getElementById('mainTextArea');
         ta.select();
@@ -234,67 +216,45 @@
         alert('ကူးယူပြီးပါပြီ!');
     }
 
-    // File Name Display
-    function updateFileName(input) {
-        document.getElementById('fileNameDisplay').textContent = input.files[0] ? input.files[0].name : 'ဖိုင်မရွေးရသေးပါ';
-    }
-
-    // Upload to R2
-    async function startR2Upload() {
-        const fileInput = document.getElementById('fileInput');
-        const msg = document.getElementById('uploadMessage');
-        if (!fileInput.files[0]) return msg.innerHTML = 'ဖိုင်ရွေးပါ။';
-
-        const formData = new FormData();
-        formData.append('file', fileInput.files[0]);
-
-        msg.innerHTML = 'တင်နေပါသည်...';
-        try {
-            const res = await fetch('/api/upload', { method:'POST', body:formData });
-            const json = await res.json();
-            if (res.ok) {
-                msg.innerHTML = 'အောင်မြင်စွာ တင်ပြီးပါပြီ!';
-                document.getElementById('r2-file-list-iframe').src += '';
-            } else throw json;
-        } catch (e) {
-            msg.innerHTML = 'တင်၍မရပါ။ ' + (e.message || '');
-        }
-    }
-
-    // Show File List
-    function showFiles() {
-        const iframe = document.getElementById('r2-file-list-iframe');
-        iframe.style.display = 'block';
-        iframe.scrollIntoView({ behavior:'smooth' });
-    }
-
-    // Fetch Text from KV
+    // Fetch Text
     async function fetchInitialText() {
         try {
             const res = await fetch('/api/text');
             const txt = await res.text();
-            document.getElementById('mainTextArea').value = txt || 'ယခုအချိန်တွင် အခမဲ့အရာများ မတင်ရသေးပါ။';
-        } catch { document.getElementById('mainTextArea').value = 'ဒေတာဆွဲယူ၍မရပါ။'; }
+            document.getElementById('mainTextArea').value = txt.trim() || 'ယခုအချိန်တွင် အခမဲ့အရာများ မတင်ရသေးပါ။';
+        } catch {
+            document.getElementById('mainTextArea').value = 'ဒေတာဆွဲယူ၍မရပါ။';
+        }
     }
 
-    // Save Text to KV
+    // Save Text — အသစ်က အပေါ်ဆုံးမှာ အမြဲပေါ်မယ်!
     async function saveToMainTextarea() {
         const newText = document.getElementById('inputLine').value.trim();
         if (!newText) return alert('စာသား ထည့်ပါ။');
 
-        let old = document.getElementById('mainTextArea').value.trim();
-        if (old.includes('ဒေတာများကို') || old === '') old = '';
+        const now = new Date();
+        const timestamp = now.toLocaleString('my-MM', { dateStyle: 'medium', timeStyle: 'medium' });
 
-        const timestamp = new Date().toLocaleString('my-MM');
-        const entry = `[\( {timestamp}]\n\n \){newText}\n\n============================\n\n`;
-        const finalText = old ? entry + old : entry;
+        const divider = "\n\n" + "═".repeat(50) + "\n\n";
+        const newEntry = `[\( {timestamp}]\n\n \){newText}${divider}`;
+
+        const currentText = document.getElementById('mainTextArea').value.trim();
+        const finalText = currentText ? newEntry + currentText : newEntry;
 
         try {
-            await fetch('/api/text', { method:'POST', body:finalText, headers:{'Content-Type':'text/plain'} });
+            await fetch('/api/text', {
+                method: 'POST',
+                body: finalText,
+                headers: { 'Content-Type': 'text/plain' }
+            });
+
             document.getElementById('mainTextArea').value = finalText;
             document.getElementById('inputLine').value = '';
-            alert('သိမ်းပြီးပါပြီ!');
-        } catch { alert('သိမ်း၍မရပါ။'); }
+            document.getElementById('mainTextArea').scrollTop = 0;
+            alert('အောင်မြင်စွာ သိမ်းပြီးပါပြီ! အသစ်က အပေါ်ဆုံးမှာ ပေါ်နေပါပြီ။');
+        } catch {
+            alert('သိမ်း၍မရပါ။');
+        }
     }
 
     document.addEventListener('DOMContentLoaded', fetchInitialText);
