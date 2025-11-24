@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Top Up • Login လိုအပ်ပါသည်</title>
-    <meta name="description" content="KP Top Up - Google ဖြင့် ဝင်ရောက်ပြီး လုံခြုံစိတ်ချစွာ ဝယ်ယူပါ">
-
     <meta name="google-signin-client_id" content="745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
@@ -38,17 +36,43 @@
 const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com";
 let currentUser = null;
 
-// Helper function to safely decode the JWT payload
-function decodeJwt(t){try{let b=t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');let p=decodeURIComponent(atob(b).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));return JSON.parse(p)}catch(e){return null}}
+// === BAN SYSTEM ===
+async function checkBanned(){
+    try{
+        const r = await fetch("https://kponly.ggff.net/banned.json?t="+Date.now());
+        const list = await r.json();
+        if(list.includes(currentUser.id)){
+            document.body.innerHTML = `
+            <div style="text-align:center;margin-top:150px;padding:40px;">
+                <h1 style="font-size:3em;color:#ff6b6b;">အကောင့် ပိတ်ပင်ထားသည်</h1>
+                <p style="font-size:1.5em;color:white;margin:30px;">သင်သည် လိမ်ညာမှုကြောင့် ထာဝရ ပိတ်ပင်ခံထားရသူ ဖြစ်ပါသည်။</p>
+                <p style="color:#aaa;">ဆက်သွယ်ရန်: @kp_topup_admin</p>
+            </div>`;
+            return true;
+        }
+    }catch(e){console.log("Ban list မတွေ့ပါ");}
+    return false;
+}
+// === END BAN SYSTEM ===
 
-window.handleCredentialResponse = function(r){
+function decodeJwt(t){
+    try{
+        let b = t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+        let p = decodeURIComponent(atob(b).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+        return JSON.parse(p);
+    }catch(e){return null;}
+}
+
+window.handleCredentialResponse = async function(r){
     const p = decodeJwt(r.credential);
-    // Google Sign In failed alert (because API was deprecated)
-    if(!p||!p.email){alert("Google Sign In မအောင်မြင်ပါ။ ထပ်စမ်းကြည့်ပါ။");return;}
-    
-    // User data extraction (Correct)
-    currentUser={name:p.name,email:p.email,id:p.sub,photo:p.picture};
-    
+    if(!p || !p.email){
+        alert("Google Sign In မအောင်မြင်ပါ။ ထပ်စမ်းကြည့်ပါ။");
+        return;
+    }
+    currentUser = {name:p.name, email:p.email, id:p.sub, photo:p.picture};
+
+    if(await checkBanned()) return;
+
     document.getElementById("loginBox").classList.add("hidden");
     document.getElementById("topupPage").classList.remove("hidden");
     loadTopUpPage();
@@ -65,7 +89,7 @@ function loadTopUpPage(){
                     <div style="font-size:0.9em;color:#aaa;">${currentUser.email}</div>
                 </div>
             </div>
-            <div style="color:#ff6b6b;font-size:0.9em;background:rgba(255,107,107,0.15);padding:6px 12px;border-radius:10px;">လိမ်ညာပါက ချက်ချင်း Ban</div>
+            <div style="color:#ff6b6b;background:rgba(255,107,107,0.15);padding:8px 15px;border-radius:12px;font-weight:bold;">လိမ်ညာပါက ချက်ချင်း Ban</div>
         </div>
     </header>
 
@@ -80,10 +104,10 @@ function loadTopUpPage(){
             </select>
 
             <label style="font-size:1.3em;color:var(--p);">User ID</label>
-            <input type="text" id="userId" placeholder="MLBB DM ဝယ်ပါက Server ID ပါ ထည့်ပေးပါ(ဥပမာ: 123456789 (1234)" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
+            <input type="text" id="userId" placeholder="ဥပမာ: 5123456789 (or (5123456789))" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
             <label style="font-size:1.3em;color:var(--p);">ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး</label>
-            <input type="text" id="refNumber" maxlength="7" placeholder="ဥပမာ: 12345" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;letter-spacing:6px;font-weight:bold;">
+            <input type="text" id="refNumber" maxlength="7" placeholder="ဥပမာ: 54321 (or (54321))" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;letter-spacing:6px;font-weight:bold;">
 
             <div style="text-align:center;margin:30px 0;font-size:1.5em;color:var(--p);">
                 <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
@@ -92,12 +116,8 @@ function loadTopUpPage(){
             <div id="packages" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:35px 0;"></div>
 
             <div style="display:flex;justify-content:center;gap:40px;margin:40px 0;flex-wrap:wrap;">
-                <div class="pay active" data-pay="wave" style="text-align:center;cursor:pointer;">
-                    <img src="images/wave.png" width="90" height="90" style="border-radius:20px;border:4px solid var(--p);box-shadow:0 0 25px rgba(0,255,157,0.7);"><br><span style="font-weight:bold;margin-top:8px;display:block;">Wave Pay</span>
-                </div>
-                <div class="pay" data-pay="kpay" style="text-align:center;cursor:pointer;">
-                    <img src="images/kpay.png" width="90" height="90" style="border-radius:20px;border:4px solid transparent;transition:0.4s;"><br><span style="font-weight:bold;margin-top:8px;display:block;">KPay</span>
-                </div>
+                <div class="pay active" data-pay="wave"><img src="images/wave.png" width="90" height="90" style="border-radius:20px;border:4px solid var(--p);box-shadow:0 0 25px rgba(0,255,157,0.7);"><br><span style="font-weight:bold;">Wave Pay</span></div>
+                <div class="pay" data-pay="kpay"><img src="images/kpay.png" width="90" height="90" style="border-radius:20px;border:4px solid transparent;"><br><span style="font-weight:bold;">KPay</span></div>
             </div>
 
             <div style="text-align:center;margin:30px 0;color:#ff6b6b;font-size:1.3em;background:rgba(255,107,107,0.15);padding:15px;border-radius:15px;">
@@ -105,18 +125,16 @@ function loadTopUpPage(){
                 <strong style="font-size:1.4em;color:var(--p);">Wave/KPay: 09966955081</strong>
             </div>
 
-            <button onclick="submitOrder()" style="width:100%;padding:22px;background:linear-gradient(45deg,var(--p),var(--pd));color:black;font-weight:bold;font-size:1.7em;border-radius:50px;border:none;cursor:pointer;box-shadow:0 15px 40px rgba(0,255,157,0.6);transition:0.3s;">
+            <button onclick="submitOrder()" style="width:100%;padding:22px;background:linear-gradient(45deg,var(--p),var(--pd));color:black;font-weight:bold;font-size:1.7em;border-radius:50px;border:none;cursor:pointer;box-shadow:0 15px 40px rgba(0,255,157,0.6);">
                 အတည်ပြုပြီး မှာယူမည်
             </button>
             <button id="loadingBtn" style="display:none;width:100%;padding:22px;background:#444;color:white;font-size:1.7em;border-radius:50px;" disabled>ပို့နေပါသည်...</button>
         </div>
     </main>`;
 
-    const packages = {
-        pubg:[{name:"60 UC",price:"1000 ကျပ်"},{name:"325 UC",price:"5000 ကျပ်"},{name:"600 UC",price:"9000 ကျပ်"},{name:"1800 UC",price:"25000 ကျပ်"},{name:"3850 UC",price:"50000 ကျပ်"}],
-        ml:[{name:"86 Diamonds",price:"3000 ကျပ်"},{name:"172 Diamonds",price:"5500 ကျပ်"},{name:"257 Diamonds",price:"8000 ကျပ်"},{name:"344 Diamonds",price:"10500 ကျပ်"},{name:"706 Diamonds",price:"21000 ကျပ်"}]
-    };
-    let selectedPkg = null;
+    const packages = {pubg:[{name:"60 UC",price:"1000 ကျပ်"},{name:"325 UC",price:"5000 ကျပ်"},{name:"600 UC",price:"9000 ကျပ်"},{name:"1800 UC",price:"25000 ကျပ်"},{name:"3850 UC",price:"50000 ကျပ်"}],
+        ml:[{name:"86 Diamonds",price:"3000 ကျပ်"},{name:"172 Diamonds",price:"5500 ကျပ်"},{name:"257 Diamonds",price:"8000 ကျပ်"},{name:"344 Diamonds",price:"10500 ကျပ်"},{name:"706 Diamonds",price:"21000 ကျပ်"}]};
+    let selectedPkg = packages.pubg[0];
     let selectedPay = "wave";
 
     function loadPackages(){
@@ -127,17 +145,12 @@ function loadTopUpPage(){
             const d=document.createElement("div");
             d.className="pkg"+(i===0?" active":"");
             
-            // 🔑 ပြင်ဆင်ချက်: Template Literal Syntax ကို မှန်ကန်စွာ အသုံးပြုခြင်း
+            // 🔑 ပြင်ဆင်ချက် ၁: Template Literal Syntax ကို မှန်ကန်အောင် ပြင်ဆင်ခြင်း
             d.innerHTML=`<h3>${p.name}</h3><p>${p.price}</p>`; 
             
-            d.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;box-shadow:0 8px 20px rgba(0,0,0,0.3);";
+            d.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";
             if(i===0) d.style.cssText+="background:var(--p);color:#000;transform:translateY(-12px);box-shadow:0 15px 35px rgba(0,255,157,0.5);";
-            d.onclick=()=>{
-                document.querySelectorAll(".pkg").forEach(e=>e.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;box-shadow:0 8px 20px rgba(0,0,0,0.3);");
-                d.style.cssText="background:var(--p);color:#000;transform:translateY(-12px);box-shadow:0 15px 35px rgba(0,255,157,0.5);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";
-                selectedPkg=p;
-            };
-            if(i===0) selectedPkg=p;
+            d.onclick=()=>{document.querySelectorAll(".pkg").forEach(e=>e.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;");d.style.cssText="background:var(--p);color:#000;transform:translateY(-12px);box-shadow:0 15px 35px rgba(0,255,157,0.5);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";selectedPkg=p;};
             c.appendChild(d);
         });
     }
@@ -146,10 +159,13 @@ function loadTopUpPage(){
 
     document.querySelectorAll(".pay").forEach(p=>{
         p.onclick=()=>{
-            document.querySelectorAll(".pay img").forEach(img=>img.style.cssText="border-radius:20px;border:4px solid transparent;transition:0.4s;");
-            p.querySelector("img").style.cssText="border-radius:20px;border:4px solid var(--p);box-shadow:0 0 25px rgba(0,255,157,0.7);transition:0.4s;";
+            document.querySelectorAll(".pay img").forEach(img=>img.style="border-radius:20px;border:4px solid transparent;");
+            p.querySelector("img").style="border-radius:20px;border:4px solid var(--p);box-shadow:0 0 25px rgba(0,255,157,0.7);";
             document.querySelectorAll(".pay").forEach(e=>e.classList.remove("active"));
-            p.classList.add("active");
+            
+            // 🔑 ပြင်ဆင်ချက် ၂: Typo ကို p (Element) အဖြစ် ပြင်ဆင်ခြင်း
+            p.classList.add("active"); 
+            
             selectedPay=p.dataset.pay;
         };
     });
