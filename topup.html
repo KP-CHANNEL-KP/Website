@@ -112,10 +112,10 @@
 
         <div class="pay-methods">
             <div class="pay active" data-pay="wave">
-                <img src="https://i.imgur.com/2fX5G8j.png" alt="Wave Pay"><br>Wave Pay
+                <img src="images/wave.png" alt="Wave Pay"><br>Wave Pay
             </div>
             <div class="pay" data-pay="kpay">
-                <img src="https://i.imgur.com/2kR5vOa.png" alt="KPay"><br>KPay
+                <img src="images/kpay.png" alt="KPay"><br>KPay
             </div>
         </div>
 
@@ -162,7 +162,7 @@
         packages[game].forEach((p, i) => {
             const div = document.createElement("div");
             div.className = "pkg" + (i === 0 ? " active" : "");
-            div.innerHTML = `<h3>\( {p.name}</h3><p> \){p.price}</p>`;
+            div.innerHTML = `<h3>$( {p.name}</h3><p> \){p.price}</p>`;
             div.onclick = () => {
                 document.querySelectorAll(".pkg").forEach(el => el.classList.remove("active"));
                 div.classList.add("active");
