@@ -100,7 +100,6 @@
         <label>User ID (သို့) Player ID</label>
         <input type="text" id="userId" placeholder="ဥပမာ: 5123456789">
 
-        <!-- အသစ်ထည့်ထားတဲ့ ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး -->
         <label>ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး <span style="color:#ff6b6b;">(မဖြစ်မနေ)</span></label>
         <input type="text" id="refNumber" maxlength="5" placeholder="ဥပမာ: 54321" style="letter-spacing:5px; font-weight:bold;">
 
@@ -159,10 +158,14 @@
         document.getElementById("gameName").textContent = game === "pubg" ? "PUBG Mobile" : "Mobile Legends";
         const container = document.getElementById("packages");
         container.innerHTML = "";
+        
         packages[game].forEach((p, i) => {
             const div = document.createElement("div");
             div.className = "pkg" + (i === 0 ? " active" : "");
-            div.innerHTML = `<h3>$( {p.name}</h3><p> $){p.price}</p>`;
+            
+            // ဒီနေရာမှာ ပြင်ထားပါတယ်
+            div.innerHTML = `<h3>${p.name}</h3><p>${p.price}</p>`;
+            
             div.onclick = () => {
                 document.querySelectorAll(".pkg").forEach(el => el.classList.remove("active"));
                 div.classList.add("active");
