@@ -46,7 +46,7 @@ async function checkBanned(){
             <div style="text-align:center;margin-top:150px;padding:40px;">
                 <h1 style="font-size:3em;color:#ff6b6b;">အကောင့် Ban လိုက်ပါပီ ဂေါင်းရီး😂</h1>
                 <p style="font-size:1.5em;color:white;margin:30px;">သင်ဟာ တကယ် ဝယ်တာလဲမဟုတ်ပဲနဲ့ လက်တအား ယားနေလို့ပါ🤣။</p>
-                <p style="color:#aaa;">ဆက်သွယ်ရန်: @kp_topup_admin</p>
+                <p style="color:#aaa;">ပြန်အသနားခံရန်: @KPBYKP</p>
             </div>`;
             return true;
         }
@@ -104,10 +104,10 @@ function loadTopUpPage(){
             </select>
 
             <label style="font-size:1.3em;color:var(--p);">User ID</label>
-            <input type="text" id="userId" placeholder="ဥပမာ: 5123456789 (or (5123456789))" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
+            <input type="text" id="userId" placeholder="MLBB DM ဝယ်လျှင် SERVER ID ပါ ထည့်ပေးပါ။(ဥပမာ: 123456789 (1234)" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
             <label style="font-size:1.3em;color:var(--p);">ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး</label>
-            <input type="text" id="refNumber" maxlength="7" placeholder="ဥပမာ: 54321 (or (54321))" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;letter-spacing:6px;font-weight:bold;">
+            <input type="text" id="refNumber" maxlength="7" placeholder="ဥပမာ: 12345" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;letter-spacing:6px;font-weight:bold;">
 
             <div style="text-align:center;margin:30px 0;font-size:1.5em;color:var(--p);">
                 <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
@@ -200,7 +200,7 @@ User ID: ${u}
                 method:"POST",headers:{"Content-Type":"application/json"},
                 body:JSON.stringify({chat_id:7070690379,text:msg,parse_mode:"Markdown"})
             });
-            alert("အောင်မြင်စွာ ပို့ပြီးပါပြီ!\nAdmin က မကြာခင် ထည့်ပေးပါမည်။");
+            alert("🥳အောင်မြင်စွာ ပို့ပြီးပါပြီ!🥳\n😘KP က မကြာခင် ထည့်ပေးပါမည်။😘");
         }catch(e){alert("အင်တာနက်ပြဿနာ ရှိနေပါသည်။");}
 
         document.querySelector("button[onclick='submitOrder()']").style.display="block";
