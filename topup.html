@@ -40,28 +40,43 @@
 const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com";
 let currentUser = null;
 
-function onSignIn(googleUser) {
-    // Note: getBasicProfile() is deprecated for GSI, but still functions for now.
-    // In a real app, use the credential response object for user data.
-    const profile = googleUser.getBasicProfile ? googleUser.getBasicProfile() : null;
-    
-    if (!profile) {
-        console.error("Sign-in failed or profile not available.");
-        alert("Google Sign In မအောင်မြင်ပါ၊ Console ကိုစစ်ဆေးပါ။");
+// Helper function to safely decode the JWT payload
+function decodeJwt(token) {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        console.error("JWT Decode Error:", e);
+        return null;
+    }
+}
+
+// 🔑 အရေးကြီးဆုံး ပြင်ဆင်ချက်- GSI အသစ်ရဲ့ Callback ကိုသုံးခြင်း
+window.handleCredentialResponse = function(response) {
+    const profile = decodeJwt(response.credential);
+
+    if (!profile || !profile.email) {
+        console.error("Sign-in failed or profile data is missing in token.");
+        alert("Google Sign In မအောင်မြင်ပါ၊ Console ကိုစစ်ဆေးပါ။ (Token data မရပါ)");
         return;
     }
 
+    // Modern GSI token fields
     currentUser = {
-        name: profile.getName(),
-        email: profile.getEmail(),
-        id: profile.getId(),
-        photo: profile.getImageUrl()
+        name: profile.name,
+        email: profile.email,
+        id: profile.sub, // 'sub' is the unique Google User ID
+        photo: profile.picture
     };
 
     document.getElementById("loginBox").classList.add("hidden");
     document.getElementById("topupPage").classList.remove("hidden");
     loadTopUpPage();
-}
+};
 
 function loadTopUpPage() {
     document.getElementById("topupPage").innerHTML = `
@@ -118,10 +133,10 @@ function loadTopUpPage() {
         </div>
     </main>`;
 
-    // Packages & Submit Logic
+    // Packages & Submit Logic (unchanged from the final working version)
     const packages = {pubg:[{name:"60 UC",price:"1000 ကျပ်"},{name:"325 UC",price:"5000 ကျပ်"},{name:"600 UC",price:"9000 ကျပ်"},{name:"1800 UC",price:"25000 ကျပ်"},{name:"3850 UC",price:"50000 ကျပ်"}],
         ml:[{name:"86 Diamonds",price:"3000 ကျပ်"},{name:"172 Diamonds",price:"5500 ကျပ်"},{name:"257 Diamonds",price:"8000 ကျပ်"},{name:"344 Diamonds",price:"10500 ကျပ်"},{name:"706 Diamonds",price:"21000 ကျပ်"}]};
-    let selectedPkg = packages[document.getElementById("game").value][0]; // Initial selection
+    let selectedPkg = packages[document.getElementById("game").value][0];
     let selectedPay = "wave";
 
     function loadPackages() {
@@ -135,10 +150,7 @@ function loadTopUpPage() {
         currentPackages.forEach((p,i)=>{
             const div = document.createElement("div");
             div.className = "pkg"+(i===0?" active":"");
-            
-            // FIX: Template Literal Syntax မှန်ကန်နေပြီ
             div.innerHTML = `<h3>${p.name}</h3><p>${p.price}</p>`; 
-            
             div.style.cssText = "background:rgba(0,255,157,0.15);border:2px solid var(--primary);border-radius:15px;padding:20px;text-align:center;cursor:pointer;transition:0.4s;h3{font-size:1.6em;margin:10px 0;}";
 
             if (i === 0) {
@@ -244,7 +256,7 @@ User ID: ${userId}
 window.onload = () => {
     google.accounts.id.initialize({
         client_id: GOOGLE_CLIENT_ID,
-        callback: onSignIn
+        callback: handleCredentialResponse // 🔑 Callback function ကို ပြောင်းလဲလိုက်ခြင်း
     });
     google.accounts.id.renderButton(
         document.getElementById("googleSignIn"),
