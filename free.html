@@ -3,20 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KP Blog • Free Page</title>
+    <title>KP Blog • Free VPN & Tools</title>
+    <meta name="description" content="KP Blog - နေ့စဉ် အခမဲ့ VPN Configs၊ Tools၊ Premium Accounts နှင့် အခြား အသုံးဝင်သော အရာများ">
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- OneSignal -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({ 
+                appId: "b313921b-d112-42b1-a065-086589bd8237",
+                notifyButton: { enable: false }
+            });
+        });
+    </script>
 
     <!-- Ads & Analytics -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7F5VL62DT2"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7F5VL62DT2');</script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date()); 
+        gtag('config', 'G-7F5VL62DT2');
+    </script>
     <script type='text/javascript' src='//pl28057847.effectivegatecpm.com/34/23/c5/3423c58ebdd6e84dccf686ec977a84fa.js'></script>
     <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
     <script src="https://my.rtmark.net/p.js?f=sync&lr=1&partner=2134cbd94e69258d0987ea05830383043f21608a1d7bf16e1948d0ec11354793" defer></script>
@@ -24,24 +38,26 @@
     <style>
         :root {
             --primary: #00ff9d;
-            --bg: #0a0a1a;
-            --card: rgba(20, 20, 40, 0.7);
+            --primary-dark: #00cc7a;
+            --bg: #0d0d1f;
+            --card: rgba(20, 25, 50, 0.7);
             --text: #e0e0ff;
             --border: rgba(0, 255, 157, 0.3);
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: 'Pyidaungsu', 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
+            background: linear-gradient(135deg, #0d0d1f 0%, #1a1a2e 100%);
             color: var(--text);
             min-height: 100vh;
             background-attachment: fixed;
         }
+
+        /* Header */
         header {
-            background: rgba(10,10,26,0.9);
-            backdrop-filter: blur(12px);
-            position: fixed;
-            top: 0; left: 0; right: 0;
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(10, 10, 30, 0.9);
+            backdrop-filter: blur(15px);
             z-index: 1000;
             border-bottom: 1px solid var(--border);
         }
@@ -49,62 +65,83 @@
             max-width: 1400px; margin: 0 auto; padding: 15px 20px;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .logo-and-title img { height: 50px; border-radius: 12px; }
-        .site-title { color: var(--primary); font-size: 2em; margin-left: 12px; text-shadow: 0 0 15px var(--primary); }
+        .logo-and-title {
+            display: flex; align-items: center; gap: 15px;
+        }
+        .logo-and-title img { height: 55px; border-radius: 15px; border: 2px solid var(--primary); }
+        .site-title {
+            font-size: 2.2em; color: var(--primary); text-shadow: 0 0 20px rgba(0,255,157,0.6);
+            background: linear-gradient(90deg, #00ff9d, #00cc7a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         nav a {
-            color: #fff; margin: 0 15px; text-decoration: none; font-weight: 500;
-            transition: 0.3s; position: relative;
+            color: #ddd; margin: 0 14px; text-decoration: none; font-weight: 600;
+            position: relative; transition: 0.3s;
         }
         nav a:hover { color: var(--primary); }
-        nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 0; background: var(--primary); transition: 0.3s; }
+        nav a::after {
+            content: ''; position: absolute; width: 0; height: 3px; bottom: -8px; left: 0;
+            background: var(--primary); transition: 0.4s; border-radius: 2px;
+        }
         nav a:hover::after { width: 100%; }
 
-        main { margin-top: 90px; padding: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        main { margin-top: 90px; padding: 20px; max-width: 1300px; margin-left: auto; margin-right: auto; }
 
-        .glass-card {
+        .page-title {
+            text-align: center; font-size: 3em; margin: 30px 0;
+            background: linear-gradient(90deg, #00ff9d, #00ccff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Free Content Box */
+        .free-content {
             background: var(--card);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(12px);
             border-radius: 20px;
+            padding: 30px;
             border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: fadeIn 0.8s ease-out;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            margin-bottom: 40px;
         }
-        @keyframes fadeIn { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:none; } }
-
-        h1, h2 { color: var(--primary); text-align: center; margin-bottom: 20px; text-shadow: 0 0 10px rgba(0,255,157,0.5); }
-
-        textarea#mainTextArea {
-            width: 100%; height: 450px; background: rgba(0,0,0,0.4);
-            border: 1px solid var(--border); border-radius: 15px;
-            padding: 15px; color: #fff; font-size: 1em;
-            resize: none; backdrop-filter: blur(5px);
+        .free-content textarea {
+            width: 100%; height: 500px; padding: 20px; background: rgba(10,15,35,0.8);
+            border: 1px solid var(--border); border-radius: 15px; color: #fff;
+            font-family: 'Pyidaungsu', monospace; font-size: 1em; resize: none;
         }
-
-        .btn {
-            background: var(--primary); color: #000; border: none; padding: 14px 28px;
-            border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1em;
-            transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,255,157,0.4);
+        .copy-btn {
+            display: block; width: 100%; margin-top: 15px; padding: 18px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: #000; font-weight: bold; font-size: 1.3em; text-align: center;
+            border-radius: 50px; cursor: pointer; transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0,255,157,0.5);
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,255,157,0.6); }
+        .copy-btn:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,255,157,0.7); }
 
-        .upload-container {
-            display: flex; gap: 15px; align-items: center; flex-wrap: wrap;
+        /* Download Section */
+        .download-section {
+            background: var(--card); backdrop-filter: blur(12px);
+            border-radius: 20px; padding: 30px; border: 1px solid var(--border);
+            text-align: center; margin-bottom: 40px;
         }
-        .custom-file-upload {
-            background: rgba(0,255,157,0.15); border: 2px dashed var(--primary);
-            padding: 15px 30px; border-radius: 50px; cursor: pointer; transition: 0.3s;
+        .download-btn {
+            display: inline-block; padding: 20px 60px; background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white; font-size: 1.6em; font-weight: bold; border-radius: 50px;
+            text-decoration: none; box-shadow: 0 12px 35px rgba(255,107,107,0.5);
+            transition: 0.4s;
         }
-        .custom-file-upload:hover { background: rgba(0,255,157,0.3); }
+        .download-btn:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(255,107,107,0.7); }
 
-        #notificationPrompt {
-            background: linear-gradient(135deg, #fff1f1, #ffeaea);
-            border: 3px solid #ff4d4d; border-radius: 20px; padding: 20px;
-            text-align: center; box-shadow: 0 10px 30px rgba(255,77,77,0.3);
+        footer {
+            text-align: center; padding: 60px 20px; color: #777; font-size: 1.1em;
         }
 
-        footer { text-align: center; padding: 30px; color: #777; margin-top: 50px; }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 20px; }
+            nav a { margin: 8px 10px; font-size: 0.95em; }
+            .page-title { font-size: 2.4em; }
+            .free-content textarea { height: 400px; }
+        }
     </style>
 </head>
 <body>
@@ -128,110 +165,63 @@
 </header>
 
 <main>
-    <div class="glass-card">
-        <h1>KP WEBSITE • FREE PAGE</h1>
+    <h1 class="page-title">Free VPN & Tools</h1>
 
-        <!-- Push Notification Prompt -->
-        <div id="notificationPrompt" style="display:none;">
-            <p style="font-size:1.4em; font-weight:bold; color:#e53e3e;">
-                ✨ အရေးပေါ် Update လက်မလွတ်ရအောင် Allow ပေးပါ ✨
-            </p>
-            <button class="btn" id="allowButton" onclick="showNotificationPrompt()">Allow လုပ်မည်</button>
-        </div>
-
-        <!-- Main Text Area -->
-        <textarea id="mainTextArea" readonly>ဒေတာများကို စတင်ဆွဲယူနေပါသည်။</textarea>
-
-        <!-- Admin Gate -->
-        <div id="adminPasswordGate" class="glass-card" style="margin-top:20px;">
-            <input type="password" id="adminTextPwInput" placeholder="Admin Password" style="width:100%; padding:15px; border-radius:15px; border:none; background:rgba(0,0,0,0.4); color:#fff; margin-bottom:10px;">
-            <button class="btn" onclick="checkAdminPassword()">စာတင်ခွင့် ရယူမည်</button>
-            <p id="pwMessage" style="color:#ff6b6b; display:none;">Password မှားနေပါသည်။</p>
-        </div>
-
-        <div id="textAdminPanel" style="display:none; margin-top:20px;">
-            <input type="text" id="inputLine" placeholder="စာအသစ်ရိုက်ထည့်ပါ..." style="width:100%; padding:15px; border-radius:15px; border:none; background:rgba(0,0,0,0.4); color:#fff; margin-bottom:10px;">
-            <button class="btn" onclick="copyMainTextToClipboard()">ကူးယူမည်</button>
-            <button class="btn" id="saveButton" onclick="saveToMainTextarea()">Save လုပ်မည်</button>
-        </div>
+    <div class="free-content">
+        <textarea id="mainTextArea" readonly>
+ဒေတာများကို စတင်ဆွဲယူနေပါသည်...
+        </textarea>
+        <div class="copy-btn" onclick="copyMainTextToClipboard()">📋 အားလုံးကို ကူးယူမည်</div>
     </div>
 
-    <!-- Upload Section -->
-    <div class="glass-card">
-        <h2>ဖိုင်တင်ရန် နေရာ</h2>
-        <div class="upload-container">
-            <label for="fileInput" class="custom-file-upload"><span id="fileNameDisplay">Choose File</span></label>
-            <input type="file" id="fileInput" onchange="updateFileName(this)" hidden>
-            <button class="btn" onclick="startR2Upload()">Upload</button>
-        </div>
-        <div id="uploadMessage" style="margin-top:15px; text-align:center; font-weight:bold;"></div>
-    </div>
+    <div class="download-section">
+        <h2 style="color:var(--primary); margin-bottom:20px; font-size:2em;">
+            ဖိုင်များ ဒေါင်းလုဒ်လုပ်ရန်
+        </h2>
+        <a href="javascript:void(0)" onclick="showFiles()" class="download-btn">
+            ⬇️ ဖိုင်များ ကြည့်ရန် / ဒေါင်းလုဒ်လုပ်ရန်
+        </a>
 
-    <!-- Download Button -->
-    <div class="glass-card" style="text-align:center;">
-        <h2>⬇️ ဖိုင်ဒေါင်းလုတ်ရယူရန်</h2>
-        <a href="#" onclick="showFiles()" class="btn" style="font-size:1.5em; padding:20px 50px;">DOWNLOAD</a>
-        <p id="file-list-message" style="display:none; margin-top:20px; color:var(--primary);">File များကို Download လုပ်ရန် အသင့်ဖြစ်ပါပြီ။</p>
-        <iframe id="r2-file-list-iframe" src="/api/r2-list" style="width:100%; min-height:500px; border-radius:15px; margin-top:20px; display:none;" frameborder="0"></iframe>
+        <iframe id="r2-file-list-iframe" 
+                src="/api/r2-list" 
+                style="width:100%; min-height:500px; border:1px solid var(--border); 
+                       border-radius:15px; margin-top:25px; display:none; background:rgba(10,15,35,0.8);"
+                frameborder="0"></iframe>
     </div>
 </main>
 
-<footer>© 2025 KP Blog • All Rights Reserved</footer>
+<footer>
+    <p>© 2025 KP Blog • အားလုံးကို ချစ်ခင်စွာဖြင့်</p>
+</footer>
 
-<!-- အရင်ရှိတဲ့ JS အားလုံး ဒီထဲမှာ ပါပြီးသား -->
 <script>
-    // OneSignal + အရင် JS အားလုံး ဒီထဲမှာ အတိုင်းအတာ ပါတယ်
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.init({appId: "3c47c69a-ea04-40e8-807a-e779477f067f"});
-        OneSignal.isPushNotificationsEnabled(isEnabled => {
-            if (!isEnabled) document.getElementById('notificationPrompt').style.display = 'block';
-        });
-    });
-    function showNotificationPrompt() {
-        window.OneSignalDeferred.push(OneSignal => OneSignal.showNativePrompt());
-        document.getElementById('notificationPrompt').style.display = 'none';
+    const ADMIN_TEXT_PASSWORD = "232003";
+
+    async function fetchInitialText() {
+        try {
+            const response = await fetch('/api/text');
+            const text = await response.text();
+            document.getElementById('mainTextArea').value = text || 'ယခု အချိန်တွင် အခမဲ့ အရာများ မတင်ရသေးပါ။ မကြာခင် တင်ပေးပါမည်။';
+        } catch (e) {
+            document.getElementById('mainTextArea').value = 'ဒေတာဆွဲယူရာတွင် ချို့ယွင်းနေပါသည်။ အင်တာနက်ချိတ်ဆက်မှု စစ်ဆေးပါ။';
+        }
     }
 
-    const ADMIN_TEXT_PASSWORD = "232003";
-    function checkAdminPassword() {
-        if (document.getElementById('adminTextPwInput').value === ADMIN_TEXT_PASSWORD) {
-            document.getElementById('adminPasswordGate').style.display = 'none';
-            document.getElementById('textAdminPanel').style.display = 'block';
-        } else document.getElementById('pwMessage').style.display = 'block';
-    }
-    function showFiles() {
-        document.getElementById('r2-file-list-iframe').style.display = 'block';
-        document.getElementById('file-list-message').style.display = 'block';
-    }
-    function updateFileName(e) { document.getElementById('fileNameDisplay').innerText = e.files[0].name; }
-    async function startR2Upload() {
-        const file = document.getElementById('fileInput').files[0];
-        if (!file) return document.getElementById('uploadMessage').innerHTML = 'ဖိုင်ရွေးပါ';
-        const form = new FormData(); form.append('file', file);
-        const res = await fetch('/api/upload', {method:'POST', body:form});
-        const json = await res.json();
-        document.getElementById('uploadMessage').innerHTML = json.status === 'SUCCESS' ? 'Upload အောင်မြင်ပါပြီ!' : 'Upload မအောင်မြင်ပါ';
-        if (json.status === 'SUCCESS') document.getElementById('r2-file-list-iframe').src += '';
-    }
-    async function fetchInitialText() {
-        const res = await fetch('/api/text');
-        document.getElementById('mainTextArea').value = await res.text();
-    }
-    async function saveToMainTextarea() {
-        const newText = document.getElementById('inputLine').value.trim();
-        if (!newText) return alert('စာရိုက်ပါ');
-        const timestamp = new Date().toLocaleString();
-        const updated = `[\( {timestamp}]\n\n \){newText}\n\n============================\n\n` + document.getElementById('mainTextArea').value;
-        await fetch('/api/text', {method:'POST', body:updated, headers:{'Content-Type':'text/plain'}});
-        document.getElementById('mainTextArea').value = updated;
-        document.getElementById('inputLine').value = '';
-        alert('သိမ်းပြီးပါပြီ!');
-    }
     function copyMainTextToClipboard() {
-        navigator.clipboard.writeText(document.getElementById('mainTextArea').value).then(()=>alert('ကူးပြီးပါပြီ!'));
+        const textarea = document.getElementById('mainTextArea');
+        textarea.select();
+        document.execCommand('copy');
+        alert('✅ စာသားအားလုံးကို ကူးယူပြီးပါပြီ!');
     }
+
+    function showFiles() {
+        const iframe = document.getElementById('r2-file-list-iframe');
+        iframe.style.display = 'block';
+        iframe.scrollIntoView({ behavior: 'smooth' });
+    }
+
     document.addEventListener('DOMContentLoaded', fetchInitialText);
 </script>
+
 </body>
 </html>
