@@ -38,12 +38,17 @@
 const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com";
 let currentUser = null;
 
+// Helper function to safely decode the JWT payload
 function decodeJwt(t){try{let b=t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');let p=decodeURIComponent(atob(b).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));return JSON.parse(p)}catch(e){return null}}
 
 window.handleCredentialResponse = function(r){
     const p = decodeJwt(r.credential);
+    // Google Sign In failed alert (because API was deprecated)
     if(!p||!p.email){alert("Google Sign In မအောင်မြင်ပါ။ ထပ်စမ်းကြည့်ပါ။");return;}
+    
+    // User data extraction (Correct)
     currentUser={name:p.name,email:p.email,id:p.sub,photo:p.picture};
+    
     document.getElementById("loginBox").classList.add("hidden");
     document.getElementById("topupPage").classList.remove("hidden");
     loadTopUpPage();
@@ -121,7 +126,10 @@ function loadTopUpPage(){
         packages[game].forEach((p,i)=>{
             const d=document.createElement("div");
             d.className="pkg"+(i===0?" active":"");
-            d.innerHTML=`<h3>\( {p.name}</h3><p> \){p.price}</p>`;
+            
+            // 🔑 ပြင်ဆင်ချက်: Template Literal Syntax ကို မှန်ကန်စွာ အသုံးပြုခြင်း
+            d.innerHTML=`<h3>${p.name}</h3><p>${p.price}</p>`; 
+            
             d.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;box-shadow:0 8px 20px rgba(0,0,0,0.3);";
             if(i===0) d.style.cssText+="background:var(--p);color:#000;transform:translateY(-12px);box-shadow:0 15px 35px rgba(0,255,157,0.5);";
             d.onclick=()=>{
