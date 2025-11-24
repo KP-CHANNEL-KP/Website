@@ -3,531 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KP Blog • Free Page</title>
 
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MQCVPCDZ');</script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
-    
-    <title>KP Blog Free Page</title>
-
-    <!-- 🔔 OneSignal SDK Loader ကို <head> ထဲမှာ တစ်ကြိမ်သာ ထည့်ပါ -->
+    <!-- OneSignal -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    
-    <!-- Google AdSense Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022"
-     crossorigin="anonymous"></script>
-    
-    <!-- 1. Adsterra Pop-under Code -->
+
+    <!-- Ads & Analytics -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7F5VL62DT2"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7F5VL62DT2');</script>
     <script type='text/javascript' src='//pl28057847.effectivegatecpm.com/34/23/c5/3423c58ebdd6e84dccf686ec977a84fa.js'></script>
-    
-    <!-- Google Analytics G-Tag -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7F5VL62DT2"></script> 
-    <script> 
-        window.dataLayer = window.dataLayer || []; 
-        function gtag(){dataLayer.push(arguments);} 
-        gtag('js', new Date()); 
-        gtag('config', 'G-7F5VL62DT2'); 
-    </script>
-    
-    <!-- RTMARK (Your original script) -->
-    <script src="https://my.rtmark.net/p.js?f=sync&lr=1&partner=2134cbd94e69258d0987ea05830383043f21608a1d7bf16e1948d0ec11354793" defer></script>
-    <noscript><img src="https://my.rtmark.net/img.gif?f=sync&lr=1&partner=2134cbd94e69258d0987ea05830383043f21608a1d7bf16e1948d0ec11354793" width="1" height="1" /></noscript>
-
-    <!-- 2. Social Bar (Floating Ad) Code -->
     <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
+    <script src="https://my.rtmark.net/p.js?f=sync&lr=1&partner=2134cbd94e69258d0987ea05830383043f21608a1d7bf16e1948d0ec11354793" defer></script>
 
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="style.css"> 
-    
+    <style>
+        :root {
+            --primary: #00ff9d;
+            --bg: #0a0a1a;
+            --card: rgba(20, 20, 40, 0.7);
+            --text: #e0e0ff;
+            --border: rgba(0, 255, 157, 0.3);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Pyidaungsu', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
+            color: var(--text);
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+        header {
+            background: rgba(10,10,26,0.9);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .header-content {
+            max-width: 1400px; margin: 0 auto; padding: 15px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo-and-title img { height: 50px; border-radius: 12px; }
+        .site-title { color: var(--primary); font-size: 2em; margin-left: 12px; text-shadow: 0 0 15px var(--primary); }
+        nav a {
+            color: #fff; margin: 0 15px; text-decoration: none; font-weight: 500;
+            transition: 0.3s; position: relative;
+        }
+        nav a:hover { color: var(--primary); }
+        nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 0; background: var(--primary); transition: 0.3s; }
+        nav a:hover::after { width: 100%; }
+
+        main { margin-top: 90px; padding: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+
+        .glass-card {
+            background: var(--card);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeIn 0.8s ease-out;
+        }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:none; } }
+
+        h1, h2 { color: var(--primary); text-align: center; margin-bottom: 20px; text-shadow: 0 0 10px rgba(0,255,157,0.5); }
+
+        textarea#mainTextArea {
+            width: 100%; height: 450px; background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border); border-radius: 15px;
+            padding: 15px; color: #fff; font-size: 1em;
+            resize: none; backdrop-filter: blur(5px);
+        }
+
+        .btn {
+            background: var(--primary); color: #000; border: none; padding: 14px 28px;
+            border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1em;
+            transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,255,157,0.4);
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,255,157,0.6); }
+
+        .upload-container {
+            display: flex; gap: 15px; align-items: center; flex-wrap: wrap;
+        }
+        .custom-file-upload {
+            background: rgba(0,255,157,0.15); border: 2px dashed var(--primary);
+            padding: 15px 30px; border-radius: 50px; cursor: pointer; transition: 0.3s;
+        }
+        .custom-file-upload:hover { background: rgba(0,255,157,0.3); }
+
+        #notificationPrompt {
+            background: linear-gradient(135deg, #fff1f1, #ffeaea);
+            border: 3px solid #ff4d4d; border-radius: 20px; padding: 20px;
+            text-align: center; box-shadow: 0 10px 30px rgba(255,77,77,0.3);
+        }
+
+        footer { text-align: center; padding: 30px; color: #777; margin-top: 50px; }
+    </style>
 </head>
-
 <body>
 
-    <header>
+<header>
     <div class="header-content">
         <div class="logo-and-title">
-            <img src="images/logo.png" alt="KP Logo" class="logo"> 
+            <img src="images/logo.png" alt="KP Logo">
             <h1 class="site-title">KP Blog</h1>
         </div>
         <nav>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='index.html';">Home</a>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='posts.html';">Posts</a>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='free.html';">Free</a> 
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='buy.html';">Buy</a> 
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='All.html';">All</a>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='Privacy Policy.html';">Privacy Policy</a>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='contact.html';">contact</a>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='About.html';">About</a>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='guides.html';">Guides</a>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='chat.html';">Chat Group</a>
+            <a href="index.html">Home</a>
+            <a href="posts.html">Posts</a>
+            <a href="free.html">Free</a>
+            <a href="buy.html">Buy</a>
+            <a href="All.html">All</a>
+            <a href="Privacy Policy.html">Privacy</a>
+            <a href="contact.html">Contact</a>
+            <a href="About.html">About</a>
+            <a href="guides.html">Guides</a>
+            <a href="chat.html">Chat Group</a>
         </nav>
     </div>
 </header>
 
-    <div class="intro-bar">
-       
-        <main>
-            <section class="posts-section"> </section>
-            <h1>KP WEBSITE FREE PAGE</h1>
+<main>
+    <div class="glass-card">
+        <h1>KP WEBSITE • FREE PAGE</h1>
 
-            <!-- 🔔 PUSH NOTIFICATION PRE-PROMPT BOX -->
-            <div id="notificationPrompt" style="
-                /* မှတ်ချက်: Initialization ပြီးမှ စာရင်းမသွင်းရသေးရင် JS က ပြပါမည် */
-                display: none; 
-                max-width: 95%; 
-                width: 350px;
-                margin: 20px auto; 
-                padding: 20px; 
-                background: linear-gradient(135deg, #fef2f2 0%, #fffafa 100%); 
-                border: 3px solid #ff4d4d; 
-                border-radius: 15px;
-                text-align: center;
-                box-shadow: 0 8px 16px rgba(255, 77, 77, 0.4);
-                font-family: 'Inter', sans-serif;
-            ">
-                <p style="
-                    font-size: 1.2em; 
-                    font-weight: 800; 
-                    color: #e53e3e; 
-                    margin-bottom: 12px;
-                    text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-                ">
-                    ✨ **အရေးပေါ် အပ်ဒိတ် သတိပေးချက်!** ✨
-                </p>
-                <p style="margin-bottom: 20px; color: #4a5568; font-size: 0.95em;">
-                    ဖိုင်အသစ်များ၊ Admin ၏ စာများနဲ့ အရေးကြီးတဲ့ Update တွေကို လက်မလွတ်ရအောင် **မဖြစ်မနေ Allow ပေးဖို့** နှိပ်ပေးပါ။
-                </p>
-                
-                <button id="allowButton" onclick="showNotificationPrompt()" style="
-                    background-color: #ff7043;
-                    color: white;
-                    padding: 12px 25px;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    font-size: 1.05em;
-                    font-weight: bold;
-                    transition: background-color 0.3s, transform 0.1s;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-                " onmouseover="this.style.backgroundColor='#ff5722'" onmouseout="this.style.backgroundColor='#ff7043'">
-                    🔔 Allow (သတိပေးချက် လက်ခံမည်)
-                </button>
-            </div>
+        <!-- Push Notification Prompt -->
+        <div id="notificationPrompt" style="display:none;">
+            <p style="font-size:1.4em; font-weight:bold; color:#e53e3e;">
+                ✨ အရေးပေါ် Update လက်မလွတ်ရအောင် Allow ပေးပါ ✨
+            </p>
+            <button class="btn" id="allowButton" onclick="showNotificationPrompt()">Allow လုပ်မည်</button>
+        </div>
 
-            <!-- 🚨 AD LOCATION 1 (TOP): 300x250 Banner (သင်ပေးပို့ထားသော Code) -->
-            <div style="text-align: center; max-width: 300px; margin: 20px auto; border: 1px dashed #007bff; padding: 10px; box-sizing: border-box;">
-                <p style="font-size: 0.8em; color: #555; margin-bottom: 5px;">— TOP AD SLOT —</p>
-                <script type="text/javascript"> 	
-                    atOptions = { 		
-                        'key' : '3a2d3d7a62c3a7403883dad5f48ee2b1', 		
-                        'format' : 'iframe', 		
-                        'height' : 250, 		
-                        'width' : 300, 		
-                        'params' : {} 	
-                    }; 
-                </script> 
-                <script type="text/javascript" src="//www.highperformanceformat.com/3a2d3d7a62c3a7403883dad5f48ee2b1/invoke.js"></script>
-            </div>
-            
-            <div class="copy-box" style="max-width: 95%; margin: 0 auto; padding: 10px;">
-                <textarea id="mainTextArea" rows="25" readonly style="
-                    height: 400px; 
-                    width: 100%;
-                    overflow-y: scroll; 
-                    padding: 15px; 
-                    border: 1px solid #007bff; 
-                    border-radius: 8px;
-                    background: #fdfdff; 
-                    color: #333; 
-                    margin-bottom: 20px;
-                    box-sizing: border-box;
-                    font-size: 0.9em; 
-                ">
-ဒေတာများကို စတင်ဆွဲယူနေပါသည်။
-                </textarea>
+        <!-- Main Text Area -->
+        <textarea id="mainTextArea" readonly>ဒေတာများကို စတင်ဆွဲယူနေပါသည်။</textarea>
 
-                <p class="copy-box-title" style="margin-top: 10px;">
-                    သင်လဲ Free ပြန်ထည့်ပေးနိုင်သည် (Admin Only)
-                </p>
-                
-                <div id="adminPasswordGate" style="border: 1px dashed #ccc; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                    <p style="margin: 0 0 10px 0;">Admin စာတင်ခွင့်ရရန် Password ဖြည့်ပါ။</p>
-                    <input type="password" id="adminTextPwInput" placeholder="Password ရိုက်ထည့်ပါ..." 
-                           style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 5px; margin-bottom: 10px; border: 1px solid #ff7043;">
-                    <button onclick="checkAdminPassword()" 
-                            style="width: 100%; background-color: #ff7043; border: none; padding: 10px; color: white; font-weight: bold; border-radius: 5px;">
-                        စာတင်ခွင့် ရယူမည်
-                    </button>
-                    <p id="pwMessage" style="color: red; margin: 5px 0 0 0; text-align: center; display: none;">Password မှားနေပါသည်။</p>
-                </div>
+        <!-- Admin Gate -->
+        <div id="adminPasswordGate" class="glass-card" style="margin-top:20px;">
+            <input type="password" id="adminTextPwInput" placeholder="Admin Password" style="width:100%; padding:15px; border-radius:15px; border:none; background:rgba(0,0,0,0.4); color:#fff; margin-bottom:10px;">
+            <button class="btn" onclick="checkAdminPassword()">စာတင်ခွင့် ရယူမည်</button>
+            <p id="pwMessage" style="color:#ff6b6b; display:none;">Password မှားနေပါသည်။</p>
+        </div>
 
-                <div id="textAdminPanel" style="display: none;">
-                    <input type="text" id="inputLine" class="small-input-line" 
-                           placeholder="စာသားအသစ် ထည့်ရန် ဤနေရာတွင် ရေးပါ..."
-                           style="margin-bottom: 10px; width: 100%; padding: 10px; box-sizing: border-box; border-radius: 25px;">
-                    
-                    <button onclick="copyMainTextToClipboard()" class="copy-button" 
-                            style="margin-bottom: 10px; width: 100%; background-color: #4CAF50; border: none; padding: 12px; color: white; font-weight: bold; border-radius: 50px;">
-                        နောက်ဆုံး စာသား ကူးယူမည်
-                    </button>
-
-                    <button id="saveButton" onclick="saveToMainTextarea()" class="save-button"
-                            style="margin-bottom: 10px; width: 100%; background-color: #4CAF50; border: none; padding: 12px; color: white; font-weight: bold; border-radius: 50px;">
-                        စာသားထည့်သွင်း/သိမ်းဆည်း (Save)
-                    </button>
-                </div>
-            </div>
-            
-            <section class="upload-section" style="margin-top: 40px;">
-                <h2>ဖိုင်တင်ရန် နေရာ</h2>
-                <p>သင်မှာ ရှိသော free File/Key တို့ကို ဤနေရာတွင် ပြန်လည်မျှဝေနိုင်သည်။</p>
-                
-                <div class="upload-container">
-                    <label for="fileInput" class="custom-file-upload">
-                        <span id="fileNameDisplay">Choose File</span>
-                        <input type="file" id="fileInput" onchange="updateFileName(this)"> 
-                    </label>
-
-                    <button onclick="startR2Upload()">
-                        <span>✔</span>
-                    </button>
-                    <div id="uploadMessage" class="upload-status-message">Upload status will appear here.</div>
-                </div>
-            </section>
-            
-            <!-- 🚨 AD LOCATION 2 (MID-CONTENT): Native Banner (သင်ပေးပို့ထားသော Code) -->
-            <div style="text-align: center; max-width: 95%; margin: 40px auto; border: 1px dashed #00796b; padding: 15px; box-sizing: border-box;">
-                <p style="font-size: 0.8em; color: #555; margin-bottom: 10px;">— MID-CONTENT AD SLOT —</p>
-                <script async="async" data-cfasync="false" src="//pl28060167.effectivegatecpm.com/9cd2f829c61a7d25b2fc81879dc94f99/invoke.js"></script> 
-                <div id="container-9cd2f829c61a7d25b2fc81879dc94f99"></div>
-            </div>
-            
-            
-            <section class="download-list-section" style="
-                margin-top: 50px; 
-                padding: 25px; 
-                background-color: #ffffff; 
-                border-radius: 12px; 
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
-                max-width: 95%; 
-                margin: 50px auto 20px auto; 
-            ">
-                
-                <h2 style="
-                    color: #00796b; 
-                    border-bottom: 2px solid #eee; 
-                    padding-bottom: 10px; 
-                    margin-top: 0; 
-                    font-size: 1.5em; 
-                ">
-                    ⬇️ ဖိုင်ဒေါင်းလုတ်ရယူရန် (DOWNLOAD)
-                </h2>
-                
-                <p style="margin-bottom: 20px; color: #555;">
-                    File များကို Download လုပ်ရန် (DOWNLOAD) ခလုပ်ကို နှိပ်ပါ။
-                </p>
-                
-                <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" 
-                   target="_blank" 
-                   onclick="showFiles()"
-                   style="
-                       display: block; 
-                       text-align: center; 
-                       padding: 18px 25px; 
-                       background: #1abc9c; 
-                       background: -webkit-linear-gradient(135deg, #1abc9c, #16a085);
-                       background: linear-gradient(135deg, #1abc9c, #16a085);
-                       color: white; 
-                       text-decoration: none; 
-                       border-radius: 50px; 
-                       font-size: 1.3em; 
-                       font-weight: bold; 
-                       margin-top: 25px;
-                       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); 
-                       border: none;
-                       cursor: pointer;
-                   ">
-                    ⬇️ (DOWNLOAD)
-                </a>
-                
-                <p id="file-list-message" style="
-                     margin-top: 25px; 
-                     color: #333; 
-                     font-weight: bold; 
-                     border-top: 1px dashed #ccc; 
-                     padding-top: 15px;
-                     display: none; /* စတင် ဝှက်ထားသည် */
-                 ">
-                    ✅ File များကို Download လုပ်ရန် အသင့်ဖြစ်ပါပီ။
-                    (ကိုယ် အသုံး ပြုလိုသော ဖိုင်မှ Download ခလုပ်ကို နှိပ်ပါ။)
-                </p>
-                
-                <iframe 
-                    id="r2-file-list-iframe" 
-                    src="/api/r2-list" 
-                    style="
-                        width: 100%; 
-                        min-height: 500px; 
-                        border: 1px solid #ccc; 
-                        border-radius: 8px; 
-                        margin-top: 15px; 
-                        margin-bottom: 15px; 
-                        display: none; /* စတင် ဝှက်ထားသည် */
-                    " 
-                    frameborder="0">
-                </iframe>
-                
-            </section>
-            </main>
+        <div id="textAdminPanel" style="display:none; margin-top:20px;">
+            <input type="text" id="inputLine" placeholder="စာအသစ်ရိုက်ထည့်ပါ..." style="width:100%; padding:15px; border-radius:15px; border:none; background:rgba(0,0,0,0.4); color:#fff; margin-bottom:10px;">
+            <button class="btn" onclick="copyMainTextToClipboard()">ကူးယူမည်</button>
+            <button class="btn" id="saveButton" onclick="saveToMainTextarea()">Save လုပ်မည်</button>
+        </div>
     </div>
-    
-    <footer>
-        <p>&copy; 2025 KP WEBSITE</p>
-    </footer>
 
-    <!-- 💡💡💡 JAVASCRIPT CODE အားလုံးကို ဤနေရာတွင် စုစည်းထားပါသည် 💡💡💡 -->
-    <script>
-        // 🔔 ONE SIGNAL INITIALIZATION (App ID)
-        window.OneSignalDeferred = window.OneSignalDeferred || [];
-        
-        // OneSignal Initialization နှင့် Custom Prompt စစ်ဆေးခြင်း Logic 
-        OneSignalDeferred.push(async function(OneSignal) {
-            await OneSignal.init({
-                appId: "3c47c69a-ea04-40e8-807a-e779477f067f",
-                promptOptions: {
-                    customlink: {
-                        enabled: true,
-                        style: "button",
-                        size: "large",
-                        text: {
-                            subscribe: "Notify Me",
-                            unsubscribe: "Unsubscribe",
-                        },
-                        color: {
-                            button: '#ff7043',
-                            text: '#ffffff'
-                        }
-                    }
-                }
-            });
-            
-            // OneSignal ရဲ့ Popup/Widget ကို ဖြတ်ပြီး Custom Prompt ကို ပြမည် (အရေးကြီးသည်)
-            OneSignal.setSubscriptionWorkaround(false);
-            
-            // 🔔 စာရင်းသွင်းပြီးပြီလား စစ်ဆေးခြင်း
-            OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-                const promptBox = document.getElementById('notificationPrompt');
-                
-                if (!isEnabled && promptBox) {
-                    promptBox.style.display = 'block'; // မသွင်းရသေးရင် Custom Prompt ကို ပြပါ
-                } else if (isEnabled && promptBox) {
-                    promptBox.style.display = 'none'; // သွင်းပြီးရင် ဖျောက်ထားပါ
-                }
-            });
+    <!-- Upload Section -->
+    <div class="glass-card">
+        <h2>ဖိုင်တင်ရန် နေရာ</h2>
+        <div class="upload-container">
+            <label for="fileInput" class="custom-file-upload"><span id="fileNameDisplay">Choose File</span></label>
+            <input type="file" id="fileInput" onchange="updateFileName(this)" hidden>
+            <button class="btn" onclick="startR2Upload()">Upload</button>
+        </div>
+        <div id="uploadMessage" style="margin-top:15px; text-align:center; font-weight:bold;"></div>
+    </div>
+
+    <!-- Download Button -->
+    <div class="glass-card" style="text-align:center;">
+        <h2>⬇️ ဖိုင်ဒေါင်းလုတ်ရယူရန်</h2>
+        <a href="#" onclick="showFiles()" class="btn" style="font-size:1.5em; padding:20px 50px;">DOWNLOAD</a>
+        <p id="file-list-message" style="display:none; margin-top:20px; color:var(--primary);">File များကို Download လုပ်ရန် အသင့်ဖြစ်ပါပြီ။</p>
+        <iframe id="r2-file-list-iframe" src="/api/r2-list" style="width:100%; min-height:500px; border-radius:15px; margin-top:20px; display:none;" frameborder="0"></iframe>
+    </div>
+</main>
+
+<footer>© 2025 KP Blog • All Rights Reserved</footer>
+
+<!-- အရင်ရှိတဲ့ JS အားလုံး ဒီထဲမှာ ပါပြီးသား -->
+<script>
+    // OneSignal + အရင် JS အားလုံး ဒီထဲမှာ အတိုင်းအတာ ပါတယ်
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({appId: "3c47c69a-ea04-40e8-807a-e779477f067f"});
+        OneSignal.isPushNotificationsEnabled(isEnabled => {
+            if (!isEnabled) document.getElementById('notificationPrompt').style.display = 'block';
         });
+    });
+    function showNotificationPrompt() {
+        window.OneSignalDeferred.push(OneSignal => OneSignal.showNativePrompt());
+        document.getElementById('notificationPrompt').style.display = 'none';
+    }
 
-        // ----------------------------------------------------
-        
-        const ADMIN_TEXT_PASSWORD = "232003"; 
-        
-        // 🔔 PUSH NOTIFICATION PROMPT FUNCTION (Button နှိပ်ရင် အလုပ်လုပ်သည်)
-        function showNotificationPrompt() {
-            // OneSignal Ready ဖြစ်ပါက Deferred Array ထဲကို Native Prompt ခေါ်ဖို့ ထည့်သွင်းထားသည်
-            window.OneSignalDeferred.push(function(OneSignal) {
-                // Native Browser Prompt ကို တိုက်ရိုက် ခေါ်ပါ
-                OneSignal.showNativePrompt();
-                
-                // Prompt ခေါ်ပြီးတာနဲ့ Custom Prompt Box ကို ဖျောက်ပါ
-                const promptBox = document.getElementById('notificationPrompt');
-                if (promptBox) {
-                    promptBox.style.display = 'none';
-                }
-            });
-        }
-
-        // 🚨🚨 GATE 2 FUNCTION
-        function startFileDownload(r2_url) {
-            window.open("https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d", "_blank");
-            setTimeout(function() {
-                window.location.href = r2_url; 
-            }, 100); 
-        }
-
-        // 1. Password စစ်ဆေးခြင်း Function
-        function checkAdminPassword() {
-            const inputPw = document.getElementById('adminTextPwInput').value;
-            const adminPanel = document.getElementById('textAdminPanel');
-            const pwGate = document.getElementById('adminPasswordGate');
-            const pwMessage = document.getElementById('pwMessage');
-            
-            if (inputPw === ADMIN_TEXT_PASSWORD) {
-                pwGate.style.display = 'none';
-                adminPanel.style.display = 'block';
-                pwMessage.style.display = 'none';
-            } else {
-                pwMessage.style.display = 'block';
-            }
-        }
-        
-        // 🚨🚨 GATE 1 FUNCTION
-        function showFiles() {
-            document.getElementById('r2-file-list-iframe').style.display = 'block';
-            document.getElementById('file-list-message').style.display = 'block';
-        }
-        
-        // HTML element များကို ရယူခြင်း
-        const mainTextarea = document.getElementById('mainTextArea'); 
-        const inputLine = document.getElementById('inputLine');
-        const saveButton = document.getElementById('saveButton');
-        
-        // 2. Copy Function
-        function copyMainTextToClipboard() {
-            const textToCopy = mainTextarea.value;
-            if (textToCopy && textToCopy !== 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။') {
-                navigator.clipboard.writeText(textToCopy)
-                    .then(() => {
-                        alert("စာသား ကူးယူပြီးပါပြီ!"); 
-                    })
-                    .catch(err => {
-                        console.error('Copy Error:', err);
-                        alert("ကူးယူရန် မအောင်မြင်ပါ!");
-                    });
-            } else {
-                alert("ကူးယူရန် စာသား မရှိပါ!");
-            }
-        }
-
-        // 3. File Name Display Function
-        function updateFileName(input) {
-            var fileName = input.files[0] ? input.files[0].name : "Choose File";
-            document.getElementById('fileNameDisplay').innerText = fileName;
-        }
-        
-        // 4. R2 Upload Functions
-        async function startR2Upload() {
-            const fileInput = document.getElementById('fileInput');
-            const uploadMessage = document.getElementById('uploadMessage');
-            
-            if (fileInput.files.length === 0) {
-                uploadMessage.innerHTML = '❌ ဖိုင်ရွေးချယ်ရန် လိုအပ်ပါသည်။';
-                return;
-            }
-
-            const file = fileInput.files[0];
-            uploadMessage.innerHTML = `⌛ ${file.name} ကို Upload ပြုလုပ်နေပါသည်။...`;
-            
-            const apiEndpoint = "/api/upload"; 
-
-            const formData = new FormData();
-            formData.append('file', file); 
-
-            try {
-                const uploadResponse = await fetch(apiEndpoint, {
-                    method: 'POST', 
-                    body: formData 
-                });
-
-                const result = await uploadResponse.json(); 
-
-                if (uploadResponse.ok && result.status === 'SUCCESS') {
-                    uploadMessage.innerHTML = `✅ ဖိုင်ကို အောင်မြင်စွာ တင်ပြီးပါပြီ! (${file.name}). Message: ${result.message}`;
-                    const iframe = document.getElementById('r2-file-list-iframe');
-                    if (iframe) {
-                        iframe.src = iframe.src; // iframe ကို refresh လုပ်ရန်
-                    }
-                } else {
-                    const errorText = result.message || uploadResponse.statusText;
-                    uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${errorText}`;
-                    throw new Error(`Upload Failed: ${errorText}`);
-                }
-            } catch (error) {
-                console.error('Final Upload Error:', error);
-                uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${error.message}`;
-            }
-        }
-
-        // 5. စာသားကို Server (KV) မှ ဆွဲယူပြီး ပြသခြင်း
-        async function fetchInitialText() {
-            try {
-                const response = await fetch('/api/text'); 
-                const text = await response.text();
-                mainTextarea.value = text;
-            } catch (error) {
-                console.error('Failed to fetch initial text:', error);
-                mainTextarea.value = 'Data load မလုပ်နိုင်ပါ။ Backend/KV ချိတ်ဆက်မှု စစ်ဆေးပါ။';
-            }
-        }
-
-        // 6. စာသားကို Server (KV) တွင် သိမ်းဆည်းခြင်း
-        async function saveToMainTextarea() {
-            const newText = inputLine.value.trim(); 
-            
-            if (newText === '') {
-                alert('ထည့်သွင်းရန် စာသား မရှိပါ။');
-                return;
-            }
-            
-            let oldContent = mainTextarea.value.trim();
-            
-            if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent.includes('Data load မလုပ်နိုင်ပါ') || oldContent === 'Hello' || oldContent === '') {
-                oldContent = '';
-            }
-            
-            const now = new Date();
-            const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-
-            const divider = '\n\n============================\n\n';
-            const newEntry = `[${timestamp}]\n\n${newText}`;
-
-            let updatedText;
-            
-            if (oldContent === '') {
-                updatedText = newEntry; 
-            } else {
-                updatedText = newEntry + divider + oldContent; 
-            }
-            
-            saveButton.disabled = true;
-            saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
-
-            try {
-                const response = await fetch('/api/text', {
-                    method: 'POST',
-                    body: updatedText,
-                    headers: { 'Content-Type': 'text/plain' }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Server error: ' + response.statusText);
-                }
-
-                mainTextarea.value = updatedText; 
-                inputLine.value = ''; 
-                alert('✅ စာသားကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။ (အသစ်ဆုံးစာ အပေါ်ဆုံးတွင် ရောက်နေပါမည်)');
-                
-                mainTextarea.scrollTop = 0; 
-
-            } catch (error) {
-                alert('❌ သိမ်းဆည်းမှု မအောင်မြင်ပါ။ Error: ' + error.message);
-                console.error('Save error:', error);
-            } finally {
-                saveButton.disabled = false;
-                saveButton.innerText = 'စာသားထည့်သွင်း/သိမ်းဆည်း (Save)';
-            }
-        }
-
-        // Website စဖွင့်တာနဲ့ စာသားကို တစ်ခါတည်း ဆွဲယူပြီး ပြသရန်
-        document.addEventListener('DOMContentLoaded', fetchInitialText);
-    </script>
-
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQCVPCDZ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-    
-    
+    const ADMIN_TEXT_PASSWORD = "232003";
+    function checkAdminPassword() {
+        if (document.getElementById('adminTextPwInput').value === ADMIN_TEXT_PASSWORD) {
+            document.getElementById('adminPasswordGate').style.display = 'none';
+            document.getElementById('textAdminPanel').style.display = 'block';
+        } else document.getElementById('pwMessage').style.display = 'block';
+    }
+    function showFiles() {
+        document.getElementById('r2-file-list-iframe').style.display = 'block';
+        document.getElementById('file-list-message').style.display = 'block';
+    }
+    function updateFileName(e) { document.getElementById('fileNameDisplay').innerText = e.files[0].name; }
+    async function startR2Upload() {
+        const file = document.getElementById('fileInput').files[0];
+        if (!file) return document.getElementById('uploadMessage').innerHTML = 'ဖိုင်ရွေးပါ';
+        const form = new FormData(); form.append('file', file);
+        const res = await fetch('/api/upload', {method:'POST', body:form});
+        const json = await res.json();
+        document.getElementById('uploadMessage').innerHTML = json.status === 'SUCCESS' ? 'Upload အောင်မြင်ပါပြီ!' : 'Upload မအောင်မြင်ပါ';
+        if (json.status === 'SUCCESS') document.getElementById('r2-file-list-iframe').src += '';
+    }
+    async function fetchInitialText() {
+        const res = await fetch('/api/text');
+        document.getElementById('mainTextArea').value = await res.text();
+    }
+    async function saveToMainTextarea() {
+        const newText = document.getElementById('inputLine').value.trim();
+        if (!newText) return alert('စာရိုက်ပါ');
+        const timestamp = new Date().toLocaleString();
+        const updated = `[\( {timestamp}]\n\n \){newText}\n\n============================\n\n` + document.getElementById('mainTextArea').value;
+        await fetch('/api/text', {method:'POST', body:updated, headers:{'Content-Type':'text/plain'}});
+        document.getElementById('mainTextArea').value = updated;
+        document.getElementById('inputLine').value = '';
+        alert('သိမ်းပြီးပါပြီ!');
+    }
+    function copyMainTextToClipboard() {
+        navigator.clipboard.writeText(document.getElementById('mainTextArea').value).then(()=>alert('ကူးပြီးပါပြီ!'));
+    }
+    document.addEventListener('DOMContentLoaded', fetchInitialText);
+</script>
 </body>
 </html>
-
