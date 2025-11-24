@@ -6,7 +6,6 @@
     <title>KP Top Up • Login လိုအပ်ပါသည်</title>
     <meta name="description" content="KP Top Up - Google ဖြင့် ဝင်ရောက်ပြီး လုံခြုံစိတ်ချစွာ ဝယ်ယူပါ">
 
-    <!-- မင်းရဲ့ တကယ့် Client ID ထည့်ပြီးသား -->
     <meta name="google-signin-client_id" content="745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
@@ -42,7 +41,16 @@ const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.goo
 let currentUser = null;
 
 function onSignIn(googleUser) {
-    const profile = googleUser.getBasicProfile();
+    // Note: getBasicProfile() is deprecated for GSI, but still functions for now.
+    // In a real app, use the credential response object for user data.
+    const profile = googleUser.getBasicProfile ? googleUser.getBasicProfile() : null;
+    
+    if (!profile) {
+        console.error("Sign-in failed or profile not available.");
+        alert("Google Sign In မအောင်မြင်ပါ၊ Console ကိုစစ်ဆေးပါ။");
+        return;
+    }
+
     currentUser = {
         name: profile.getName(),
         email: profile.getEmail(),
@@ -91,7 +99,7 @@ function loadTopUpPage() {
 
             <div style="display:flex;justify-content:center;gap:30px;margin:30px 0;flex-wrap:wrap;">
                 <div class="pay active" data-pay="wave" style="text-align:center;cursor:pointer;">
-                    <img src="images/wave.png" width="80" height="80" style="border-radius:15px;border:3px solid transparent;"><br>Wave Pay
+                    <img src="images/wave.png" width="80" height="80" style="border-radius:15px;border:3px solid var(--primary);"><br>Wave Pay
                 </div>
                 <div class="pay" data-pay="kpay" style="text-align:center;cursor:pointer;">
                     <img src="images/kpay.png" width="80" height="80" style="border-radius:15px;border:3px solid transparent;"><br>KPay
@@ -113,7 +121,7 @@ function loadTopUpPage() {
     // Packages & Submit Logic
     const packages = {pubg:[{name:"60 UC",price:"1000 ကျပ်"},{name:"325 UC",price:"5000 ကျပ်"},{name:"600 UC",price:"9000 ကျပ်"},{name:"1800 UC",price:"25000 ကျပ်"},{name:"3850 UC",price:"50000 ကျပ်"}],
         ml:[{name:"86 Diamonds",price:"3000 ကျပ်"},{name:"172 Diamonds",price:"5500 ကျပ်"},{name:"257 Diamonds",price:"8000 ကျပ်"},{name:"344 Diamonds",price:"10500 ကျပ်"},{name:"706 Diamonds",price:"21000 ကျပ်"}]};
-    let selectedPkg = null;
+    let selectedPkg = packages[document.getElementById("game").value][0]; // Initial selection
     let selectedPay = "wave";
 
     function loadPackages() {
@@ -121,23 +129,64 @@ function loadTopUpPage() {
         document.getElementById("gameName").textContent = game === "pubg" ? "PUBG Mobile" : "Mobile Legends";
         const container = document.getElementById("packages");
         container.innerHTML = "";
-        packages[game].forEach((p,i)=>{
+        
+        const currentPackages = packages[game];
+
+        currentPackages.forEach((p,i)=>{
             const div = document.createElement("div");
             div.className = "pkg"+(i===0?" active":"");
-            div.innerHTML = `<h3>\( {p.name}</h3><p> \){p.price}</p>`;
-            div.style.cssText = "background:rgba(0,255,157,0.15);border:2px solid var(--primary);border-radius:15px;padding:20px;text-align:center;cursor:pointer;transition:0.4s;";
-            div.onclick = ()=>{ document.querySelectorAll(".pkg").forEach(e=>e.classList.remove("active")); div.classList.add("active"); selectedPkg=p; };
+            
+            // FIX: Template Literal Syntax မှန်ကန်နေပြီ
+            div.innerHTML = `<h3>${p.name}</h3><p>${p.price}</p>`; 
+            
+            div.style.cssText = "background:rgba(0,255,157,0.15);border:2px solid var(--primary);border-radius:15px;padding:20px;text-align:center;cursor:pointer;transition:0.4s;h3{font-size:1.6em;margin:10px 0;}";
+
+            if (i === 0) {
+                 div.style.cssText += "background:var(--primary);color:#000;transform:translateY(-10px);box-shadow:0 15px 30px rgba(0,255,157,0.4);";
+            }
+            
+            div.onclick = ()=>{ 
+                document.querySelectorAll("#packages .pkg").forEach(e => {
+                    e.classList.remove("active");
+                    e.style.cssText = "background:rgba(0,255,157,0.15);border:2px solid var(--primary);border-radius:15px;padding:20px;text-align:center;cursor:pointer;transition:0.4s;";
+                });
+                
+                div.classList.add("active");
+                div.style.cssText = "background:var(--primary);color:#000;transform:translateY(-10px);box-shadow:0 15px 30px rgba(0,255,157,0.4);border:2px solid var(--primary);border-radius:15px;padding:20px;text-align:center;cursor:pointer;transition:0.4s;";
+
+                selectedPkg=p; 
+            };
             if(i===0) selectedPkg=p;
             container.appendChild(div);
         });
+        
+        document.querySelectorAll(".pay").forEach(p => {
+             const img = p.querySelector("img");
+             if (p.classList.contains("active")) {
+                img.style.borderColor = "var(--primary)";
+                img.style.boxShadow = "0 0 20px rgba(0,255,157,0.6)";
+             } else {
+                 img.style.borderColor = "transparent";
+                 img.style.boxShadow = "none";
+             }
+         });
     }
+
     loadPackages();
     document.getElementById("game").onchange = loadPackages;
 
     document.querySelectorAll(".pay").forEach(p => {
         p.onclick = () => {
-            document.querySelectorAll(".pay").forEach(e => { e.querySelector("img").style.border="3px solid transparent"; e.classList.remove("active"); });
-            p.querySelector("img").style.border="3px solid var(--primary)";
+            document.querySelectorAll(".pay").forEach(e => { 
+                const img = e.querySelector("img");
+                img.style.borderColor = "transparent"; 
+                img.style.boxShadow = "none";
+                e.classList.remove("active"); 
+            });
+            
+            const img = p.querySelector("img");
+            img.style.borderColor = "var(--primary)";
+            img.style.boxShadow = "0 0 20px rgba(0,255,157,0.6)";
             p.classList.add("active");
             selectedPay = p.dataset.pay;
         };
@@ -148,7 +197,7 @@ function loadTopUpPage() {
         let refNumber = document.getElementById("refNumber").value.trim();
         const cleanId = userId.replace(/[()]/g,'');
         const cleanRef = refNumber.replace(/[()]/g,'');
-
+        
         if(!cleanId || !selectedPkg || cleanRef.length!==5){
             alert("အားလုံးကို မှန်ကန်စွာ ဖြည့်ပေးပါ။");
             return;
@@ -201,7 +250,7 @@ window.onload = () => {
         document.getElementById("googleSignIn"),
         { theme: "outline", size: "large", text: "signin_with", width: "300", logo_alignment: "left" }
     );
-    google.accounts.id.prompt(); // တခါတည်း popup ထွက်အောင်
+    google.accounts.id.prompt();
 };
 </script>
 
