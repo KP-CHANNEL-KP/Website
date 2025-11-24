@@ -3,261 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KP Top Up • PUBG & ML</title>
-    <meta name="description" content="KP Blog - PUBG Mobile နှင့် Mobile Legends အတွက် အမြန်ဆုံး Top Up ဝန်ဆောင်မှု">
-
-    <link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7F5VL62DT2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date()); gtag('config', 'G-7F5VL62DT2');
-    </script>
+    <title>KP Top Up • Login လိုအပ်ပါသည်</title>
+    <meta name="description" content="KP Top Up - Google ဖြင့် ဝင်ရောက်ပြီး လုံခြုံစိတ်ချစွာ ဝယ်ယူပါ">
+    
+    <!-- Google Sign-In -->
+    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <style>
-        :root {
-            --primary: #00ff9d;
-            --primary-dark: #00cc7a;
-            --bg: #0d0d1f;
-            --card: rgba(20, 25, 50, 0.7);
-            --text: #e0e0ff;
-            --border: rgba(0, 255, 157, 0.3);
-        }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            font-family: 'Pyidaungsu', 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0d0d1f 0%, #1a1a2e 100%);
-            color: var(--text);
-            min-height: 100vh;
-            background-attachment: fixed;
-        }
-        header { position:fixed; top:0; left:0; right:0; background:rgba(10,10,30,0.9); backdrop-filter:blur(15px); z-index:1000; border-bottom:1px solid var(--border); }
-        .header-content { max-width:1400px; margin:0 auto; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
-        .logo-and-title { display:flex; align-items:center; gap:15px; }
-        .logo-and-title img { height:55px; border-radius:15px; border:2px solid var(--primary); }
-        .site-title { font-size:2.2em; background:linear-gradient(90deg,#00ff9d,#00cc7a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 0 20px rgba(0,255,157,0.6); }
-        nav a { color:#ddd; margin:0 14px; text-decoration:none; font-weight:600; position:relative; transition:0.3s; }
-        nav a:hover { color:var(--primary); }
-        nav a::after { content:''; position:absolute; width:0; height:3px; bottom:-8px; left:0; background:var(--primary); transition:0.4s; border-radius:2px; }
-        nav a:hover::after { width:100%; }
-
-        main { margin-top:90px; padding:20px; max-width:1000px; margin-left:auto; margin-right:auto; }
-        .page-title { text-align:center; font-size:3em; margin:30px 0; background:linear-gradient(90deg,#00ff9d,#00ccff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-
-        .topup-card { background:var(--card); backdrop-filter:blur(12px); border-radius:20px; padding:30px; border:1px solid var(--border); box-shadow:0 15px 40px rgba(0,0,0,0.4); margin-bottom:40px; }
-        select, input[type=text] { width:100%; padding:15px; margin:15px 0; border-radius:15px; border:1px solid var(--border); background:rgba(10,15,35,0.9); color:white; font-size:1.1em; }
-        .packages { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:20px; margin:30px 0; }
-        .pkg { background:rgba(0,255,157,0.15); border:2px solid var(--primary); border-radius:15px; padding:20px; text-align:center; cursor:pointer; transition:0.4s; }
-        .pkg:hover, .pkg.active { background:var(--primary); color:#000; transform:translateY(-10px); box-shadow:0 15px 30px rgba(0,255,157,0.4); }
-        .pkg h3 { font-size:1.6em; margin:10px 0; }
-        .pay-methods { display:flex; justify-content:center; gap:30px; margin:30px 0; flex-wrap:wrap; }
-        .pay { text-align:center; cursor:pointer; }
-        .pay img { width:80px; height:80px; border-radius:15px; border:3px solid transparent; transition:0.3s; }
-        .pay.active img { border-color:var(--primary); box-shadow:0 0 20px rgba(0,255,157,0.6); }
-        .btn { display:block; width:100%; padding:20px; background:linear-gradient(45deg,var(--primary),var(--primary-dark)); color:#000; font-weight:bold; font-size:1.5em; text-align:center; border-radius:50px; cursor:pointer; transition:0.4s; box-shadow:0 10px 30px rgba(0,255,157,0.5); margin-top:30px; }
-        .btn:hover { transform:translateY(-5px); box-shadow:0 15px 40px rgba(0,255,157,0.7); }
-        .btn:disabled { background:#555; cursor:not-allowed; opacity:0.7; }
-        .warning { color:#ff6b6b; font-size:0.9em; margin-top:5px; display:none; }
-
-        footer { text-align:center; padding:60px 20px; color:#777; }
-
-        @media (max-width:768px) {
-            .page-title { font-size:2.4em; }
-            .pay img { width:70px; height:70px; }
-        }
+        :root {--primary:#00ff9d;--primary-dark:#00cc7a;--bg:#0d0d1f;--card:rgba(20,25,50,0.8);--text:#e0e0ff;--border:rgba(0,255,157,0.3);}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Pyidaungsu',sans-serif;background:linear-gradient(135deg,#0d0d1f,#1a1a2e);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;background-attachment:fixed;}
+        .login-box{background:var(--card);backdrop-filter:blur(15px);border-radius:20px;padding:40px;width:90%;max-width:420px;text-align:center;border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,0.6);}
+        .logo img{height:80px;border-radius:20px;border:3px solid var(--primary);margin-bottom:20px;}
+        h1{font-size:2.5em;background:linear-gradient(90deg,#00ff9d,#00ccff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;}
+        p{font-size:1.1em;margin:20px 0;color:#bbb;}
+        .google-btn{margin:30px auto;width:80%;}
+        .hidden{display:none;}
+        footer{position:fixed;bottom:20px;color:#666;font-size:0.9em;}
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-content">
-        <div class="logo-and-title">
-            <img src="images/logo.png" alt="KP Logo">
-            <h1 class="site-title">KP Top Up</h1>
-        </div>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="free.html">Free</a>
-            <a href="topup.html">Top Up</a>
-            <a href="All.html">All</a>
-            <a href="chat.html">Chat Group</a>
-        </nav>
-    </div>
-</header>
+<div class="login-box" id="loginBox">
+    <div class="logo"><img src="images/logo.png" alt="KP Logo"></div>
+    <h1>KP Top Up</h1>
+    <p>လုံခြုံစိတ်ချစွာ ဝယ်ယူရန်<br><strong>Google ဖြင့် ဝင်ရောက်ပါ</strong></p>
+    <div id="googleSignIn" class="google-btn"></div>
+    <p style="margin-top:30px;color:#ff6b6b;">လိမ်ညာသူများကို ချက်ချင်း Ban လုပ်ပါမည်!</p>
+</div>
 
-<main>
-    <h1 class="page-title">KP Top Up Center</h1>
+<!-- တကယ့် Top Up Page ကို ဒီမှာ ဖွက်ထားတယ် -->
+<div id="topupPage" class="hidden">
+    <!-- မင်းရဲ့ အဟောင်း topup အကုန်လုံး ဒီထဲ ထည့်ထားတယ် -->
+    <!-- အောက်မှာ အပြည့်အစုံ ပါတယ် -->
+</div>
 
-    <div class="topup-card">
-        <label>ဂိမ်းရွေးပါ</label>
-        <select id="game">
-            <option value="pubg">PUBG Mobile</option>
-            <option value="ml">Mobile Legends</option>
-        </select>
-
-        <label>Account ID (Mlbb ဆို့ Server Id ပါ ထည့်ပေးပါ)</label>
-        <input type="text" id="userId" placeholder="ဥပမာ: 5123456789 (8266)" oninput="this.value=this.value.replace(/[^\d()]/g,'')">
-        <div class="warning" id="idWarning">နံပါတ်နဲ့ ခြင်ထောင့်ကွင်း () ပဲ ရိုက်ပါ!</div>
-
-        <label>ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး <span style="color:#ff6b6b;">(မဖြစ်မနေ)</span></label>
-        <input type="text" id="refNumber" maxlength="7" placeholder="ဥပမာ: 54321" oninput="this.value=this.value.replace(/[^\d()]/g,'')" style="letter-spacing:5px; font-weight:bold;">
-        <div class="warning" id="refWarning">နံပါတ် ၅ လုံး သို့မဟုတ် (၅လုံး) ရိုက်ပါ!</div>
-
-        <div style="font-size:1.3em; margin:25px 0; color:var(--primary); text-align:center;">
-            <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
-        </div>
-
-        <div class="packages" id="packages"></div>
-
-        <div class="pay-methods">
-            <div class="pay active" data-pay="wave">
-                <img src="images/wave.png" alt="Wave Pay" onerror="this.src='https://i.imgur.com/2fX5G8j.png'"><br>Wave Pay
-            </div>
-            <div class="pay" data-pay="kpay">
-                <img src="images/kpay.png" alt="KPay" onerror="this.src='https://i.imgur.com/2kR5vOa.png'"><br>KPay
-            </div>
-        </div>
-
-        <div style="text-align:center; margin:20px 0; color:#ff6b6b; font-size:1.2em;">
-            ငွေလွှဲပြီးမှ အောက်က ခလုပ်ကို နှိပ်ပါ<br>
-            <strong>Wave/KPay: 09966955081</strong>
-        </div>
-
-        <button class="btn" id="submitBtn" onclick="submitOrder()">အတည်ပြုပြီး မှာယူမည်</button>
-        <button class="btn" id="loadingBtn" style="display:none;" disabled>ပို့နေပါသည်...</button>
-    </div>
-</main>
-
-<footer>
-    <p>© 2025 KP Blog • အားလုံးကို ချစ်ခင်စွာဖြင့်</p>
-</footer>
+<footer>© 2025 KP Blog • လုံခြုံရေး အမြင့်ဆုံး</footer>
 
 <script>
-    const packages = {
-        pubg: [
-            {name:"60 UC", price:"1000 ကျပ်"},
-            {name:"325 UC", price:"5000 ကျပ်"},
-            {name:"600 UC", price:"9000 ကျပ်"},
-            {name:"1800 UC", price:"25000 ကျပ်"},
-            {name:"3850 UC", price:"50000 ကျပ်"}
-        ],
-        ml: [
-            {name:"86 Diamonds", price:"3000 ကျပ်"},
-            {name:"172 Diamonds", price:"5500 ကျပ်"},
-            {name:"257 Diamonds", price:"8000 ကျပ်"},
-            {name:"344 Diamonds", price:"10500 ကျပ်"},
-            {name:"706 Diamonds", price:"21000 ကျပ်"}
-        ]
-    };
+// ဒီနေရာ မင်းရဲ့ Google Client ID ထည့်ပါ (လိုအပ်ရင် ငါ လုပ်ပေးမယ်)
+const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"; // <<< ဒါ ပြောင်းပါ
 
+let currentUser = null;
+
+function onSignIn(googleUser) {
+    const profile = googleUser.getBasicProfile();
+    currentUser = {
+        name: profile.getName(),
+        email: profile.getEmail(),
+        id: profile.getId(),
+        photo: profile.getImageUrl()
+    };
+    
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("topupPage").classList.remove("hidden");
+    document.body.style.background = "linear-gradient(135deg,#0d0d1f,#1a1a2e)";
+    
+    // အခု တကယ့် Top Up Page ကို ထည့်လိုက်တယ်
+    loadTopUpPage();
+}
+
+function loadTopUpPage() {
+    const page = document.getElementById("topupPage");
+    page.innerHTML = `
+    <header style="position:fixed;top:0;left:0;right:0;background:rgba(10,10,30,0.95);backdrop-filter:blur(15px);z-index:1000;padding:15px;text-align:center;border-bottom:1px solid rgba(0,255,157,0.3);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:15px;">
+            <img src="${currentUser.photo}" width="50" style="border-radius:50%;border:3px solid var(--primary);">
+            <div style="color:white;">
+                <div style="font-size:1.4em;font-weight:bold;color:var(--primary);">${currentUser.name}</div>
+                <div style="font-size:0.9em;color:#aaa;">${currentUser.email}</div>
+            </div>
+        </div>
+    </header>
+
+    <main style="margin-top:100px;padding:20px;max-width:1000px;margin:auto;">
+        <h1 style="text-align:center;font-size:3em;margin:30px 0;background:linear-gradient(90deg,#00ff9d,#00ccff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">KP Top Up Center</h1>
+
+        <div style="background:rgba(20,25,50,0.8);backdrop-filter:blur(12px);border-radius:20px;padding:30px;border:1px solid rgba(0,255,157,0.3);box-shadow:0 15px 40px rgba(0,0,0,0.4);">
+            <label>ဂိမ်းရွေးပါ</label>
+            <select id="game"><option value="pubg">PUBG Mobile</option><option value="ml">Mobile Legends</option></select>
+
+            <label>User ID (နံပါတ် သို့မဟုတ် (နံပါတ်))</label>
+            <input type="text" id="userId" placeholder="ဥပမာ: 5123456789 သို့မဟုတ် (5123456789)" oninput="this.value=this.value.replace(/[^\\d()]/g,'')">
+
+            <label>ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး</label>
+            <input type="text" id="refNumber" maxlength="7" placeholder="ဥပမာ: 54321 သို့မဟုတ် (54321)" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="letter-spacing:5px;font-weight:bold;">
+
+            <div style="font-size:1.3em;margin:25px 0;color:var(--primary);text-align:center;">
+                <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
+            </div>
+
+            <div id="packages" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:30px 0;"></div>
+
+            <div style="display:flex;justify-content:center;gap:30px;margin:30px 0;flex-wrap:wrap;">
+                <div class="pay active" data-pay="wave" style="text-align:center;cursor:pointer;">
+                    <img src="https://i.imgur.com/2fX5G8j.png" width="80"><br>Wave Pay
+                </div>
+                <div class="pay" data-pay="kpay" style="text-align:center;cursor:pointer;">
+                    <img src="https://i.imgur.com/2kR5vOa.png" width="80"><br>KPay
+                </div>
+            </div>
+
+            <div style="text-align:center;margin:20px 0;color:#ff6b6b;font-size:1.2em;">
+                ငွေလွှဲပြီးမှ အောက်က ခလုပ်ကို နှိပ်ပါ<br>
+                <strong>Wave/KPay: 09966955081</strong>
+            </div>
+
+            <button onclick="submitOrder()" style="width:100%;padding:20px;background:linear-gradient(45deg,var(--primary),var(--primary-dark));color:black;font-weight:bold;font-size:1.5em;border-radius:50px;border:none;cursor:pointer;">
+                အတည်ပြုပြီး မှာယူမည်
+            </button>
+        </div>
+    </main>
+    `;
+
+    // ကျန်တဲ့ JS အားလုံး ဒီထဲမှာ ဆက်လုပ်တယ်
+    const packages = {pubg:[{name:"60 UC",price:"1000 ကျပ်"},{name:"325 UC",price:"5000 ကျပ်"},{name:"600 UC",price:"9000 ကျပ်"},{name:"1800 UC",price:"25000 ကျပ်"},{name:"3850 UC",price:"50000 ကျပ်"}],
+        ml:[{name:"86 Diamonds",price:"3000 ကျပ်"},{name:"172 Diamonds",price:"5500 ကျပ်"},{name:"257 Diamonds",price:"8000 ကျပ်"},{name:"344 Diamonds",price:"10500 ကျပ်"},{name:"706 Diamonds",price:"21000 ကျပ်"}]};
     let selectedPkg = null;
     let selectedPay = "wave";
-
-    // ညစ်ညမ်းစကားလုံးများ
-    const badWords = ["လီး","စောက်","ဖုတ်","ခွေး","အတွဲ","ဗိုင်း","လိင်","fuck","shit","bitch","ဆဲ","ရိုင်း","မြင်း","သား","ခွဲ","ညစ်"];
-
-    function hasBadWord(text) {
-        if (!text) return false;
-        const lower = text.toLowerCase();
-        return badWords.some(word => lower.includes(word));
-    }
-
-    function cleanInput(text) {
-        return text.replace(/[^\d()]/g, '');
-    }
 
     function loadPackages() {
         const game = document.getElementById("game").value;
         document.getElementById("gameName").textContent = game === "pubg" ? "PUBG Mobile" : "Mobile Legends";
         const container = document.getElementById("packages");
         container.innerHTML = "";
-        
-        packages[game].forEach((p, i) => {
+        packages[game].forEach((p,i)=>{
             const div = document.createElement("div");
-            div.className = "pkg" + (i === 0 ? " active" : "");
-            
-            // JavaScript Syntax Error ကို ပြင်ဆင်ထားသော နေရာ
-            div.innerHTML = `<h3>${p.name}</h3><p>${p.price}</p>`;
-            
-            div.onclick = () => {
-                document.querySelectorAll(".pkg").forEach(el => el.classList.remove("active"));
-                div.classList.add("active");
-                selectedPkg = p;
-            };
-            if (i === 0) selectedPkg = p;
+            div.className = "pkg"+(i===0?" active":"");
+            div.innerHTML = `<h3>\( {p.name}</h3><p> \){p.price}</p>`;
+            div.style.cssText = "background:rgba(0,255,157,0.15);border:2px solid var(--primary);border-radius:15px;padding:20px;text-align:center;cursor:pointer;transition:0.4s;";
+            div.onclick = ()=>{ document.querySelectorAll(".pkg").forEach(e=>e.classList.remove("active")); div.classList.add("active"); selectedPkg=p; };
+            if(i===0) selectedPkg=p;
             container.appendChild(div);
         });
     }
+    loadPackages();
+    document.getElementById("game").onchange=loadPackages;
 
-    document.querySelectorAll(".pay").forEach(p => {
-        p.onclick = () => {
-            document.querySelectorAll(".pay").forEach(el => el.classList.remove("active"));
-            p.classList.add("active");
-            selectedPay = p.dataset.pay;
-        };
+    document.querySelectorAll(".pay").forEach(p=>{
+        p.onclick=()=>{ document.querySelectorAll(".pay").forEach(e=>e.classList.remove("active")); p.classList.add("active"); selectedPay=p.dataset.pay; };
     });
 
-    async function submitOrder() {
+    window.submitOrder = async function() {
         let userId = document.getElementById("userId").value.trim();
         let refNumber = document.getElementById("refNumber").value.trim();
-        const game = document.getElementById("game").options[document.getElementById("game").selectedIndex].text;
+        const cleanId = userId.replace(/[()]/g,'');
+        const cleanRef = refNumber.replace(/[()]/g,'');
 
-        // ခြင်ထောင့်ကွင်းကို ဖယ်ပြီး သန့်စင်ပေးတယ် (Validation အတွက်)
-        const cleanId = userId.replace(/[()]/g, '');
-        const cleanRef = refNumber.replace(/[()]/g, '');
-
-        if (hasBadWord(userId) || hasBadWord(refNumber)) {
-            alert("ယဉ်ကျေးစွာ ရိုက်ထည့်ပါ။ ဆဲဆို၊ ညစ်ညမ်းစကား လုံးဝ ခွင့်မပြုပါ!");
+        if(!cleanId || !selectedPkg || cleanRef.length!==5){
+            alert("အားလုံး ဖြည့်ပြီး မှန်ကန်စွာ ရိုက်ထည့်ပါ။");
             return;
         }
-
-        if (!cleanId || !selectedPkg || cleanRef.length !== 5) {
-            alert("User ID၊ ပမာဏ နဲ့ ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး မဖြစ်မနေ ထည့်ရပါမည်။");
-            return;
-        }
-
-        document.getElementById("submitBtn").style.display = "none";
-        document.getElementById("loadingBtn").style.display = "block";
 
         const message = `
-*KP Top Up မှာယူမှု အသစ်*
+*KP Top Up မှာယူမှု အသစ်* (လုံခြုံစနစ်)
 
-ဂိမ်း: ${game}
+*ဝယ်သူ အချက်အလက်*
+အမည်: ${currentUser.name}
+အီးမေးလ်: ${currentUser.email}
+Google ID (Ban လုပ်ရန်): ${currentUser.id}
+
+ဂိမ်း: ${document.getElementById("game").options[document.getElementById("game").selectedIndex].text}
 User ID: ${userId}
 ပမာဏ: ${selectedPkg.name}
 ဈေးနှုန်း: ${selectedPkg.price}
-ငွေပေးချေနည်း: ${selectedPay === "wave" ? "Wave Pay" : "KPay"}
+ငွေပေးချေနည်း: ${selectedPay==="wave"?"Wave Pay":"KPay"}
 ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး: ${refNumber}
-ဖုန်း: 09966955081
 
 အချိန်: ${new Date().toLocaleString("my-MM")}
         `;
 
-        try {
-            await fetch(`https://api.telegram.org/bot8565432520:AAFbW60KA7GUXuTx_MQJNT_iFEWr73lHvm8/sendMessage`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    chat_id: 7070690379,
-                    text: message,
-                    parse_mode: "Markdown"
-                })
-            });
+        await fetch("https://api.telegram.org/bot8565432520:AAFbW60KA7GUXuTx_MQJNT_iFEWr73lHvm8/sendMessage", {
+            method:"POST", headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({chat_id:7070690379, text:message, parse_mode:"Markdown"})
+        });
 
-            alert("မှာယူမှု အောင်မြင်ပါသည်!\nKP မှ မကြာခင် အတည်ပြုပြီး ထည့်ပေးပါမည်။\nမိနစ်အနည်းငယ် သာဆောင့်ပေးပါ။");
-        } catch (e) {
-            alert("အင်တာနက်ပြဿနာ ရှိနေပါသည်။ ထပ်စမ်းကြည့်ပါ။");
-        }
+        alert("အောင်မြင်ပါပြီ!\nAdmin က မကြာခင် ထည့်ပေးပါမည်။");
+    };
+}
 
-        document.getElementById("submitBtn").style.display = "block";
-        document.getElementById("loadingBtn").style.display = "none";
-    }
-
-    document.getElementById("game").onchange = loadPackages;
-    loadPackages();
+// Google Sign In Button
+window.onload = () => {
+    google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: onSignIn
+    });
+    google.accounts.id.renderButton(
+        document.getElementById("googleSignIn"),
+        { theme: "outline", size: "large", text: "signin_with", width: "300" }
+    );
+};
 </script>
 
 </body>
