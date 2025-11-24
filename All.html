@@ -3,115 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KP Blog | All</title>
+    <title>KP Blog • All Products & Services</title>
+    <meta name="description" content="KP Blog - အားလုံးသော Premium Services၊ VPN Configs၊ Tools နှင့် အခြားဝန်ဆောင်မှုများ တစ်နေရာတည်းတွင်">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022"
-     crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <head>
-    <script type='text/javascript' src='//pl28057847.effectivegatecpm.com/34/23/c5/3423c58ebdd6e84dccf686ec977a84fa.js'></script>
-
-    </head>
-
-
-    <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7F5VL62DT2"></script> 
-    <script> 
-        window.dataLayer = window.dataLayer || []; 
-        function gtag(){dataLayer.push(arguments);} 
-        gtag('js', new Date()); 
-        gtag('config', 'G-7F5VL62DT2'); 
+    <!-- OneSignal -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({ appId: "b313921b-d112-42b1-a065-086589bd8237" });
+        });
     </script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022"
-     crossorigin="anonymous"></script>
-    
-    </head>
+    <!-- Ads & Analytics -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7F5VL62DT2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date()); 
+        gtag('config', 'G-7F5VL62DT2');
+    </script>
+    <script type='text/javascript' src='//pl28057847.effectivegatecpm.com/34/23/c5/3423c58ebdd6e84dccf686ec977a84fa.js'></script>
+    <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
+    <script src="https://my.rtmark.net/p.js?f=sync&lr=1&partner=2134cbd94e69258d0987ea05830383043f21608a1d7bf16e1948d0ec11354793" defer></script>
 
-    
-    <link rel="stylesheet" href="all.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff9d;
+            --primary-dark: #00cc7a;
+            --bg: #0d0d1f;
+            --card: rgba(20, 25, 50, 0.7);
+            --text: #e0e0ff;
+            --border: rgba(0, 255, 157, 0.3);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Pyidaungsu', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d0d1f 0%, #1a1a2e 100%);
+            color: var(--text);
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        /* Header */
+        header {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(10, 10, 30, 0.9);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .header-content {
+            max-width: 1400px; margin: 0 auto; padding: 15px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo-and-title {
+            display: flex; align-items: center; gap: 15px;
+        }
+        .logo-and-title img { height: 55px; border-radius: 15px; border: 2px solid var(--primary); }
+        .site-title {
+            font-size: 2.2em; color: var(--primary); text-shadow: 0 0 20px rgba(0,255,157,0.6);
+            background: linear-gradient(90deg, #00ff9d, #00cc7a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        nav a {
+            color: #ddd; margin: 0 14px; text-decoration: none; font-weight: 600;
+            position: relative; transition: 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        nav a::after {
+            content: ''; position: absolute; width: 0; height: 3px; bottom: -8px; left: 0;
+            background: var(--primary); transition: 0.4s; border-radius: 2px;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* Main */
+        main { margin-top: 90px; padding: 20px; max-width: 1300px; margin-left: auto; margin-right: auto; }
+
+        .page-title {
+            text-align: center; font-size: 3em; margin: 40px 0 20px;
+            background: linear-gradient(90deg, #00ff9d, #00ccff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .page-desc {
+            text-align: center; font-size: 1.3em; max-width: 800px; margin: 0 auto 50px;
+            opacity: 0.9;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+        .product-card {
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--border);
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0,255,157,0.25);
+        }
+        .product-icon {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .product-card h3 {
+            font-size: 1.6em;
+            margin: 15px 0;
+            color: var(--primary);
+        }
+        .product-card p {
+            opacity: 0.88;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .price-tag {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: block;
+        }
+        .buy-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: #000;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.4s;
+            box-shadow: 0 8px 25px rgba(0,255,157,0.4);
+        }
+        .buy-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,255,157,0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #777;
+            font-size: 1.1em;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 20px; }
+            nav a { margin: 8px 10px; font-size: 0.95em; }
+            .page-title { font-size: 2.4em; }
+        }
+    </style>
 </head>
 <body>
 
-        <header>
+<header>
     <div class="header-content">
         <div class="logo-and-title">
-            <img src="images/logo.png" alt="KP Logo" class="logo"> 
+            <img src="images/logo.png" alt="KP Logo">
             <h1 class="site-title">KP Blog</h1>
         </div>
         <nav>
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='index.html';">Home</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='posts.html';">Posts</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='free.html';">Free</a> 
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='buy.html';">Buy</a> 
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='All.html';">All</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='Privacy Policy.html';">Privacy Policy</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='contact.html';">contact</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='About.html';">About</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='guides.html';">Guides</a>
-            
-            <a href="https://www.effectivegatecpm.com/np4tde3942?key=3493cfa20b5c90219d4054a4d0bb7f6d" target="_blank" onclick="window.location.href='chat.html';">Chat Group</a>
+            <a href="index.html">Home</a>
+            <a href="posts.html">Posts</a>
+            <a href="free.html">Free</a>
+            <a href="buy.html">Buy</a>
+            <a href="All.html">All</a>
+            <a href="Privacy Policy.html">Privacy</a>
+            <a href="contact.html">Contact</a>
+            <a href="About.html">About</a>
+            <a href="guides.html">Guides</a>
+            <a href="chat.html">Chat Group</a>
         </nav>
     </div>
 </header>
 
+<main>
+    <h1 class="page-title">All Products & Services</h1>
+    <p class="page-desc">ကျွန်တော်တို့ရဲ့ Premium Services အားလုံးကို စိတ်ကြိုက်ရွေးချယ် ဝယ်ယူနိုင်ပါပြီ။</p>
 
-    <main>
-        <section class="product-list-section"> </section>
-    <section class="posts-section"> </section>
-    <h1>All Products and Services</h1>
-    <p>အောက်ပါ Service များကို စိတ်ကြိုက်ရွေးချယ် ဝယ်ယူနိုင်ပါသည်။</p>
-    
-    <div class="product-list-container">
-    
-    <div class="product-item">
-        <div class="item-icon">📌</div>
-        <div class="item-details">
-            <h3 class="item-title">Telegram Channel</h3>
-            <p class="item-desc">Telegram Channel မ Join ရသေးရင် Join လိုက်ပါ။</p>
-            <div class="item-price">Telegram Account @KPBYKP</div>
-            <a href="https://t.me/addlist/DaVvvOWfdg05NDJl" class="buy-button">JOIN ရန်နှိပ်ပါ</a>
+    <div class="products-grid">
+
+        <div class="product-card">
+            <span class="product-icon">📢</span>
+            <h3>Premium Telegram Channel</h3>
+            <p>နေ့စဉ် အသစ်အသစ် Configs၊ Tools၊ Accounts နဲ့ အမြန်ဆုံး Update များကို အရင်ဆုံး ရယူလိုက်ပါ။</p>
+            <span class="price-tag">အခမဲ့ Join လုပ်နိုင်ပါပြီ</span>
+            <a href="https://t.me/addlist/DaVvvOWfdg05NDJl" target="_blank" class="buy-btn">အခု Join လုပ်မယ်</a>
         </div>
-    </div>
 
-    <div class="product-item">
-        <div class="item-icon">⚽</div>
-        <div class="item-details">
-            <h3 class="item-title">Football 1</h3>
-            <p class="item-desc">Tottenham Hotspor Vs Manchester United</p>
-            <div class="item-price">7:00 Pm</div>
-            <a href="@" class="buy-button">ကြည့်ရန်နှိပ်ပါ</a>
+        <div class="product-card">
+            <span class="product-icon">⚽</span>
+            <h3>Football Live 1</h3>
+            <p>HD Quality နဲ့ ဘောလုံးပွဲအားလုံးကို အချိန်နှင့်တပြေးညီ ကြည့်ရှုနိုင်မယ့် ချန်နယ်။</p>
+            <span class="price-tag">Coming Soon</span>
+            <a href="#" class="buy-btn">မကြာခင် ဖွင့်ပေးပါမည်</a>
         </div>
-    </div>
 
-    <div class="product-item">
-        <div class="item-icon">⚽</div>
-        <div class="item-details">
-            <h3 class="item-title">Football 2</h3>
-            <p class="item-desc">@@@@</p>
-            <div class="item-price">@@@@</div>
-            <a href="@@" class="buy-button">ကြည့်ရန်နှိပ်ပါ</a>
+        <div class="product-card">
+            <span class="product-icon">⚽</span>
+            <h3>Football Live 2</h3>
+            <p>အပိုဆု ပွဲစဉ်များနှင့် Multi-angle ကြည့်ရှုနိုင်သော အဆင့်မြင့် ချန်နယ်။</p>
+            <span class="price-tag">Coming Soon</span>
+            <a href="#" class="buy-btn">မကြာခင် ဖွင့်ပေးပါမည်</a>
         </div>
-    </div>
 
-    <div class="product-item">
-        <div class="item-icon">⚽</div>
-        <div class="item-details">
-            <h3 class="item-title">Football 3</h3>
-            <p class="item-desc">@@@@</p>
-            <div class="item-price">@@@@</div>
-            <a href="@@" class="buy-button">ကြည့်ရန်နှိပ်ပါ</a>
+        <div class="product-card">
+            <span class="product-icon">⚽</span>
+            <h3>Football Live 3</h3>
+            <p>အရည်အသွေးမြင့် ဘောလုံးပွဲများကို ကြော်ငြာမရှိဘဲ ခံစားလိုက်ပါ။</p>
+            <span class="price-tag">Coming Soon</span>
+            <a href="#" class="buy-btn">မကြာခင် ဖွင့်ပေးပါမည်</a>
         </div>
-    </div>
 
-    
+        <!-- နောက်ထပ် product ထည့်ချင်ရင် ဒီမှာ copy လုပ်ပြီး ထည့်ရုံပဲ -->
+
     </div>
+</main>
+
+<footer>
+    <p>© 2025 KP Blog • အားလုံးကို ချစ်ခင်စွာဖြင့်</p>
+</footer>
+
+</body>
+</html>
