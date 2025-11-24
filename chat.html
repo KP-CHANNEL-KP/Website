@@ -230,45 +230,43 @@
     .container { max-width: 900px; margin: 20px auto; padding: 20px; }
     #chatbox { height: 70vh; overflow-y: scroll; background: #1a1a2e; padding: 15px; border-radius: 15px; margin-bottom: 10px; border: 2px solid #00ff9d; }
     .msg { margin: 10px 0; padding: 10px 15px; border-radius: 15px; max-width: 80%; word-wrap: break-word; }
-    .other { background: #2d2d44; align-self: flex-start; }
+    .other { background: #2d2d44; }
     .system { color: #00ff9d; font-size: 0.9em; text-align: center; font-style: italic; background: rgba(0,255,157,0.1); padding: 5px; border-radius: 10px; }
     .input-area { position: fixed; bottom: 0; left: 0; right: 0; background: #0f0f1a; padding: 10px; display: flex; border-top: 2px solid #00ff9d; }
     input { flex: 1; padding: 15px; border: none; border-radius: 10px; margin: 0 5px; font-size: 16px; background: #2d2d44; color: #fff; }
     button { background: #00ff9d; color: black; border: none; padding: 15px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-    button:hover { background: #00dd88; }
     ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #1a1a2e; }
     ::-webkit-scrollbar-thumb { background: #00ff9d; border-radius: 4px; }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>ကေပီ ဂရု ချတ် | အခမဲ့ အရာတွေ မျှဝေပါ</h1>
-    <small>နေ့စဉ် အကြောင်းအရာ၊ အခက်အခဲ၊ စိတ်ကူးတွေ မျှဝေရန် နေရာ</small>
+    <h1>ကေပီ ဂရု ချတ် | KP Blog</h1>
+    <small>နေ့စဉ် အခမဲ့ အရာတွေ မျှဝေရန် နေရာ</small>
   </div>
 
   <div class="container">
-    <div id="chatbox"></div>
+    <div id="chatbox">
+      <div class="system">ချတ်ထဲ ဝင်လာပြီ။ စာရိုက်ပြီး ပို့လိုက်ပါ 😊</div>
+    </div>
   </div>
 
   <div class="input-area">
-    <input type="text" id="name" placeholder="နာမည်ရိုက်ပါ..." value="">
+    <input type="text" id="name" placeholder="နာမည်" value="">
     <input type="text" id="msg" placeholder="စာရိုက်ပါ... (Enter နှိပ်ရင် ပို့)" autofocus>
     <button onclick="send()">ပို့မယ်</button>
   </div>
 
-  <!-- Socket.io CDN -->
+  <!-- အခု အသစ် တည်ဆောက်ထားတဲ့ server -->
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
   <script>
-    const socket = io('https://chat-server-htetnainglin.koyeb.app'); // ကိုယ်တိုင် host ထားတဲ့ server (Cloudflare နဲ့ ချိတ်ဆက်ပြီး)
+    const socket = io('https://kpchat-server.onrender.com');  // အခု အသစ် server (မြန်တယ်၊ မကျိုးဘူး)
 
-    // နာမည် မရှိရင် random ပေး နဲ့ localStorage သိမ်း
     if (!localStorage.getItem('chat_name')) {
-      localStorage.setItem('chat_name', 'အမည်မဲ့_' + Math.floor(Math.random() * 9999));
+      localStorage.setItem('chat_name', 'အမည်မဲ့_' + Math.floor(Math.random()*9999));
     }
     document.getElementById('name').value = localStorage.getItem('chat_name');
 
-    // စာ ပို့တယ်
     function send() {
       let name = document.getElementById('name').value.trim() || 'အမည်မဲ့';
       let msg = document.getElementById('msg').value.trim();
@@ -283,7 +281,10 @@
       if (e.key === 'Enter') send();
     });
 
-    // စာ လက်ခံတယ်
+    socket.on('connect', () => {
+      console.log('ချိတ်ဆက်မှု အောင်မြင်တယ်');
+    });
+
     socket.on('chat message', data => {
       let div = document.createElement('div');
       div.className = 'msg other';
@@ -292,7 +293,6 @@
       div.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // User joined/left အသိပေး
     socket.on('user joined', msg => {
       let div = document.createElement('div');
       div.className = 'system';
@@ -307,9 +307,6 @@
       div.innerText = msg;
       document.getElementById('chatbox').appendChild(div);
     });
-
-    // စာမျက်နှာ load ဖြစ်ရင် joined ပို့
-    socket.emit('user joined', 'ချတ်ထဲ ဝင်လာတယ်');
   </script>
 </body>
 </html>
