@@ -1,0 +1,14 @@
+name = "my-note-worker"
+main = "src/index.js"
+compatibility_date = "2025-11-27"
+
+# [vars] တွင် Admin Secret ကို ထည့်သွင်းပါ။
+[vars]
+# ဤနေရာတွင် သင်အလိုရှိသော လုံခြုံသော Password ကို ထည့်ပါ။
+ADMIN_SECRET = "Your_Strong_Admin_Password_Here_12345" 
+
+# [[kv_namespaces]] တွင် KV Storage ကို ချိတ်ဆက်ပါ။
+[[kv_namespaces]]
+binding = "NOTES_KV" # Worker code ထဲမှာ ဒီနာမည်နဲ့ သုံးရပါမယ်။
+id = "<သင်ဖန်တီးထားသော KV Namespace ID ကို ဤနေရာတွင် ထည့်ပါ>" 
+# ID ကို Cloudflare Dashboard (သို့) `wrangler kv namespace list` မှ ရယူပါ။
