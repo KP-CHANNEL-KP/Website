@@ -38,21 +38,25 @@
         const note = document.getElementById("note");
         const correctPass = "232003"; // မင်းစကားဝှက် ဒီမှာ ပြောင်းလိုက်!!!
 
-        // <<< မင်း Worker URL ကို ဒီမှာ ထည့်ပါ >>>
-        const WORKER_URL = "https://kp-note-worker.မင်းနာမည်.workers.dev";
+        // <<< 🚨 မင်း Worker URL ကို ဒီမှာ အစားထိုး ထည့်ပါ >>>
+        const WORKER_URL = "https://kponly.ggff.net/mynote"; // 👈 ဒီလိုင်းကို ပြင်ရမည်
 
         async function fetchNote() {
             try {
-                const res = await fetch(WORKER_URL + "?t=" + Date.now());
+                // Cache မဖြစ်အောင် ?t=... ထည့်ပြီး Worker မှ Note ကို ရယူသည်။
+                const res = await fetch(WORKER_URL + "?t=" + Date.now()); 
                 note.innerHTML = await res.text();
             } catch(e) {
-                note.innerHTML = "အင်တာနက်မရှိပါ / Worker URL စစ်ပါ";
+                // Error ရှိရင်လဲ စာရိုက်လို့ရအောင် ပေးထားသည်
+                note.innerHTML = "အင်တာနက်မရှိပါ / Worker URL စစ်ပါ"; 
             }
         }
 
         async function saveNote() {
+            // 🔑 Worker ရဲ့ POST Logic နဲ့ ကိုက်ညီအောင် Content-Type ထည့်သွင်းသည်။
             await fetch(WORKER_URL, {
                 method: "POST",
+                headers: { 'Content-Type': 'text/plain' }, // ဤ Header ကို ထည့်လိုက်သည်
                 body: note.innerHTML
             });
         }
@@ -61,16 +65,23 @@
             if (document.getElementById("pass").value === correctPass) {
                 note.contentEditable = true;
                 note.focus();
+                
+                // Debugging Log
+                console.log("Edit mode enabled:", note.contentEditable); 
+
                 document.querySelector("button").textContent = "ပြင်ဆင်နေဆဲ... (Cloud သို့ အလိုအလျောက်သိမ်း)";
-                note.addEventListener("input", saveNote);
+                
+                // စာရိုက်တိုင်း Save လုပ်ရန် Event Listener ကို စတင်သည်။
+                note.addEventListener("input", saveNote); 
             } else {
                 alert("စကားဝှက် မှားတယ် ကွာ");
             }
         }
 
-        // စဖွင့်တာနဲ့ ချက်ချင်း ရယူ + ၁၀ စက္ကန့်တစ်ခါ ပြန်စစ်
+        // 1. Page စဖွင့်တာနဲ့ ချက်ချင်း ရယူသည်။
         fetchNote();
-        setInterval(fetchNote, 10000);
+        // 2. ၁၀ စက္ကန့်တစ်ခါ ပြန်စစ်ပြီး Note ကို အလိုအလျောက် Refresh လုပ်သည်။
+        setInterval(fetchNote, 10000); 
     </script>
 </body>
 </html>
