@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 ကျွန်ုပ်၏ မှတ်စုများ</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <style>
+        /* Note စာမျက်နှာအတွက် သီးသန့် CSS */
+        .note-app-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        #search-controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        #search-input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+        #search-button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .note-item {
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+        .note-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .note-item h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .note-category {
+            font-size: 0.8em;
+            background-color: #e6f7ff;
+            color: #007bff;
+            padding: 3px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        #status-message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="note-app-container">
+        <h2>📋 နောက်ဆုံးရ မှတ်စုများ</h2>
+        
+        <div id="search-controls">
+            <input type="text" id="search-input" placeholder="ခေါင်းစဉ် ဒါမှမဟုတ် အကြောင်းအရာ ရှာဖွေပါ...">
+            <button id="search-button">ရှာဖွေပါ</button>
+        </div>
+        
+        <div id="notes-container">
+            <p>မှတ်စုများကို Loading လုပ်နေပါသည်။...</p>
+        </div>
+        <p id="status-message"></p>
+    </div>
+
+    <script>
+        // Worker API ၏ URL ကို ဤနေရာတွင် သေချာစွာ ပြောင်းလဲထည့်သွင်းပါ
+        // (ဥပမာ: https://my-note-worker.yourname.workers.dev)
+        const API_URL = 'YOUR_DEPLOYED_WORKER_URL'; 
+
+        const notesContainer = document.getElementById('notes-container');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const statusMessage = document.getElementById('status-message');
+
+        async function loadNotes() {
+            statusMessage.textContent = '';
+            notesContainer.innerHTML = 'မှတ်စုများ ရှာဖွေနေပါသည်။...';
+
+            const searchValue = searchInput.value.trim();
+            let url = `${API_URL}/notes`;
+            if (searchValue) {
+                url += `?search=${encodeURIComponent(searchValue)}`;
+            }
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+                
+                const notes = await response.json();
+                notesContainer.innerHTML = ''; // အဟောင်းများကို ရှင်းထုတ်
+
+                if (notes.length === 0) {
+                    notesContainer.innerHTML = '<p style="color:#555;">ရှာဖွေမှုနှင့် ကိုက်ညီသော မှတ်စု မရှိပါ သို့မဟုတ် မှတ်စုများ မရှိသေးပါ။</p>';
+                    return;
+                }
+
+                notes.forEach(note => {
+                    const noteElement = document.createElement('div');
+                    noteElement.className = 'note-item';
+                    noteElement.innerHTML = `
+                        <h3>${note.title}</h3>
+                        <span class="note-category">${note.category || 'General'}</span>
+                        <p>${note.content}</p>
+                        <small>ထုတ်ပြန်သည့်ရက်စွဲ: ${new Date(note.createdAt).toLocaleDateString('my-MM')}</small>
+                    `;
+                    notesContainer.appendChild(noteElement);
+                });
+            } catch (error) {
+                notesContainer.innerHTML = '<p style="color:red;">ဒေတာများကို ရယူရာတွင် အမှားပေါ်ပေါက်ပါသည်. API URL ကို စစ်ဆေးပါ။</p>';
+                statusMessage.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        // Search Button ကိုနှိပ်လျှင် loadNotes ကို ခေါ်ဆိုပါ
+        searchButton.addEventListener('click', loadNotes);
+        
+        // Enter key နှိပ်လျှင်လည်း ရှာဖွေနိုင်ရန်
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loadNotes();
+            }
+        });
+
+        // စာမျက်နှာ စတင်သည်နှင့် မှတ်စုများကို ချက်ချင်း load ပါ
+        document.addEventListener('DOMContentLoaded', loadNotes); 
+    </script>
+</body>
+</html>
