@@ -86,8 +86,6 @@
         }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,255,157,0.6); }
 
-        /* R2 အစိတ်အပိုင်းများ ဖယ်ရှားပြီးဖြစ်၍ upload-container, custom-file-upload styles များကို ဖယ်ရှားသည်။ */
-
         #notificationPrompt {
             background: linear-gradient(135deg, #fff1f1, #ffeaea);
             border: 3px solid #ff4d4d; border-radius: 20px; padding: 20px;
@@ -137,6 +135,8 @@
         </div>
 
         <div id="textAdminPanel" style="display:none; margin-top:20px;">
+            <input type="text" id="kvKeyNameInput" placeholder="KV Key Name (e.g., latest_message)" value="latest_message" style="width:100%; padding:15px; border-radius:15px; border:none; background:rgba(0,0,0,0.4); color:#fff; margin-bottom:10px;">
+            
             <input type="text" id="inputLine" placeholder="စာအသစ်ရိုက်ထည့်ပါ..." style="width:100%; padding:15px; border-radius:15px; border:none; background:rgba(0,0,0,0.4); color:#fff; margin-bottom:10px;">
             <button class="btn" onclick="copyMainTextToClipboard()">ကူးယူမည်</button>
             <button class="btn" id="saveButton" onclick="saveToMainTextarea()">Save လုပ်မည်</button>
@@ -171,16 +171,11 @@
         } else document.getElementById('pwMessage').style.display = 'block';
     }
 
-    /* R2 နှင့်သက်ဆိုင်သော showFiles() function ကို ဖယ်ရှားလိုက်သည်။ */
-
-    /* R2 နှင့်သက်ဆိုင်သော updateFileName() function ကို ဖယ်ရှားလိုက်သည်။ */
-
-    /* R2 နှင့်သက်ဆိုင်သော startR2Upload() function ကို ဖယ်ရှားလိုက်သည်။ */
-
-    // Text Fetch (KV)
+    // Message Fetch (KV) - Default Key ကို သုံး၍ စာသားကို ဆွဲယူခြင်း
     async function fetchInitialText() {
         try {
-            const res = await fetch('/api/text');
+            const defaultKey = 'latest_message'; // Default Key ကို သုံးသည်
+            const res = await fetch(`/api/message?key=${defaultKey}`); 
             document.getElementById('mainTextArea').value = await res.text();
         } catch (e) {
             console.error('Fetch Error:', e);
@@ -188,15 +183,18 @@
         }
     }
     
-    // စာတင်တဲ့အပိုင်း (KV Store)
+    // စာတင်တဲ့အပိုင်း (Message/KV Store) - KV Key Name ကို အသုံးပြု၍ သိမ်းဆည်းခြင်း
     async function saveToMainTextarea() {
         const mainTextArea = document.getElementById('mainTextArea');
         const inputLine = document.getElementById('inputLine');
         const saveButton = document.getElementById('saveButton');
         
+        // KV Key Input မှ Key Name ကို ရယူခြင်း
+        const kvKey = document.getElementById('kvKeyNameInput').value.trim(); 
+        
         const newText = inputLine.value.trim();
-        if (!newText) {
-            alert('စာအသစ်ရိုက်ထည့်ရန် လိုအပ်ပါသည်။'); 
+        if (!newText || !kvKey) {
+            alert('စာအသစ် သို့မဟုတ် KV Key Name ရိုက်ထည့်ရန် လိုအပ်ပါသည်။'); 
             return;
         }
 
@@ -230,7 +228,8 @@
         saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
         
         try {
-            const res = await fetch('/api/text', {
+            // POST Request ဖြင့် Key Name ကို Query Parameter အဖြစ် ပို့ပြီး သိမ်းဆည်းသည်
+            const res = await fetch(`/api/message?key=${kvKey}`, {
                 method:'POST', 
                 body: updated, 
                 headers:{'Content-Type':'text/plain'}
@@ -244,7 +243,7 @@
             mainTextArea.value = updated;
             inputLine.value = '';
             mainTextArea.scrollTop = 0; // စာအသစ်ကို အပေါ်ဆုံးကနေ စပြရန်
-            alert('✅ အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ! (စာသားအသစ် အပေါ်ဆုံးတွင် ရှိပါမည်)');
+            alert(`✅ "${kvKey}" Key အောက်တွင် အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ!`);
 
         } catch (e) {
             alert('❌ သိမ်းဆည်းမှု မအောင်မြင်ပါ။ Error: ' + e.message);
