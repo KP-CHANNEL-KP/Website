@@ -41,14 +41,14 @@
             border-radius:25px;
             box-shadow:var(--shadow);
             transition:all 0.4s;
-            overflow:auto; /* Scrollbar added for long content */
+            overflow:auto; 
+            white-space: pre-wrap; /* Newlines ကို ဖော်ပြရန် */
         }
         #note:focus{outline:none;box-shadow:0 0 60px rgba(0,255,157,0.5);}
         
-        /* pw-box styles apply to both password gate and admin panel for consistency */
         .pw-box{
             width:100%;
-            max-width:420px; 
+            max-width:800px; /* Admin Panel ကို ကြီးအောင်လုပ်လိုက်သည် */
             background:var(--card);
             padding:30px;
             border-radius:25px;
@@ -57,7 +57,6 @@
             box-shadow:var(--shadow);
         }
         
-        /* New style for input in the admin panel */
         #textAdminPanel input[type="text"] {
             width:100%;
             padding:18px;
@@ -65,7 +64,7 @@
             background:#222;
             color:white;
             border:none;
-            border-radius:15px; /* Different style for input line */
+            border-radius:15px; 
             text-align:left;
             margin-bottom:15px;
         }
@@ -116,12 +115,12 @@
             Note များကို Cloud မှ ရယူနေပါသည်။...
         </div>
 
-        <div class="pw-box" id="adminPasswordGate">
+        <div class="pw-box" id="adminPasswordGate" style="max-width: 420px;">
             <input type="password" id="pass" placeholder="စကားဝှက်ရိုက်ပါ">
             <button onclick="unlock()">ပြင်ဆင်ဖွင့်မယ်</button>
         </div>
 
-        <div id="textAdminPanel" class="pw-box" style="display:none; max-width:1000px;">
+        <div id="textAdminPanel" class="pw-box" style="display:none;">
             <input type="text" id="inputLine" placeholder="စာအသစ်ရိုက်ထည့်ပါ..." style="margin-bottom: 15px;"/>
             <button onclick="saveNote()" id="saveButton">Save လုပ်မည်</button>
         </div>
@@ -139,10 +138,10 @@
         // Worker မှ Note အချက်အလက်များကို ရယူခြင်း (GET)
         async function fetchNote() {
             try {
-                // Cache Busting
                 const res = await fetch(NOTE_WORKER_URL + "?t=" + Date.now()); 
                 note.innerHTML = await res.text();
             } catch(e) {
+                // Network error ရှိရင် ဒီစာသားကို ပြမည်
                 note.innerHTML = "အင်တာနက်မရှိပါ / Worker URL စစ်ပါ"; 
             }
         }
@@ -165,7 +164,8 @@
                 hour12: false
             });
             
-            const divider = '<br><br>============================<br><br>'; // HTML အတွက် <br> သုံးသည်။
+            // Plain Text Newlines (\n) ကို သုံးသည်
+            const divider = '\n\n============================\n\n'; 
             
             let oldContent = note.innerHTML.trim();
             
@@ -175,7 +175,7 @@
             }
 
             // စာအသစ်ကို အပေါ်ဆုံးတွင် ထည့်သွင်းရန် ပေါင်းစပ်ခြင်း
-            const newEntry = `[${timestamp}]<br><br>${newText}`;
+            const newEntry = `[${timestamp}]\n\n${newText}`;
             let updated = (oldContent === '') ? newEntry : newEntry + divider + oldContent;
 
             saveButton.disabled = true;
@@ -207,10 +207,9 @@
         // စကားဝှက်မှန်ကန်ရင် Admin Panel ကို ဖွင့်ပေးခြင်း
         function unlock(){
             if(document.getElementById("pass").value === correctPass){
-                document.getElementById('adminPasswordGate').style.display = 'none';
-                document.getElementById('textAdminPanel').style.display = 'block';
-                // Note Div ကို စာရိုက်လို့မရအောင် ပိတ်ထားသည်
-                note.contentEditable = false; 
+                document.getElementById('adminPasswordGate').style.display = 'none'; // Password Box ပိတ်
+                document.getElementById('textAdminPanel').style.display = 'block'; // Admin Panel ဖွင့်
+                note.contentEditable = false; // Note Div ကို စာရိုက်လို့မရအောင် ပိတ်ထားသည်
             } else {
                 alert("စကားဝှက် မှားတယ် ကွာ 😛");
             }
@@ -218,7 +217,7 @@
 
         // Page စတင် load ချိန်တွင် Note ကို Cloud မှ ပြန်ယူခြင်း + အလိုအလျောက် Refresh
         fetchNote();
-        setInterval(fetchNote, 10000); // ၁၀ စက္ကန့်တစ်ခါ Note ကို ပြန်ဆွဲသည်။
+        setInterval(fetchNote, 10000); 
     </script>
 </body>
 </html>
