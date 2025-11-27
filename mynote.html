@@ -42,13 +42,13 @@
             box-shadow:var(--shadow);
             transition:all 0.4s;
             overflow:auto; 
-            white-space: pre-wrap; /* Newlines ကို ဖော်ပြရန် */
+            white-space: pre-wrap;
         }
         #note:focus{outline:none;box-shadow:0 0 60px rgba(0,255,157,0.5);}
         
         .pw-box{
             width:100%;
-            max-width:800px; /* Admin Panel ကို ကြီးအောင်လုပ်လိုက်သည် */
+            max-width:800px;
             background:var(--card);
             padding:30px;
             border-radius:25px;
@@ -132,16 +132,16 @@
         const note = document.getElementById("note");
         const correctPass = "232003"; // မင်းစကားဝှက်
 
-        // 🚨 ဤနေရာတွင် သင့် Worker ၏ URL ကို ပြင်ဆင်ပြီးသားဖြစ်ရပါမည်။
-        const NOTE_WORKER_URL = "https://kponly.ggff.net/mynote"; 
+        // 💡💡💡 URL Conflicts ရှင်းရန် Relative Path ကိုသာ သုံးသည် 💡💡💡
+        const NOTE_API_PATH = "/mynote"; // သင့် Worker Route အတိုင်း ပြန်ထားသည်
         
         // Worker မှ Note အချက်အလက်များကို ရယူခြင်း (GET)
         async function fetchNote() {
             try {
-                const res = await fetch(NOTE_WORKER_URL + "?t=" + Date.now()); 
+                // NOTE_API_PATH ကိုပဲ သုံးသည်
+                const res = await fetch(NOTE_API_PATH + "?t=" + Date.now()); 
                 note.innerHTML = await res.text();
             } catch(e) {
-                // Network error ရှိရင် ဒီစာသားကို ပြမည်
                 note.innerHTML = "အင်တာနက်မရှိပါ / Worker URL စစ်ပါ"; 
             }
         }
@@ -164,7 +164,6 @@
                 hour12: false
             });
             
-            // Plain Text Newlines (\n) ကို သုံးသည်
             const divider = '\n\n============================\n\n'; 
             
             let oldContent = note.innerHTML.trim();
@@ -182,8 +181,8 @@
             saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
             
             try {
-                // Worker သို့ POST လုပ်သည်။
-                const res = await fetch(NOTE_WORKER_URL, {
+                // Worker သို့ POST လုပ်သည်။ (NOTE_API_PATH ကိုပဲ သုံးသည်)
+                const res = await fetch(NOTE_API_PATH, {
                     method: 'POST', 
                     body: updated, 
                     headers: {'Content-Type': 'text/plain'}
@@ -207,9 +206,9 @@
         // စကားဝှက်မှန်ကန်ရင် Admin Panel ကို ဖွင့်ပေးခြင်း
         function unlock(){
             if(document.getElementById("pass").value === correctPass){
-                document.getElementById('adminPasswordGate').style.display = 'none'; // Password Box ပိတ်
-                document.getElementById('textAdminPanel').style.display = 'block'; // Admin Panel ဖွင့်
-                note.contentEditable = false; // Note Div ကို စာရိုက်လို့မရအောင် ပိတ်ထားသည်
+                document.getElementById('adminPasswordGate').style.display = 'none'; 
+                document.getElementById('textAdminPanel').style.display = 'block'; 
+                note.contentEditable = false;
             } else {
                 alert("စကားဝှက် မှားတယ် ကွာ 😛");
             }
