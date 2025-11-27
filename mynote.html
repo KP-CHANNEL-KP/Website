@@ -5,59 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ကိုဂျီ ရဲ့ လူတိုင်းမြင်ရတဲ့ မှတ်စု</title>
     <style>
-        :root{--bg:#0d0d1f;--c:#1a1a2e;--t:#e0e0ff;--p:#00ff9d;}
-        body{font-family:'Pyidaungsu',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;display:flex;flex-direction:column;}
-        header{padding:25px;background:var(--p);color:#000;text-align:center;font-size:2em;font-weight:bold;}
-        main{flex:1;padding:30px;max-width:900px;margin:auto;width:100%;}
-        #note{display:block;width:100%;min-height:65vh;padding:25px;font-size:1.3em;background:var(--c);color:var(--t);border-radius:20px;border:3px solid var(--p);box-shadow:0 0 40px rgba(0,255,157,0.3);}
-        #note[contenteditable=true]:focus{outline:3px solid var(--p);}
-        .pw{margin:20px auto;width:300px;}
-        input{padding:15px;width:100%;border-radius:50px;border:none;background:#333;color:white;font-size:1.2em;text-align:center;}
-        button{margin-top:15px;padding:15px 30px;width:100%;background:var(--p);color:#000;border:none;border-radius:50px;font-weight:bold;cursor:pointer;}
-        footer{padding:20px;text-align:center;color:#666;font-size:0.9em;}
+        :root{--bg:#0a0a1a;--card:#151528;--text:#e0e0ff;--accent:#00ff9d;--shadow:0 0 40px rgba(0,255,157,0.25);}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Pyidaungsu',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;line-height:1.7;}
+        
+        header{
+            background:linear-gradient(135deg,#00ff9d,#00cc7a);
+            padding:20px;
+            text-align:center;
+            font-size:2.2em;
+            font-weight:bold;
+            color:#000;
+            box-shadow:0 5px 20px rgba(0,255,157,0.4);
+        }
+        
+        main{
+            flex:1;
+            padding:20px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:25px;
+            max-width:1000px;
+            margin:auto;
+            width:100%;
+        }
+        
+        #note{
+            width:100%;
+            min-height:65vh;
+            padding:30px;
+            font-size:1.35em;
+            background:var(--card);
+            border:3px solid var(--accent);
+            border-radius:25px;
+            box-shadow:var(--shadow);
+            transition:all 0.4s;
+        }
+        #note:focus{outline:none;box-shadow:0 0 60px rgba(0,255,157,0.5);}
+        
+        .pw-box{
+            width:100%;
+            max-width:420px;
+            background:var(--card);
+            padding:30px;
+            border-radius:25px;
+            border:2px solid #333;
+            text-align:center;
+            box-shadow:var(--shadow);
+        }
+        input{
+            width:100%;
+            padding:18px;
+            font-size:1.3em;
+            background:#222;
+            color:white;
+            border:none;
+            border-radius:50px;
+            text-align:center;
+            margin-bottom:15px;
+        }
+        button{
+            width:100%;
+            padding:18px;
+            background:var(--accent);
+            color:#000;
+            border:none;
+            border-radius:50px;
+            font-size:1.3em;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+        }
+        button:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(0,255,157,0.5);}
+        
+        footer{
+            padding:20px;
+            text-align:center;
+            color:#666;
+            font-size:0.95em;
+            background:rgba(0,0,0,0.3);
+        }
+        @media(max-width:600px){
+            #note{font-size:1.2em;padding:20px;}
+            header{font-size:1.8em;}
+        }
     </style>
 </head>
 <body>
-    <header>📢 ကိုဂျီ ရဲ့ လူတိုင်းမြင်ရတဲ့ မှတ်စု</header>
+    <header>ကိုဂျီ ရဲ့ လူတိုင်းမြင်ရတဲ့ မှတ်စု</header>
     
     <main>
         <div id="note" contenteditable="false">
-            ဒီမှာ မင်းတစ်ယောက်ပဲ ပြင်လို့ရတယ်။ ကျန်တဲ့လူတွေက ကြည့်ရုံပဲ ရမယ် 😎<br><br>
-            နေ့လည်စာ ဘာစားမလဲ စဉ်းစားနေတုန်း...
+            ဒီမှာ ငါတစ်ယောက်ပဲ ပြင်လို့ရတယ်။<br>
+            ကျန်တဲ့လူတွေက ကြည့်ရုံပဲ 😏<br><br>
+            ဒီနေ့ ဘာလုပ်မလဲ စဉ်းစားနေတုန်း...
         </div>
 
-        <div class="pw">
-            <input type="password" id="pass" placeholder="စကားဝှက် ရိုက်ပါ">
-            <button onclick="check()">ပြင်ဆင်ဖွင့်မယ်</button>
+        <div class="pw-box">
+            <input type="password" id="pass" placeholder="စကားဝှက်ရိုက်ပါ">
+            <button onclick="unlock()">ပြင်ဆင်ဖွင့်မယ်</button>
         </div>
     </main>
 
-    <footer>© KPonly.ggff.net • လူတိုင်း ကြည့်လို့ရ • မင်းတစ်ယောက်ပဲ ပြင်လို့ရ</footer>
+    <footer>© KPonly.ggff.net • လူတိုင်းကြည့်လို့ရ • ငါတစ်ယောက်ပဲ ပြင်လို့ရ</footer>
 
     <script>
         const note = document.getElementById("note");
-        const correctPass = "232003"; // <<< ဒီနေရာ မင်းစကားဝှက် ပြောင်းလိုက်!!!
+        const correctPass = "kp2025"; // <<< ဒီနေရာ မင်းစကားဝှက်ပြောင်းလိုက်!!!
 
-        function check(){
+        function unlock(){
             if(document.getElementById("pass").value === correctPass){
                 note.contentEditable = true;
                 note.focus();
-                alert("အခု ပြင်လို့ရပြီ ကိုဂျီ 🔥");
+                document.querySelector(".pw-box button").textContent = "ပြင်ဆင်နေဆဲ...";
+                document.querySelector(".pw-box button").style.background = "#00cc7a";
             } else {
-                alert("စကားဝှက် မှားနေတယ် 😛");
+                alert("စကားဝှက် မှားတယ် ကွာ 😛");
             }
         }
 
-        // ရေးပြီးတိုင်း အလိုအလျောက် သိမ်းမယ်
+        // အလိုအလျောက်သိမ်း
         note.addEventListener("input", ()=>{
             if(note.contentEditable === "true"){
-                localStorage.setItem("public_note_kp", note.innerHTML);
+                localStorage.setItem("kp_public_note_2025", note.innerHTML);
             }
         });
 
-        // ဝင်တိုင်း အရင်ဟာပြန်တင်မယ်
-        if(localStorage.getItem("public_note_kp")){
-            note.innerHTML = localStorage.getItem("public_note_kp");
+        // ဝင်တိုင်း ပြန်တင်
+        if(localStorage.getItem("kp_public_note_2025")){
+            note.innerHTML = localStorage.getItem("kp_public_note_2025");
         }
     </script>
 </body>
