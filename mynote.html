@@ -3,102 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Free Accounts & Notes</title>
+    <title>KP Premium Social Accounts & Notes</title>
     <style>
         :root{--bg:#0a0a1a;--card:#151528;--text:#e0e0ff;--accent:#00ff9d;--shadow:0 0 40px rgba(0,255,157,0.25);}
         *{margin:0;padding:0;box-sizing:border-box;}
         body{font-family:'Pyidaungsu',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;line-height:1.7;}
-        
-        header{
-            background:linear-gradient(135deg,#00ff9d,#00cc7a);
-            padding:20px;
-            text-align:center;
-            font-size:2.2em;
-            font-weight:bold;
-            color:#000;
-            box-shadow:0 5px 20px rgba(0,255,157,0.4);
-        }
-        
-        main{
-            flex:1;
-            padding:20px;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            gap:25px;
-            max-width:1000px;
-            margin:auto;
-            width:100%;
-        }
-        
-        #note{
-            width:100%;
-            min-height:65vh;
-            padding:30px;
-            font-size:1.35em;
-            background:var(--card);
-            border:3px solid var(--accent);
-            border-radius:25px;
-            box-shadow:var(--shadow);
-            transition:all 0.4s;
-        }
+        header{background:linear-gradient(135deg,#00ff9d,#00cc7a);padding:25px;text-align:center;font-size:2.2em;font-weight:bold;color:#000;box-shadow:0 5px 20px rgba(0,255,157,0.4);}
+        main{flex:1;padding:20px;display:flex;flex-direction:column;align-items:center;gap:25px;max-width:1000px;margin:auto;width:100%;}
+        #note{width:100%;min-height:65vh;padding:30px;font-size:1.35em;background:var(--card);border:3px solid var(--accent);border-radius:25px;box-shadow:var(--shadow);transition:all 0.4s;overflow:auto;}
         #note:focus{outline:none;box-shadow:0 0 60px rgba(0,255,157,0.5);}
-        
-        .pw-box{
-            width:100%;
-            max-width:420px;
-            background:var(--card);
-            padding:30px;
-            border-radius:25px;
-            border:2px solid #333;
-            text-align:center;
-            box-shadow:var(--shadow);
-        }
-        input{
-            width:100%;
-            padding:18px;
-            font-size:1.3em;
-            background:#222;
-            color:white;
-            border:none;
-            border-radius:50px;
-            text-align:center;
-            margin-bottom:15px;
-        }
-        button{
-            width:100%;
-            padding:18px;
-            background:var(--accent);
-            color:#000;
-            border:none;
-            border-radius:50px;
-            font-size:1.3em;
-            font-weight:bold;
-            cursor:pointer;
-            transition:0.3s;
-        }
-        button:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(0,255,157,0.5);}
-        
-        footer{
-            padding:20px;
-            text-align:center;
-            color:#666;
-            font-size:0.95em;
-            background:rgba(0,0,0,0.3);
-        }
-        @media(max-width:600px){
-            #note{font-size:1.2em;padding:20px;}
-            header{font-size:1.8em;}
-        }
+        .pw-box{width:100%;max-width:420px;background:var(--card);padding:30px;border-radius:25px;border:2px solid #333;text-align:center;box-shadow:var(--shadow);}
+        input{width:100%;padding:18px;font-size:1.3em;background:#222;color:white;border:none;border-radius:50px;text-align:center;margin-bottom:15px;}
+        button{width:100%;padding:18px;background:var(--accent);color:#000;border:none;border-radius:50px;font-size:1.3em;font-weight:bold;cursor:pointer;transition:0.3s;}
+        button:hover{transform:scale(1.05);}
+        footer{padding:20px;text-align:center;color:#666;background:rgba(0,0,0,0.3);}
+        @media(max-width:600px){#note{font-size:1.2em;padding:20px;}header{font-size:1.8em;}}
     </style>
 </head>
 <body>
-    <header>🤓KP Premium Social Accounts & Notes🤓</header>
+    <header>KP Premium Social Accounts & Notes</header>
     
     <main>
-        <div id="note" contenteditable="false">
-            Note များကို Cloud မှ ရယူနေပါသည်။...
-        </div>
+        <div id="note" contenteditable="false">ခဏစောင့်ပါ... Cloud မှ ရယူနေပါသည်</div>
 
         <div class="pw-box">
             <input type="password" id="pass" placeholder="စကားဝှက်ရိုက်ပါ">
@@ -106,71 +32,45 @@
         </div>
     </main>
 
-    <footer>© KP • Premium Social Accounts • Notes</footer>
+    <footer>© KP • လူတိုင်းမြင်ရ • ငါတစ်ယောက်ပဲ ပြင်ရ</footer>
 
     <script>
         const note = document.getElementById("note");
-        const correctPass = "232003"; 
-        
-        // 🚨 ဤနေရာတွင် သင့် Worker ၏ URL အသစ်ကို ထည့်ပေးပါ။
-        const NOTE_WORKER_URL = "https://kponly.ggff.net"; // <-- ဤနေရာကို ပြင်ရန်!
+        const correctPass = "232003"; // မင်းစကားဝှက် ဒီမှာ ပြောင်းလိုက်!!!
 
-        // Worker မှ Note အချက်အလက်များကို ရယူခြင်း
+        // <<< မင်း Worker URL ကို ဒီမှာ ထည့်ပါ >>>
+        const WORKER_URL = "https://kp-note-worker.မင်းနာမည်.workers.dev";
+
         async function fetchNote() {
             try {
-                const response = await fetch(NOTE_WORKER_URL);
-                if (response.ok) {
-                    const content = await response.text();
-                    // contentEditable false ဖြစ်နေချိန်တွင် content ကို safe ဖြစ်စေရန် InnerHTML သုံးသည်။
-                    note.innerHTML = content;
-                } else {
-                    note.innerHTML = "Error fetching note from cloud. (Worker စစ်ပါ)";
-                }
-            } catch (e) {
-                note.innerHTML = "Cannot connect to cloud storage. (Worker URL မှန်/မမှန် စစ်ပါ)";
+                const res = await fetch(WORKER_URL + "?t=" + Date.now());
+                note.innerHTML = await res.text();
+            } catch(e) {
+                note.innerHTML = "အင်တာနက်မရှိပါ / Worker URL စစ်ပါ";
             }
         }
 
-        // Worker သို့ Note အချက်အလက်များ ပို့ခြင်း
-        async function saveNote(content) {
-            try {
-                // content ကို Worker သို့ POST လုပ်သည်။
-                await fetch(NOTE_WORKER_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: content
-                });
-            } catch (e) {
-                console.error("Error saving note to cloud:", e);
-            }
+        async function saveNote() {
+            await fetch(WORKER_URL, {
+                method: "POST",
+                body: note.innerHTML
+            });
         }
 
-        function unlock(){
-            if(document.getElementById("pass").value === correctPass){
-                note.contentEditable = true; // <--- စာပြင်ခွင့် ပေးလိုက်သည်
+        function unlock() {
+            if (document.getElementById("pass").value === correctPass) {
+                note.contentEditable = true;
                 note.focus();
-                
-                // 🔑 Debugging အတွက် Log
-                console.log("Edit mode enabled:", note.contentEditable); 
-
-                document.querySelector(".pw-box button").textContent = "ပြင်ဆင်နေဆဲ... (Cloud Save)";
-                document.querySelector(".pw-box button").style.background = "#00cc7a";
+                document.querySelector("button").textContent = "ပြင်ဆင်နေဆဲ... (Cloud သို့ အလိုအလျောက်သိမ်း)";
+                note.addEventListener("input", saveNote);
             } else {
-                alert("စကားဝှက် မှားတယ် ကွာ 😛");
+                alert("စကားဝှက် မှားတယ် ကွာ");
             }
         }
 
-        // ပြင်ဆင်ပြီးတိုင်း Cloudflare KV ကို အလိုအလျောက် သိမ်းဆည်းခြင်း
-        note.addEventListener("input", ()=>{
-            if(note.contentEditable === "true"){
-                saveNote(note.innerHTML); // Cloud Save
-            }
-        });
-
-        // Page စတင် load ချိန်တွင် Note ကို Cloud မှ ပြန်ယူခြင်း
-        window.onload = () => {
-             fetchNote();
-        };
+        // စဖွင့်တာနဲ့ ချက်ချင်း ရယူ + ၁၀ စက္ကန့်တစ်ခါ ပြန်စစ်
+        fetchNote();
+        setInterval(fetchNote, 10000);
     </script>
 </body>
 </html>
