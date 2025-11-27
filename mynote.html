@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Free Accounts & Notes</title>
+    <title>KP Premium Note</title>
     <style>
+        /* CSS Styles */
         :root{--bg:#0a0a1a;--card:#151528;--text:#e0e0ff;--accent:#00ff9d;--shadow:0 0 40px rgba(0,255,157,0.25);}
         *{margin:0;padding:0;box-sizing:border-box;}
         body{font-family:'Pyidaungsu',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;line-height:1.7;}
@@ -42,9 +43,8 @@
             box-shadow:var(--shadow);
             transition:all 0.4s;
             overflow:auto; 
-            white-space: pre-wrap;
+            white-space: pre-wrap; /* Newline များကို ဖော်ပြရန် */
         }
-        #note:focus{outline:none;box-shadow:0 0 60px rgba(0,255,157,0.5);}
         
         .pw-box{
             width:100%;
@@ -101,10 +101,6 @@
             font-size:0.95em;
             background:rgba(0,0,0,0.3);
         }
-        @media(max-width:600px){
-            #note{font-size:1.2em;padding:20px;}
-            header{font-size:1.8em;}
-        }
     </style>
 </head>
 <body>
@@ -130,15 +126,15 @@
 
     <script>
         const note = document.getElementById("note");
-        const correctPass = "232003"; // မင်းစကားဝှက်
-
-        // 💡💡💡 URL Conflicts ရှင်းရန် Relative Path ကိုသာ သုံးသည် 💡💡💡
-        const NOTE_API_PATH = "/mynote"; // သင့် Worker Route အတိုင်း ပြန်ထားသည်
+        const correctPass = "232003"; // သင့် Admin Password
         
-        // Worker မှ Note အချက်အလက်များကို ရယူခြင်း (GET)
+        // 💡💡💡 Relative API Path ဖြင့် ပြင်ဆင်ထားသည် 💡💡💡
+        // သင်၏ Cloudflare Worker ကို /mynote route တွင် ချိတ်ထားသည်ဟု ယူဆသည်။
+        const NOTE_API_PATH = "/mynote"; 
+        
+        // --- GET: Worker မှ Note အချက်အလက်များကို ရယူခြင်း ---
         async function fetchNote() {
             try {
-                // NOTE_API_PATH ကိုပဲ သုံးသည်
                 const res = await fetch(NOTE_API_PATH + "?t=" + Date.now()); 
                 note.innerHTML = await res.text();
             } catch(e) {
@@ -146,7 +142,7 @@
             }
         }
 
-        // 💡 စာတင်တဲ့အပိုင်း (free.html က Logic အတိုင်း)
+        // --- POST: စာတင်တဲ့အပိုင်း (Timestamp & Prepend Logic) ---
         async function saveNote() {
             const inputLine = document.getElementById('inputLine');
             const saveButton = document.getElementById('saveButton');
@@ -157,7 +153,7 @@
                 return;
             }
 
-            // Timestamp ကို မြန်မာစံနှုန်းနဲ့ ပြင်ဆင်ခြင်း
+            // မြန်မာစံနှုန်းနဲ့ Timestamp ထုတ်လုပ်ခြင်း
             const timestamp = new Date().toLocaleString('my-MM', {
                 year: 'numeric', month: 'numeric', day: 'numeric',
                 hour: '2-digit', minute: '2-digit', second: '2-digit',
@@ -168,12 +164,12 @@
             
             let oldContent = note.innerHTML.trim();
             
-            // Placeholder/Error text ကို ဖယ်ထုတ်ခြင်း
+            // Placeholder များကို ရှင်းလင်းခြင်း
             if (oldContent.includes('ရယူနေပါသည်') || oldContent.includes('Error') || oldContent.includes('အင်တာနက်မရှိပါ')) {
                 oldContent = '';
             }
 
-            // စာအသစ်ကို အပေါ်ဆုံးတွင် ထည့်သွင်းရန် ပေါင်းစပ်ခြင်း
+            // စာအသစ်ကို အပေါ်ဆုံးတွင် ပေါင်းထည့်ခြင်း
             const newEntry = `[${timestamp}]\n\n${newText}`;
             let updated = (oldContent === '') ? newEntry : newEntry + divider + oldContent;
 
@@ -181,7 +177,7 @@
             saveButton.innerText = 'သိမ်းဆည်းနေပါသည်...';
             
             try {
-                // Worker သို့ POST လုပ်သည်။ (NOTE_API_PATH ကိုပဲ သုံးသည်)
+                // Worker သို့ POST လုပ်သည်။
                 const res = await fetch(NOTE_API_PATH, {
                     method: 'POST', 
                     body: updated, 
@@ -190,9 +186,9 @@
                 
                 if (!res.ok) throw new Error(res.statusText || 'Server Error');
 
-                note.innerHTML = updated; // UI ကို အသစ်ပြင်သည်။
-                inputLine.value = ''; // Input Box ကို ရှင်းသည်။
-                note.scrollTop = 0; // အပေါ်ဆုံးကို ပို့သည်။
+                note.innerHTML = updated; // UI Update
+                inputLine.value = ''; // Input Clear
+                note.scrollTop = 0; // Scroll to top
                 alert('✅ အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ!');
 
             } catch (e) {
@@ -203,7 +199,7 @@
             }
         }
 
-        // စကားဝှက်မှန်ကန်ရင် Admin Panel ကို ဖွင့်ပေးခြင်း
+        // --- စကားဝှက် စစ်ဆေးခြင်း ---
         function unlock(){
             if(document.getElementById("pass").value === correctPass){
                 document.getElementById('adminPasswordGate').style.display = 'none'; 
@@ -214,9 +210,9 @@
             }
         }
 
-        // Page စတင် load ချိန်တွင် Note ကို Cloud မှ ပြန်ယူခြင်း + အလိုအလျောက် Refresh
+        // --- Initialization ---
         fetchNote();
-        setInterval(fetchNote, 10000); 
+        setInterval(fetchNote, 10000); // ၁၀ စက္ကန့်တစ်ခါ Note ကို ပြန်ဆွဲသည်။
     </script>
 </body>
 </html>
