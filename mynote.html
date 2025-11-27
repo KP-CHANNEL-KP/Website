@@ -97,9 +97,7 @@
     
     <main>
         <div id="note" contenteditable="false">
-            ဒီမှာ ငါတစ်ယောက်ပဲ ပြင်လို့ရတယ်။<br>
-            ကျန်တဲ့လူတွေက ကြည့်ရုံပဲ 😏<br><br>
-            ဒီနေ့ ဘာလုပ်မလဲ စဉ်းစားနေတုန်း...
+            Note များကို Cloud မှ ရယူနေပါသည်။...
         </div>
 
         <div class="pw-box">
@@ -113,29 +111,62 @@
     <script>
         const note = document.getElementById("note");
         const correctPass = "232003"; 
+        
+        // 🚨 ဤနေရာတွင် သင့် Worker ၏ URL အသစ်ကို ထည့်ပေးပါ။
+        const NOTE_WORKER_URL = "https://kponly.ggff.net/mynote.html"; // <-- ဤနေရာကို ပြင်ရန်!
+
+        // Worker မှ Note အချက်အလက်များကို ရယူခြင်း
+        async function fetchNote() {
+            try {
+                const response = await fetch(NOTE_WORKER_URL);
+                if (response.ok) {
+                    const content = await response.text();
+                    // contentEditable false ဖြစ်နေချိန်တွင် content ကို safe ဖြစ်စေရန် InnerHTML သုံးသည်။
+                    note.innerHTML = content;
+                } else {
+                    note.innerHTML = "Error fetching note from cloud. (Worker စစ်ပါ)";
+                }
+            } catch (e) {
+                note.innerHTML = "Cannot connect to cloud storage. (Worker URL မှန်/မမှန် စစ်ပါ)";
+            }
+        }
+
+        // Worker သို့ Note အချက်အလက်များ ပို့ခြင်း
+        async function saveNote(content) {
+            try {
+                // content ကို Worker သို့ POST လုပ်သည်။
+                await fetch(NOTE_WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: content
+                });
+            } catch (e) {
+                console.error("Error saving note to cloud:", e);
+            }
+        }
 
         function unlock(){
             if(document.getElementById("pass").value === correctPass){
                 note.contentEditable = true;
                 note.focus();
-                document.querySelector(".pw-box button").textContent = "ပြင်ဆင်နေဆဲ...";
+                document.querySelector(".pw-box button").textContent = "ပြင်ဆင်နေဆဲ... (Cloud Save)";
                 document.querySelector(".pw-box button").style.background = "#00cc7a";
             } else {
                 alert("စကားဝှက် မှားတယ် ကွာ 😛");
             }
         }
 
-        // အလိုအလျောက်သိမ်း
+        // ပြင်ဆင်ပြီးတိုင်း Cloudflare KV ကို အလိုအလျောက် သိမ်းဆည်းခြင်း
         note.addEventListener("input", ()=>{
             if(note.contentEditable === "true"){
-                localStorage.setItem("kp_public_note_2025", note.innerHTML);
+                saveNote(note.innerHTML); // Cloud Save
             }
         });
 
-        // ဝင်တိုင်း ပြန်တင်
-        if(localStorage.getItem("kp_public_note_2025")){
-            note.innerHTML = localStorage.getItem("kp_public_note_2025");
-        }
+        // Page စတင် load ချိန်တွင် Note ကို Cloud မှ ပြန်ယူခြင်း
+        window.onload = () => {
+             fetchNote();
+        };
     </script>
 </body>
 </html>
