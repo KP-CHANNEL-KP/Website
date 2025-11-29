@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KP Top Up • Login လိုအပ်ပါသည်</title>
+    <title>KP Top Up • Login ဝင်ပေးပါခမျ။🥰</title>
     <meta name="google-signin-client_id" content="745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
@@ -24,13 +24,13 @@
 <div class="login-box" id="loginBox">
     <div class="logo"><img src="images/logo.png" alt="KP Logo"></div>
     <h1>KP Top Up</h1>
-    <p>လုံခြုံစိတ်ချစွာ ဝယ်ယူရန်<br><strong style="color:var(--p);">Google ဖြင့် ဝင်ရောက်ပါ</strong></p>
+    <p>လုံခြုံစိတ်ချစွာ ဝယ်ယူနိုင်ပါတယ် ခမျ။😍<br><strong style="color:var(--p);">Google ဖြင့် Login ဝင်ပေးပါ ခမျ။🤓</strong></p>
     <div id="googleSignIn" style="margin:35px auto;"></div>
-    <p style="color:#ff6b6b;font-size:0.95em;">လိမ်ညာသူများကို ချက်ချင်း Ban လုပ်ပါမည်!</p>
+    <p style="color:#ff6b6b;font-size:0.95em;">မင်္ဂလာ အပေါင်းနဲ့ ပြည့်စုံပါစေလို့ KP မှနှုတ်ခွန်းဆက်သပါသည်။😉!</p>
 </div>
 
 <div id="topupPage" class="hidden"></div>
-<footer>© 2025 KP Blog • လုံခြုံရေး အမြင့်ဆုံး</footer>
+<footer>© KP TOP UP • အလုံခြုံဆိုး နဲ့ အလျှင်မြန်ဆုံး</footer>
 
 <script>
 const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com";
@@ -102,7 +102,7 @@ function loadTopUpPage(){
                     <div style="font-size:0.9em;color:#aaa;">${currentUser.email}</div>
                 </div>
             </div>
-            <div style="color:#ff6b6b;background:rgba(255,107,107,0.15);padding:8px 15px;border-radius:12px;font-weight:bold;">လိမ်ညာပါက ချက်ချင်း Ban</div>
+            <div style="color:#ff6b6b;background:rgba(255,107,107,0.15);padding:8px 15px;border-radius:12px;font-weight:bold;">ဝယ်ယူသည့် ပစ္စည်းများကို မှန်ကန်စွာ ဖြည့်စွက် ရွေးချယ်ပါ</div>
         </div>
     </header>
 
@@ -134,12 +134,12 @@ function loadTopUpPage(){
             </div>
 
             <div style="text-align:center;margin:30px 0;color:#ff6b6b;font-size:1.3em;background:rgba(255,107,107,0.15);padding:15px;border-radius:15px;">
-                ငွေလွှဲပြီးမှ အောက်က ခလုပ်ကို နှိပ်ပါ<br>
+                ငွေလွှဲပြီးမှ အောက်က မှာယူမည် နှိပ်ပါ<br>
                 <strong style="font-size:1.4em;color:var(--p);">Wave/KPay: 09966955081</strong>
             </div>
 
             <button onclick="submitOrder()" style="width:100%;padding:22px;background:linear-gradient(45deg,var(--p),var(--pd));color:black;font-weight:bold;font-size:1.7em;border-radius:50px;border:none;cursor:pointer;box-shadow:0 15px 40px rgba(0,255,157,0.6);">
-                အတည်ပြုပြီး မှာယူမည်
+                မှာယူမည်
             </button>
             <button id="loadingBtn" style="display:none;width:100%;padding:22px;background:#444;color:white;font-size:1.7em;border-radius:50px;" disabled>ပို့နေပါသည်...</button>
         </div>
@@ -213,7 +213,7 @@ User ID: ${u}
                 method:"POST",headers:{"Content-Type":"application/json"},
                 body:JSON.stringify({chat_id:7070690379,text:msg,parse_mode:"Markdown"})
             });
-            alert("🥳အောင်မြင်စွာ ပို့ပြီးပါပြီ!🥳\n😘KP က မကြာခင် ထည့်ပေးပါမည်။😘");
+            alert("🥳အောင်မြင်စွာ ပေးပို့ပီးပါပီ!🥳\n😘KP မှ (၁၀မိနစ်)အတွင်း ထည့်ပေးပါမည်။😘");
         }catch(e){alert("အင်တာနက်ပြဿနာ ရှိနေပါသည်။");}
 
         document.querySelector("button[onclick='submitOrder()']").style.display="block";
