@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KP Top Up • Login ဝင်ပေးပါခမျ။🥰</title>
     <meta name="google-signin-client_id" content="745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" onload="gsiLoaded()"></script>
 
     <style>
         :root{--p:#00ff9d;--pd:#00cc7a;--bg:#0d0d1f;--c:rgba(20,25,50,0.9);--t:#e0e0ff;--b:rgba(0,255,157,0.3);}
@@ -154,13 +154,15 @@ function loadTopUpPage(){
 
     function loadPackages(){
         const game = document.getElementById("game").value;
-        document.getElementById("gameName").textContent = game==="pubg"?"PUBG Mobile":"Mobile Legends":"@@";
+        // ✅ ပြင်ဆင်ချက် ၄: Ternary Operator အမှားကို ပြင်ဆင်ထားသည်
+        document.getElementById("gameName").textContent = game === "pubg" ? "PUBG Mobile" : (game === "ml" ? "Mobile Legends" : "KP Dummy");
+        
         const c = document.getElementById("packages"); c.innerHTML="";
         packages[game].forEach((p,i)=>{
             const d=document.createElement("div");
             d.className="pkg"+(i===0?" active":"");
             
-            // 🔑 ပြင်ဆင်ချက် ၁: Template Literal Syntax ကို မှန်ကန်အောင် ပြင်ဆင်ခြင်း
+            // Template Literal Syntax
             d.innerHTML=`<h3>${p.name}</h3><p>${p.price}</p>`; 
             
             d.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";
@@ -178,7 +180,7 @@ function loadTopUpPage(){
             p.querySelector("img").style="border-radius:20px;border:4px solid var(--p);box-shadow:0 0 25px rgba(0,255,157,0.7);";
             document.querySelectorAll(".pay").forEach(e=>e.classList.remove("active"));
             
-            // 🔑 ပြင်ဆင်ချက် ၂: Typo ကို p (Element) အဖြစ် ပြင်ဆင်ခြင်း
+            // p (Element) ကို active class ထည့်သည်
             p.classList.add("active"); 
             
             selectedPay=p.dataset.pay;
@@ -223,13 +225,14 @@ User ID: ${u}
     };
 }
 
-window.onload = () => {
+// ✅ ပြင်ဆင်ချက် ၂: window.onload ကို gsiLoaded() function ဖြင့် အစားထိုးထားသည်
+function gsiLoaded() {
     google.accounts.id.initialize({client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse});
     google.accounts.id.renderButton(document.getElementById("googleSignIn"),
         {theme:"outline", size:"large", text:"signin_with", width:"320", logo_alignment:"left"}
     );
     google.accounts.id.prompt();
-};
+}
 </script>
 </body>
 </html>
