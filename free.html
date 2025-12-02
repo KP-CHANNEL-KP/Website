@@ -16,7 +16,12 @@
     <!-- Ads & Analytics -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159471269322022" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7F5VL62DT2"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7F5VL62DT2');</script>
+    <script>
+        window.dataLayer=window.dataLayer||[];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js',new Date());
+        gtag('config','G-7F5VL62DT2');
+    </script>
     <script type='text/javascript' src='//pl28057847.effectivegatecpm.com/34/23/c5/3423c58ebdd6e84dccf686ec977a84fa.js'></script>
     <script type='text/javascript' src='//pl28060126.effectivegatecpm.com/cd/7c/68/cd7c68b42eafa9811e9cc7f1074893b5.js'></script>
     <script src="https://my.rtmark.net/p.js?f=sync&lr=1&partner=2134cbd94e69258d0987ea05830383043f21608a1d7bf16e1948d0ec11354793" defer></script>
@@ -49,8 +54,13 @@
             max-width: 1400px; margin: 0 auto; padding: 15px 20px;
             display: flex; justify-content: space-between; align-items: center;
         }
+        .logo-and-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
         .logo-and-title img { height: 50px; border-radius: 12px; }
-        .site-title { color: var(--primary); font-size: 2em; margin-left: 12px; text-shadow: 0 0 15px var(--primary); }
+        .site-title { color: var(--primary); font-size: 2em; text-shadow: 0 0 15px var(--primary); }
         nav a {
             color: #fff; margin: 0 15px; text-decoration: none; font-weight: 500;
             transition: 0.3s; position: relative;
@@ -121,7 +131,6 @@
             <a href="free.html">Free</a>
             <a href="buy.html">Buy</a>
             <a href="All.html">All</a>
-            
             <a href="chat.html">Chat Group</a>
         </nav>
     </div>
@@ -203,10 +212,17 @@
         } else document.getElementById('pwMessage').style.display = 'block';
     }
 
-    // Download Button Action
+    // Download Button Action (R2 ကို ခဏ null လုပ်ထားပြီး)
     function showFiles() {
-        document.getElementById('r2-file-list-iframe').style.display = 'block';
-        document.getElementById('file-list-message').style.display = 'block';
+        const msg = document.getElementById('file-list-message');
+        const iframe = document.getElementById('r2-file-list-iframe');
+
+        // R2 iframe ကို မဖွင့်တော့ဘူး
+        iframe.style.display = 'none';
+        iframe.src = ''; // R2 endpoint ကို ခဏ null လုပ်ထားခြင်း
+
+        msg.style.display = 'block';
+        msg.innerText = 'R2 File List ကို ခဏသုံးလို့မရသေးပါ… နောင်တစ်ချိန် R2 ချိတ်ဆက်ပြီးမှပါ 💾';
     }
 
     // File Upload Name Display
@@ -215,7 +231,7 @@
         document.getElementById('fileNameDisplay').innerText = fileName;
     }
 
-    // R2 File Upload Logic
+    // R2 File Upload Logic (ခဏ အလုပ်မလုပ်အောင် null style လုပ်ထားသည်)
     async function startR2Upload() {
         const fileInput = document.getElementById('fileInput');
         const uploadMessage = document.getElementById('uploadMessage');
@@ -226,25 +242,10 @@
             return;
         }
 
-        uploadMessage.innerHTML = `⌛ ${file.name} ကို Upload ပြုလုပ်နေပါသည်။...`;
-        
-        const form = new FormData(); 
-        form.append('file', file);
-        
-        try {
-            const res = await fetch('/api/upload', {method:'POST', body:form});
-            const json = await res.json();
-            
-            if (res.ok && json.status === 'SUCCESS') {
-                uploadMessage.innerHTML = '✅ Upload အောင်မြင်ပါပြီ!';
-                const iframe = document.getElementById('r2-file-list-iframe');
-                iframe.src = iframe.src; // iframe ကို refresh လုပ်ရန်
-            } else {
-                uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ: ${json.message || res.statusText}`;
-            }
-        } catch (e) {
-            uploadMessage.innerHTML = `❌ Upload မအောင်မြင်ပါ။ Error: ${e.message}`;
-        }
+        // R2 endpoint ကို မခေါ်တော့ပဲ ခဏပိတ်ထားသလိုပြသမယ်
+        uploadMessage.innerHTML = `⚠️ ${file.name} ကို Upload လုပ်ဖို့ ကြိုးပမ်းနေသလိုပဲ… R2 ကို ခဏ Setup မလုပ်ရသေးပါ၊ နောင်တစ်ချိန် ပြန်ဖွင့်ပါမယ်။`;
+        // fetch('/api/upload', ...) ကို မခေါ်တော့ဘဲ အလုပ်မလုပ်အောင်ထားထားတယ်
+        return;
     }
 
     // Text Fetch (KV)
@@ -266,35 +267,33 @@
         
         const newText = inputLine.value.trim();
         if (!newText) {
-             // Custom Modal (alert() ကို မဖြစ်မနေသုံးရမည်ဆိုပါက)
             alert('စာအသစ်ရိုက်ထည့်ရန် လိုအပ်ပါသည်။'); 
             return;
         }
 
-        // 1. Timestamp ကို မြန်မာစံနှုန်းနဲ့ ပြင်ဆင်ခြင်း
         const timestamp = new Date().toLocaleString('my-MM', {
             year: 'numeric', month: 'numeric', day: 'numeric',
             hour: '2-digit', minute: '2-digit', second: '2-digit',
-            hour12: false // 24-hour format
+            hour12: false
         });
         
         let oldContent = mainTextArea.value.trim();
         
-        // Initial state ကို စစ်ဆေးပြီး ဖယ်ထုတ်ခြင်း
-        if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || oldContent === 'Hello' || oldContent === '' || oldContent.includes('Data load မလုပ်နိုင်ပါ')) {
+        if (oldContent === 'ဒေတာများကို စတင်ဆွဲယူနေပါသည်။' || 
+            oldContent === 'Hello' || 
+            oldContent === '' || 
+            oldContent.includes('Data load မလုပ်နိုင်ပါ')) {
             oldContent = '';
         }
 
         const divider = '\n\n============================\n\n';
-        
-        // 2. Template Literal Syntax ကို မှန်ကန်စွာ အသုံးပြုပြီး စာသား Prepend လုပ်ခြင်း
         const newEntry = `[${timestamp}]\n\n${newText}`;
         
         let updated;
         if (oldContent === '') {
-            updated = newEntry; // ပထမဆုံး စာသား
+            updated = newEntry;
         } else {
-            updated = newEntry + divider + oldContent; // စာအသစ်ကို အပေါ်ဆုံးတွင် ထည့်သွင်းခြင်း
+            updated = newEntry + divider + oldContent;
         }
         
         saveButton.disabled = true;
@@ -308,13 +307,12 @@
             });
             
             if (!res.ok) {
-                // Server ၏ Error ကို ဖမ်းယူခြင်း
                 throw new Error(res.statusText || 'Unknown server error');
             }
 
             mainTextArea.value = updated;
             inputLine.value = '';
-            mainTextArea.scrollTop = 0; // စာအသစ်ကို အပေါ်ဆုံးကနေ စပြရန်
+            mainTextArea.scrollTop = 0;
             alert('✅ အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ! (စာသားအသစ် အပေါ်ဆုံးတွင် ရှိပါမည်)');
 
         } catch (e) {
@@ -345,4 +343,3 @@
 </script>
 </body>
 </html>
-
