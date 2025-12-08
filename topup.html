@@ -19,7 +19,7 @@
         .hidden{display:none !important;}
         footer{position:fixed;bottom:15px;left:0;right:0;text-align:center;color:#666;font-size:0.9em;}
 
-        /* Game / Service ရွေးတဲ့ Web UI cards */
+        /* Game / Service cards */
         .game-list{
             display:grid;
             grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
@@ -56,6 +56,27 @@
             border-color:var(--p);
             transform:translateY(-3px);
         }
+
+        /* 📱 Mobile view optimisation */
+        @media (max-width:600px){
+            .login-box{width:94%;padding:28px;}
+            h1{font-size:2.2em;}
+            .game-list{grid-template-columns:repeat(2,minmax(0,1fr));}
+
+            /* packages ကို mobile မှာ grid လိုပြ — slider မလို */
+            #packages{
+                display:grid !important;
+                grid-template-columns:repeat(2,minmax(0,1fr));
+                gap:12px;
+                margin:25px 0 !important;
+                padding-bottom:0 !important;
+                overflow-x:visible !important;
+            }
+            #packages .pkg{
+                min-width:0 !important;
+                max-width:none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -75,7 +96,7 @@
 const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com";
 let currentUser = null;
 
-// === BAN SYSTEM (UPDATED WITH WORKER KV CHECK) ===
+// === BAN SYSTEM ===
 const BAN_CHECK_WORKER_URL = "https://salebotban.kponly.ggff.net";
 
 async function checkBanned(){
@@ -93,11 +114,10 @@ async function checkBanned(){
             return true;
         }
     }catch(e){
-        console.log("Ban list စစ်ရာတွင် Error ရှိပါသည် (Worker URL သို့မဟုတ် KV ချိတ်ဆက်မှုစစ်ပါ):", e);
+        console.log("Ban list စစ်ရာတွင် Error ရှိပါသည်:", e);
     }
     return false;
 }
-// === END BAN SYSTEM ===
 
 function decodeJwt(t){
     try{
@@ -194,7 +214,7 @@ function loadTopUpPage(){
                 <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
             </div>
 
-            <!-- packages slider -->
+            <!-- Desktop = slider, Mobile = 2-column grid (CSS) -->
             <div id="packages"
                  style="display:flex;gap:16px;margin:35px 0;padding-bottom:10px;overflow-x:auto;scroll-snap-type:x mandatory;"></div>
 
@@ -281,13 +301,11 @@ function loadTopUpPage(){
 
     function loadPackages(){
         const game = currentGame;
-
         document.getElementById("gameName").textContent = currentGameLabel;
 
         const c = document.getElementById("packages"); 
         c.innerHTML="";
 
-        // base style & active style for slider cards
         const baseStyle =
           "min-width:170px;" +
           "max-width:180px;" +
@@ -406,7 +424,7 @@ User ID: ${u}
     };
 }
 
-// ✅ Google Button Render
+// Google Button Render
 function renderGoogleButton() {
     setTimeout(() => {
         const signInDiv = document.getElementById("googleSignIn");
