@@ -118,19 +118,19 @@ function loadTopUpPage(){
                 <option value="kp">kp</option>
             </select>
 
-            <label style="font-size:1.3em;color:var(--p);">User ID</label>
+            <label style="font-size:1.3em;color:var(--p);">(ဂိမ်းအတွက် ဝယ်ယူမှသာ ဖြည့်ပါ)User ID</label>
             <input type="text" id="userId" placeholder="MLBB DM ဝယ်လျှင် ZONE ID ပါ ထည့်ပေးပါ။(ဥပမာ: 123456789 (1234)" 
                    oninput="this.value=this.value.replace(/[^\\d()]/g,'')" 
                    style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
             <!-- အကွက်သစ် (၁) In-Game Name -->
-            <label style="font-size:1.3em;color:var(--p);">In-Game Name / Player Name</label>
-            <input type="text" id="playerName" placeholder="In-Game Name / နာမည်ထည့်ပေးပါ" 
+            <label style="font-size:1.3em;color:var(--p);">(Social Boost အတွက် Link ထည့်ပါ။)</label>
+            <input type="text" id="playerName" placeholder="https://xxx/xxxxxxxxxx" 
                    style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
             <!-- အကွက်သစ် (၂) ဖုန်းနံပါတ် -->
-            <label style="font-size:1.3em;color:var(--p);">ဖုန်းနံပါတ်</label>
-            <input type="text" id="phone" maxlength="11" placeholder="ဖုန်းနံပါတ် (ဥပမာ 09xxxxxxx)" 
+            <label style="font-size:1.3em;color:var(--p);">(Total ထည့်ပါ။)</label>
+            <input type="text" id="phone" maxlength="11" placeholder="1xxxx" 
                    oninput="this.value=this.value.replace(/[^\\d]/g,'')" 
                    style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
