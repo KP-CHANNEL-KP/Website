@@ -19,47 +19,42 @@
         .hidden{display:none !important;}
         footer{position:fixed;bottom:15px;left:0;right:0;text-align:center;color:#666;font-size:0.9em;}
 
-        /* dropdown UI ဒီမှာထားရမယ် */
-        .select-game{
-            position:relative;
-            margin:15px 0;
+        /* Game / Service ရွေးတဲ့ Web UI cards */
+        .game-list{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+            gap:12px;
+            margin:15px 0 20px;
         }
-
-        .select-game select{
-            appearance:none;
-            -webkit-appearance:none;
-            width:100%;
-            padding:16px 52px 16px 18px;
+        .game-card{
+            padding:14px 16px;
             border-radius:18px;
+            background:rgba(10,15,35,0.95);
             border:1px solid var(--b);
-            background:linear-gradient(135deg,rgba(10,15,35,0.95),rgba(10,25,55,0.95));
-            color:#fff;
-            font-size:1.05em;
-            font-weight:500;
-            box-shadow:0 12px 30px rgba(0,0,0,0.45);
-            outline:none;
-            transition:.25s ease;
+            cursor:pointer;
+            display:flex;
+            flex-direction:column;
+            gap:4px;
+            transition:0.25s ease;
+            box-shadow:0 10px 26px rgba(0,0,0,0.45);
         }
-
-        .select-game:hover select{
+        .game-card-title{
+            font-size:1.02em;
+            font-weight:600;
+        }
+        .game-card-tag{
+            font-size:0.83em;
+            color:#aaa;
+        }
+        .game-card.active{
             border-color:var(--p);
-            box-shadow:0 16px 40px rgba(0,255,157,0.35);
+            background:rgba(0,255,157,0.12);
+            box-shadow:0 12px 32px rgba(0,255,157,0.35);
+            transform:translateY(-3px);
         }
-
-        .select-game select:focus{
+        .game-card:hover{
             border-color:var(--p);
-            box-shadow:0 0 0 2px rgba(0,255,157,0.4);
-        }
-
-        .select-game::after{
-            content:"▾";
-            position:absolute;
-            right:18px;
-            top:50%;
-            transform:translateY(-50%);
-            font-size:1.1em;
-            color:var(--p);
-            pointer-events:none;
+            transform:translateY(-3px);
         }
     </style>
 </head>
@@ -149,15 +144,31 @@ function loadTopUpPage(){
 
         <div style="background:var(--c);backdrop-filter:blur(15px);border-radius:25px;padding:35px;border:1px solid var(--b);box-shadow:0 20px 50px rgba(0,0,0,0.5);">
             <label style="font-size:1.3em;color:var(--p);">ဂိမ်း / Service ရွေးပါ</label>
-            <div class="select-game">
-                <select id="game">
-                    <option value="pubg">PUBG Mobile</option>
-                    <option value="ml">Mobile Legends</option>
-                    <option value="fb">Facebook Service</option>
-                    <option value="tg">Telegram Service</option>
-                    <option value="tt">Tiktok Service</option>
-                    <option value="yt">Youtube Service</option>
-                </select>
+            <div class="game-list" id="gameList">
+                <div class="game-card active" data-game="pubg" data-label="PUBG Mobile">
+                    <span class="game-card-title">PUBG Mobile</span>
+                    <span class="game-card-tag">UC Top Up</span>
+                </div>
+                <div class="game-card" data-game="ml" data-label="Mobile Legends">
+                    <span class="game-card-title">Mobile Legends</span>
+                    <span class="game-card-tag">Diamonds / DM</span>
+                </div>
+                <div class="game-card" data-game="fb" data-label="Facebook Service">
+                    <span class="game-card-title">Facebook Service</span>
+                    <span class="game-card-tag">Page / Profile Boost</span>
+                </div>
+                <div class="game-card" data-game="tg" data-label="Telegram Service">
+                    <span class="game-card-title">Telegram Service</span>
+                    <span class="game-card-tag">Member / View Boost</span>
+                </div>
+                <div class="game-card" data-game="tt" data-label="Tiktok Service">
+                    <span class="game-card-title">Tiktok Service</span>
+                    <span class="game-card-tag">Followers / Views</span>
+                </div>
+                <div class="game-card" data-game="yt" data-label="Youtube Service">
+                    <span class="game-card-title">Youtube Service</span>
+                    <span class="game-card-tag">Sub / View Boost</span>
+                </div>
             </div>
 
             <label style="font-size:1.3em;color:var(--p);">(ဂိမ်းအတွက် ဝယ်ယူမှသာ ဖြည့်ပါ) User ID</label>
@@ -165,12 +176,10 @@ function loadTopUpPage(){
                    oninput="this.value=this.value.replace(/[^\\d()]/g,'')" 
                    style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
-            <!-- Social Boost Link -->
             <label style="font-size:1.3em;color:var(--p);">(Social Boost အတွက် Link ထည့်ပါ)</label>
             <input type="text" id="playerName" placeholder="https://xxx/xxxxxxxxxx" 
                    style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
-            <!-- Total -->
             <label style="font-size:1.3em;color:var(--p);">(Total ထည့်ပါ)</label>
             <input type="text" id="phone" maxlength="11" placeholder="1xxxx" 
                    oninput="this.value=this.value.replace(/[^\\d]/g,'')" 
@@ -265,18 +274,14 @@ function loadTopUpPage(){
 
     let selectedPkg = packages.pubg[0];
     let selectedPay = "wave";
+    let currentGame = "pubg";
+    let currentGameLabel = "PUBG Mobile";
 
     function loadPackages(){
-        const game = document.getElementById("game").value;
+        const game = currentGame;
 
-        document.getElementById("gameName").textContent = 
-            game === "pubg" ? "PUBG Mobile" :
-            game === "ml"   ? "Mobile Legends" :
-            game === "fb"   ? "Facebook Service" :
-            game === "tg"   ? "Telegram Service" :
-            game === "tt"   ? "Tiktok Service" :
-            game === "yt"   ? "Youtube Service" :
-                              "KP Dummy";
+        // game label သည် card data-label သုံးလို့ရသဖြင့် သက်သက်သုံး
+        document.getElementById("gameName").textContent = currentGameLabel;
 
         const c = document.getElementById("packages"); 
         c.innerHTML="";
@@ -296,8 +301,22 @@ function loadTopUpPage(){
             c.appendChild(d);
         });
     }
+
+    function initGameList(){
+        const cards = document.querySelectorAll(".game-card");
+        cards.forEach(card=>{
+            card.addEventListener("click", ()=>{
+                cards.forEach(c=>c.classList.remove("active"));
+                card.classList.add("active");
+                currentGame = card.dataset.game;
+                currentGameLabel = card.dataset.label;
+                loadPackages();
+            });
+        });
+    }
+
+    initGameList();
     loadPackages();
-    document.getElementById("game").onchange=loadPackages;
 
     document.querySelectorAll(".pay").forEach(p=>{
         p.onclick=()=>{
@@ -340,7 +359,7 @@ Google ID (Ban လုပ်ရန်): ${currentUser.id}
 In-Game Name / Link: ${pn}
 Total: ${ph}
 
-ဂိမ်း / Service: ${document.getElementById("game").options[document.getElementById("game").selectedIndex].text}
+ဂိမ်း / Service: ${currentGameLabel}
 User ID: ${u}
 ပမာဏ: ${selectedPkg.name}
 ဈေးနှုန်း: ${selectedPkg.price}
