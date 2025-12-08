@@ -117,7 +117,47 @@ function loadTopUpPage(){
             
             
             
-            <select id="game" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
+            .select-game{
+    position:relative;
+    margin:15px 0;
+}
+
+.select-game select{
+    appearance:none;
+    -webkit-appearance:none;
+    width:100%;
+    padding:16px 52px 16px 18px;
+    border-radius:18px;
+    border:1px solid var(--b);
+    background:linear-gradient(135deg,rgba(10,15,35,0.95),rgba(10,25,55,0.95));
+    color:#fff;
+    font-size:1.05em;
+    font-weight:500;
+    box-shadow:0 12px 30px rgba(0,0,0,0.45);
+    outline:none;
+    transition:.25s ease;
+}
+
+.select-game:hover select{
+    border-color:var(--p);
+    box-shadow:0 16px 40px rgba(0,255,157,0.35);
+}
+
+.select-game select:focus{
+    border-color:var(--p);
+    box-shadow:0 0 0 2px rgba(0,255,157,0.4);
+}
+
+.select-game::after{
+    content:"▾";
+    position:absolute;
+    right:18px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:1.1em;
+    color:var(--p);
+    pointer-events:none;
+}
                 <option value="pubg">PUBG Mobile</option>
                 <option value="ml">Mobile Legends</option>
                 <option value="fb">Facebook Service</option>
