@@ -119,10 +119,25 @@ function loadTopUpPage(){
             </select>
 
             <label style="font-size:1.3em;color:var(--p);">User ID</label>
-            <input type="text" id="userId" placeholder="MLBB DM ဝယ်လျှင် ZONE ID ပါ ထည့်ပေးပါ။(ဥပမာ: 123456789 (1234)" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
+            <input type="text" id="userId" placeholder="MLBB DM ဝယ်လျှင် ZONE ID ပါ ထည့်ပေးပါ။(ဥပမာ: 123456789 (1234)" 
+                   oninput="this.value=this.value.replace(/[^\\d()]/g,'')" 
+                   style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
+
+            <!-- အကွက်သစ် (၁) In-Game Name -->
+            <label style="font-size:1.3em;color:var(--p);">In-Game Name / Player Name</label>
+            <input type="text" id="playerName" placeholder="In-Game Name / နာမည်ထည့်ပေးပါ" 
+                   style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
+
+            <!-- အကွက်သစ် (၂) ဖုန်းနံပါတ် -->
+            <label style="font-size:1.3em;color:var(--p);">ဖုန်းနံပါတ်</label>
+            <input type="text" id="phone" maxlength="11" placeholder="ဖုန်းနံပါတ် (ဥပမာ 09xxxxxxx)" 
+                   oninput="this.value=this.value.replace(/[^\\d]/g,'')" 
+                   style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
             <label style="font-size:1.3em;color:var(--p);">ငွေလွှဲပြေစာ နောက်ဆုံး ၅ လုံး</label>
-            <input type="text" id="refNumber" maxlength="7" placeholder="ဥပမာ: 12345" oninput="this.value=this.value.replace(/[^\\d()]/g,'')" style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;letter-spacing:6px;font-weight:bold;">
+            <input type="text" id="refNumber" maxlength="7" placeholder="ဥပမာ: 12345" 
+                   oninput="this.value=this.value.replace(/[^\\d()]/g,'')" 
+                   style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;letter-spacing:6px;font-weight:bold;">
 
             <div style="text-align:center;margin:30px 0;font-size:1.5em;color:var(--p);">
                 <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
@@ -147,27 +162,56 @@ function loadTopUpPage(){
         </div>
     </main>`;
 
-    const packages = {pubg:[{name:"💸60 UC",price:"3800 ကျပ်"},{name:"💸325 UC",price:"18000 ကျပ်"},{name:"💸660 UC",price:"35800 ကျပ်"},{name:"💸1800 UC",price:"89300 ကျပ်"},{name:"💸3850 UC",price:"177800 ကျပ်"},{name:"💸8100 UC",price:"360300 ကျပ်"}],
-        ml:[{name:"💎86 Diamonds",price:"4900 ကျပ်"},{name:"💎172 Diamonds",price:"9600 ကျပ်"},{name:"💎257 Diamonds",price:"14100 ကျပ်"},{name:"💎344 Diamonds",price:"18700 ကျပ်"},{name:"💎429 Diamonds",price:"23700 ကျပ်"},{name:"💎Weekly Pass",price:"6000 ကျပ်"}],
-        kp:[{name:"@@",price:"@@ ကျပ်"},{name:"@@",price:"@@ ကျပ်"},{name:"@@",price:"@@ ကျပ်"},{name:"@@",price:"@@ ကျပ်"},{name:"@@",price:"@@ ကျပ်"},{name:"@@",price:"@@ ကျပ်"}]};
+    const packages = {
+        pubg:[
+            {name:"💸60 UC",price:"3800 ကျပ်"},
+            {name:"💸325 UC",price:"18000 ကျပ်"},
+            {name:"💸660 UC",price:"35800 ကျပ်"},
+            {name:"💸1800 UC",price:"89300 ကျပ်"},
+            {name:"💸3850 UC",price:"177800 ကျပ်"},
+            {name:"💸8100 UC",price:"360300 ကျပ်"}
+        ],
+        ml:[
+            {name:"💎86 Diamonds",price:"4900 ကျပ်"},
+            {name:"💎172 Diamonds",price:"9600 ကျပ်"},
+            {name:"💎257 Diamonds",price:"14100 ကျပ်"},
+            {name:"💎344 Diamonds",price:"18700 ကျပ်"},
+            {name:"💎429 Diamonds",price:"23700 ကျပ်"},
+            {name:"💎Weekly Pass",price:"6000 ကျပ်"}
+        ],
+        kp:[
+            {name:"@@",price:"@@ ကျပ်"},
+            {name:"@@",price:"@@ ကျပ်"},
+            {name:"@@",price:"@@ ကျပ်"},
+            {name:"@@",price:"@@ ကျပ်"},
+            {name:"@@",price:"@@ ကျပ်"},
+            {name:"@@",price:"@@ ကျပ်"}
+        ]
+    };
+
     let selectedPkg = packages.pubg[0];
     let selectedPay = "wave";
 
     function loadPackages(){
         const game = document.getElementById("game").value;
-        // Ternary Operator ကို ပြင်ဆင်ထားသည်
-        document.getElementById("gameName").textContent = game === "pubg" ? "PUBG Mobile" : (game === "ml" ? "Mobile Legends" : "KP Dummy");
+        document.getElementById("gameName").textContent = 
+            game === "pubg" ? "PUBG Mobile" : (game === "ml" ? "Mobile Legends" : "KP Dummy");
         
-        const c = document.getElementById("packages"); c.innerHTML="";
+        const c = document.getElementById("packages"); 
+        c.innerHTML="";
         packages[game].forEach((p,i)=>{
             const d=document.createElement("div");
             d.className="pkg"+(i===0?" active":"");
-            
             d.innerHTML=`<h3>${p.name}</h3><p>${p.price}</p>`; 
-            
             d.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";
             if(i===0) d.style.cssText+="background:var(--p);color:#000;transform:translateY(-12px);box-shadow:0 15px 35px rgba(0,255,157,0.5);";
-            d.onclick=()=>{document.querySelectorAll(".pkg").forEach(e=>e.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;");d.style.cssText="background:var(--p);color:#000;transform:translateY(-12px);box-shadow:0 15px 35px rgba(0,255,157,0.5);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";selectedPkg=p;};
+            d.onclick=()=>{
+                document.querySelectorAll(".pkg").forEach(e=>{
+                    e.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";
+                });
+                d.style.cssText="background:var(--p);color:#000;transform:translateY(-12px);box-shadow:0 15px 35px rgba(0,255,157,0.5);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";
+                selectedPkg=p;
+            };
             c.appendChild(d);
         });
     }
@@ -176,22 +220,33 @@ function loadTopUpPage(){
 
     document.querySelectorAll(".pay").forEach(p=>{
         p.onclick=()=>{
-            document.querySelectorAll(".pay img").forEach(img=>img.style="border-radius:20px;border:4px solid transparent;");
+            document.querySelectorAll(".pay img").forEach(img=>{
+                img.style="border-radius:20px;border:4px solid transparent;";
+            });
             p.querySelector("img").style="border-radius:20px;border:4px solid var(--p);box-shadow:0 0 25px rgba(0,255,157,0.7);";
             document.querySelectorAll(".pay").forEach(e=>e.classList.remove("active"));
-            
             p.classList.add("active"); 
-            
             selectedPay=p.dataset.pay;
         };
     });
 
     window.submitOrder = async function(){
-        let u = document.getElementById("userId").value.trim();
-        let r = document.getElementById("refNumber").value.trim();
-        if(!u.replace(/[()]/g,"") || !selectedPkg || r.replace(/[()]/g,"").length!==5){
-            alert("အားလုံးကို မှန်ကန်စွာ ဖြည့်ပါ။"); return;
+        let u  = document.getElementById("userId").value.trim();
+        let pn = document.getElementById("playerName").value.trim();
+        let ph = document.getElementById("phone").value.trim();
+        let r  = document.getElementById("refNumber").value.trim();
+
+        if(
+            !u.replace(/[()]/g,"") || 
+            !pn || 
+            !ph || 
+            !selectedPkg || 
+            r.replace(/[()]/g,"").length !== 5
+        ){
+            alert("အားလုံးကို မှန်ကန်ပြည့်စုံအောင် ဖြည့်ပါ ခင်ဗျာ။");
+            return;
         }
+
         document.querySelector("button[onclick='submitOrder()']").style.display="none";
         document.getElementById("loadingBtn").style.display="block";
 
@@ -201,6 +256,8 @@ function loadTopUpPage(){
 အမည်: ${currentUser.name}
 အီးမေးလ်: ${currentUser.email}
 Google ID (Ban လုပ်ရန်): ${currentUser.id}
+In-Game Name: ${pn}
+ဖုန်းနံပါတ်: ${ph}
 
 ဂိမ်း: ${document.getElementById("game").options[document.getElementById("game").selectedIndex].text}
 User ID: ${u}
@@ -213,38 +270,39 @@ User ID: ${u}
 
         try{
             await fetch("https://api.telegram.org/bot8378552045:AAEoXs-wPrjIQdWMj3WkO42GLwboyjR95-U/sendMessage",{
-                method:"POST",headers:{"Content-Type":"application/json"},
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
                 body:JSON.stringify({chat_id:7070690379,text:msg,parse_mode:"Markdown"})
             });
             alert("🥳အောင်မြင်စွာ ပေးပို့ပီးပါပီ!🥳\n😘KP မှ (၁၀မိနစ်)အတွင်း ထည့်ပေးပါမည်။😘");
-        }catch(e){alert("အင်တာနက်ပြဿနာ ရှိနေပါသည်။");}
+        }catch(e){
+            alert("အင်တာနက်ပြဿနာ ရှိနေပါသည်။");
+        }
 
         document.querySelector("button[onclick='submitOrder()']").style.display="block";
         document.getElementById("loadingBtn").style.display="none";
     };
 }
 
-// ✅ ပြင်ဆင်ချက် ၂: Google Object အသင့်ဖြစ်တာကို 500ms စောင့်ပြီး ခလုတ်ကို Render လုပ်သည်
+// ✅ Google Button Render
 function renderGoogleButton() {
-    // နေရာချမယ့် div အသင့်ဖြစ်တာနဲ့ google accounts object နှစ်ခုလုံးရှိတာကို သေချာစစ်ဆေးသည်
     setTimeout(() => {
         const signInDiv = document.getElementById("googleSignIn");
         if(signInDiv && typeof google !== 'undefined' && google.accounts){
             google.accounts.id.initialize({client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse});
-            google.accounts.id.renderButton(signInDiv,
+            google.accounts.id.renderButton(
+                signInDiv,
                 {theme:"outline", size:"large", text:"signin_with", width:"320", logo_alignment:"left"}
             );
             google.accounts.id.prompt();
         } else {
             console.error("Failed to find Google Sign-In div or Google object.");
         }
-    }, 500); // 0.5 second စောင့်ဆိုင်းခြင်း
+    }, 500);
 }
 
 window.onload = () => {
-    // Window DOM ပြီးတာနဲ့ စစ်ဆေးပြီး Render လုပ်ဖို့ ခေါ်သည်
     if (typeof google === 'undefined' || !google.accounts) {
-        // GSI Script ကို Manual Load လုပ်ဖို့ ကြိုးစားသည် (ဒါက Redundancy အတွက်ပါ)
         const script = document.createElement('script');
         script.src = "https://accounts.google.com/gsi/client";
         script.async = true;
