@@ -57,13 +57,13 @@
             transform:translateY(-3px);
         }
 
-        /* 📱 Mobile view optimisation */
-        @media (max-width:600px){
+        /* 📱 Tablet + Mobile optimisation (<=1024px) */
+        @media (max-width:1024px){
             .login-box{width:94%;padding:28px;}
             h1{font-size:2.2em;}
             .game-list{grid-template-columns:repeat(2,minmax(0,1fr));}
 
-            /* packages ကို mobile မှာ grid လိုပြ — slider မလို */
+            /* packages ကို grid လိုပြ – horizontal scroll မလိုဘူး */
             #packages{
                 display:grid !important;
                 grid-template-columns:repeat(2,minmax(0,1fr));
@@ -71,10 +71,12 @@
                 margin:25px 0 !important;
                 padding-bottom:0 !important;
                 overflow-x:visible !important;
+                scroll-snap-type:none !important;
             }
             #packages .pkg{
                 min-width:0 !important;
                 max-width:none !important;
+                transform:none !important;
             }
         }
     </style>
@@ -95,8 +97,6 @@
 <script>
 const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.googleusercontent.com";
 let currentUser = null;
-
-// === BAN SYSTEM ===
 const BAN_CHECK_WORKER_URL = "https://salebotban.kponly.ggff.net";
 
 async function checkBanned(){
@@ -108,7 +108,7 @@ async function checkBanned(){
             document.body.innerHTML = `
             <div style="text-align:center;margin-top:150px;padding:40px;">
                 <h1 style="font-size:3em;color:#ff6b6b;">အကောင့် Ban လိုက်ပါပီ ဂေါင်းရီး😂</h1>
-                <p style="font-size:1.5em;color:white;margin:30px;">သင်ဟာ တကယ် ဝယ်တာလဲမဟုတ်ပဲနဲ့ လက်တအား ယားနေလို့ပါ🤣။</p>
+                <p style="font-size:1.5em;color:white;margin:30px;">သင်ဟာ တကယ် ဝယ်တာလဲမဟုတ်ပဲနဲ့ လက်တား ယားနေလို့ပါ🤣။</p>
                 <p style="color:#aaa;">ပြန်အသနားခံရန်: @KPBYKP</p>
             </div>`;
             return true;
@@ -214,7 +214,7 @@ function loadTopUpPage(){
                 <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
             </div>
 
-            <!-- Desktop = slider, Mobile = 2-column grid (CSS) -->
+            <!-- Desktop: horizontal flex / Mobile: grid (CSS ထဲမှာ handle လုပ်ထား) -->
             <div id="packages"
                  style="display:flex;gap:16px;margin:35px 0;padding-bottom:10px;overflow-x:auto;scroll-snap-type:x mandatory;"></div>
 
@@ -224,7 +224,7 @@ function loadTopUpPage(){
             </div>
 
             <div style="text-align:center;margin:30px 0;color:#ff6b6b;font-size:1.3em;background:rgba(255,107,107,0.15);padding:15px;border-radius:15px;">
-                ငွေလွှဲပြီးမှ အောက်က မှာယူမည် နှိပ်ပါ<br>
+                ငွေလွဲပြီးမှ အောက်က မှာယူမည် နှိပ်ပါ<br>
                 <strong style="font-size:1.4em;color:var(--p);">Wave/KPay: 09966955081</strong>
             </div>
 
@@ -424,7 +424,6 @@ User ID: ${u}
     };
 }
 
-// Google Button Render
 function renderGoogleButton() {
     setTimeout(() => {
         const signInDiv = document.getElementById("googleSignIn");
