@@ -18,6 +18,49 @@
         p{font-size:1.15em;margin:20px 0;color:#ccc;}
         .hidden{display:none !important;}
         footer{position:fixed;bottom:15px;left:0;right:0;text-align:center;color:#666;font-size:0.9em;}
+
+        /* dropdown UI ဒီမှာထားရမယ် */
+        .select-game{
+            position:relative;
+            margin:15px 0;
+        }
+
+        .select-game select{
+            appearance:none;
+            -webkit-appearance:none;
+            width:100%;
+            padding:16px 52px 16px 18px;
+            border-radius:18px;
+            border:1px solid var(--b);
+            background:linear-gradient(135deg,rgba(10,15,35,0.95),rgba(10,25,55,0.95));
+            color:#fff;
+            font-size:1.05em;
+            font-weight:500;
+            box-shadow:0 12px 30px rgba(0,0,0,0.45);
+            outline:none;
+            transition:.25s ease;
+        }
+
+        .select-game:hover select{
+            border-color:var(--p);
+            box-shadow:0 16px 40px rgba(0,255,157,0.35);
+        }
+
+        .select-game select:focus{
+            border-color:var(--p);
+            box-shadow:0 0 0 2px rgba(0,255,157,0.4);
+        }
+
+        .select-game::after{
+            content:"▾";
+            position:absolute;
+            right:18px;
+            top:50%;
+            transform:translateY(-50%);
+            font-size:1.1em;
+            color:var(--p);
+            pointer-events:none;
+        }
     </style>
 </head>
 <body>
@@ -38,20 +81,14 @@ const GOOGLE_CLIENT_ID = "745888739692-gq8h4f6tjcr35d7ttmce4vg6d03of5tp.apps.goo
 let currentUser = null;
 
 // === BAN SYSTEM (UPDATED WITH WORKER KV CHECK) ===
-
-// 🔑 သတ်မှတ်ထားသော Worker URL
 const BAN_CHECK_WORKER_URL = "https://salebotban.kponly.ggff.net";
 
 async function checkBanned(){
     if (!currentUser || !currentUser.id) return false;
-
     try{
-        // Worker မှ /check-ban/ ကို ခေါ်ယူပြီး လက်ရှိ User ID ကို စစ်ဆေးသည်။
         const r = await fetch(`${BAN_CHECK_WORKER_URL}/check-ban/${currentUser.id}`);
         const result = await r.json();
-
         if(result.banned){
-            // Ban ခံထားရပါက HTML ကို အောက်ပါအတိုင်း အစားထိုးသည်။
             document.body.innerHTML = `
             <div style="text-align:center;margin-top:150px;padding:40px;">
                 <h1 style="font-size:3em;color:#ff6b6b;">အကောင့် Ban လိုက်ပါပီ ဂေါင်းရီး😂</h1>
@@ -61,18 +98,18 @@ async function checkBanned(){
             return true;
         }
     }catch(e){
-        // Worker URL မှားယွင်းခြင်း သို့မဟုတ် connection error ရှိရင် console ထဲမှာ Error ပြမည်
         console.log("Ban list စစ်ရာတွင် Error ရှိပါသည် (Worker URL သို့မဟုတ် KV ချိတ်ဆက်မှုစစ်ပါ):", e);
     }
     return false;
 }
 // === END BAN SYSTEM ===
 
-
 function decodeJwt(t){
     try{
         let b = t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
-        let p = decodeURIComponent(atob(b).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+        let p = decodeURIComponent(atob(b).split('').map(
+            c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)
+        ).join(''));
         return JSON.parse(p);
     }catch(e){return null;}
 }
@@ -111,82 +148,30 @@ function loadTopUpPage(){
         <h1 style="text-align:center;font-size:3.2em;margin:20px 0;background:linear-gradient(90deg,#00ff9d,#00ccff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(0,255,157,0.4);">KP Top Up Center</h1>
 
         <div style="background:var(--c);backdrop-filter:blur(15px);border-radius:25px;padding:35px;border:1px solid var(--b);box-shadow:0 20px 50px rgba(0,0,0,0.5);">
-            <label style="font-size:1.3em;color:var(--p);">ဂိမ်းရွေးပါ</label>
-            
-            
-            
-            
-            
-            .select-game{
-    position:relative;
-    margin:15px 0;
-}
+            <label style="font-size:1.3em;color:var(--p);">ဂိမ်း / Service ရွေးပါ</label>
+            <div class="select-game">
+                <select id="game">
+                    <option value="pubg">PUBG Mobile</option>
+                    <option value="ml">Mobile Legends</option>
+                    <option value="fb">Facebook Service</option>
+                    <option value="tg">Telegram Service</option>
+                    <option value="tt">Tiktok Service</option>
+                    <option value="yt">Youtube Service</option>
+                </select>
+            </div>
 
-.select-game select{
-    appearance:none;
-    -webkit-appearance:none;
-    width:100%;
-    padding:16px 52px 16px 18px;
-    border-radius:18px;
-    border:1px solid var(--b);
-    background:linear-gradient(135deg,rgba(10,15,35,0.95),rgba(10,25,55,0.95));
-    color:#fff;
-    font-size:1.05em;
-    font-weight:500;
-    box-shadow:0 12px 30px rgba(0,0,0,0.45);
-    outline:none;
-    transition:.25s ease;
-}
-
-.select-game:hover select{
-    border-color:var(--p);
-    box-shadow:0 16px 40px rgba(0,255,157,0.35);
-}
-
-.select-game select:focus{
-    border-color:var(--p);
-    box-shadow:0 0 0 2px rgba(0,255,157,0.4);
-}
-
-.select-game::after{
-    content:"▾";
-    position:absolute;
-    right:18px;
-    top:50%;
-    transform:translateY(-50%);
-    font-size:1.1em;
-    color:var(--p);
-    pointer-events:none;
-}
-                <label style="font-size:1.3em;color:var(--p);">ဂိမ်းရွေးပါ</label>
-<div class="select-game">
-    <select id="game">
-        <option value="pubg">PUBG Mobile</option>
-        <option value="ml">Mobile Legends</option>
-        <option value="fb">Facebook Service</option>
-        <option value="tg">Telegram Service</option>
-        <option value="tt">Tiktok Service</option>
-        <option value="yt">Youtube Service</option>
-    </select>
-</div>
-
-            
-            
-            
-            
-            
-            <label style="font-size:1.3em;color:var(--p);">(ဂိမ်းအတွက် ဝယ်ယူမှသာ ဖြည့်ပါ)User ID</label>
+            <label style="font-size:1.3em;color:var(--p);">(ဂိမ်းအတွက် ဝယ်ယူမှသာ ဖြည့်ပါ) User ID</label>
             <input type="text" id="userId" placeholder="MLBB DM ဝယ်လျှင် ZONE ID ပါ ထည့်ပေးပါ။(ဥပမာ: 123456789 (1234)" 
                    oninput="this.value=this.value.replace(/[^\\d()]/g,'')" 
                    style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
-            <!-- အကွက်သစ် (၁) In-Game Name -->
-            <label style="font-size:1.3em;color:var(--p);">(Social Boost အတွက် Link ထည့်ပါ။)</label>
+            <!-- Social Boost Link -->
+            <label style="font-size:1.3em;color:var(--p);">(Social Boost အတွက် Link ထည့်ပါ)</label>
             <input type="text" id="playerName" placeholder="https://xxx/xxxxxxxxxx" 
                    style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
 
-            <!-- အကွက်သစ် (၂) ဖုန်းနံပါတ် -->
-            <label style="font-size:1.3em;color:var(--p);">(Total ထည့်ပါ။)</label>
+            <!-- Total -->
+            <label style="font-size:1.3em;color:var(--p);">(Total ထည့်ပါ)</label>
             <input type="text" id="phone" maxlength="11" placeholder="1xxxx" 
                    oninput="this.value=this.value.replace(/[^\\d]/g,'')" 
                    style="width:100%;padding:16px;margin:15px 0;border-radius:15px;border:1px solid var(--b);background:rgba(10,15,35,0.9);color:white;font-size:1.1em;">
@@ -276,32 +261,23 @@ function loadTopUpPage(){
             {name:"@@",price:"@@ ကျပ်"},
             {name:"@@",price:"@@ ကျပ်"}
         ]
-
-
- };
+    };
 
     let selectedPkg = packages.pubg[0];
     let selectedPay = "wave";
 
-    
-    
-    
-    
     function loadPackages(){
         const game = document.getElementById("game").value;
-        
+
         document.getElementById("gameName").textContent = 
-    game === "pubg" ? "PUBG Mobile" :
-    game === "ml"   ? "Mobile Legends" :
-    game === "fb"   ? "Facebook Service" :
-    game === "tg"   ? "Telegram Service" :
-    game === "tt"   ? "Tiktok Service" :
-    game === "yt"   ? "Youtube Service" :
-                      "KP Dummy";
-        
-        
-        
-        
+            game === "pubg" ? "PUBG Mobile" :
+            game === "ml"   ? "Mobile Legends" :
+            game === "fb"   ? "Facebook Service" :
+            game === "tg"   ? "Telegram Service" :
+            game === "tt"   ? "Tiktok Service" :
+            game === "yt"   ? "Youtube Service" :
+                              "KP Dummy";
+
         const c = document.getElementById("packages"); 
         c.innerHTML="";
         packages[game].forEach((p,i)=>{
@@ -361,10 +337,10 @@ function loadTopUpPage(){
 အမည်: ${currentUser.name}
 အီးမေးလ်: ${currentUser.email}
 Google ID (Ban လုပ်ရန်): ${currentUser.id}
-In-Game Name: ${pn}
-ဖုန်းနံပါတ်: ${ph}
+In-Game Name / Link: ${pn}
+Total: ${ph}
 
-ဂိမ်း: ${document.getElementById("game").options[document.getElementById("game").selectedIndex].text}
+ဂိမ်း / Service: ${document.getElementById("game").options[document.getElementById("game").selectedIndex].text}
 User ID: ${u}
 ပမာဏ: ${selectedPkg.name}
 ဈေးနှုန်း: ${selectedPkg.price}
