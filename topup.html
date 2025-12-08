@@ -194,7 +194,9 @@ function loadTopUpPage(){
                 <span id="gameName">PUBG Mobile</span> အတွက် ပမာဏ ရွေးပါ
             </div>
 
-            <div id="packages" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:35px 0;"></div>
+            <!-- packages slider -->
+            <div id="packages"
+                 style="display:flex;gap:16px;margin:35px 0;padding-bottom:10px;overflow-x:auto;scroll-snap-type:x mandatory;"></div>
 
             <div style="display:flex;justify-content:center;gap:40px;margin:40px 0;flex-wrap:wrap;">
                 <div class="pay active" data-pay="wave"><img src="images/wave.png" width="90" height="90" style="border-radius:20px;border:4px solid var(--p);box-shadow:0 0 25px rgba(0,255,157,0.7);"><br><span style="font-weight:bold;">Wave Pay</span></div>
@@ -280,22 +282,42 @@ function loadTopUpPage(){
     function loadPackages(){
         const game = currentGame;
 
-        // game label သည် card data-label သုံးလို့ရသဖြင့် သက်သက်သုံး
         document.getElementById("gameName").textContent = currentGameLabel;
 
         const c = document.getElementById("packages"); 
         c.innerHTML="";
+
+        // base style & active style for slider cards
+        const baseStyle =
+          "min-width:170px;" +
+          "max-width:180px;" +
+          "scroll-snap-align:start;" +
+          "background:rgba(0,255,157,0.15);" +
+          "border:3px solid var(--p);" +
+          "border-radius:18px;" +
+          "padding:18px 14px;" +
+          "text-align:center;" +
+          "cursor:pointer;" +
+          "transition:0.4s;" +
+          "word-break:break-word;" +
+          "line-height:1.35;";
+        const activeExtra =
+          "background:var(--p);" +
+          "color:#000;" +
+          "transform:translateY(-8px);" +
+          "box-shadow:0 15px 35px rgba(0,255,157,0.5);";
+
         packages[game].forEach((p,i)=>{
             const d=document.createElement("div");
             d.className="pkg"+(i===0?" active":"");
             d.innerHTML=`<h3>${p.name}</h3><p>${p.price}</p>`; 
-            d.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";
-            if(i===0) d.style.cssText+="background:var(--p);color:#000;transform:translateY(-12px);box-shadow:0 15px 35px rgba(0,255,157,0.5);";
+            d.style.cssText = baseStyle + (i===0 ? activeExtra : "");
+
             d.onclick=()=>{
                 document.querySelectorAll(".pkg").forEach(e=>{
-                    e.style.cssText="background:rgba(0,255,157,0.15);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";
+                    e.style.cssText = baseStyle;
                 });
-                d.style.cssText="background:var(--p);color:#000;transform:translateY(-12px);box-shadow:0 15px 35px rgba(0,255,157,0.5);border:3px solid var(--p);border-radius:18px;padding:25px;text-align:center;cursor:pointer;transition:0.4s;";
+                d.style.cssText = baseStyle + activeExtra;
                 selectedPkg=p;
             };
             c.appendChild(d);
